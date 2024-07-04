@@ -105,7 +105,9 @@
       "SavingThrow": { "long": "Saving Throw", "abbr": "Save" },
       "WeightCarried": "Weight Carried",
       "XP": { "long": "Experience Points", "abbr": "XP" },
-      "XPBonus": { "long": "Experience Point Bonus", "abbr": "XP Bonus" }
+      "XPBonus": { "long": "Experience Point Bonus", "abbr": "XP Bonus" },
+      "NumberEncountered": { "long": "Number Encountered", "abbr": "No. Enc" },
+      "PercentInLair": { "long": "Percent in Lair", "abbr": "% in Lair" }
     },
     "Ability": {
       "Str": { "long": "Strength", "abbr": "str" },

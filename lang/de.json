@@ -102,7 +102,9 @@
       "SavingThrow": { "long": "Rettungswurf", "abbr": "RW" },
       "WeightCarried": "Traglast",
       "XP": { "long": "Erfahrungspunkte", "abbr": "EP" },
-      "XPBonus": { "long": "Erfahrungspunktebonus", "abbr": "EP Bonus" }
+      "XPBonus": { "long": "Erfahrungspunktebonus", "abbr": "EP Bonus" },
+      "NumberEncountered": { "long": "Number Encountered", "abbr": "No. Enc" },
+      "PercentInLair": { "long": "% in Lair", "abbr": "% in Lair" }
     },
     "Ability": {
       "Str": { "long": "Stärke", "abbr": "ST" },

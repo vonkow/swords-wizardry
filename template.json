@@ -196,6 +196,8 @@
         "value": 100
       },
       "alignment": "Alignment",
+      "numberEncountered": "",
+      "percentInLair": "",
       "description": "",
       "tohitarmour": {
         "-9": 0,
