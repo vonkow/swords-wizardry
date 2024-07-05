@@ -2,6 +2,8 @@
 
 import { registerSystemSettings } from './settings.mjs';
 
+import { ImportManager } from './helpers/import-tools.mjs';
+
 // Import document classes.
 import { SwordsWizardryActor } from './documents/actor.mjs';
 import { SwordsWizardryItem } from './documents/item.mjs';
@@ -62,6 +64,10 @@ Hooks.once('init', function() {
     label: 'SWORDS_WIZARDRY.SheetLabels.Item',
   });
 
+  Hooks.on('renderSidebarTab', (app, html) => {
+    ImportManager.addImportActorButton(app, html);
+  });
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
@@ -82,6 +88,7 @@ Handlebars.registerHelper('toLowerCase', function(str) {
 Hooks.once('ready', function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+
 });
 
 /* -------------------------------------------- */
