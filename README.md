@@ -1,6 +1,6 @@
 # Game System for Swords & Wizardry 
 ### Swords & Wizardry by Mythmere Games (mythmeregames.com)
-![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
+![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
 
 ### Compatible with the Swords & Wizardry rules
 
@@ -18,21 +18,23 @@ The author is not affiliated in any way with Mythmere Games LLC
 
 ### TODOs
 
-- Bump version compatibility to v12.
 - Polish up the new initiative
   - better roll messages
   - etc
+- Fix up stats in template and standardize on camelCase
+  - other treasure should not be a number in the char sheet
+  - Fix spell memorization to support memorizing the same spell multiple times.
 - Add missing Int and Cha stats
   - % to know spell
   - Min/max spells/level
   - Retainer reaction adjust
-- Fix up stats in template and standardize on camelCase
-  - other treasure should not be a number in the char sheet
-- Auto-calculate stats from abilities
+- Automate some calculations?
+  - Auto-calculate stats from abilities
+  - Calculate carry weight
 - Better support for ascending AC
+- Character sheet fixes
+  - Support for quatity of darts
 - Actual attacks and damage application via targeting
+- ammo consumed by ranged attacks?
 - Alternative initiative types via settings.
-- Calculate carry weight
-- Support for quatity of darts
-- Fix spell memorization to support memorizing the same spell multiple times.
 - Maybe a HUD? (or is that verging too far into the land of excess automation?)

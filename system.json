@@ -6,6 +6,10 @@
     {
       "name": "Tomasz Straszewski",
       "discord": "---"
+    },
+    {
+      "name": "Caz",
+      "discord": "vonkow"
     }
   ],
   "url": "https://github.com/tomski80/swords-wizardry",
@@ -23,7 +27,7 @@
   "version": "1.2.0",
   "compatibility": {
     "minimum": 11,
-    "verified": "11.313"
+    "verified": "12.328"
   },
   "esmodules": ["module/swords-wizardry.mjs"],
   "styles": ["css/swords-wizardry.css"],
