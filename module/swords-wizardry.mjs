@@ -7,6 +7,7 @@ import { ImportManager } from './helpers/import-tools.mjs';
 // Import document classes.
 import { SwordsWizardryActor } from './documents/actor.mjs';
 import { SwordsWizardryItem } from './documents/item.mjs';
+import { SwordsWizardryCombatTracker, SwordsWizardryCombat } from './documents/combat.mjs';
 // Import sheet classes.
 import { SwordsWizardryActorSheet } from './sheets/actor-sheet.mjs';
 import { SwordsWizardryItemSheet } from './sheets/item-sheet.mjs';
@@ -39,13 +40,18 @@ Hooks.once('init', function() {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: '1d20 + @abilities.dex.mod',
+    formula: '1d6',
     decimals: 2,
   };
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = SwordsWizardryActor;
   CONFIG.Item.documentClass = SwordsWizardryItem;
+  CONFIG.Combat.documentClass = SwordsWizardryCombat;
+
+  CONFIG.ui.combat = SwordsWizardryCombatTracker;
+
+
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
