@@ -18,9 +18,12 @@ The author is not affiliated in any way with Mythmere Games LLC
 
 ### TODOs
 
+- Set npc toHit matrix based on HD
+- Make PCs non-hostile by default
 - Implement spell memorization
 - Polish up the new initiative
   - better roll messages
+  - fix issue where everyone rolls for intitative, not just the DM
   - etc
 - Polish up the new combat
   - Damage application via targeting
