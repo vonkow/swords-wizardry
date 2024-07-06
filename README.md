@@ -18,23 +18,17 @@ The author is not affiliated in any way with Mythmere Games LLC
 
 ### TODOs
 
+- Implement spell memorization
 - Polish up the new initiative
   - better roll messages
   - etc
-- Fix up stats in template and standardize on camelCase
-  - other treasure should not be a number in the char sheet
-  - Fix spell memorization to support memorizing the same spell multiple times.
-- Add missing Int and Cha stats
-  - % to know spell
-  - Min/max spells/level
-  - Retainer reaction adjust
-- Automate some calculations?
-  - Auto-calculate stats from abilities
-  - Calculate carry weight
-- Better support for ascending AC
-- Character sheet fixes
-  - Support for quatity of darts
-- Actual attacks and damage application via targeting
-- ammo consumed by ranged attacks?
+- Polish up the new combat
+  - Damage application via targeting
+  - Actual support for ascending AC
+- Support for quantity of darts on sheet
 - Alternative initiative types via settings.
-- Maybe a HUD? (or is that verging too far into the land of excess automation?)
+- Maybe verging too far into the land of excess automation
+  - Calculate carry weight?
+  - Auto-calculate stats from abilities?
+  - a token HUD?
+  - ammo consumed by ranged attacks?
