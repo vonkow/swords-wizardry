@@ -117,7 +117,7 @@
       "Wis": { "long": "Wisdom", "abbr": "wis" },
       "Cha": { "long": "Charisma", "abbr": "cha" }
     },
-    "Bonus": {
+    "Modifier": {
       "toHit": { "long": "Bonus to Hit", "abbr": "toHit" },
       "OpenDoor": { "long": "Open Door", "abbr": "opendoor" },
       "CarryMod": { "long": "Carry Modificator", "abbr": "Carry Mod" },
@@ -132,19 +132,19 @@
         "abbr": "numhire"
       }
     },
-    "thieving": {
-      "climbwalls": { "long": "Climb Walls", "abbr": "clmbwalls" },
-      "delicatetask": { "long": "Delicate Task", "abbr": "dtask" },
-      "hearsound": { "long": "Hear Sound", "abbr": "hear" },
-      "hideinshadow": { "long": "Hide in Shadows", "abbr": "hide" },
-      "movesilently": { "long": "Move Silently", "abbr": "movesilent" },
-      "openlocks": { "long": "Open Locks", "abbr": "openlocks" }
+    "thievingSkills": {
+      "climbWalls": { "long": "Climb Walls", "abbr": "clmbwalls" },
+      "delicateTasks": { "long": "Delicate Task", "abbr": "dtask" },
+      "hearSound": { "long": "Hear Sound", "abbr": "hear" },
+      "hideInShadows": { "long": "Hide in Shadows", "abbr": "hide" },
+      "moveSilently": { "long": "Move Silently", "abbr": "movesilent" },
+      "openLocks": { "long": "Open Locks", "abbr": "openlocks" }
     },
     "optionalSkills": {
       "ambush": { "long": "Ambush", "abbr": "ambush" },
-      "detectillusions": { "long": "Detect Illusions", "abbr": "detectillusions" },
-      "detectpitssnares": { "long": "Detect Pits / Snares", "abbr": "detectpitssnares" },
-      "oratoryloresong": { "long": "Oratory / Lore / Song", "abbr": "oratoryloresong" },
+      "detectIllusions": { "long": "Detect Illusions", "abbr": "detectillusions" },
+      "detectPitsAndSnares": { "long": "Detect Pits / Snares", "abbr": "detectpitssnares" },
+      "oratoryLoreSong": { "long": "Oratory / Lore / Song", "abbr": "oratoryloresong" },
       "rage": { "long": "Chance to Enter Rage", "abbr": "rage" }
     },
     "SheetLabels": {

@@ -86,12 +86,12 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.abilities[k]) ?? k;
     }
 
-    for (let [k, v] of Object.entries(context.system.bonuses)) {
-      v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.bonuses[k]) ?? k;
+    for (let [k, v] of Object.entries(context.system.modifiers)) {
+      v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.modifiers[k]) ?? k;
     }
 
-    for (let [k, v] of Object.entries(context.system.thieving)) {
-      v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.thieving[k]) ?? k;
+    for (let [k, v] of Object.entries(context.system.thievingSkills)) {
+      v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.thievingSkills[k]) ?? k;
     }
 
     for (let [k, v] of Object.entries(context.system.optionalSkills)) {
@@ -170,6 +170,7 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
+    /* TODO Replace with a memorize button
     html.on('click', '.item-prepare', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
@@ -177,6 +178,7 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       item.update({ 'system.prepared': status });
       this.actor.render();
     });
+    */
 
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable

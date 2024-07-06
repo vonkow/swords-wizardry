@@ -37,6 +37,11 @@ export class SwordsWizardryItem extends Item {
    */
   async roll() {
     const item = this;
+    console.log(item);
+    console.log(game);
+    console.log(game.combat.turns.find(c => c.actorId === item.parent._id));
+    // Do things with the below. One roll and foreach effect or foreach roll?
+    console.log(game.user.targets);
 
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -64,28 +69,26 @@ export class SwordsWizardryItem extends Item {
       const diceHtml = await roll.render();
 
       let results_html;
-      if(item.system.hitdamage)
-      {
+      if (item.system.damageFormula) {
         results_html = `<h3>Rolled: ${item.name}</h3>
         <hr>
         <a class="inline-result">
         <span>${diceHtml}</span>
         <div></div>
         <hr>
-        <span>Damage: [[/r ${item.system.hitdamage} ]] </span>
+        <span>Damage: [[/r ${item.system.damageFormula} ]] </span>
         <hr>
         <div></div>`
-  
+
       }
-      else
-      {
+      else {
         results_html = `<h3>Rolled: ${item.name}</h3>
         <hr>
         <a class="inline-result">
         <span>${diceHtml}</span>
         <div></div>`
       }
-      
+
       ChatMessage.create({
         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: [roll],
@@ -99,5 +102,3 @@ export class SwordsWizardryItem extends Item {
     }
   }
 }
-
- 

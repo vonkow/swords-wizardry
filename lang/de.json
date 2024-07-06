@@ -114,7 +114,7 @@
       "Wis": { "long": "Weisheit", "abbr": "WE" },
       "Cha": { "long": "Charisma", "abbr": "CH" }
     },
-    "Bonus": {
+    "Modifier": {
       "toHit": { "long": "Angriffsbonus", "abbr": "AB" },
       "OpenDoor": { "long": "Türen aufbrechen", "abbr": "Tür aufbr." },
       "CarryMod": { "long": "Traglast", "abbr": "Traglast" },
@@ -135,22 +135,22 @@
         "abbr": "Max. Spezialisten"
       }
     },
-    "thieving": {
-      "climbwalls": { "long": "Wände erklettern", "abbr": "Klettern" },
-      "delicatetask": {
+    "thievingSkills": {
+      "climbWalls": { "long": "Wände erklettern", "abbr": "Klettern" },
+      "delicateTasks": {
         "long": "Filigrane Aufgaben & Fallen",
         "abbr": "Filigranes"
       },
-      "hearsound": { "long": "Lauschen", "abbr": "Lauschen" },
-      "hideinshadow": { "long": "Im Schatten verstecken", "abbr": "Schatten" },
-      "movesilently": { "long": "Schleichen", "abbr": "Schleichen" },
-      "openlocks": { "long": "Schlösser knacken", "abbr": "Schlösser" }
+      "hearSound": { "long": "Lauschen", "abbr": "Lauschen" },
+      "hideInShadows": { "long": "Im Schatten verstecken", "abbr": "Schatten" },
+      "moveSilently": { "long": "Schleichen", "abbr": "Schleichen" },
+      "openLocks": { "long": "Schlösser knacken", "abbr": "Schlösser" }
     },
     "optionalSkills": {
       "ambush": { "long": "Ambush", "abbr": "ambush" },
-      "detectillusions": { "long": "Detect Illusions", "abbr": "detectillusions" },
-      "detectpitssnares": { "long": "Detect Pits / Snares", "abbr": "detectpitssnares" },
-      "oratoryloresong": { "long": "Oratory / Lore / Song", "abbr": "oratoryloresong" },
+      "detectIllusions": { "long": "Detect Illusions", "abbr": "detectillusions" },
+      "detectPitsAndSnares": { "long": "Detect Pits / Snares", "abbr": "detectpitssnares" },
+      "oratoryLoreSong": { "long": "Oratory / Lore / Song", "abbr": "oratoryloresong" },
       "rage": { "long": "Chance to Enter Rage", "abbr": "rage" }
     },
     "SheetLabels": {

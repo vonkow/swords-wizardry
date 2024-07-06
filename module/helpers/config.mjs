@@ -23,32 +23,36 @@ SWORDS_WIZARDRY.abilityAbbreviations = {
 };
 
 
-SWORDS_WIZARDRY.bonuses = {
-  toHit: 'SWORDS_WIZARDRY.Bonus.toHit.long',
-  OpenDoor: 'SWORDS_WIZARDRY.Bonus.OpenDoor.long',
-  Damage: 'SWORDS_WIZARDRY.Bonus.Damage.long',
-  "Carry Mod": 'SWORDS_WIZARDRY.Bonus.CarryMod.long',
-  toMissiles: 'SWORDS_WIZARDRY.Bonus.toMissiles.long',
-  Armour: 'SWORDS_WIZARDRY.Bonus.Armour.long',
-  HPBonus: 'SWORDS_WIZARDRY.Bonus.HPBonus.long',
-  RaiseDeadChance: 'SWORDS_WIZARDRY.Bonus.RaiseDeadChance.long',
-  AddLanguages: 'SWORDS_WIZARDRY.Bonus.AddLanguages.long',
-  MaxSpecialHirelings: 'SWORDS_WIZARDRY.Bonus.MaxSpecialHirelings.long'
+SWORDS_WIZARDRY.modifiers = {
+  toHit: 'SWORDS_WIZARDRY.Modifier.toHit.long',
+  openDoors: 'SWORDS_WIZARDRY.Modifier.OpenDoor.long',
+  damage: 'SWORDS_WIZARDRY.Modifier.Damage.long',
+  "Carry Mod": 'SWORDS_WIZARDRY.Modifier.CarryMod.long',
+  missileToHit: 'SWORDS_WIZARDRY.Modifier.toMissiles.long',
+  ac: 'SWORDS_WIZARDRY.Modifier.Armour.long',
+  hp: 'SWORDS_WIZARDRY.Modifier.HPBonus.long',
+  raiseDeadChance: 'SWORDS_WIZARDRY.Modifier.RaiseDeadChance.long',
+  additionalLanguages: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
+  chanceToUnderstandSpell: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
+  minimumSpellsPerLevel: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
+  maximumSpellsPerLevel: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
+  maximumSpecialHirelings: 'SWORDS_WIZARDRY.Modifier.MaxSpecialHirelings.long',
+  retainerMoraleAdjustment: 'SWORDS_WIZARDRY.Modifier.MaxSpecialHirelings.long'
 };
 
-SWORDS_WIZARDRY.thieving = {
-  climbwalls: 'SWORDS_WIZARDRY.thieving.climbwalls.long',
-  delicatetask: 'SWORDS_WIZARDRY.thieving.delicatetask.long',
-  hearsound: 'SWORDS_WIZARDRY.thieving.hearsound.long',
-  hideinshadow: 'SWORDS_WIZARDRY.thieving.hideinshadow.long',
-  movesilently: 'SWORDS_WIZARDRY.thieving.movesilently.long',
-  openlocks: 'SWORDS_WIZARDRY.thieving.openlocks.long'
+SWORDS_WIZARDRY.thievingSkills = {
+  climbWalls: 'SWORDS_WIZARDRY.thievingSkills.climbWalls.long',
+  delicateTasks: 'SWORDS_WIZARDRY.thievingSkills.delicateTasks.long',
+  hearSound: 'SWORDS_WIZARDRY.thievingSkills.hearSound.long',
+  hideInShadows: 'SWORDS_WIZARDRY.thievingSkills.hideInShadows.long',
+  moveSilently: 'SWORDS_WIZARDRY.thievingSkills.moveSilently.long',
+  openLocks: 'SWORDS_WIZARDRY.thievingSkills.openLocks.long'
 };
 
 SWORDS_WIZARDRY.optionalSkills = {
   ambush: 'SWORDS_WIZARDRY.optionalSkills.ambush.long',
-  detectillusions: 'SWORDS_WIZARDRY.optionalSkills.detectillusions.long',
-  detectpitssnares: 'SWORDS_WIZARDRY.optionalSkills.detectpitssnares.long',
-  oratoryloresong: 'SWORDS_WIZARDRY.optionalSkills.oratoryloresong.long',
+  detectIllusions: 'SWORDS_WIZARDRY.optionalSkills.detectIllusions.long',
+  detectPitsAndSnares: 'SWORDS_WIZARDRY.optionalSkills.detectPitsAndSnares.long',
+  oratoryLoreSong: 'SWORDS_WIZARDRY.optionalSkills.oratoryLoreSong.long',
   rage: 'SWORDS_WIZARDRY.optionalSkills.rage.long'
 };

@@ -52,10 +52,10 @@ export class SwordsWizardryActor extends Actor {
       // Calculate the modifier using S&W
       ability.mod = Math.floor((ability.value - 10) / 2);
     }
-          
-    for (let [key, bonus] of Object.entries(systemData.bonuses)) {
+
+    for (let [key, modifier] of Object.entries(systemData.modifiers)) {
       // Calculate the modifier using S&W
-      bonus.v = Math.floor(bonus.value);
+      modifier.v = Math.floor(modifier.value);
     }
   }
 
@@ -98,21 +98,21 @@ export class SwordsWizardryActor extends Actor {
       }
     }
 
-    if (data.bonuses) {
-      for (let [k, v] of Object.entries(data.bonuses)) {
+    if (data.modifiers) {
+      for (let [k, v] of Object.entries(data.modifiers)) {
         data[k] = foundry.utils.deepClone(v);
       }
     }
 
-    if (data.thieving) {
-      for (let [k, v] of Object.entries(data.thieving)) {
+    if (data.thievingSkills) {
+      for (let [k, v] of Object.entries(data.thievingSkills)) {
         data[k] = foundry.utils.deepClone(v);
       }
     }
 
     // Add level for easier access, or fall back to 0.
-    if (data.attributes.level) {
-      data.lvl = data.attributes.level.value ?? 0;
+    if (data.level) {
+      data.lvl = data.level.value ?? 0;
     }
   }
 

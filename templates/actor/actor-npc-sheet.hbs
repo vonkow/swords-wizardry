@@ -14,11 +14,11 @@
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
         <div class="resource flex-group-center">
-          <label for="system.health.value" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.HitPoints.long'}}</label>
+          <label for="system.hp.value" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.HitPoints.long'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+            <input type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
             <span> / </span>
-            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+            <input type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/>
           </div>
         </div>
 
@@ -39,9 +39,9 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="system.move-rate" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Movement'}}</label>
+          <label for="system.moveRate" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Movement'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.move-rate.value" value="{{system.move-rate.value}}" data-dtype="Number"/>
+            <input type="text" name="system.moveRate.value" value="{{system.moveRate.value}}" data-dtype="Number"/>
           </div>
         </div>
 
@@ -112,7 +112,7 @@
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
       {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
-      {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
     </div>
 
     {{!-- Owned Items Tab --}}

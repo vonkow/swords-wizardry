@@ -1,19 +1,18 @@
 {{# unless useAscendingAC }}
 <!-- TO HIT table -->
-<h3></h3>
 
 <h3  class="resource-label align-center">{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.RollNeededToHitAC'}}</h3>
 
 <div class="grid grid-19col align-center">
-    {{#each system.tohitarmour as |val key|}}
+    {{#each system.toHitAC as |val key|}}
             <div>
-              <label for="system.tohitarmour.{{val}}.value" class="nomargin align-center" data-label="{{key}}"> {{key}} </label>
+              <label for="system.toHitAC.{{val}}.value" class="nomargin align-center" data-label="{{key}}"> {{key}} </label>
             </div>
            
     {{/each}}
-    {{#each system.tohitarmour as |val key|}}
+    {{#each system.toHitAC as |val key|}}
              <div>
-              <input class="nomargin align-center" type="text" name="system.tohitarmour.{{key}}" value="{{val}}" data-dtype="Number"/>
+              <input class="nomargin align-center" type="text" name="system.toHitAC.{{key}}" value="{{val}}" data-dtype="Number"/>
             </div>
     {{/each}}
 </div>
@@ -22,7 +21,6 @@
 {{/ unless }}
 
 <!-- Weapon List -->
-<h3></h3>
 <h3>Weapons</h3>
 <ol class='items-list'>
   <li class='item flexrow items-header'>
@@ -58,7 +56,7 @@
       <div class='item-prop'>{{item.system.weight}}</div>
 
       <div class='item-formula item-prop'>{{item.system.formula}}</div>
-      <div class='item-damage item-prop'>{{item.system.hitdamage}}</div>
+      <div class='item-damage item-prop'>{{item.system.damageFormula}}</div>
       <div class='item-controls'>
         <a
           class='item-control item-edit'
@@ -114,9 +112,6 @@
       <div class='item-prop'>{{item.system.weight}}</div>
 
       <div class='item-formula item-prop'>{{item.system.effectOnAC}}</div>
-      <!--
-      <div class='item-damage item-prop'>{{item.system.hitdamage}}</div>
-      -->
       <div class='item-controls'>
         <a
           class='item-control item-edit'
