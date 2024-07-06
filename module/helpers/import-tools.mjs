@@ -5,7 +5,6 @@ export class ImportManager {
   }
 
   static addImportActorButton(app, html) {
-    //console.log("import-tools.js addImportFromStatblockButton", { app, html })
     if (game.user.isGM && app.id == 'actors') {
       const flexBlock = $(`<div class='npc-import-buttons' style='display: flex;flex-direction: row;'>` + `</div>`);
       html.find('.header-actions').append(flexBlock);
@@ -18,7 +17,6 @@ export class ImportManager {
       );
 
       statblockImportButton.click(function(env) {
-        //console.log("import-tools.js addImportFromStatblockButton", { env })
         ImportManager.showImportFromStatblock();
       });
 
@@ -74,15 +72,12 @@ export class ImportSheet extends FormApplication {
   }
 
   _importTextSubmit(event) {
-    // console.log("import-tools.js _importTextSubmit", { event });
-
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const addMarkup = formData.get('inputAddMarkup') === 'true';
     const text = formData.get('importext');
 
-    //console.log('import-tools.js _importTextSubmit', { text, addMarkup });
     try {
       this.importStatBlockText(text, addMarkup);
     } catch (err) {
@@ -92,7 +87,7 @@ export class ImportSheet extends FormApplication {
   }
 
 
-  importStatBlockText(text, addMarkup = false) {
+  async importStatBlockText(text, addMarkup = false) {
     const fieldMappings = {
       hd: { matchStrings: ['HD', 'HitDice'], type: 'string' },
       ac: { matchStrings: ['AC'], type: 'string' },
@@ -110,9 +105,9 @@ export class ImportSheet extends FormApplication {
     block.xp = parseInt(block.xp.split('/')[1]) || 1;
     block.cl = parseInt(block.cl.split('/')[0]) || 1;
     console.log('import-tools.js importStatBlockText', { text, block });
-    // TODO Description maybe?
     const npcName = block.name;
     const npcImage = 'icons/svg/mystery-man.svg';
+    const attacks = await this.createAttacks(block.attack);
     const newData = {
       hd: block.hd || 1,
       ac: {
@@ -135,7 +130,7 @@ export class ImportSheet extends FormApplication {
       description: '',
     };
 
-    this.createNPC(npcName, npcImage, newData);
+    this.createNPC(npcName, npcImage, newData, attacks);
 
   }
   /**
@@ -184,20 +179,45 @@ export class ImportSheet extends FormApplication {
     return result;
   }
 
-  async createNPC(npcName, npcImage, newData) {
-    let actor = await Actor.create(
-      {
-        name: npcName,
-        type: 'npc',
-        img: npcImage,
+  async createAttacks(attackString) {
+    const attackStrings = attackString.split(',');
+    const attacks = attackStrings.map(s => {
+      let [name, dmg] = s.split('(');
+      name = name.slice(0, name.length - 1); // Trim end space
+      dmg = dmg.slice(0, dmg.length - 1); // Trim end )
+      return { name, dmg };
+    });
+    const attackItems = [];
+    let attack;
+    for (let a in attacks) {
+      attack = await Item.create({
+        name: attacks[a].name,
+        type: 'weapon',
         system: {
-          ...newData,
-        },
-      },
-      {
-        renderSheet: true,
+          formula: 'd20 + @toHit.v',
+          damageFormula: attacks[a].dmg
+        }
+      });
+      attackItems.push(attack);
+    }
+    return attackItems;
+  }
+
+  async createNPC(npcName, npcImage, newData, items) {
+    let actor = await Actor.create({
+      name: npcName,
+      type: 'npc',
+      img: npcImage,
+      system: {
+        ...newData,
       }
-    );
+    }, {
+      renderSheet: true,
+    });
+    items.forEach(async item => {
+      await actor.createEmbeddedDocuments('Item', [item.toObject()]);
+      item.delete();
+    })
   }
 
 } // end ImportSheet
