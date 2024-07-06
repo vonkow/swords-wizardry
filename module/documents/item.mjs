@@ -36,12 +36,8 @@ export class SwordsWizardryItem extends Item {
    * @private
    */
   async roll() {
+    // TODO move most of this to a generic roll function so we can reuse outside of items
     const item = this;
-    console.log(item);
-    console.log(game);
-    console.log(game.combat.turns.find(c => c.actorId === item.parent._id));
-    // Do things with the below. One roll and foreach effect or foreach roll?
-    console.log(game.user.targets);
 
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -65,28 +61,50 @@ export class SwordsWizardryItem extends Item {
       // Invoke the roll and submit it to chat.
       const roll = new Roll(rollData.formula, rollData.actor);
       // If you need to store the value first, uncomment the next line.
-      //const result = await roll.evaluate();
+      const result = await roll.evaluate();
+      const toHitMatrix = this.actor.system.toHitAC;
+      const hitTargets = [];
+      const missedTargets = [];
+      game.user.targets.forEach(target => {
+        const targetAC = target.actor.system.ac.value;
+        const acKey = targetAC < 0
+          ? `${targetAC}`
+          : `+${targetAC} `; // AC >= 0 is stored as '+# ' in system.toHitAC
+        if (result.total >= toHitMatrix[acKey]) {
+          hitTargets.push(target);
+        } else {
+          missedTargets.push(target);
+        }
+      });
+
       const diceHtml = await roll.render();
 
-      let results_html;
+      let resultsHtml;
       if (item.system.damageFormula) {
-        results_html = `<h3>Rolled: ${item.name}</h3>
-        <hr>
-        <a class="inline-result">
-        <span>${diceHtml}</span>
-        <div></div>
-        <hr>
-        <span>Damage: [[/r ${item.system.damageFormula} ]] </span>
-        <hr>
-        <div></div>`
-
-      }
-      else {
-        results_html = `<h3>Rolled: ${item.name}</h3>
-        <hr>
-        <a class="inline-result">
-        <span>${diceHtml}</span>
-        <div></div>`
+        // TODO convert to hbs template
+        let hitText = hitTargets.map(t => `<span>Hit ${t.actor.name}!</span>`).join('')
+        if (hitText.length > 0) hitText = hitText + '<hr>'
+        let missedText = missedTargets.map(t => `<span>Missed ${t.actor.name}</span>`).join('')
+        if (missedText.length > 0) missedText = missedText + '<hr>'
+        resultsHtml = `
+          <h3>Rolled: ${item.name}</h3>
+          ${hitText}
+          ${missedText}
+          <hr>
+          <a class="inline-result"><span>${diceHtml}</span></a>
+          <div></div>
+          <hr>
+          <span> Damage: [[/r ${item.system.damageFormula}]]</span >
+          <hr>
+          <div></div>
+        `;
+      } else {
+        resultsHtml = `
+          <h3>Rolled: ${item.name}</h3>
+          <hr>
+          <a class="inline-result"><span>${diceHtml}</span></a>
+          <div></div>
+        `
       }
 
       ChatMessage.create({
@@ -95,7 +113,7 @@ export class SwordsWizardryItem extends Item {
         rollMode: rollMode,
         user: game.user._id,
         speaker: speaker,
-        content: results_html
+        content: resultsHtml
       });
 
       return roll;
