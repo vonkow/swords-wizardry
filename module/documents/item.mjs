@@ -69,7 +69,7 @@ export class SwordsWizardryItem extends Item {
         const targetAC = target.actor.system.ac.value;
         const acKey = targetAC < 0
           ? `${targetAC}`
-          : `+${targetAC} `; // AC >= 0 is stored as '+# ' in system.toHitAC
+          : `+${targetAC}`; // AC >= 0 is stored as '+#' in system.toHitAC
         if (result.total >= toHitMatrix[acKey]) {
           hitTargets.push(target);
         } else {
