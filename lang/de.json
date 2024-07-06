@@ -116,24 +116,29 @@
     },
     "Modifier": {
       "toHit": { "long": "Angriffsbonus", "abbr": "AB" },
-      "OpenDoor": { "long": "Türen aufbrechen", "abbr": "Tür aufbr." },
-      "CarryMod": { "long": "Traglast", "abbr": "Traglast" },
+      "OpenDoors": { "long": "Türen aufbrechen", "abbr": "Tür aufbr." },
+      "Carry": { "long": "Traglast", "abbr": "Traglast" },
       "Damage": { "long": "Schadensbonus", "abbr": "Sch-Bonus" },
-      "toMissiles": { "long": "Fernkampfbonus", "abbr": "Fk-Bonus" },
-      "Armour": { "long": "Rüstungsklasse-Bonus", "abbr": "RK-Bonus" },
-      "HPBonus": { "long": "Trefferpunkte-Bonus", "abbr": "TP-Bonus" },
+      "MissileToHit": { "long": "Fernkampfbonus", "abbr": "Fk-Bonus" },
+      "AC": { "long": "Rüstungsklasse-Bonus", "abbr": "RK-Bonus" },
+      "HP": { "long": "Trefferpunkte-Bonus", "abbr": "TP-Bonus" },
       "RaiseDeadChance": {
         "long": "Überlebenschance bei Tote erwecken",
         "abbr": "Überlebenschance"
       },
-      "AddLanguages": {
+      "AdditionalLanguages": {
         "long": "Höchstzahl Sprachen",
         "abbr": "Max. Sprachen"
       },
+      "MaximumSpellLevel": { "long": "Maximum Spell Level", "abbr": "spell lvl" },
+      "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "spell chance" },
+      "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "min spells" },
+      "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "max spells" },
       "MaxSpecialHirelings": {
         "long": "Höchstzahl Spezialisten",
         "abbr": "Max. Spezialisten"
-      }
+      },
+      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "short": "retainer" }
     },
     "thievingSkills": {
       "climbWalls": { "long": "Wände erklettern", "abbr": "Klettern" },

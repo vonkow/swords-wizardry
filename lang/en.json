@@ -119,18 +119,23 @@
     },
     "Modifier": {
       "toHit": { "long": "Bonus to Hit", "abbr": "toHit" },
-      "OpenDoor": { "long": "Open Door", "abbr": "opendoor" },
-      "CarryMod": { "long": "Carry Modificator", "abbr": "Carry Mod" },
+      "OpenDoors": { "long": "Open Doors", "abbr": "opendoors" },
+      "Carry": { "long": "Carry Modificator", "abbr": "Carry Mod" },
       "Damage": { "long": "Damage Bonus", "abbr": "dmgbonus" },
-      "toMissiles": { "long": "Bonus to Missiles", "abbr": "toMissiles" },
-      "Armour": { "long": "Armour Bonus", "abbr": "ACbonus" },
-      "HPBonus": { "long": "Hit Point Bonus", "abbr": "hpbonus" },
+      "MissileToHit": { "long": "Bonus to Missiles", "abbr": "toMissiles" },
+      "AC": { "long": "Armour Bonus", "abbr": "ACbonus" },
+      "HP": { "long": "Hit Point Bonus", "abbr": "hpbonus" },
       "RaiseDeadChance": { "long": "Raise Dead Survival", "abbr": "respawn" },
-      "AddLanguages": { "long": "Additional Languages", "abbr": "pluslan" },
+      "AdditionalLanguages": { "long": "Additional Languages", "abbr": "Add Lang" },
+      "MaximumSpellLevel": { "long": "Maximum Spell Level", "abbr": "spell lvl" },
+      "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "spell chance" },
+      "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "min spells" },
+      "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "max spells" },
       "MaxSpecialHirelings": {
         "long": "Max # of Special Hirelings",
         "abbr": "numhire"
-      }
+      },
+      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "short": "retainer" }
     },
     "thievingSkills": {
       "climbWalls": { "long": "Climb Walls", "abbr": "clmbwalls" },

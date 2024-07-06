@@ -25,19 +25,20 @@ SWORDS_WIZARDRY.abilityAbbreviations = {
 
 SWORDS_WIZARDRY.modifiers = {
   toHit: 'SWORDS_WIZARDRY.Modifier.toHit.long',
-  openDoors: 'SWORDS_WIZARDRY.Modifier.OpenDoor.long',
+  openDoors: 'SWORDS_WIZARDRY.Modifier.OpenDoors.long',
   damage: 'SWORDS_WIZARDRY.Modifier.Damage.long',
-  "Carry Mod": 'SWORDS_WIZARDRY.Modifier.CarryMod.long',
-  missileToHit: 'SWORDS_WIZARDRY.Modifier.toMissiles.long',
-  ac: 'SWORDS_WIZARDRY.Modifier.Armour.long',
-  hp: 'SWORDS_WIZARDRY.Modifier.HPBonus.long',
+  carry: 'SWORDS_WIZARDRY.Modifier.Carry.long',
+  missileToHit: 'SWORDS_WIZARDRY.Modifier.MissileToHit.long',
+  ac: 'SWORDS_WIZARDRY.Modifier.AC.long',
+  hp: 'SWORDS_WIZARDRY.Modifier.HP.long',
   raiseDeadChance: 'SWORDS_WIZARDRY.Modifier.RaiseDeadChance.long',
-  additionalLanguages: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
-  chanceToUnderstandSpell: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
-  minimumSpellsPerLevel: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
-  maximumSpellsPerLevel: 'SWORDS_WIZARDRY.Modifier.AddLanguages.long',
+  additionalLanguages: 'SWORDS_WIZARDRY.Modifier.AdditionalLanguages.long',
+  maximumSpellLevel: 'SWORDS_WIZARDRY.Modifier.MaximumSpellLevel.long',
+  chanceToUnderstandSpell: 'SWORDS_WIZARDRY.Modifier.ChanceToUnderstandSpell.long',
+  minimumSpellsPerLevel: 'SWORDS_WIZARDRY.Modifier.MinimumSpellsPerLevel.long',
+  maximumSpellsPerLevel: 'SWORDS_WIZARDRY.Modifier.MaximumSpellsPerLevel.long',
   maximumSpecialHirelings: 'SWORDS_WIZARDRY.Modifier.MaxSpecialHirelings.long',
-  retainerMoraleAdjustment: 'SWORDS_WIZARDRY.Modifier.MaxSpecialHirelings.long'
+  retainerMoraleAdjustment: 'SWORDS_WIZARDRY.Modifier.RetainerMoraleAdjustment.long'
 };
 
 SWORDS_WIZARDRY.thievingSkills = {
