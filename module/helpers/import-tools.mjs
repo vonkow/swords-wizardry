@@ -52,8 +52,7 @@ export class ImportSheet extends FormApplication {
     const page = {
       type: this.type,
       expected: 'TODO',
-      importText: '',
-      //addMarkup: true,
+      importText: ''
     };
     return page;
   }
@@ -75,11 +74,10 @@ export class ImportSheet extends FormApplication {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    const addMarkup = formData.get('inputAddMarkup') === 'true';
     const text = formData.get('importext');
 
     try {
-      this.importStatBlockText(text, addMarkup);
+      this.importStatBlockText(text);
     } catch (err) {
       ui.notifications.error(`Error: ${err}: Import failed, check format of stat block text.`);
     }
@@ -87,7 +85,7 @@ export class ImportSheet extends FormApplication {
   }
 
 
-  async importStatBlockText(text, addMarkup = false) {
+  async importStatBlockText(text) {
     const fieldMappings = {
       hd: { matchStrings: ['HD', 'HitDice'], type: 'string' },
       ac: { matchStrings: ['AC'], type: 'string' },
@@ -108,6 +106,10 @@ export class ImportSheet extends FormApplication {
     const npcName = block.name;
     const npcImage = 'icons/svg/mystery-man.svg';
     const attacks = await this.createAttacks(block.attack);
+    // check for if 1d4 and deal with that
+    const [hd, mod] = block.hd.split('+');
+    // TODO roll HP?
+    const attackMatrix = this.createAttackMatrix(hd);
     const newData = {
       hd: block.hd || 1,
       ac: {
@@ -118,7 +120,7 @@ export class ImportSheet extends FormApplication {
         value: block.moveRate || '',
       },
       save: {
-        value: block.save || 15
+        value: block.save || this.createSave(hd)
       },
       morale: block.morale || 7,
       alignment: block.alignment || 'n',
@@ -128,54 +130,41 @@ export class ImportSheet extends FormApplication {
       cl: block.cl || 1,
       special: block.special || '',
       description: '',
+      toHitAC: attackMatrix
     };
 
     this.createNPC(npcName, npcImage, newData, attacks);
 
   }
-  /**
-   * Parses input text using provided field mappings and returns an object with the collected values.
-   *
-   * @param {string} text - The input text to be parsed.
-   * @param {object} fieldMappings - An object containing match strings and data types for the fields to be parsed.
-   * @return {object} - An object containing the parsed field values.
-   */
+
   parseStatblockText(text, fieldMappings) {
-    // Initialize the result object to store parsed field values
     let result = {};
 
-    // Extract the name from the input text and store it in the result object
     const nameMatch = text.match(/^(.*?):/i);
     result.name = nameMatch ? nameMatch[1] : 'No-Name-Found';
 
-    // Iterate through the keys in the fieldMappings object
     for (const key in fieldMappings) {
-      // Destructure the matchStrings and type properties from the current fieldMapping
       const { matchStrings, type } = fieldMappings[key];
 
-      // Find the first match string present in the input text
       const matchString = matchStrings.find((ms) => text.includes(ms));
 
-      // If a match string is found
       if (matchString) {
         // Create a regular expression based on the field type (number or string)
         const regex =
           type === 'number'
             ? new RegExp(`${matchString}\\s+\\d+`)
             : new RegExp(`${matchString}\\s+([a-zA-Z0-9_,\\"\\-\\+\\(\\)\\/'\\s\%]+)`);
-        // Find the matching value in the input text using the regular expression
         const match = text.match(regex);
 
-        // If a matching value is found
         if (match) {
-          // Extract the value based on the field type (number or string) and store it in the result object
-          const value = type === 'number' ? parseFloat(match[0].replace(matchString, '').trim()) : match[1].trim();
+          const value =
+            type === 'number'
+              ? parseFloat(match[0].replace(matchString, '').trim())
+              : match[1].trim();
           result[key] = value;
         }
       }
     }
-
-    // Return the result object containing the parsed field values
     return result;
   }
 
@@ -203,6 +192,52 @@ export class ImportSheet extends FormApplication {
     return attackItems;
   }
 
+  createAttackMatrix(hd) {
+    const baseToHitAt9 = 10;
+    const toHitAt9 = baseToHitAt9 - parseInt(hd);
+    return {
+      "-9": Math.max(toHitAt9 + 18, 1),
+      "-8": Math.max(toHitAt9 + 17, 1),
+      "-7": Math.max(toHitAt9 + 16, 1),
+      "-6": Math.max(toHitAt9 + 15, 1),
+      "-5": Math.max(toHitAt9 + 14, 1),
+      "-4": Math.max(toHitAt9 + 13, 1),
+      "-3": Math.max(toHitAt9 + 12, 1),
+      "-2": Math.max(toHitAt9 + 11, 1),
+      "-1": Math.max(toHitAt9 + 10, 1),
+      "+0": Math.max(toHitAt9 + 9, 1),
+      "+1": Math.max(toHitAt9 + 8, 1),
+      "+2": Math.max(toHitAt9 + 7, 1),
+      "+3": Math.max(toHitAt9 + 6, 1),
+      "+4": Math.max(toHitAt9 + 5, 1),
+      "+5": Math.max(toHitAt9 + 4, 1),
+      "+6": Math.max(toHitAt9 + 3, 1),
+      "+7": Math.max(toHitAt9 + 2, 1),
+      "+8": Math.max(toHitAt9 + 1, 1),
+      "+9": Math.max(toHitAt9, 1)
+    }
+  }
+
+  createSave(hd) {
+    const effectiveHd = Math.min(hd, 12);
+    const saveMap = {
+      0: 18,
+      1: 17,
+      2: 16,
+      3: 14,
+      4: 13,
+      5: 12,
+      6: 11,
+      7: 9,
+      8: 8,
+      9: 6,
+      10: 5,
+      11: 4,
+      12: 3
+    }
+    return saveMap[effectiveHd];
+  }
+
   async createNPC(npcName, npcImage, newData, items) {
     let actor = await Actor.create({
       name: npcName,
@@ -220,4 +255,4 @@ export class ImportSheet extends FormApplication {
     })
   }
 
-} // end ImportSheet
+}
