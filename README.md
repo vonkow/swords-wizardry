@@ -18,16 +18,17 @@ The author is not affiliated in any way with Mythmere Games LLC
 
 ### TODOs
 
+- write documentation
+- fix all the places where localization was skipped
 - clean up spell memorization
   - make code pretty
   - inline setting of max spells memorized
   - alert when you can't memorize
-  - alert when casting
-  - alert when memorizing
+  - message when casting
+  - message when memorizing
   - clean up lis and ols
 - Polish up the new initiative
   - better roll messages
-  - fix issue where everyone rolls for intitative, not just the DM
   - etc
 - Polish up the new combat
   - Damage application via targeting

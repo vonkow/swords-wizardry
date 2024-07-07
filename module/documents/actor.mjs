@@ -11,9 +11,13 @@ export class SwordsWizardryActor extends Actor {
 
   async _createTokenPrototype(data) {
     const createData = {};
-    if (data.type = 'character') {
+    if (data.type === 'character') {
       foundry.utils.mergeObject(createData, {
-        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.FRIENDLY, // Set disposition as friendly
+        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.FRIENDLY
+      });
+    } else if (data.type === 'npc') {
+      foundry.utils.mergeObject(createData, {
+        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE
       });
     }
     await this.updateSource(createData);

@@ -59,7 +59,6 @@ export class ImportSheet extends FormApplication {
 
   /** @override */
   async _updateObject(event, formData) {
-    // console.log('import-tools.js _updateObject', { event, formData });
     // this.render();
   }
 
@@ -102,7 +101,6 @@ export class ImportSheet extends FormApplication {
     const block = this.parseStatblockText(text, fieldMappings);
     block.xp = parseInt(block.xp.split('/')[1]) || 1;
     block.cl = parseInt(block.cl.split('/')[0]) || 1;
-    console.log('import-tools.js importStatBlockText', { text, block });
     const npcName = block.name;
     const npcImage = 'icons/svg/mystery-man.svg';
     const attacks = await this.createAttacks(block.attack);

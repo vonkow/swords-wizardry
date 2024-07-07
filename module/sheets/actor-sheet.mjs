@@ -170,7 +170,6 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
-    console.log(this.actor);
     html.on('click', '.item-prepare', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
@@ -179,7 +178,6 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       if (slots.memorized.length < slots.max) {
         slots.memorized.push(item._id);
         slots.memorizedSpells = slots.memorizedSpells || [];
-        console.log(slots);
         slots.memorizedSpells.push(item);
       }
       const spellSlots = {};
@@ -188,7 +186,6 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       await this.actor.update({
         [key]: slots.memorized
       });
-      console.log(this.actor);
       this.actor.render();
     });
 
@@ -201,7 +198,6 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       const slots = this.actor.system.spellSlots[spellLevel];
       const mIndex = slots.memorized.indexOf(itemId);
       if (mIndex > -1) slots.memorized.splice(mIndex, 1);
-      console.log(slots.memorizedSpells);
       const sIndex = slots.memorizedSpells.indexOf(item);
       if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
       this.actor.render();

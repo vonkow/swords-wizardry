@@ -112,9 +112,9 @@ export class SwordsWizardryCombat extends Combat {
     const isRound = foundry.utils.hasProperty(data, 'round');
     const isTurn = foundry.utils.hasProperty(data, 'turn');
     if (isRound) {
-      //if (game.user.isDM) { // TODO figure out equivalent
-      await this.roundStart();
-      //}
+      if (game.user.isGM) {
+        await this.roundStart();
+      }
     }
     if (isTurn) {
       const token = this.combatant.token;
