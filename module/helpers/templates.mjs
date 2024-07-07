@@ -9,6 +9,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swords-wizardry/templates/actor/parts/actor-features.hbs',
     'systems/swords-wizardry/templates/actor/parts/actor-weapons.hbs',
     'systems/swords-wizardry/templates/actor/parts/actor-items.hbs',
+    'systems/swords-wizardry/templates/actor/parts/actor-spell-slots.hbs',
     'systems/swords-wizardry/templates/actor/parts/actor-spells.hbs',
     'systems/swords-wizardry/templates/actor/parts/actor-effects.hbs',
     // Item partials

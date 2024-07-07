@@ -1,0 +1,51 @@
+<ol class='items-list'>
+  {{#each system.spellSlots as |slots spellLevel|}}
+    <li class='item flexrow items-header'>
+      <div class='item-name'>
+          {{ spellLevel }}
+        {{!-- {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellLVL' level=spellLevel}} --}}
+      </div>
+      {{!-- <div class="item-name">
+        {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Prepared'}}
+        Max (TODO): {{slots.max}}
+      </div> --}}
+      <div class='item-controls'>
+        <!-- 
+        <a
+          class='item-control item-create'
+          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Create" type='Spell'}}'
+          data-type='spell'
+          data-spell-level='{{spellLevel}}'
+        >
+          <i class='fas fa-plus'></i>
+          {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.AddLVL' level=spellLevel}}
+        </a>
+         -->
+      </div>
+    </li>
+    {{#each slots.memorizedSpells as |spell id|}}
+      <li class='item flexrow' data-item-id='{{spell._id}}'>
+        <div class='item-name flexrow'>
+          <div class='item-image'>
+            <a class='rollable' data-roll-type='item'><img
+                src='{{spell.img}}'
+                title='{{spell.name}}'
+                width='24'
+                height='24'
+              /></a>
+          </div>
+          
+          <h4>{{spell.name}}</h4>
+        </div>
+        <div class='item-controls'>
+          <a
+            class='item-control item-cast'
+            title='Cast'
+          >
+            <i class='fas fa-wand-magic'></i>
+          </a>
+        </div>
+      </li>
+    {{/each}}
+  {{/each}}
+</ol>

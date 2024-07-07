@@ -167,6 +167,7 @@
     </div>
 
     {{!-- Weapons Tab --}}
+
     <div class="tab weapons" data-group="primary" data-tab="weapons">
       {{> "systems/swords-wizardry/templates/actor/parts/actor-weapons.hbs"}}
     </div>
@@ -192,15 +193,17 @@
     {{!-- Owned Spells Tab --}}
     <div class="tab spells" data-group="primary" data-tab="spells">
 
+        <h3>Prepared Spells</h3>
+      {{> "systems/swords-wizardry/templates/actor/parts/actor-spell-slots.hbs"}}
 
-      <div>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellSlots' }}</div>
+      <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellSlots' }}</h3>
        <div class="grid grid-11col align-center">
           <div class="grid-span-2">
             <label class="resource-label align-left">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Level.long' }}</label>
           </div>
-          <div class="grid-span-2 grid-row-start-2 align-self-center">
+          <!-- <div class="grid-span-2 grid-row-start-2 align-self-center">
             <label class="resource-label align-left align-self-center">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Remaining' }}</label>
-          </div>
+          </div> -->
           <div class="grid-span-2 grid-row-start-3 align-self-center">
             <label class="resource-label align-left">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Total' }}</label>
           </div>
@@ -208,16 +211,13 @@
               <div class="grid-span-1">
                 <label for="{{key}}" class="resource-label flexlarge align-left" data-label="{{key}}">{{key}}</label>
               </div>
-              <div class="grid-span-1 grid-row-start-2 double-border">
-                <input class="nomargin align-center" type="text" name="system.slots.{{key}}.current" value="{{slot.current}}" data-dtype="Number"/>
-              </div>
               <div class="grid-span-1 grid-row-start-3 double-border">
-                <input class="nomargin align-center" type="text" name="system.slots.{{key}}.max" value="{{slot.max}}" data-dtype="Number"/>
+                <input class="nomargin align-center" type="text" name="system.spellSlots.{{key}}.max" value="{{slot.max}}" data-dtype="Number"/>
               </div>
-              {{!--  TODO Memorized --}}
           {{/each}}
-    </div>
+        </div>
 
+        <h3>Known Spells</h3>
       {{> "systems/swords-wizardry/templates/actor/parts/actor-spells.hbs"}}
     </div>
 

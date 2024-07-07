@@ -170,15 +170,42 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
-    /* TODO Replace with a memorize button
-    html.on('click', '.item-prepare', (ev) => {
+    console.log(this.actor);
+    html.on('click', '.item-prepare', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
-      const status = !item.system.prepared;
-      item.update({ 'system.prepared': status });
+      const { spellLevel } = item.system;
+      const slots = this.actor.system.spellSlots[spellLevel];
+      if (slots.memorized.length < slots.max) {
+        slots.memorized.push(item._id);
+        slots.memorizedSpells = slots.memorizedSpells || [];
+        console.log(slots);
+        slots.memorizedSpells.push(item);
+      }
+      const spellSlots = {};
+      //await this.actor.update({ spellLevel: { [spellLevel]: slots } });
+      const key = `system.spellSlots.${spellLevel}.memorized`;
+      await this.actor.update({
+        [key]: slots.memorized
+      });
+      console.log(this.actor);
       this.actor.render();
     });
-    */
+
+    html.on('click', '.item-cast', (ev) => {
+      const li = $(ev.currentTarget).parents('.item');
+      const itemId = li.data('itemId');
+      const item = this.actor.items.get(itemId);
+      if (!item) return;
+      const { spellLevel } = item.system;
+      const slots = this.actor.system.spellSlots[spellLevel];
+      const mIndex = slots.memorized.indexOf(itemId);
+      if (mIndex > -1) slots.memorized.splice(mIndex, 1);
+      console.log(slots.memorizedSpells);
+      const sIndex = slots.memorizedSpells.indexOf(item);
+      if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
+      this.actor.render();
+    });
 
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable

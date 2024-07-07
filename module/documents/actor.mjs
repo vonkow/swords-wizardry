@@ -3,6 +3,22 @@
  * @extends {Actor}
  */
 export class SwordsWizardryActor extends Actor {
+
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+    if (!data.hasOwnProperty('prototypeToken')) await this._createTokenPrototype(data);
+  }
+
+  async _createTokenPrototype(data) {
+    const createData = {};
+    if (data.type = 'character') {
+      foundry.utils.mergeObject(createData, {
+        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.FRIENDLY, // Set disposition as friendly
+      });
+    }
+    await this.updateSource(createData);
+  }
+
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -36,6 +52,7 @@ export class SwordsWizardryActor extends Actor {
     // things organized.
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
+    this._prepareMemorizedSpells(actorData);
   }
 
   /**
@@ -68,6 +85,21 @@ export class SwordsWizardryActor extends Actor {
     // Make modifications to data here. For example:
     const systemData = actorData.system;
     //systemData.xp = systemData.cr * systemData.cr * 100;
+  }
+
+  _prepareMemorizedSpells(actorData) {
+    const { system } = actorData;
+    Object.entries(system.spellSlots).forEach(([key, value]) => {
+      if (value.memorized.length > 0) {
+        value.memorizedSpells = [];
+        value.memorized.forEach(spellId => {
+          const item = actorData.items.get(spellId);
+          if (item) {
+            value.memorizedSpells.push(item);
+          }
+        })
+      }
+    });
   }
 
   /**

@@ -18,9 +18,12 @@ The author is not affiliated in any way with Mythmere Games LLC
 
 ### TODOs
 
-- Set npc toHit matrix based on HD
-- Make PCs non-hostile by default
-- Implement spell memorization
+- clean up spell memorization
+  - make code pretty
+  - inline setting of max spells memorized and maybe dynamic rows of memorized spells?
+  - alert when you can't memorize
+  - alert when casting
+  - alert when memorizing
 - Polish up the new initiative
   - better roll messages
   - fix issue where everyone rolls for intitative, not just the DM
