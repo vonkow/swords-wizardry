@@ -1,14 +1,11 @@
 <ol class='items-list'>
   {{#each system.spellSlots as |slots spellLevel|}}
+    {{# if slots.memorizedSpells }}
+        {{!-- 
     <li class='item flexrow items-header'>
       <div class='item-name'>
-          {{ spellLevel }}
-        {{!-- {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellLVL' level=spellLevel}} --}}
+        {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellLVL' level=spellLevel}}
       </div>
-      {{!-- <div class="item-name">
-        {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Prepared'}}
-        Max (TODO): {{slots.max}}
-      </div> --}}
       <div class='item-controls'>
         <!-- 
         <a
@@ -22,7 +19,7 @@
         </a>
          -->
       </div>
-    </li>
+    </li> --}}
     {{#each slots.memorizedSpells as |spell id|}}
       <li class='item flexrow' data-item-id='{{spell._id}}'>
         <div class='item-name flexrow'>
@@ -47,5 +44,6 @@
         </div>
       </li>
     {{/each}}
+    {{/if}}
   {{/each}}
 </ol>
