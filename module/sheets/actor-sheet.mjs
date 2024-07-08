@@ -194,6 +194,7 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
       if (!item) return;
+      item.roll();
       const { spellLevel } = item.system;
       const slots = this.actor.system.spellSlots[spellLevel];
       const mIndex = slots.memorized.indexOf(itemId);

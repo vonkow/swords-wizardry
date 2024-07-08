@@ -21,25 +21,20 @@ Can be found [here](documentation.md).
 
 ### TODOs
 
-- write documentation
 - fix all the places where localization was skipped
 - clean up spell memorization
-  - make code pretty
-  - inline setting of max spells memorized
+  - make code pretty, move to methods on actor and item from actor-sheet.
   - alert when you can't memorize
-  - message when casting
-  - message when memorizing
-  - clean up lis and ols
 - Polish up the new initiative
   - better roll messages
   - etc
 - Polish up the new combat
   - Damage application via targeting
-  - Actual support for ascending AC
-- Support for quantity of darts on sheet
+- Actual support for ascending AC
+- Support for quantity of missile weapons (like darts) on sheet
 - Alternative initiative types via settings.
-- Maybe verging too far into the land of excess automation
+- Maybe verging too far into the land of excess automation?
+  - ammo consumed by ranged attacks?
   - Calculate carry weight?
   - Auto-calculate stats from abilities?
   - a token HUD?
-  - ammo consumed by ranged attacks?

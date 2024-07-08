@@ -44,7 +44,10 @@ There are two types of Actors in the Swords & Wizardry system, Characters and NP
 
 To create a new Character, click the Create Actor button on the Actor tab of the right sidebar, choose a name, select type Character, and click Create New Actor. This will create the character and open their sheet.
 
-The Main tab of the character sheet shows:
+Character sheets have a top section that displays important information and tabs below which display additional information about the character. 
+
+The top section includes the following fields:
+
 - Name
 - Class
 - Ancestry
@@ -59,13 +62,16 @@ The Main tab of the character sheet shows:
 - Level
 - Movement
 - Weight Carried
+
+### Attributes and Features
+The Main tab of the character sheet shows:
+
 - Attribute Scores and Prime Attributes
 - Attribute Bonuses
 - Class and Ancestry Features
 - Thieving Skills
 - (Optional) Thief-like Skills from the Swords & Wizardry Book of Options
 
-### Features
 Class and Ancestry Features can be added to a Character by dragging and dropping an existing feature onto the sheet or by creating a new Feature on the Main tab of the sheet.
 
 ### Weapons, Armor, and To-Hit
