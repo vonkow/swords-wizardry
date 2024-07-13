@@ -55,6 +55,7 @@ Hooks.once('init', function() {
   CONFIG.ui.combat = SwordsWizardryCombatTracker;
 
   CONFIG.Dice.rolls = [
+    Roll,
     AttackRoll
   ];
 
