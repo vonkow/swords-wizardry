@@ -21,18 +21,22 @@ Can be found [here](documentation.md).
 
 ### TODOs
 
-- Polish up the new combat
+- combat improvements
   - Damage application via targeting
   - Attack rolls (and initiative) should make noise
-- Polish up the new initiative
+- initiative improvements
   - better roll messages
-  - etc
+  - etc (make initiative a subclass of roll?)
 - Token Hud improvements
   - Redraw on changes to character sheet
   - Reposition on render()?
-- clean up spell memorization
-  - make code pretty, move to methods on actor and item from actor-sheet.
-  - alert when you can't memorize
+  - (maybe too much) thief skills (non-zero) on hud?
+- sheet improvements
+  - roll saves from sheet (and hud)
+  - roll thief skills from sheet 
+  - clean up spell memorization
+    - make code pretty, move to methods on actor and item from actor-sheet.
+    - alert when you can't memorize
 - fix all the places where localization was skipped
 - Support for ascending AC
 - Support for quantity of missile weapons (like darts) on sheets
