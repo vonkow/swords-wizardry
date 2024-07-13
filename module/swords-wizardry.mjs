@@ -4,6 +4,7 @@ import { registerSystemSettings } from './settings.mjs';
 
 import { ImportManager } from './helpers/import-tools.mjs';
 
+import { AttackRoll } from './rolls/rolls.mjs';
 // Import document classes.
 import { SwordsWizardryActor } from './documents/actor.mjs';
 import { SwordsWizardryItem } from './documents/item.mjs';
@@ -51,6 +52,9 @@ Hooks.once('init', function() {
 
   CONFIG.ui.combat = SwordsWizardryCombatTracker;
 
+  CONFIG.Dice.rolls = [
+    AttackRoll
+  ];
 
 
   // Active Effects are never copied to the Actor,

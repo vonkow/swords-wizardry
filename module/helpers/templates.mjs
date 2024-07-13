@@ -14,5 +14,7 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swords-wizardry/templates/actor/parts/actor-effects.hbs',
     // Item partials
     'systems/swords-wizardry/templates/item/parts/item-effects.hbs',
+    // needed?
+    'systems/swords-wizardry/templates/rolls/attack-roll-sheet.hbs',
   ]);
 };
