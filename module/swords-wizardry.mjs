@@ -12,6 +12,8 @@ import { SwordsWizardryCombatTracker, SwordsWizardryCombat } from './documents/c
 // Import sheet classes.
 import { SwordsWizardryActorSheet } from './sheets/actor-sheet.mjs';
 import { SwordsWizardryItemSheet } from './sheets/item-sheet.mjs';
+// Import apps
+import { CombatHud } from './apps/hud.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
@@ -91,6 +93,21 @@ Handlebars.registerHelper('toLowerCase', function(str) {
   return str.toLowerCase();
 });
 
+Handlebars.registerHelper({
+    eq: (v1, v2) => v1 === v2,
+    ne: (v1, v2) => v1 !== v2,
+    lt: (v1, v2) => v1 < v2,
+    gt: (v1, v2) => v1 > v2,
+    lte: (v1, v2) => v1 <= v2,
+    gte: (v1, v2) => v1 >= v2,
+    and() {
+        return Array.prototype.every.call(arguments, Boolean);
+    },
+    or() {
+        return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+    }
+});
+
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
@@ -100,6 +117,15 @@ Hooks.once('ready', function() {
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
 
 });
+
+
+/* -------------------------------------------- */
+/* HUD Hook                                     */
+/* -------------------------------------------- */
+Hooks.on('controlToken', async (token, selected) => {
+  CombatHud.activateHud(token, selected);
+});
+
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */

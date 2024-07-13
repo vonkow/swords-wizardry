@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/*@import url("TODO FONT");*/
 /* Global styles */
 .window-app {
-  font-family: "Roboto", sans-serif;
+  /*font-family: "", sans-serif;*/
 }
 
 .rollable:hover, .rollable:focus {
@@ -422,6 +422,12 @@
 }
 .swords-wizardry .effects .item .effect-controls {
   border: none;
+}
+
+/* TODO better css query here */
+/*.swords-wizardry .swords-wizardy-combat-hud*/
+.combat-hud-list {
+  list-style: none;
 }
 
 /*# sourceMappingURL=swords-wizardry.css.map */

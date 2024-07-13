@@ -7,7 +7,7 @@ export class AttackRoll extends Roll {
   }
 
   async evaluate() {
-    const result = super.evaluate();
+    const result = await super.evaluate();
     const toHitMatrix = this.data.actor.toHitAC;
     game.user.targets.forEach((target) => {
       const targetAC = target.actor.system.ac.value;

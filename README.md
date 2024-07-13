@@ -26,6 +26,8 @@ Can be found [here](documentation.md).
 - Polish up the new initiative
   - better roll messages
   - etc
+- Token Hud improvements
+  - show only memorized spells
 - clean up spell memorization
   - make code pretty, move to methods on actor and item from actor-sheet.
   - alert when you can't memorize
@@ -37,4 +39,3 @@ Can be found [here](documentation.md).
   - ammo consumed by ranged attacks?
   - Calculate carry weight?
   - Auto-calculate stats from abilities?
-  - a token HUD?
