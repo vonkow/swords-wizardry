@@ -23,11 +23,13 @@ Can be found [here](documentation.md).
 
 - Polish up the new combat
   - Damage application via targeting
+  - Attack rolls (and initiative) should make noise
 - Polish up the new initiative
   - better roll messages
   - etc
 - Token Hud improvements
-  - show only memorized spells
+  - Redraw on changes to character sheet
+  - Reposition on render()?
 - clean up spell memorization
   - make code pretty, move to methods on actor and item from actor-sheet.
   - alert when you can't memorize

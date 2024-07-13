@@ -38,12 +38,29 @@ export class CombatHud extends Application {
 
   activateListeners(html) {
     super.activateListeners(html);
+
     html.on('click', '.item', (ev) => {
       const li = $(ev.currentTarget);
       const item = this.actor.items.get(li.data('itemId'));
       if (!item) return;
       item.roll();
     });
+
+    html.on('click', '.item-cast', (ev) => {
+      const li = $(ev.currentTarget);
+      const itemId = li.data('itemId');
+      const item = this.actor.items.get(itemId);
+      if (!item) return;
+      item.roll();
+      const { spellLevel } = item.system;
+      const slots = this.actor.system.spellSlots[spellLevel];
+      const mIndex = slots.memorized.indexOf(itemId);
+      if (mIndex > -1) slots.memorized.splice(mIndex, 1);
+      const sIndex = slots.memorizedSpells.indexOf(item);
+      if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
+      this.render();
+    });
+
   }
 
   async close() {
@@ -66,8 +83,11 @@ export class CombatHud extends Application {
     if (selected) {
       const viewportHeight = document.documentElement.clientHeight;
       // TODO better calculate height of hud and postition accordingly 
-      const itemCount = token.actor.items.filter(i => i.type === 'weapon' || i.type === 'spell').length;
-      const verticalOffset = 224 + (27.5 * itemCount);
+      const itemCount = token.actor.items.filter(i => i.type === 'weapon').length
+      const preparedCount = Object.values(token.actor.system.spellSlots).reduce(
+        (t, s) => t + s.memorized.length, 0)
+      ;
+      const verticalOffset = 224 + (32 * (itemCount + preparedCount));
       const hud = new CombatHud(token, {top: viewportHeight - verticalOffset});
       await hud.render(true);
     }

@@ -2,7 +2,7 @@
 <span>AC: {{actor.system.ac.value}} HP: {{actor.system.hp.value}}/{{actor.system.hp.max}}</span>
 <ul class="combat-hud-list">
 {{#each actor.items as |item iid|}}
-  {{#if (or (eq item.type 'weapon') (eq item.type 'spell'))}}
+  {{#if (eq item.type 'weapon')}}
   <li class="item" data-item-id="{{item._id}}">
     <div class='item-name flexrow'>
       <div class='item-image'>
@@ -19,5 +19,24 @@
     </div>
   </li>
   {{/if}}
+{{/each}}
+{{#each actor.system.spellSlots as |level lid|}}
+  {{#each level.memorizedSpells as |spell sid|}}
+  <li class="item-cast" data-item-id="{{spell._id}}">
+    <div class='item-name flexrow'>
+      <div class='item-image'>
+        <a class='rollable' data-roll-type='item'>
+          <img
+            src='{{spell.img}}'
+            title='{{spell.name}}'
+            width='24'
+            height='24'
+          />
+        </a>
+      </div>
+      <h4 class="flex3" style="line-height: 24px;">{{spell.name}}</h4>
+    </div>
+  </li>
+  {{/each}}
 {{/each}}
 </ul>
