@@ -4,15 +4,15 @@
   "description": "The Swords & Wizardry compatible game system. 'Swords & Wizardry, S&W, and Mythmere Games are trademarks of Mythmere Games LLC', The author is not affiliated in any way with Mythmere Games LLC.",
   "authors": [
     {
-      "name": "Tomasz Straszewski",
-      "discord": "---"
-    },
-    {
       "name": "Caz",
       "discord": "vonkow"
+    },
+    {
+      "name": "Tomasz Straszewski",
+      "discord": "---"
     }
   ],
-  "url": "https://github.com/tomski80/swords-wizardry",
+  "url": "https://github.com/vonkow/swords-wizardry",
   "license": "LICENSE.txt",
   "readme": "README.md",
   "bugs": "",
@@ -24,7 +24,7 @@
       "thumbnail": ""
     }
   ],
-  "version": "1.2.0",
+  "version": "2.0.0",
   "compatibility": {
     "minimum": 11,
     "verified": "12.328"
@@ -46,8 +46,8 @@
   "packs": [],
   "packFolders": [],
   "socket": false,
-  "manifest": "https://github.com/tomski80/swords-wizardry/releases/download/v1.2.0/system.json",
-  "download": "https://github.com/tomski80/swords-wizardry/releases/download/v1.2.0/swords-wizardry.zip",
+  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v2.0.0/system.json",
+  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v2.0.0/swords-wizardry.zip",
   "background": "",
   "gridDistance": 5,
   "gridUnits": "ft",
