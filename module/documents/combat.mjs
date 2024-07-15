@@ -78,19 +78,14 @@ export class SwordsWizardryCombat extends Combat {
     }
     await this.update({ turn: 0 });
     const chatMessageForSideVSideInitiative = (speaker, title, roll) => {
-      const content = title;/* await renderTemplate('systems/ars/templates/chat/parts/chatCard-sidevside-roll.hbs', {
-        title,
-        roll,
-      }); */
+      //const content = await renderTemplate('', {title, roll}); 
 
       let chatData = {
-        title: title,
-        content: content,
+        content: title
         //author: game.user.id,
-        rolls: [roll],
+        //rolls: [roll],
         //rollMode: game.settings.get('core', 'rollMode'),
-        speaker: speaker//,
-        //style: game.swordswizardry.const.CHAT_MESSAGE_STYLES.OTHER,
+        //speaker: speaker
       };
       ChatMessage.create(chatData);
     };
@@ -98,14 +93,14 @@ export class SwordsWizardryCombat extends Combat {
     //show chat msg
     chatMessageForSideVSideInitiative(
       ChatMessage.getSpeaker(),
-      `Opponents Initiative ${npcRoll.total}`,
+      `Party Initiative: ${pcRoll.total}<br/>Opponent Initiative: ${npcRoll.total}`,
       npcRoll
     );
-    chatMessageForSideVSideInitiative(
-      ChatMessage.getSpeaker(),
-      `Party Initiative ${pcRoll.total}`,
-      pcRoll
-    );
+    //chatMessageForSideVSideInitiative(
+      //ChatMessage.getSpeaker(),
+      //`Party Initiative: ${pcRoll.total}`,
+      //pcRoll
+    //);
   }
 
   async combatTurn(data, options, id) {
