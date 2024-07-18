@@ -232,7 +232,7 @@
     },
     "weapon": {
       "templates": ["base", "buyable"],
-      "ranged": false,
+      "missile": false,
       "range": 0,
       "rateOfFire": 1,
       "modifier": "0",

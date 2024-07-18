@@ -26,6 +26,7 @@ export class SwordsWizardryItem extends Item {
     rollData.formula = 'd20';
     if (rollData.modifier) rollData.formula += ` + ${rollData.modifier}`;
     if (rollData.actor.toHit) rollData.formula += ` + ${rollData.actor.toHit.v}`;
+    if (rollData.missile) rollData.formula += ` + ${rollData.actor.missileToHit.v}`;
     return rollData;
   }
 

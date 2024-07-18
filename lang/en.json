@@ -208,6 +208,7 @@
           "ToHitModifier": "To Hit Modifier",
           "DamageRollFormula": "Damage Roll Formula",
           "Range": "Range",
+          "Missile": "Missile Weapon?",
           "RateOfFire": "Rate Of Fire"
         },
         "Name": "Name",

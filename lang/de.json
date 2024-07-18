@@ -200,6 +200,7 @@
           "ToHitModifier": "To Hit Modifier",
           "DamageRollFormula": "Schadensberechnung",
           "Range": "Reichweite",
+          "Missile": "Missile Weapon?",
           "RateOfFire": "Feuerrate"
         },
         "Name": "Name",
