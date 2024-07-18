@@ -232,10 +232,12 @@
     },
     "weapon": {
       "templates": ["base", "buyable"],
+      "ranged": false,
       "range": 0,
       "rateOfFire": 1,
-      "formula": "d20 + @toHit.v",
-      "damageFormula": "1d4 + @damage.v"
+      "modifier": "0",
+      "formula": "d20",
+      "damageFormula": "1d6"
     },
     "feature": {
       "templates": ["base"]

@@ -23,7 +23,9 @@ export class SwordsWizardryItem extends Item {
 
     if (!this.actor) return rollData;
     rollData.actor = this.actor.getRollData();
-
+    rollData.formula = 'd20';
+    if (rollData.modifier) rollData.formula += ` + ${rollData.modifier}`;
+    if (rollData.actor.toHit) rollData.formula += ` + ${rollData.actor.toHit.v}`;
     return rollData;
   }
 
@@ -35,23 +37,27 @@ export class SwordsWizardryItem extends Item {
    */
   async roll() {
     const item = this;
-    // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
-      // TODO update this 
-      const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-      const rollMode = game.settings.get('core', 'rollMode');
-      const label = `[${item.type}] ${item.name}`;
-      ChatMessage.create({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-        content: item.system.description ?? '',
-      });
-    } else {
-      const rollData = this.getRollData();
-      const roll = new AttackRoll(rollData.formula, rollData);
-      await roll.render();
-      return roll;
+    switch (this.type) {
+      case 'weapon':
+        const rollData = this.getRollData();
+        const roll = new AttackRoll(rollData.formula, rollData);
+        await roll.render();
+        return roll;
+      case 'spell':
+      case 'item':
+      case 'feature':
+      case 'armor':
+        // TODO update this 
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+        const label = `[${item.type}] ${item.name}`;
+        ChatMessage.create({
+          speaker: speaker,
+          rollMode: rollMode,
+          flavor: label,
+          content: item.system.description ?? '',
+        });
+        break;
     }
   }
 }

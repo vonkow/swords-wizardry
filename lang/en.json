@@ -28,6 +28,8 @@
           "Delete": "Delete Weapon",
           "Name": "Name",
           "New": "New Weapon",
+          "ToHitModifier": "To Hit Mod",
+          "DamageRollFormula": "Damage Roll",
           "RollFormula": "Roll Formula",
           "Update": "Update Weapon",
           "Weight": "Weight"
@@ -180,6 +182,7 @@
       },
       "Item": {
         "Attributes": {
+          "ToHitModifier": "To Hit Modifier",
           "RollFormula": "Roll Formula"
         },
         "Name": "Name",
@@ -202,6 +205,7 @@
       "Weapon": {
         "Attributes": {
           "RollFormula": "Roll Formula",
+          "ToHitModifier": "To Hit Modifier",
           "DamageRollFormula": "Damage Roll Formula",
           "Range": "Range",
           "RateOfFire": "Rate Of Fire"

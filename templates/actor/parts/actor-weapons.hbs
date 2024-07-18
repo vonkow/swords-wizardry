@@ -26,7 +26,8 @@
   <li class='item flexrow items-header'>
     <div class='item-name'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Name'}}</div>
     <div class='item-name'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Weight'}}</div>
-    <div class='item-formula'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.RollFormula'}}</div>
+    <div class='item-modifier'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.ToHitModifier'}}</div>
+    <div class='item-damage'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.DamageRollFormula'}}</div>
     <div class='item-controls'>
       <a
         class='item-control item-create'
@@ -55,7 +56,7 @@
       </div>
       <div class='item-prop'>{{item.system.weight}}</div>
 
-      <div class='item-formula item-prop'>{{item.system.formula}}</div>
+      <div class='item-modifier item-prop'>{{item.system.modifier}}</div>
       <div class='item-damage item-prop'>{{item.system.damageFormula}}</div>
       <div class='item-controls'>
         <a

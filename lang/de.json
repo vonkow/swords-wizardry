@@ -29,6 +29,8 @@
           "Name": "Name",
           "New": "Neue Waffe",
           "RollFormula": "Angriffswurf",
+          "DamageRollFormula": "Damage Roll",
+          "ToHitModifier": "To Hit Mod",
           "Update": "Waffe ändern",
           "Weight": "Gewicht"
         },
@@ -173,6 +175,7 @@
       },
       "Item": {
         "Attributes": {
+          "ToHitModifier": "To Hit Modifier",
           "RollFormula": "Würfelberechnung"
         },
         "Name": "Name",
@@ -194,6 +197,7 @@
       "Weapon": {
         "Attributes": {
           "RollFormula": "Trefferberechnung",
+          "ToHitModifier": "To Hit Modifier",
           "DamageRollFormula": "Schadensberechnung",
           "Range": "Reichweite",
           "RateOfFire": "Feuerrate"
