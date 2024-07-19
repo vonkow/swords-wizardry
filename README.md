@@ -1,8 +1,8 @@
 # Game System for Swords & Wizardry 
 
-![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
-
 > Compatible with the Swords & Wizardry rules
+
+![Foundry v12](https://img.shields.io/badge/foundry-v12-green)
 
 Swords & Wizardry, S&W, and Mythmere Games are trademarks of Mythmere Games LLC (mythmeregames.com).
 
