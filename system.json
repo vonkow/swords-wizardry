@@ -43,7 +43,42 @@
       "path": "lang/de.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "actors",
+      "label": "Swords & Wizardry Actors",
+      "path": "packs/actors",
+      "type": "Actor",
+      "system": "swords-wizardry",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "items",
+      "label": "Swords & Wizardry Items",
+      "path": "packs/items",
+      "type": "Item",
+      "system": "swords-wizardry",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "journals",
+      "label": "Swords & Wizardry Journals",
+      "path": "packs/journals",
+      "type": "JournalEntry",
+      "system": "swords-wizardry",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
+  ],
   "packFolders": [],
   "socket": false,
   "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v2.1.0/system.json",

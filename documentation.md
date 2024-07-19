@@ -17,15 +17,13 @@ You will need GM access to a Foundry VTT server. This requires a [Foundry licens
 5. Create system content (see below).
 
 ## Content
+This system ships with partial content including class and ancestry features, weapons, armor, and other items. You will need to reference your personal copy of Swords & Wizardry in order to create:
 
-This system does not ship with any content. You will need to reference your personal copy 
-of Swords & Wizardry in order to create:
-
-- Class and ancestry features
-- Weapons, armor, items, and spells
+- Class descriptions (including XP, HP, spell progressions, and restrictions)
 - Monsters and other NPCs
+- Spells
 
-The NPC importer can be used to speed up part of this task.
+The NPC importer can be used to speed up part of this task (see below). Missing content will be added over time.
 
 ## Settings
 
@@ -33,9 +31,8 @@ The system settings control global, system-wide behavior. They can be accessed u
 
 There is one setting currently available:
 
-- Include class skills from the Swords & Wizardry Book of Options
-  When toggled, this option displays additional thief-like skills used by classes in the
-  Swords & Wizardry Book of Options.
+- Include class skills from the Swords & Wizardry Book of Options When toggled, this option displays additional thief-like skills used by classes in the Swords & Wizardry Book of Options.
+  - **Note:** This system does not ship with any classes or ancestries from the Swords & Wizardry Book of Options, as they are not AELF Open Gaming Content. This setting merely displays additional numeric values.
 
 Other settings, such as ascending AC and alternative initiative systems are planned.
 
@@ -118,7 +115,7 @@ Clicking on a weapon while targeting a token will perform an attack against that
 Support for ascending AC is planned.
 
 ## Items
-TODO talk more about each item type.
+TODO talk more about each item type and any attributes it may have.
 
 ### Features
 
