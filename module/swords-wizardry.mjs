@@ -3,6 +3,7 @@
 import { registerSystemSettings } from './settings.mjs';
 
 import { ImportManager } from './helpers/import-tools.mjs';
+import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
 
 import { AttackRoll } from './rolls/rolls.mjs';
 // Import document classes.
@@ -51,6 +52,7 @@ Hooks.once('init', function() {
   CONFIG.Actor.documentClass = SwordsWizardryActor;
   CONFIG.Item.documentClass = SwordsWizardryItem;
   CONFIG.Combat.documentClass = SwordsWizardryCombat;
+  CONFIG.ChatMessage.documentClass = SwordsWizardryChatMessage;
 
   CONFIG.ui.combat = SwordsWizardryCombatTracker;
 

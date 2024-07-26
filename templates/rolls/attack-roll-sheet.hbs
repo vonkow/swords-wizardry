@@ -1,3 +1,4 @@
+{{ log 'attack-roll-sheet' this}}
 <h3>Rolled: {{item.name}}</h3>
 {{#each hitTargets as |hit hid|}}
 <span class="attack-hit">Hit {{hit.actor.name}}!</span>&nbsp;
@@ -9,6 +10,9 @@
 <a class="inline-result"><span>{{{roll}}}</span></a>
 <div></div>
 <hr>
-<span class="attack-damage-roll">Damage: [[/r {{item.damageFormula}}]]</span>
+<button class="damage-roll-button" data-item-id="{{item.item._id}}">
+  Damage: 
+  <span class="attack-damage-roll">{{item.damageFormula}}</span>
+</button>
 <hr>
 <div></div>

@@ -20,13 +20,15 @@ export class SwordsWizardryItem extends Item {
   getRollData() {
     const rollData = { ...super.getRollData() };
     rollData.name = this.name;
+    rollData.item = this;
 
-    if (!this.actor) return rollData;
-    rollData.actor = this.actor.getRollData();
     rollData.formula = 'd20';
     if (rollData.modifier) rollData.formula += ` + ${rollData.modifier}`;
+    if (!this.actor) return rollData;
+    rollData.actor = this.actor.getRollData();
     if (rollData.actor.toHit) rollData.formula += ` + ${rollData.actor.toHit.v}`;
     if (rollData.missile) rollData.formula += ` + ${rollData.actor.missileToHit.v}`;
+    if (rollData.actor.modifiers.damage) rollData.damageFormula += ` + ${rollData.actor.modifiers.damage.value}`;
     return rollData;
   }
 
@@ -41,6 +43,7 @@ export class SwordsWizardryItem extends Item {
     switch (this.type) {
       case 'weapon':
         const rollData = this.getRollData();
+      console.log(rollData);
         const roll = new AttackRoll(rollData.formula, rollData);
         await roll.render();
         return roll;
