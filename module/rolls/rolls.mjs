@@ -2,9 +2,7 @@ import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
 export class AttackRoll extends Roll {
 
   constructor(formula, rollData={}, options={}) {
-    console.log(rollData);
     super(formula, rollData, options);
-    console.log(this);
     this.hitTargets = [];
     this.missedTargets = [];
   }
@@ -34,8 +32,8 @@ export class AttackRoll extends Roll {
     const rollHtml = await super.render()
     const template = 'systems/swords-wizardry/templates/rolls/attack-roll-sheet.hbs';
     const chatData = {
-      itemId: this._id,
-      item: this.data,
+      item: this.data.item,
+      actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
       hitTargets: this.hitTargets,
@@ -44,23 +42,42 @@ export class AttackRoll extends Roll {
     }
     const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
       rolls: [this],
       rollMode: rollMode,
-      damageFormula: this.data.damageFormula,
       user: game.user._id,
       speaker: speaker,
       content: resultsHtml
     });
-    console.log(msg);
-
   }
-  
 }
 
 export class DamageRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
+    game.user.targets.forEach((target) => {
+        target.actor.system.hp.value -= result.total;
+    });
     return result;
+  }
+
+  async render(options) {
+    const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    if (!this._evaluated) await this.evaluate();
+    const rollHtml = await super.render()
+    const template = 'systems/swords-wizardry/templates/rolls/damage-roll-sheet.hbs';
+    const chatData = {
+      item: this.data.item,
+      actor: this.data.actor,
+      roll: rollHtml,
+      total: this.total,
+    }
+    const resultsHtml = await renderTemplate(template, chatData);
+    const msg = await SwordsWizardryChatMessage.create({
+      rollMode: rollMode,
+      user: game.user._id,
+      speaker: speaker,
+      content: resultsHtml
+    });
   }
 }

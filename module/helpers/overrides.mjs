@@ -1,6 +1,7 @@
+import { DamageRoll } from '../rolls/rolls.mjs';
+
 export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){
-    console.log(data);
     super(data);
     this.damageFormula = data.damageFormula;
     this.system.item = data.item;
@@ -13,13 +14,13 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   }
 
   activateListeners(html) {
-    console.log('activat');
-    console.log(this);
-
-    $(html).on('click', '.damage-roll-button', (e) => {
-      console.log(e);
-      console.log(e.currentTarget.dataset.itemId);
-      console.log(game.items.get(e.currentTarget.dataset.itemId));
+    $(html).on('click', '.damage-roll-button', async (e) => {
+      const { actorId, itemId } = e.currentTarget.dataset;
+      const actor = game.actors.get(actorId);
+      const item = actor.items.get(itemId);
+      const rollData = { actor, item };
+      const roll = new DamageRoll(item.system.damageFormula, rollData);
+      await roll.render();
     });
   }
 }
