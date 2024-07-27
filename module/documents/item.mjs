@@ -23,7 +23,7 @@ export class SwordsWizardryItem extends Item {
       rollData.formula += ` + ${rollData.actor.toHit.v}`;
     if (rollData.missile)
       rollData.formula += ` + ${rollData.actor.missileToHit.v}`;
-    if (rollData.actor.modifiers.damage && rollData.actor.modifiers.damage !== '0')
+    if (rollData.actor.modifiers && rollData.actor.modifiers.damage && rollData.actor.modifiers.damage !== '0')
       rollData.damageFormula += ` + ${rollData.actor.modifiers.damage.value}`;
     return rollData;
   }

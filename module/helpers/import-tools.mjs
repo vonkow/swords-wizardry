@@ -98,7 +98,8 @@ export class ImportSheet extends FormApplication {
       special: { matchStrings: ['Special:'], type: 'string' },
     };
 
-    const block = this.parseStatblockText(text, fieldMappings);
+    const cleanText = text.replace(/\s+/g, ' ').trim();
+    const block = this.parseStatblockText(cleanText, fieldMappings);
     block.xp = parseInt(block.xp.split('/')[1]) || 1;
     block.cl = parseInt(block.cl.split('/')[0]) || 1;
     const npcName = block.name;
@@ -110,6 +111,10 @@ export class ImportSheet extends FormApplication {
     const attackMatrix = this.createAttackMatrix(hd);
     const newData = {
       hd: block.hd || 1,
+      hp: {
+        max: block.hp | 0,
+        value: block.hp | 0
+      },
       ac: {
         value: block.ac || 10,
       },

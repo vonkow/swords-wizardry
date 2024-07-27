@@ -204,6 +204,11 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       this.actor.render();
     });
 
+
+    // Rollable abilities.
+    html.on('click', '.rollable', this._onRoll.bind(this));
+
+
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
@@ -228,10 +233,6 @@ export class SwordsWizardryActorSheet extends ActorSheet {
           : this.actor.items.get(row.dataset.parentId);
       onManageActiveEffect(ev, document);
     });
-
-    // Rollable abilities.
-    html.on('click', '.rollable', this._onRoll.bind(this));
-
 
     html.on('click', '.item-inc', (ev) => {
       const li = $(ev.currentTarget).parents('.item');

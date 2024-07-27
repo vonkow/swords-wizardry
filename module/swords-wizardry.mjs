@@ -10,6 +10,7 @@ import { AttackRoll } from './rolls/rolls.mjs';
 import { SwordsWizardryActor } from './documents/actor.mjs';
 import { SwordsWizardryItem } from './documents/item.mjs';
 import { SwordsWizardryCombatTracker, SwordsWizardryCombat } from './documents/combat.mjs';
+import { SwordsWizardryTokenDocument } from './tokens/token.mjs';
 // Import sheet classes.
 import { SwordsWizardryActorSheet } from './sheets/actor-sheet.mjs';
 import { SwordsWizardryItemSheet } from './sheets/item-sheet.mjs';
@@ -53,6 +54,7 @@ Hooks.once('init', function() {
   CONFIG.Item.documentClass = SwordsWizardryItem;
   CONFIG.Combat.documentClass = SwordsWizardryCombat;
   CONFIG.ChatMessage.documentClass = SwordsWizardryChatMessage;
+  CONFIG.Token.documentClass = SwordsWizardryTokenDocument;
 
   CONFIG.ui.combat = SwordsWizardryCombatTracker;
 
