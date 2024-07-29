@@ -4,6 +4,7 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){
     super(data);
     this.damageFormula = data.damageFormula;
+    this.system = {};
     this.system.item = data.item;
   }
 
