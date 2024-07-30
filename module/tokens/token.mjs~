@@ -1,0 +1,10 @@
+export class SwordsWizardryTokenDocument extends TokenDocument {
+  async _onCreate(data, options, id) {
+    await super._onCreate(data, options, id);
+    if (game.user.isGM) {
+      if (this.actor.type === 'npc' && !this.actorLink) {
+        console.log(this.actor);
+      }
+    }
+  }
+}
