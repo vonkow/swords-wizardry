@@ -3,8 +3,8 @@ import { DamageRoll } from '../rolls/rolls.mjs';
 export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){
     super(data);
-    this.damageFormula = data.damageFormula;
-    this.system.item = data.item;
+    if (data.damageFormla) this.damageFormula = data.damageFormula;
+    if (data.item) this.system.item = data.item;
   }
 
   async getHTML() {
