@@ -13,7 +13,8 @@ export class SwordsWizardryActor extends Actor {
     const createData = {};
     if (data.type === 'character') {
       foundry.utils.mergeObject(createData, {
-        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.FRIENDLY
+        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+        'prototypeToken.actorLink': true
       });
     } else if (data.type === 'npc') {
       foundry.utils.mergeObject(createData, {
