@@ -29,12 +29,7 @@ The NPC importer can be used to speed up part of this task (see below). Missing 
 
 The system settings control global, system-wide behavior. They can be accessed under the Configure Settings menu in the right sidebar.
 
-There is one setting currently available:
-
-- Include class skills from the Swords & Wizardry Book of Options When toggled, this option displays additional thief-like skills used by classes in the Swords & Wizardry Book of Options.
-  - **Note:** This system does not ship with any classes or ancestries from the Swords & Wizardry Book of Options, as they are not AELF Open Gaming Content. This setting merely displays additional numeric values.
-
-Other settings, such as ascending AC and alternative initiative systems are planned.
+There are currently no settings available. Options such as ascending AC and alternative initiative systems are planned.
 
 ## Characters
 There are two types of Actors in the Swords & Wizardry system, Characters and NPCs. Characters represent Player Characters. 

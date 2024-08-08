@@ -240,11 +240,16 @@
       "damageFormula": "1d6"
     },
     "feature": {
-      "templates": ["base"]
+      "templates": ["base"],
+      "formula": "d6",
+      "target": "1",
+      "targetType": "descending"
     },
     "spell": {
       "templates": ["base"],
-      "spellLevel": 1
+      "spellLevel": "",
+      "range": "",
+      "duration": ""
     }
   }
 }

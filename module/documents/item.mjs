@@ -1,4 +1,4 @@
-import { AttackRoll } from  '../rolls/rolls.mjs';
+import { AttackRoll, FeatureRoll } from  '../rolls/rolls.mjs';
 
 export class SwordsWizardryItem extends Item {
 
@@ -12,7 +12,17 @@ export class SwordsWizardryItem extends Item {
     const rollData = { ...super.getRollData() };
     rollData.name = this.name;
     rollData.item = this;
+    switch (this.type) {
+      case 'weapon':
+        return this.getWeaponRollData(rollData);
+      case 'feature':
+        return this.getFeatureRollData(rollData);
+      default:
+        return rollData;
+    }
+  }
 
+  getWeaponRollData(rollData) {
     rollData.formula = 'd20';
     if (rollData.modifier)
       rollData.formula += ` + ${rollData.modifier}`;
@@ -28,17 +38,28 @@ export class SwordsWizardryItem extends Item {
     return rollData;
   }
 
+  getFeatureRollData(rollData) {
+    return rollData;
+  }
+
   async roll() {
     const item = this;
+    let rollData, roll;
     switch (this.type) {
       case 'weapon':
-        const rollData = this.getRollData();
-        const roll = new AttackRoll(rollData.formula, rollData);
+        rollData = this.getRollData();
+        roll = new AttackRoll(rollData.formula, rollData);
         await roll.render();
         return roll;
+      case 'feature':
+        if (this.system.formula) {
+          rollData = this.getRollData();
+          roll = new FeatureRoll(rollData.formula, rollData);
+          await roll.render();
+          return roll;
+        }
       case 'spell':
       case 'item':
-      case 'feature':
       case 'armor':
         // TODO update this 
         const speaker = ChatMessage.getSpeaker({ actor: this.actor });

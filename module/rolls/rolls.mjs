@@ -81,3 +81,40 @@ export class DamageRoll extends Roll {
     });
   }
 }
+
+export class FeatureRoll extends Roll {
+  async evaluate() {
+    const result = await super.evaluate();
+    // do something with result.total and this.data.target based on this.data.targetType
+    result.success = (
+        result.data.targetType == 'ascending'
+        && result.total >= parseInt(result.data.target)
+      ) || (
+        result.data.targetType == 'descending'
+        && result.total <= parseInt(result.data.target)
+      );
+    return result;
+  }
+
+  async render(options) {
+    const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    if (!this._evaluated) await this.evaluate();
+    const rollHtml = await super.render()
+    const template = 'systems/swords-wizardry/templates/rolls/feature-roll-sheet.hbs';
+    const chatData = {
+      total: this.total,
+      success: this.success,
+      roll: rollHtml,
+      ...this.data
+    }
+    const resultsHtml = await renderTemplate(template, chatData);
+    const msg = await SwordsWizardryChatMessage.create({
+      rollMode: rollMode,
+      user: game.user._id,
+      speaker: speaker,
+      content: resultsHtml
+    });
+
+  }
+}

@@ -5,7 +5,7 @@ import { registerSystemSettings } from './settings.mjs';
 import { ImportManager } from './helpers/import-tools.mjs';
 import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
 
-import { AttackRoll } from './rolls/rolls.mjs';
+import { AttackRoll, DamageRoll, FeatureRoll } from './rolls/rolls.mjs';
 // Import document classes.
 import { SwordsWizardryActor } from './documents/actor.mjs';
 import { SwordsWizardryItem } from './documents/item.mjs';
@@ -60,7 +60,9 @@ Hooks.once('init', function() {
 
   CONFIG.Dice.rolls = [
     Roll,
-    AttackRoll
+    AttackRoll,
+    DamageRoll,
+    FeatureRoll
   ];
 
 

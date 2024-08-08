@@ -99,7 +99,6 @@
     <div class="tab features" data-group="primary" data-tab="features">
       <section class="grid grid-8col">
         <aside class="sidebar grid-span-3">
-
           {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
@@ -124,39 +123,13 @@
             {{/each}}
             
           
-        </div>
+          </div>
         </aside>
         {{!-- For the main features list, span the right two columns --}}
         <section class="main grid-span-5">
           {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
           {{> "systems/swords-wizardry/templates/actor/parts/actor-features.hbs"}}
-
-          <aside class="sidebar grid-span-2">
-            <hr>
-            <div class="grid-span-4"></div>
-            <br><br>
-             <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.ThievingSkills' }}</h3></span>
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-            {{#each system.thievingSkills as |skill key|}}
-            <div class="flexrow flex-group-center">
-              <label for="system.thievingSkills.{{skill}}.value" class="modifier-label flexlarge align-left" data-label="{{skill.label}}">{{skill.label}}</label>
-              <input class="modifier-value" type="text" name="system.thievingSkills.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
-              <div class="grid-span-4"></div> <div class="grid-span-4"></div>
-            </div>
-            {{/each}}
-            {{#if includeOptionalSkills }}
-            {{#each system.optionalSkills as |skill key|}}
-            <div class="flexrow flex-group-center">
-              <label for="system.optionalSkills.{{skill}}.value" class="modifier-label flexlarge align-left" data-label="{{skill.label}}">{{skill.label}}</label>
-              <input class="modifier-value" type="text" name="system.optionalSkills.{{key}}.value" value="{{skill.value}}" data-dtype="Number"/>
-              <div class="grid-span-4"></div> <div class="grid-span-4"></div>
-            </div>
-            {{/each}}
-            {{/if }}
-      </aside>
-     </section>
-
-       
+       </section>
       </section>
     </div>
 

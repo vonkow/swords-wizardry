@@ -1,0 +1,8 @@
+{{ log 'feature-roll-sheet' this}}
+<h3>Rolled: {{item.name}}</h3>
+<a class="inline-result"><span>{{{roll}}}</span></a>
+<div/>
+Target {{#if (eq targetType 'ascending')}}>={{else}}<={{/if}} {{target}}
+<br/>
+{{# if success}}Success{{else}}Failure{{/if}}
+<hr/>
