@@ -1,5 +1,6 @@
-2024/08/07-16:01:35.100239 30ca66000 Recovering log #35
-2024/08/07-16:01:35.100476 30ca66000 Level-0 table #37: started
-2024/08/07-16:01:35.100985 30ca66000 Level-0 table #37: 55676 bytes OK
-2024/08/07-16:01:35.101226 30ca66000 Delete type=3 #34
-2024/08/07-16:01:35.101259 30ca66000 Delete type=0 #35
+2024/08/07-18:32:47.460980 3109fd000 Log #40: 124 ops saved to Table #41 OK
+2024/08/07-18:32:47.461065 3109fd000 Archiving /Users/caz/foundry/Data/systems/swords-wizardry/packs/items/000040.log: OK
+2024/08/07-18:32:47.461615 3109fd000 Table #19: 191 entries OK
+2024/08/07-18:32:47.461707 3109fd000 Table #41: 124 entries OK
+2024/08/07-18:32:47.461804 3109fd000 Archiving /Users/caz/foundry/Data/systems/swords-wizardry/packs/items/MANIFEST-000039: OK
+2024/08/07-18:32:47.461973 3109fd000 **** Repaired leveldb /Users/caz/foundry/Data/systems/swords-wizardry/packs/items; recovered 2 files; 84789 bytes. Some data may have been lost. ****
