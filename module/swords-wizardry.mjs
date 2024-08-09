@@ -3,6 +3,7 @@
 import { registerSystemSettings } from './settings.mjs';
 
 import { ImportManager } from './helpers/import-tools.mjs';
+import { CharacterCreatorManager } from './apps/character-creator.mjs';
 import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
 
 import { AttackRoll, DamageRoll, FeatureRoll } from './rolls/rolls.mjs';
@@ -85,6 +86,7 @@ Hooks.once('init', function() {
 
   Hooks.on('renderSidebarTab', (app, html) => {
     ImportManager.addImportActorButton(app, html);
+    CharacterCreatorManager.addCharacterCreationButton(app, html);
   });
 
   // Preload Handlebars templates.
