@@ -15,9 +15,9 @@ export class SwordsWizardryTokenDocument extends TokenDocument {
             modifier = `-${modifier}`;
           } else {
             dice = hd;
-            modifier = 0;
+            modifier = '';
           }
-          dice = dice.indexOf('d') > -1 ? hd : `${hd}d8`;
+          dice = dice.indexOf('d') > -1 ? dice : `${dice}d8`;
           const rollFormula = dice + modifier;
           const roll = await new Roll(rollFormula).evaluate();
           actor.system.hp.max = roll.total;

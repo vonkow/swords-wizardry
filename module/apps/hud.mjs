@@ -39,9 +39,21 @@ export class CombatHud extends Application {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.on('click', '.save-roll', (ev) => {
+      const item = this.actor.rollSave();
+    });
+
     html.on('click', '.item', (ev) => {
       const li = $(ev.currentTarget);
       const item = this.actor.items.get(li.data('itemId'));
+      if (!item) return;
+      item.roll();
+    });
+
+    html.on('click', '.item-feature', (ev) => {
+      const li = $(ev.currentTarget);
+      const itemId = li.data('itemId');
+      const item = this.actor.items.get(itemId);
       if (!item) return;
       item.roll();
     });

@@ -29,9 +29,14 @@
           </div>
         </div>
         <div class="resource flex-group-center ">
-          <label for="system.save.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long' }}</label>
+          <label for="system.save.value" class="resource-label">
+            {{ localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long' }}
+            <a class='save-roll' data-roll-type='item'>
+              <i class="fas fa-dice-d20"></i>
+            </a>
+          </label>
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
+            <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
           </div>
         </div>
 

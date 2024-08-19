@@ -12,7 +12,7 @@ export class CharacterCreatorManager {
       const characterCreatorButton = $(
         `<button class='character-creator' data-tooltip='Create a Character'> ` +
         `<i class='fas fa-user-plus'></i>` +
-        `Create Character` +
+        `Roll a Character` +
         `</button>`
       );
 

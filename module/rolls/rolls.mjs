@@ -1,4 +1,5 @@
 import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
+
 export class AttackRoll extends Roll {
 
   constructor(formula, rollData={}, options={}) {
@@ -116,5 +117,40 @@ export class FeatureRoll extends Roll {
       content: resultsHtml
     });
 
+  }
+}
+
+export class SaveRoll extends Roll {
+  constructor(formula, rollData={}, options={}) {
+    super(formula, rollData, options);
+    this.save = rollData.system.save || { value: 15 };
+  }
+
+  async evaluate() {
+    const result = await super.evaluate();
+    result.success = result.total >= this.save.value;
+    return result;
+  }
+
+  async render(options) {
+    const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    if (!this._evaluated) await this.evaluate();
+    const rollHtml = await super.render()
+    const template = 'systems/swords-wizardry/templates/rolls/save-roll-sheet.hbs';
+    const chatData = {
+      total: this.total,
+      target: this.save.value,
+      success: this.success,
+      roll: rollHtml,
+      ...this.data
+    }
+    const resultsHtml = await renderTemplate(template, chatData);
+    const msg = await SwordsWizardryChatMessage.create({
+      rollMode: rollMode,
+      user: game.user._id,
+      speaker: speaker,
+      content: resultsHtml
+    });
   }
 }

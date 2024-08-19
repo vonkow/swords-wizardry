@@ -6,7 +6,7 @@ import { ImportManager } from './helpers/import-tools.mjs';
 import { CharacterCreatorManager } from './apps/character-creator.mjs';
 import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
 
-import { AttackRoll, DamageRoll, FeatureRoll } from './rolls/rolls.mjs';
+import { AttackRoll, DamageRoll, FeatureRoll, SaveRoll } from './rolls/rolls.mjs';
 // Import document classes.
 import { SwordsWizardryActor } from './documents/actor.mjs';
 import { SwordsWizardryItem } from './documents/item.mjs';
@@ -63,7 +63,8 @@ Hooks.once('init', function() {
     Roll,
     AttackRoll,
     DamageRoll,
-    FeatureRoll
+    FeatureRoll,
+    SaveRoll
   ];
 
 

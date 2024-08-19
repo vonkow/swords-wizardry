@@ -168,6 +168,10 @@ export class SwordsWizardryActorSheet extends ActorSheet {
       item.sheet.render(true);
     });
 
+    html.on('click', '.save-roll', (ev) => {
+      this.actor.rollSave();
+    });
+
     html.on('click', '.item-prepare', async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));

@@ -1,3 +1,4 @@
+import { SaveRoll } from '../rolls/rolls.mjs';
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -160,5 +161,10 @@ export class SwordsWizardryActor extends Actor {
     if (this.type !== 'npc') return;
 
     // Process additional NPC data here.
+  }
+
+  async rollSave() {
+    const roll = new SaveRoll('d20', this); 
+    roll.render();
   }
 }
