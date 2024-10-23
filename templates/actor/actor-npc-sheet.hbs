@@ -101,25 +101,62 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="description">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Description'}}</a>
     <a class="item" data-tab="weapons">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Attacks'}}</a>
+    <a class="item" data-tab="description">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Description'}}</a>
+    <a class="item" data-tab="items">Items</a>
+    <a class="item" data-tab="spells">Spells</a>
     <a class="item" data-tab="effects">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Effects'}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
+    {{!-- Weapons Tab --}}
+    <div class="tab weapons" data-group="primary" data-tab="weapons">
+       {{> "systems/swords-wizardry/templates/actor/parts/actor-weapons.hbs"}}
+    </div>
+
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
       {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
       {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
     </div>
-
+    
     {{!-- Owned Items Tab --}}
-    <div class="tab items" data-group="primary" data-tab="weapons">
-       {{> "systems/swords-wizardry/templates/actor/parts/actor-weapons.hbs"}}
+    <div class="tab items" data-group="primary" data-tab="items">
+       {{> "systems/swords-wizardry/templates/actor/parts/actor-items.hbs"}}
     </div>
+    
+        <div class="tab spells" data-group="primary" data-tab="spells">
 
+      <h3>Prepared Spells</h3>
+      {{> "systems/swords-wizardry/templates/actor/parts/actor-spell-slots.hbs"}}
+
+      <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellSlots' }}</h3>
+       <div class="grid grid-11col align-center">
+          <div class="grid-span-2">
+            <label class="resource-label align-left">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Level.long' }}</label>
+          </div>
+          <!-- <div class="grid-span-2 grid-row-start-2 align-self-center">
+            <label class="resource-label align-left align-self-center">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Remaining' }}</label>
+          </div> -->
+          <div class="grid-span-2 grid-row-start-3 align-self-center">
+            <label class="resource-label align-left">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Total' }}</label>
+          </div>
+          {{#each system.spellSlots as |slot key|}}
+              <div class="grid-span-1">
+                <label for="{{key}}" class="resource-label flexlarge align-left" data-label="{{key}}">{{key}}</label>
+              </div>
+              <div class="grid-span-1 grid-row-start-3 double-border">
+                <input class="nomargin align-center" type="text" name="system.spellSlots.{{key}}.max" value="{{slot.max}}" data-dtype="Number"/>
+              </div>
+          {{/each}}
+        </div>
+
+        <h3>Known Spells</h3>
+      {{> "systems/swords-wizardry/templates/actor/parts/actor-spells.hbs"}}
+    </div>
+    
     {{!-- Active Effects Tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
       {{> "systems/swords-wizardry/templates/actor/parts/actor-effects.hbs"}}
