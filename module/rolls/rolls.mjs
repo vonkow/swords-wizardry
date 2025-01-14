@@ -10,14 +10,19 @@ export class AttackRoll extends Roll {
 
   async evaluate() {
     const result = await super.evaluate();
-    const toHitMatrix = this.data.actor.toHitAC;
     // TODO move game.user.targets to up the chain and pass it in for more generic attacks?
     game.user.targets.forEach((target) => {
-      const targetAC = target.actor.system.ac.value;
-      const acKey = targetAC < 0
-        ? `${targetAC}`
-        : `+${targetAC}`; // AC >= 0 is stored as '+#' in system.toHitAC
-      if (result.total >= toHitMatrix[acKey]) {
+      let hit = false;
+      if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
+        // Attack bonus is added to the roll formula by the item.
+        const targetAAC = target.actor.system.aac.value;
+        if (result.total >= targetAAC) hit = true;
+      } else {
+        const targetAC = target.actor.system.ac.value;
+        const targetNumber = this.data.actor.tHAC0 - targetAC;
+        if (result.total >= targetNumber) hit = true;
+      }
+      if (hit) {
         this.hitTargets.push(target);
       } else {
         this.missedTargets.push(target);

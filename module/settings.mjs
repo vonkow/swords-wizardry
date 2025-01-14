@@ -3,13 +3,12 @@
  */
 export function registerSystemSettings() {
   // Use ascending Armor Class
-  /* TODO: DISABLED UNTIL ASCENDING AC IS WORKED OUT
   game.settings.register("swords-wizardry", "useAscendingAC", {
     name: "Use ascending AC",
     scope: "world",
     config: true,
     type: Boolean,
+    requiresReload: true,
     default: false
   });
-  */
 }

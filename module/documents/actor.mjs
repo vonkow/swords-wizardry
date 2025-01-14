@@ -1,8 +1,5 @@
 import { SaveRoll } from '../rolls/rolls.mjs';
-/**
- * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
- * @extends {Actor}
- */
+
 export class SwordsWizardryActor extends Actor {
 
   async _preCreate(data, options, user) {
@@ -54,11 +51,40 @@ export class SwordsWizardryActor extends Actor {
     const systemData = actorData.system;
     const flags = actorData.flags.swordswizardry || {};
 
+    if(game.settings.get('swords-wizardry', 'useAscendingAC') === false) {
+      this._prepareToHitMatrix();
+    }
+
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
     this._prepareMemorizedSpells(actorData);
+  }
+
+  _prepareToHitMatrix() {
+    const tHAC0 = this.system.tHAC0;
+    this.system.toHitACMatrix = {
+      "-9": tHAC0 + 9,
+      "-8": tHAC0 + 8,
+      "-7": tHAC0 + 7,
+      "-6": tHAC0 + 6,
+      "-5": tHAC0 + 5,
+      "-4": tHAC0 + 4,
+      "-3": tHAC0 + 3,
+      "-2": tHAC0 + 2,
+      "-1": tHAC0 + 1,
+      "+0": tHAC0,
+      "+1": tHAC0 - 1,
+      "+2": tHAC0 - 2,
+      "+3": tHAC0 - 3,
+      "+4": tHAC0 - 4,
+      "+5": tHAC0 - 5,
+      "+6": tHAC0 - 6,
+      "+7": tHAC0 - 7,
+      "+8": tHAC0 - 8,
+      "+9": tHAC0 - 9
+    };
   }
 
   /**
@@ -70,6 +96,7 @@ export class SwordsWizardryActor extends Actor {
     // Make modifications to data here. For example:
     const systemData = actorData.system;
 
+    // TODO delete this?
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
       // Calculate the modifier using S&W
@@ -166,5 +193,15 @@ export class SwordsWizardryActor extends Actor {
   async rollSave() {
     const roll = new SaveRoll('d20', this); 
     roll.render();
+  }
+
+  _preUpdate(changed, options, user) {
+    // Two-way data binding for AC and AAC
+    if (changed.system.tHAACB && changed.system.tHAACB !== this.system.tHAACB) {
+      changed.system.tHAC0 = 19 - changed.system.tHAACB;
+    } else if (changed.system.tHAC0 && changed.system.tHAC0 !== this.system.tHAC0) {
+      changed.system.tHAACB = 19 - changed.system.tHAC0;
+    }
+    return super._preUpdate(changed, options, user);
   }
 }

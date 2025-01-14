@@ -39,7 +39,7 @@ export class SwordsWizardryActorSheet extends ActorSheet {
     // editable, the items array, and the effects array.
     const context = super.getData();
 
-    context.useAscendingAC = false; //game.settings.get('swords-wizardry', 'useAscendingAC');
+    context.useAscendingAC = game.settings.get('swords-wizardry', 'useAscendingAC');
     // Use a safe clone of the actor data for further operations.
     const actorData = context.data;
 
