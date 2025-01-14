@@ -191,16 +191,26 @@ export class SwordsWizardryActor extends Actor {
   }
 
   async rollSave() {
-    const roll = new SaveRoll('d20', this); 
+    const roll = new SaveRoll('d20', this);
     roll.render();
   }
 
   _preUpdate(changed, options, user) {
     // Two-way data binding for AC and AAC
-    if (changed.system.tHAACB && changed.system.tHAACB !== this.system.tHAACB) {
-      changed.system.tHAC0 = 19 - changed.system.tHAACB;
-    } else if (changed.system.tHAC0 && changed.system.tHAC0 !== this.system.tHAC0) {
-      changed.system.tHAACB = 19 - changed.system.tHAC0;
+    if (changed.system) {
+      if (changed.system.tHAACB && changed.system.tHAACB !== this.system.tHAACB) {
+        changed.system.tHAC0 = 19 - changed.system.tHAACB;
+      } else if (changed.system.tHAC0 && changed.system.tHAC0 !== this.system.tHAC0) {
+        changed.system.tHAACB = 19 - changed.system.tHAC0;
+      }
+
+      if (changed.system.ac && changed.system.ac.value !== this.system.ac.value) {
+        if (!changed.system.aac) changed.system.aac = {};
+        changed.system.aac.value = 19 - changed.system.ac.value;
+      } else if (changed.system.aac && changed.system.aac.value !== this.system.aac.value) {
+        if (!changed.system.ac) changed.system.ac = {};
+        changed.system.ac.value = 19 - changed.system.aac.value;
+      }
     }
     return super._preUpdate(changed, options, user);
   }

@@ -41,10 +41,17 @@
         </div>
 
         <div class="resource flex-group-center">
+          {{# if useAscendingAC }}
+          <label for="system.aac.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }} (Asc)</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number"/>
+          </div>
+          {{else}}
           <label for="system.ac.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }}</label>
           <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number"/>
+            <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number"/>
           </div>
+          {{/if}}
         </div>
 
         <div class="resource flex-group-center">
