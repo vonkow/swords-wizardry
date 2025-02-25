@@ -37,8 +37,10 @@ export class SwordsWizardryItem extends Item {
       if (rollData.actor.modifiers && rollData.actor.modifiers.damage && rollData.actor.modifiers.damage !== 0)
         rollData.damageFormula += ` + ${rollData.actor.modifiers.damage.value}`;
     }
-    if (rollData.modifier && rollData.modifier !== '0')
-      rollData.formula += ` + ${rollData.modifier}`;
+    if (rollData.modifier && rollData.modifier !== '0') {
+      rollData.formula = ` + ${rollData.modifier}`;
+    }
+
     return rollData;
   }
 

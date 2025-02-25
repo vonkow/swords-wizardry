@@ -5,23 +5,8 @@
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder={{localize "SWORDS_WIZARDRY.Item.Spell.Name"}}/></h1>
     </div>
   </header>
-
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">{{localize "SWORDS_WIZARDRY.Item.Spell.Tabs.Description"}}</a>
-    <a class="item" data-tab="attributes">{{localize "SWORDS_WIZARDRY.Item.Spell.Tabs.Attributes"}}</a>
-  </nav>
-
-  {{!-- Sheet Body --}}
   <section class="sheet-body">
-
-    {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
-
-    {{!-- Attributes Tab --}}
-    <div class="tab attributes" data-group="primary" data-tab="attributes">
+    <div class="tab" data-group="primary">
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Level"}}</label>
         <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Text"/>
@@ -31,9 +16,11 @@
         <input type="text" name="system.range" value="{{system.range}}" data-dtype="Text"/>
       </div>
       <div class="resource">
-        <label class="resource-label">Duration</label>
-        <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="Text"/>
+          <label class="resource-label">Duration</label>
+          <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="Text"/>
       </div>
+      <div></div>
+      {{editor system.description target="system.description" rollData=rollData button=true engine="prosemirror" owner=owner editable=true}}
     </div>
   </section>
 </form>
