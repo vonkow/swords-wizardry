@@ -1,4 +1,11 @@
 export class CombatHud extends Application {
+  RERENDER_EVENTS = [
+    'createItem',
+    'updateItem',
+    'deleteItem',
+    'updateActor'
+  ];
+
   constructor(token, options = {}) {
     super(options);
     this.token = token;
@@ -6,19 +13,8 @@ export class CombatHud extends Application {
     if (game.user.combatHuds == null) game.user.combatHuds = [];
     game.user.combatHuds.push(this);
 
-    // Subscribe to changes in the actor requiring re-render
-    const rerenderEvents = [
-      'createItem', 
-      'updateItem', 
-      'deleteItem', 
-      'updateActor'
-    ];
-    for (const event of rerenderEvents) {
-      Hooks.on(event, (actor) => {
-        const characterActor = actor.type === 'character' ? actor : actor.parent;
-        if (characterActor === this.actor) this.render(true, { focus: false });
-      });
-    }
+    this.registeredHooks = {};
+    this._registerHooks();
   }
 
   static get defaultOptions() {
@@ -92,7 +88,24 @@ export class CombatHud extends Application {
   async close() {
     const index = game.user.combatHuds.indexOf(this);
     if (index !== -1) game.user.combatHuds.splice(index, 1);
+    this._unregisterHooks();
     return super.close();
+  }
+
+  _registerHooks() {
+   for (const event of this.RERENDER_EVENTS) {
+      const hookId = Hooks.on(event, (actor) => {
+        const characterActor = actor.type === "character" || actor.type === "npc" ? actor : actor.parent;
+        if (characterActor === this.actor) this.render(true, { focus: false });
+      });
+      this.registeredHooks[event] = hookId;
+    }
+  }
+
+  _unregisterHooks() {
+    for (const [event, hookId] of Object.entries(this.registeredHooks)) {
+      Hooks.off(event, hookId);
+    }
   }
 
   static async activateHud(token, selected) {
