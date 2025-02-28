@@ -15,7 +15,8 @@ export class CombatHud extends Application {
     ];
     for (const event of rerenderEvents) {
       Hooks.on(event, (actor) => {
-        if (actor === this.actor) this.render(true, { focus: false });
+        const characterActor = actor.type === 'character' ? actor : actor.parent;
+        if (characterActor === this.actor) this.render(true, { focus: false });
       });
     }
   }
