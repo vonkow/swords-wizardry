@@ -136,7 +136,6 @@ Hooks.on('controlToken', async (token, selected) => {
   CombatHud.activateHud(token, selected);
 });
 
-
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */

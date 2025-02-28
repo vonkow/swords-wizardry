@@ -1,10 +1,20 @@
 export class CombatHud extends Application {
+  RERENDER_EVENTS = [
+    'createItem',
+    'updateItem',
+    'deleteItem',
+    'updateActor'
+  ];
+
   constructor(token, options = {}) {
     super(options);
     this.token = token;
     this.actor = token.actor;
     if (game.user.combatHuds == null) game.user.combatHuds = [];
     game.user.combatHuds.push(this);
+
+    this.registeredHooks = {};
+    this._registerHooks();
   }
 
   static get defaultOptions() {
@@ -78,9 +88,25 @@ export class CombatHud extends Application {
   async close() {
     const index = game.user.combatHuds.indexOf(this);
     if (index !== -1) game.user.combatHuds.splice(index, 1);
+    this._unregisterHooks();
     return super.close();
   }
 
+  _registerHooks() {
+   for (const event of this.RERENDER_EVENTS) {
+      const hookId = Hooks.on(event, (actor) => {
+        const characterActor = actor.type === "character" || actor.type === "npc" ? actor : actor.parent;
+        if (characterActor === this.actor) this.render(true, { focus: false });
+      });
+      this.registeredHooks[event] = hookId;
+    }
+  }
+
+  _unregisterHooks() {
+    for (const [event, hookId] of Object.entries(this.registeredHooks)) {
+      Hooks.off(event, hookId);
+    }
+  }
 
   static async activateHud(token, selected) {
     if (game.user.combatHuds?.length) {

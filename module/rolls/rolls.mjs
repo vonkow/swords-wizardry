@@ -60,8 +60,8 @@ export class AttackRoll extends Roll {
 export class DamageRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
-    game.user.targets.forEach((target) => {
-        target.actor.system.hp.value -= result.total;
+    game.user.targets.forEach(async (target) => {
+      await target.actor.update({ system: { hp: { value: target.actor.system.hp.value - result.total } } });
     });
     return result;
   }
