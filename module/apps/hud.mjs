@@ -82,9 +82,6 @@ export class CombatHud extends Application {
   }
 
   static getActiveHudForActor(actor) {
-    console.log(`getActiveHudForActor:`);
-    console.log(actor);
-    console.log(game.user.combatHuds);
     return game.user.combatHuds.find(hud => hud.actor === actor);
   }
 
