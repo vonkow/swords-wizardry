@@ -136,14 +136,6 @@ Hooks.on('controlToken', async (token, selected) => {
   CombatHud.activateHud(token, selected);
 });
 
-Hooks.on('swords-wizardry.damageRoll', (actor, targetedActors, item, total) => {
-  for (const target of targetedActors) {
-    const hud = CombatHud.getActiveHudForActor(target);
-    if (hud) hud.render(true);
-  }
-});
-
-
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */

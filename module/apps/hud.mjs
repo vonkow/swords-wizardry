@@ -5,6 +5,19 @@ export class CombatHud extends Application {
     this.actor = token.actor;
     if (game.user.combatHuds == null) game.user.combatHuds = [];
     game.user.combatHuds.push(this);
+
+    // Subscribe to changes in the actor requiring re-render
+    const rerenderEvents = [
+      'createItem', 
+      'updateItem', 
+      'deleteItem', 
+      'updateActor'
+    ];
+    for (const event of rerenderEvents) {
+      Hooks.on(event, (actor) => {
+        if (actor === this.actor) this.render(true, { focus: false });
+      });
+    }
   }
 
   static get defaultOptions() {
@@ -79,10 +92,6 @@ export class CombatHud extends Application {
     const index = game.user.combatHuds.indexOf(this);
     if (index !== -1) game.user.combatHuds.splice(index, 1);
     return super.close();
-  }
-
-  static getActiveHudForActor(actor) {
-    return game.user.combatHuds.find(hud => hud.actor === actor);
   }
 
   static async activateHud(token, selected) {
