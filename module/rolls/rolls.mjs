@@ -85,7 +85,6 @@ export class DamageRoll extends Roll {
       speaker: speaker,
       content: resultsHtml
     });
-    Hooks.callAll("swords-wizardry.damageRoll", this.data.actor, this.data.targetedActors, this.data.item, this.total);
   }
 }
 
