@@ -24,7 +24,7 @@
       "thumbnail": ""
     }
   ],
-  "version": "2.6.1",
+  "version": "2.6.2",
   "compatibility": {
     "minimum": 11,
     "verified": "12.330"
@@ -43,49 +43,26 @@
       "path": "lang/de.json"
     }
   ],
-  "packs": [
-    {
-      "name": "actors",
-      "label": "Swords & Wizardry Actors",
-      "path": "packs/actors",
-      "type": "Actor",
-      "system": "swords-wizardry",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      }
-    },
-    {
-      "name": "items",
-      "label": "Swords & Wizardry Items",
-      "path": "packs/items",
-      "type": "Item",
-      "system": "swords-wizardry",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      }
-    },
-    {
-      "name": "journals",
-      "label": "Swords & Wizardry Journals",
-      "path": "packs/journals",
-      "type": "JournalEntry",
-      "system": "swords-wizardry",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    }
-  ],
+  "packs":[],
   "packFolders": [],
   "socket": false,
-  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v2.6.1/system.json",
-  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v2.6.1/swords-wizardry.zip",
+  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v2.6.2/system.json",
+  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v2.6.2/swords-wizardry.zip",
   "background": "",
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "hp",
-  "secondaryTokenAttribute": "ac"
+  "secondaryTokenAttribute": "ac",
+  "relationships": {
+    "recommends": [
+      {
+        "id": "swords-wizardry-content",
+        "type": "module",
+        "compatibility": {
+          "minimum": "0.0.1",
+          "verified": "0.0.1"
+        }
+      }
+    ]
+  }
 }
