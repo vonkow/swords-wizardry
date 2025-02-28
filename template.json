@@ -141,43 +141,6 @@
         "retainerMoraleAdjustment": {
           "value": 0
         }
-      },
-      "thievingSkills": {
-        "climbWalls": {
-          "value": 0
-        },
-        "delicateTasks": {
-          "value": 0
-        },
-        "hearSound": {
-          "value": 0
-        },
-        "hideInShadows": {
-          "value": 0
-        },
-        "moveSilently": {
-          "value": 0
-        },
-        "openLocks": {
-          "value": 0
-        }
-      },
-      "optionalSkills": {
-        "ambush": {
-          "value": 0
-        },
-        "detectIllusions": {
-          "value": 0
-        },
-        "detectPitsAndSnares": {
-          "value": 0
-        },
-        "oratoryLoreSong": {
-          "value": 0
-        },
-        "rage": {
-          "value": 0
-        }
       }
     },
     "npc": {
@@ -223,7 +186,8 @@
       "rateOfFire": 1,
       "modifier": "0",
       "formula": "d20",
-      "damageFormula": "1d6"
+      "damageFormula": "1d6",
+      "specialDamage": ""
     },
     "feature": {
       "templates": ["base"],

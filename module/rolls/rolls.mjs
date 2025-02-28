@@ -77,7 +77,7 @@ export class DamageRoll extends Roll {
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
-    }
+    };
     const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rollMode: rollMode,

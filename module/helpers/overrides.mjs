@@ -23,7 +23,7 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       const item = actor.items.get(itemId);
       const rollData = { actor, item };
       let { damageFormula } = item.system;
-      if (actor.system.modifiers.damage.value && actor.system.modifiers.damage.value != 0)
+      if (actor.system.modifiers && actor.system.modifiers.damage.value && actor.system.modifiers.damage.value != 0)
         damageFormula += `+${actor.system.modifiers.damage.value}`;
       const roll = new DamageRoll(damageFormula, rollData);
       await roll.render();
