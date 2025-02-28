@@ -63,6 +63,7 @@ export class DamageRoll extends Roll {
     game.user.targets.forEach((target) => {
         target.actor.system.hp.value -= result.total;
     });
+    this.data.targetedActors = game.user.targets.map((target) => target.actor);
     return result;
   }
 
@@ -85,6 +86,7 @@ export class DamageRoll extends Roll {
       speaker: speaker,
       content: resultsHtml
     });
+    Hooks.callAll("swords-wizardry.damageRoll", this.data.actor, this.data.targetedActors, this.data.item, this.total);
   }
 }
 
