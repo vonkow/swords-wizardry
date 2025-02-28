@@ -59,20 +59,22 @@ export class CharacterCreator extends FormApplication {
 
   handleSubmit(event) {
     event.preventDefault();
+    console.log(event);
     const formData = new FormData(event.target);
-    this.createCharacter();
+    this.createCharacter(formData);
   }
 
-  async createCharacter(event) {
+  async createCharacter(formData) {
+    console.log(formData);
+    const name = formData.get('name');
     const str = await new Roll('3d6').evaluate();
     const dex = await new Roll('3d6').evaluate();
     const con = await new Roll('3d6').evaluate();
     const int = await new Roll('3d6').evaluate();
     const wis = await new Roll('3d6').evaluate();
     const cha = await new Roll('3d6').evaluate();
-    console.log(str);
-    let actor = await Actor.create({
-      name: 'New Character',
+    await Actor.create({
+      name,
       type: 'character',
       system: {
         abilities: {
@@ -86,6 +88,5 @@ export class CharacterCreator extends FormApplication {
       },
       permission: { default: 3 }
     });
-    console.log(actor);
   }
 }
