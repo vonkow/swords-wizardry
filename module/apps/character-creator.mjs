@@ -62,11 +62,12 @@ export class CharacterCreator extends FormApplication {
   handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+    this.createCharacter(formData);
   }
 
   async createCharacter(formData) {
-    const name = formData.get('name');
     const folder = formData.get('folder');
+    const name = formData.get('name');
     const str = await new Roll('3d6').evaluate();
     const dex = await new Roll('3d6').evaluate();
     const con = await new Roll('3d6').evaluate();
@@ -76,9 +77,7 @@ export class CharacterCreator extends FormApplication {
     const gp = await new Roll('3d6').evaluate();
     await Actor.create({
       name,
-      folder,
       type: 'character',
-      permission: { default: 3 },
       system: {
         abilities: {
           str: { value: str.total },
@@ -89,7 +88,9 @@ export class CharacterCreator extends FormApplication {
           cha: { value: cha.total }
         },
         treasure: { gp: gp.total * 10 }
-      }
+      },
+      permission: { default: 3 },
+      folder
     });
   }
 }

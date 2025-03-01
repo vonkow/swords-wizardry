@@ -4,21 +4,23 @@
   </head>
   <body>
     <form id="character-form">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <div class="form-fields">
-          <input name="name" type="text" />
+      <div class="dialog-content">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <div class="form-fields">
+            <input name="name" type="text" />
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="folder">Folder</label>
-        <div class="form-fields">
-          <select name="folder">
-            <option value="">--</option>
-            {{#each folders as |folder|}}
-            <option value="{{folder.id}}">{{folder.name}}</option>
-            {{/each}}
-          </select>
+        <div class="form-group">
+          <label for="folder">Folder</label>
+          <div class="form-fields">
+            <select name="folder">
+              <option value="">--</option>
+              {{#each folders as |folder|}}
+              <option value="{{folder.id}}">{{folder.name}}</option>
+              {{/each}}
+            </select>
+          </div>
         </div>
       </div>
       <div class="dialog-buttons">
