@@ -122,8 +122,8 @@
     "Modifier": {
       "toHit": { "long": "Bonus to Hit", "abbr": "toHit" },
       "OpenDoors": { "long": "Open Doors", "abbr": "opendoors" },
-      "Carry": { "long": "Carry Modificator", "abbr": "Carry Mod" },
       "Damage": { "long": "Damage Bonus", "abbr": "dmgbonus" },
+      "Carry": { "long": "Carry Modifier", "abbr": "Carry Mod" },
       "MissileToHit": { "long": "Bonus to Missiles", "abbr": "toMissiles" },
       "AC": { "long": "Armour Bonus", "abbr": "ACbonus" },
       "HP": { "long": "Hit Point Bonus", "abbr": "hpbonus" },
@@ -209,7 +209,8 @@
           "DamageRollFormula": "Damage Roll Formula",
           "Range": "Range",
           "Missile": "Missile Weapon?",
-          "RateOfFire": "Rate Of Fire"
+          "RateOfFire": "Rate Of Fire",
+          "SpecialDamage": "Special Damage or Effect"
         },
         "Name": "Name",
         "Quantity": "Quantity",
