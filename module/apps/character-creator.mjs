@@ -73,6 +73,7 @@ export class CharacterCreator extends FormApplication {
     const int = await new Roll('3d6').evaluate();
     const wis = await new Roll('3d6').evaluate();
     const cha = await new Roll('3d6').evaluate();
+    const gp = await new Roll('3d6').evaluate();
     await Actor.create({
       name,
       type: 'character',
@@ -84,7 +85,8 @@ export class CharacterCreator extends FormApplication {
           int: { value: int.total },
           wis: { value: wis.total },
           cha: { value: cha.total }
-        }
+        },
+        treasure: { gp: gp.total * 10 }
       },
       permission: { default: 3 }
     });

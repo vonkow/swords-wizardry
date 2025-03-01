@@ -32,13 +32,6 @@ export class SwordsWizardryCombat extends Combat {
         actor.sheet.render();
       }
     }
-
-    // refresh active combat huds for initiative buttons (end turn/etc)
-    // Not used (yet)
-    //for (const combatant of this.combatants) {
-    //const token = combatant?.token?.object;
-    //if (token.combatHud && token.actor.isOwner) token.combatHud.render(true);
-    //}
   }
 
   /**@override so we can reset the current initiative indicator to 0 on rollAll 
@@ -50,7 +43,6 @@ export class SwordsWizardryCombat extends Combat {
   }
 
   // TODO Hide the rollNPC button?
-
 
   async roundStart() {
     const _roll = async (formula) => {
@@ -64,7 +56,7 @@ export class SwordsWizardryCombat extends Combat {
       roll.diceToolTip = await roll.getTooltip();
       return roll;
     };
-    const initiativeFormula = '1d6'
+    const initiativeFormula = '1d6';
     const npcRoll = await _roll(initiativeFormula);
     const pcRoll = await _roll(initiativeFormula);
     for (const c of this.turns) {
