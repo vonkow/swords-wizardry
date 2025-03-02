@@ -238,6 +238,7 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
+      "container": "Container",
       "npc": "NPC"
     },
     "Item": {

@@ -88,14 +88,6 @@ export class SwordsWizardryActorSheet extends ActorSheet {
     for (let [k, v] of Object.entries(context.system.modifiers)) {
       v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.modifiers[k]) ?? k;
     }
-
-    //for (let [k, v] of Object.entries(context.system.thievingSkills)) {
-      //v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.thievingSkills[k]) ?? k;
-    //}
-
-    //for (let [k, v] of Object.entries(context.system.optionalSkills)) {
-      //v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.optionalSkills[k]) ?? k;
-    //}
   }
 
   /**

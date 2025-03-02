@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["character", "container", "npc"],
     "templates": {
       "base": {
         "hp": {
@@ -49,6 +49,16 @@
         },
         "alignment": "",
         "description": ""
+      }
+    },
+    "container": {
+      "treasure": {
+        "pp": 0,
+        "gp": 0,
+        "sp": 0,
+        "cp": 0,
+        "gems": "",
+        "misc": ""
       }
     },
     "character": {

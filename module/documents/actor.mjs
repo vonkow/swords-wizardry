@@ -14,6 +14,11 @@ export class SwordsWizardryActor extends Actor {
         'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.FRIENDLY,
         'prototypeToken.actorLink': true
       });
+    } else if (data.type === 'container') {
+      foundry.utils.mergeObject(createData, {
+        'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+        'prototypeToken.actorLink': true
+      });
     } else if (data.type === 'npc') {
       foundry.utils.mergeObject(createData, {
         'prototypeToken.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE
@@ -55,8 +60,6 @@ export class SwordsWizardryActor extends Actor {
       this._prepareToHitMatrix();
     }
 
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
-    // things organized.
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
     this._prepareMemorizedSpells(actorData);
@@ -121,6 +124,7 @@ export class SwordsWizardryActor extends Actor {
   }
 
   _prepareMemorizedSpells(actorData) {
+    if (actorData.type !== 'character' && actorData.type !== 'npc') return;
     const { system } = actorData;
     Object.entries(system.spellSlots).forEach(([key, value]) => {
       if (value.memorized.length > 0) {

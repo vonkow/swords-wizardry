@@ -1,5 +1,4 @@
 // Import settings.
-
 import { registerSystemSettings } from './settings.mjs';
 
 import { ImportManager } from './helpers/import-tools.mjs';
@@ -125,7 +124,6 @@ Handlebars.registerHelper({
 Hooks.once('ready', function() {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
-
 });
 
 
@@ -174,7 +172,7 @@ async function createItemMacro(data, slot) {
   }
   game.user.assignHotbarMacro(macro, slot);
   return false;
-}
+};
 
 /**
  * Create a Macro from an Item drop.
