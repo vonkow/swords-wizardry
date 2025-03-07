@@ -120,12 +120,15 @@ export class CombatHud extends Application {
 
     if (selected) {
       const viewportHeight = document.documentElement.clientHeight;
-      // TODO better calculate height of hud and postition accordingly 
-      const itemCount = token.actor.items.filter(i => i.type === 'weapon').length
-      const preparedCount = Object.values(token.actor.system.spellSlots).reduce(
-        (t, s) => t + s.memorized.length, 0)
-      ;
-      const verticalOffset = 224 + (32 * (itemCount + preparedCount));
+      // TODO better calculate height of hud and postition accordingly
+      const itemCount = token.actor.items.filter(i => i.type === 'weapon').length;
+      let verticalOffset = 224 + (32 * itemCount);
+      if (token.actor.system.spellSlots) {
+        const preparedCount = Object.values(token.actor.system.spellSlots).reduce(
+          (t, s) => t + s.memorized.length, 0
+        );
+        verticalOffset += 32 * preparedCount;
+      }
       const hud = new CombatHud(token, {top: viewportHeight - verticalOffset});
       await hud.render(true);
     }

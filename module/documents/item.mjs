@@ -2,6 +2,35 @@ import { AttackRoll, FeatureRoll } from  '../rolls/rolls.mjs';
 
 export class SwordsWizardryItem extends Item {
 
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+    if (!data.img || data.img == "") {
+      switch(data.type) {
+        case "spell":
+          data.img = `systems/swords-wizardry/assets/game-icons-net/spell-book.svg`;
+          break;
+        case "feature":
+          data.img = `systems/swords-wizardry/assets/game-icons-net/skills.svg`;
+          break;
+        case "armor":
+          data.img = `systems/swords-wizardry/assets/game-icons-net/chest-armor.svg`;
+          break;
+        case "weapon":
+          data.img = `systems/swords-wizardry/assets/game-icons-net/plain-dagger.svg`;
+          break;
+        case "item":
+          data.img = `systems/swords-wizardry/assets/game-icons-net/swap-bag.svg`;
+          break;
+        case "container": // TODO future
+          data.img = `systems/swords-wizardry/assets/game-icons-net/swap-bag.svg`;
+          break;
+        default:
+          data.img = `systems/swords-wizardry/assets/game-icons-net/swap-bag.svg`;
+      }
+    }
+    return this.updateSource(data)
+  }
+
   prepareData() {
     // As with the actor class, items are documents that can have their data
     // preparation methods overridden (such as prepareBaseData()).
