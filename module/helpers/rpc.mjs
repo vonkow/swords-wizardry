@@ -8,8 +8,7 @@ export async function rpc(data = {}) {
       type: 'rpc',
       ...data
     };
-    console.log('rpc', data);
-    console.log(game.socket);
+    console.log('send rpc', data);
     await game.socket.emit('system.swords-wizardry', packet);
   }
 }
@@ -26,8 +25,14 @@ export async function handleRPC(data = {}) {
 }
 
 async function run(data = {}) {
-  if (data.operation === 'update') {
-    const target = game.actors.get(data.target);
-    if (target) target.update(data.data);
+  if (data.operation === 'damage') {
+    const targetActor = game.actors.get(data.target);
+    const targetToken = canvas.tokens.get(data.target);
+    if (targetActor) targetActor.update({
+      system: { hp: { value: targetActor.system.hp.value - data.amount } }
+    });
+    else if (targetToken) targetToken.actor.update({
+      system: { hp: { value: targetToken.actor.system.hp.value - data.amount } }
+    });
   }
 }

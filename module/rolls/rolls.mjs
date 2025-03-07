@@ -62,14 +62,13 @@ export class DamageRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
     game.user.targets.forEach(async (target) => {
-      //target.actor.system.hp.value -= result.total;
       await rpc({
         recipient: 'GM',
-        target: target.actor.id,
-        operation: 'update',
+        target: target.id,
+        operation: 'damage',
+        amount: result.total,
         data: { system: { hp: { value: target.actor.system.hp.value - result.total } } }
       });
-      //await target.actor.update({ system: { hp: { value: target.actor.system.hp.value - result.total } } });
     });
     return result;
   }
