@@ -24,7 +24,7 @@
       "thumbnail": ""
     }
   ],
-  "version": "2.9.2",
+  "version": "2.9.3",
   "compatibility": {
     "minimum": 11,
     "verified": "12.331"
@@ -46,8 +46,8 @@
   "packs":[],
   "packFolders": [],
   "socket": true,
-  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v2.9.2/system.json",
-  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v2.9.2/swords-wizardry.zip",
+  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v2.9.3/system.json",
+  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v2.9.3/swords-wizardry.zip",
   "background": "",
   "gridDistance": 5,
   "gridUnits": "ft",

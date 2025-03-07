@@ -1,6 +1,6 @@
 export async function rpc(data = {}) {
   if (!data.recipient) data.recipient = 'GM';
-  if (data.recipient === 'GM' && game.user.isGM && game.user.id === game.user.activeGM.id) {
+  if (data.recipient === 'GM' && game.user.isGM) {
     await run(data);
   } else {
     const packet = {
@@ -16,7 +16,7 @@ export async function rpc(data = {}) {
 
 export async function handleRPC(data = {}) {
   console.log('handleRPC', data);
-  if (data.recipient === 'GM' && game.user.isGM && game.user.id === game.user.activeGM.id) {
+  if (data.recipient === 'GM' && game.user.isGM) {
     // TODO consider adding an event list to prevent duplicate execution.
     await run(data);
   } else {

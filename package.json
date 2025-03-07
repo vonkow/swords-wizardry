@@ -1,6 +1,6 @@
 {
   "name": "swords-wizardry",
-  "version": "1.0.0",
+  "version": "2.9.3",
   "description": "CSS compiler for the Swords and Wizardry system",
   "scripts": {
     "build": "sass src/scss/swords-wizardry.scss css/swords-wizardry.css --style=expanded --no-source-map",
