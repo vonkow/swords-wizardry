@@ -18,6 +18,7 @@ import { SwordsWizardryItemSheet } from './sheets/item-sheet.mjs';
 import { CombatHud } from './apps/hud.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
+import { handleRPC } from './helpers/rpc.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
 
 /* -------------------------------------------- */
@@ -121,9 +122,12 @@ Handlebars.registerHelper({
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function() {
-  // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+Hooks.once('ready', async () => {
+  game.socket.on('system.swords-wizardry',(packet) => {
+    if (packet.type === 'rpc') handleRPC(packet);
+    else console.log('system.swords-wizardry', 'socket event', packet);
+  });
+  Hooks.on('hotbarDrop', (_bar, data, slot) => createItemMacro(data, slot));
 });
 
 

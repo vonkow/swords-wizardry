@@ -1,4 +1,5 @@
 import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
+import { rpc } from '../helpers/rpc.mjs';
 
 export class AttackRoll extends Roll {
 
@@ -61,7 +62,14 @@ export class DamageRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
     game.user.targets.forEach(async (target) => {
-      await target.actor.update({ system: { hp: { value: target.actor.system.hp.value - result.total } } });
+      //target.actor.system.hp.value -= result.total;
+      await rpc({
+        recipient: 'GM',
+        target: target.actor.id,
+        operation: 'update',
+        data: { system: { hp: { value: target.actor.system.hp.value - result.total } } }
+      });
+      //await target.actor.update({ system: { hp: { value: target.actor.system.hp.value - result.total } } });
     });
     return result;
   }
@@ -70,7 +78,7 @@ export class DamageRoll extends Roll {
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
-    const rollHtml = await super.render()
+    const rollHtml = await super.render();
     const template = 'systems/swords-wizardry/templates/rolls/damage-roll-sheet.hbs';
     const chatData = {
       item: this.data.item,
