@@ -1,0 +1,12 @@
+.combat-hud-list {
+  list-style: none;
+}
+
+.combat-hud-list .save-roll .rollable > div {
+  height:24px;
+  width: 24px;
+  border: solid 1px black;
+  text-align: center;
+  padding-top: 3px;
+  color: white;
+}

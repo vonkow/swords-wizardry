@@ -142,24 +142,6 @@
       },
       "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "short": "retainer" }
     },
-    "thievingSkills": {
-      "climbWalls": { "long": "Wände erklettern", "abbr": "Klettern" },
-      "delicateTasks": {
-        "long": "Filigrane Aufgaben & Fallen",
-        "abbr": "Filigranes"
-      },
-      "hearSound": { "long": "Lauschen", "abbr": "Lauschen" },
-      "hideInShadows": { "long": "Im Schatten verstecken", "abbr": "Schatten" },
-      "moveSilently": { "long": "Schleichen", "abbr": "Schleichen" },
-      "openLocks": { "long": "Schlösser knacken", "abbr": "Schlösser" }
-    },
-    "optionalSkills": {
-      "ambush": { "long": "Ambush", "abbr": "ambush" },
-      "detectIllusions": { "long": "Detect Illusions", "abbr": "detectillusions" },
-      "detectPitsAndSnares": { "long": "Detect Pits / Snares", "abbr": "detectpitssnares" },
-      "oratoryLoreSong": { "long": "Oratory / Lore / Song", "abbr": "oratoryloresong" },
-      "rage": { "long": "Chance to Enter Rage", "abbr": "rage" }
-    },
     "SheetLabels": {
       "Actor": "SwordsWizardry Charakterbogen",
       "Item": "SwordsWizardry Ausrüstungsbogen"

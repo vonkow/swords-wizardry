@@ -1,5 +1,5 @@
 .item-form {
-  font-family: $font-primary;
+  /*font-family: $font-primary;*/
 }
 
 .sheet-header {
@@ -42,6 +42,10 @@
 .sheet-body .tab,
 .sheet-body .tab .editor {
   height: 100%;
+}
+
+.editor {
+  min-height: 5em;
 }
 
 .tox {

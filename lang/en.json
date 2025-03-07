@@ -120,39 +120,24 @@
       "Cha": { "long": "Charisma", "abbr": "cha" }
     },
     "Modifier": {
-      "toHit": { "long": "Bonus to Hit", "abbr": "toHit" },
-      "OpenDoors": { "long": "Open Doors", "abbr": "opendoors" },
-      "Damage": { "long": "Damage Bonus", "abbr": "dmgbonus" },
+      "toHit": { "long": "Bonus to Hit", "abbr": "To Hit" },
+      "OpenDoors": { "long": "Open Doors", "abbr": "Open Doors" },
+      "Damage": { "long": "Damage Bonus", "abbr": "Damage" },
       "Carry": { "long": "Carry Modifier", "abbr": "Carry Mod" },
-      "MissileToHit": { "long": "Bonus to Missiles", "abbr": "toMissiles" },
-      "AC": { "long": "Armour Bonus", "abbr": "ACbonus" },
-      "HP": { "long": "Hit Point Bonus", "abbr": "hpbonus" },
-      "RaiseDeadChance": { "long": "Raise Dead Survival", "abbr": "respawn" },
+      "MissileToHit": { "long": "Bonus to Missiles", "abbr": "Missile Bonus" },
+      "AC": { "long": "Armour Bonus", "abbr": "AC Bonus" },
+      "HP": { "long": "Hit Point Bonus", "abbr": "HP Bonus" },
+      "RaiseDeadChance": { "long": "Raise Dead Survival", "abbr": "Raise Dead %" },
       "AdditionalLanguages": { "long": "Additional Languages", "abbr": "Add Lang" },
-      "MaximumSpellLevel": { "long": "Maximum Spell Level", "abbr": "spell lvl" },
-      "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "spell chance" },
-      "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "min spells" },
-      "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "max spells" },
+      "MaximumSpellLevel": { "long": "Maximum Spell Level", "abbr": "Max Spell Level" },
+      "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "Know Spell %" },
+      "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "Min Spells/lvl" },
+      "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "Max Spells/lvl" },
       "MaxSpecialHirelings": {
-        "long": "Max # of Special Hirelings",
-        "abbr": "numhire"
+        "long": "Max # Special Hirelings",
+        "abbr": "Max Hirelings"
       },
-      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "short": "retainer" }
-    },
-    "thievingSkills": {
-      "climbWalls": { "long": "Climb Walls", "abbr": "clmbwalls" },
-      "delicateTasks": { "long": "Delicate Task", "abbr": "dtask" },
-      "hearSound": { "long": "Hear Sound", "abbr": "hear" },
-      "hideInShadows": { "long": "Hide in Shadows", "abbr": "hide" },
-      "moveSilently": { "long": "Move Silently", "abbr": "movesilent" },
-      "openLocks": { "long": "Open Locks", "abbr": "openlocks" }
-    },
-    "optionalSkills": {
-      "ambush": { "long": "Ambush", "abbr": "ambush" },
-      "detectIllusions": { "long": "Detect Illusions", "abbr": "detectillusions" },
-      "detectPitsAndSnares": { "long": "Detect Pits / Snares", "abbr": "detectpitssnares" },
-      "oratoryLoreSong": { "long": "Oratory / Lore / Song", "abbr": "oratoryloresong" },
-      "rage": { "long": "Chance to Enter Rage", "abbr": "rage" }
+      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "abbr": "Morale" }
     },
     "SheetLabels": {
       "Actor": "SwordsWizardry Actor Sheet",
@@ -210,7 +195,7 @@
           "Range": "Range",
           "Missile": "Missile Weapon?",
           "RateOfFire": "Rate Of Fire",
-          "SpecialDamage": "Special Damage or Effect"
+          "SpecialDamage": "Special Damage"
         },
         "Name": "Name",
         "Quantity": "Quantity",
@@ -250,6 +235,7 @@
     }
   },
   "New": {
+    "armor": "New Armor",
     "item": "New Item",
     "feature": "New Feature",
     "spell": "New Spell",

@@ -1,7 +1,51 @@
-/*@import url("TODO FONT");*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Regular.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-weight: bold;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Bold.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Italic.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-Regular.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 800;
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-ExtraBold.ttf");
+}
+/*$font-header: 'Inter';*/
 /* Global styles */
+body {
+  font-family: "Libre Baskerville";
+  font-size: 10pt;
+}
+
+button {
+  font-family: "Libre Baskerville";
+}
+
 .window-app {
-  /*font-family: "", sans-serif;*/
+  font-family: "Libre Baskerville";
+}
+
+/* Need to scope this down and maybe weight down to 700?
+h1, h2, h3, h4, h5 {
+    font-family: $font-header;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+*/
+input {
+  font-family: "Libre Baskerville";
 }
 
 .rollable:hover, .rollable:focus {
@@ -18,6 +62,11 @@
   gap: 10px;
   margin: 10px 0;
   padding: 0;
+}
+
+.grid-1col {
+  grid-column: span 1/span 1;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .grid-3col {
@@ -263,8 +312,30 @@
 }
 
 /* Styles limited to swords-wizardry sheets */
+.swords-wizardry .combat-hud-list {
+  list-style: none;
+}
+.swords-wizardry .combat-hud-list .save-roll .rollable > div {
+  height: 24px;
+  width: 24px;
+  border: solid 1px black;
+  text-align: center;
+  padding-top: 3px;
+  color: white;
+}
+.swords-wizardry .effects .item .effect-source,
+.swords-wizardry .effects .item .effect-duration,
+.swords-wizardry .effects .item .effect-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.swords-wizardry .effects .item .effect-controls {
+  border: none;
+}
 .swords-wizardry .item-form {
-  font-family: "Roboto", sans-serif;
+  /*font-family: $font-primary;*/
 }
 .swords-wizardry .sheet-header {
   flex: 0 auto;
@@ -302,14 +373,14 @@
 .swords-wizardry .sheet-body .tab .editor {
   height: 100%;
 }
+.swords-wizardry .editor {
+  min-height: 5em;
+}
 .swords-wizardry .tox .tox-editor-container {
   background: #fff;
 }
 .swords-wizardry .tox .tox-edit-area {
   padding: 0 8px;
-}
-.swords-wizardry .resource-label {
-  font-weight: bold;
 }
 .swords-wizardry .items-header {
   height: 28px;
@@ -347,25 +418,26 @@
   flex: 2;
   margin: 0;
   overflow: hidden;
-  font-size: 13px;
   text-align: left;
   align-items: center;
   display: flex;
 }
 .swords-wizardry .items-list .item-name h3, .swords-wizardry .items-list .item-name h4 {
   margin: 0;
+  margin-top: -3px;
   white-space: nowrap;
   overflow-x: hidden;
 }
 .swords-wizardry .items-list .item-controls {
   display: flex;
-  flex: 0 0 100px;
+  flex: 0 0 150px;
   justify-content: flex-end;
 }
 .swords-wizardry .items-list .item-controls a {
   font-size: 12px;
   text-align: center;
   margin: 0 6px;
+  margin-top: -3px;
 }
 .swords-wizardry .items-list .item {
   align-items: center;
@@ -387,6 +459,7 @@
 }
 .swords-wizardry .items-list .item-prop {
   text-align: center;
+  margin-top: -3px;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
@@ -400,6 +473,9 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
+.swords-wizardry .items-list .items-header .item-controls {
+  margin-top: 1px;
+}
 .swords-wizardry .items-list .items-header > * {
   font-size: 12px;
   text-align: center;
@@ -408,35 +484,33 @@
   padding-left: 5px;
   text-align: left;
 }
-.swords-wizardry .item-formula {
-  flex: 0 0 200px;
-  padding: 0 8px;
+.swords-wizardry .resource {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.swords-wizardry .effects .item .effect-source,
-.swords-wizardry .effects .item .effect-duration,
-.swords-wizardry .effects .item .effect-controls {
+.swords-wizardry .resource label {
   text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
 }
-.swords-wizardry .effects .item .effect-controls {
-  border: none;
-}
-
-/* TODO better css query here */
-/*.swords-wizardry .swords-wizardy-combat-hud*/
-.combat-hud-list {
-  list-style: none;
-}
-
-.combat-hud-list .save-roll .rollable > div {
-  height:24px;
-  width: 24px;
-  border: solid 1px black;
+.swords-wizardry .resource input {
   text-align: center;
-  padding-top: 3px;
-  color: white;
+}
+.swords-wizardry .resource select {
+  width: calc(100% - 2px);
+  text-align: center;
+}
+.swords-wizardry .resource .slash {
+  margin-top: 5px;
+  font-weight: bold;
+}
+.swords-wizardry .resource-label, .swords-wizardry .modifier-label {
+  font-weight: bold;
+}
+.swords-wizardry .resource-value, .swords-wizardry .modifier-value {
+  text-align: center;
+}
+.swords-wizardry .abilities .resource-label, .swords-wizardry .abilities .modifier-label, .swords-wizardry .modifiers .resource-label, .swords-wizardry .modifiers .modifier-label {
+  margin-top: 5px;
 }
 
 /*# sourceMappingURL=swords-wizardry.css.map */

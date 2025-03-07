@@ -1,72 +1,42 @@
 <ol class='items-list'>
-  {{log system}}
   {{#each spells as |spells spellLevel|}}
-    <li class='item flexrow items-header'>
-      <div class='item-name'>
-        {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellLVL' level=spellLevel}}
-      </div>
-      {{!-- <div class="item-name">
-        {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Prepared'}}
-         <label for="system.spellSlots.{{spellLevel}}.max" class="resource-label flexlarge align-left" data-label="system.spellSlots.{{spellLevel}}.max">Max Prepared:</label>
-         
-           
-         <input class="nomargin align-center" type="text" name="system.spellSlots.{{spellLevel}}.max" value="{{system.spellSlots.1.max}}" data-dtype="Number"/>
-      </div> --}}
-      <div class='item-controls'>
-        <a
-          class='item-control item-create'
-          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Create" type='Spell'}}'
-          data-type='spell'
-          data-spell-level='{{spellLevel}}'
-        >
-          <i class='fas fa-plus'></i>
-          {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.AddLVL' level=spellLevel}}
+  <li class='item items-header grid grid-6col'>
+    <div class='item-name grid-span-5'>
+      {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellLVL' level=spellLevel}}
+    </div>
+    <div class='item-controls'>
+      <a
+        class='item-control item-create'
+        title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Create" type='Spell'}}'
+        data-type='spell'
+        data-spell-level='{{spellLevel}}'
+      >
+        <i class='fas fa-plus'></i>
+      </a>
+    </div>
+  </li>
+  {{#each spells as |item id|}}
+  <li class='item grid grid-6col' data-item-id='{{item._id}}'>
+    <div class='item-name flexrow grid-span-5'>
+      <div class='item-image'>
+        <a class='rollable' data-roll-type='item'>
+          <img src='{{item.img}}' title='{{item.name}}' width='24' height='24'/>
         </a>
       </div>
-    </li>
-    {{#each spells as |item id|}}
-      <li class='item flexrow' data-item-id='{{item._id}}'>
-        <div class='item-name flexrow'>
-          <div class='item-image'>
-            <a class='rollable' data-roll-type='item'><img
-                src='{{item.img}}'
-                title='{{item.name}}'
-                width='24'
-                height='24'
-              /></a>
-          </div>
-          
-          <h4>{{item.name}}</h4>
-          <!-- 
-           <a
-            class='item-control item-prepare'
-            title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Update" type='spell'}}'
-          >
-            <i class="fas {{#if item.system.prepared }}fa-check{{else}}fa-times{{/if}}"></i>
-          </a>
-          -->
-        </div>
-        <div class='item-controls'>
-          <a
-            class='item-control item-prepare'
-            title='Memorize'
-          >
-            <i class='fas fa-brain'></i>
-          </a>
-          <a
-            class='item-control item-edit'
-            title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Update" type='spell'}}'
-          >
-            <i class='fas fa-edit'></i>
-          </a>
-          <a
-            class='item-control item-delete'
-            title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Delete" type='spell'}}'
-          >
-            <i class='fas fa-trash'></i>
-          </a>
-        </div>
-      </li>
-    {{/each}}
+      <h4>{{item.name}}</h4>
+    </div>
+    <div class='item-controls'>
+      <a class='item-control item-prepare' title='Memorize'>
+          <i class='fas fa-brain'></i>
+      </a>
+      <a class='item-control item-edit' title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Update" type='spell'}}'>
+        <i class='fas fa-edit'></i>
+      </a>
+      <a class='item-control item-delete' title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Delete" type='spell'}}'>
+        <i class='fas fa-trash'></i>
+      </a>
+    </div>
+  </li>
+  {{/each}}
   {{/each}}
 </ol>

@@ -19,28 +19,16 @@
       </div>
     </div>
   </header>
-
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">{{localize "SWORDS_WIZARDRY.Item.Item.Tabs.Description"}}</a>
-    <a class="item" data-tab="attributes">{{localize "SWORDS_WIZARDRY.Item.Item.Tabs.Attributes"}}</a>
-  </nav>
-
-  {{!-- Sheet Body --}}
   <section class="sheet-body">
-
-    {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      {{!-- To render inline rolls in a TinyMCE editor, you need to pass the parent actor's (if any) roll data to the rollData prop. --}}
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
-    </div>
-
-    {{!-- Attributes Tab --}}
-    <div class="tab attributes" data-group="primary" data-tab="attributes">
-      {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
-        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.RollFormula"}}</label>
-        <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
+    <div class="tab" data-group="primary">
+      <div class="grid grid-1col">
+        <div class="resource">
+          <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.RollFormula"}}</label>
+          <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
+        </div>
+      </div>
+      <div class="grid grid-1col">
+        {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
       </div>
     </div>
   </section>

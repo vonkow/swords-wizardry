@@ -1,6 +1,6 @@
 <form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="96" width="96"/>
     <div class="header-fields">
       <h2 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder={{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Name' }}></h2>
       <div class="resources grid grid-2col">
@@ -15,7 +15,7 @@
           <label for="system.hp.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.HitPoints.long' }}</label>
           <div class="resource-content flexrow flex-center flex-between">
           <input type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-          <span> / </span>
+          <span class="slash"> / </span>
           <input type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/>
           </div>
         </div>
@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="resource flex-group-center">
-          <label for="system.moveRate.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.Movement' }}!</label>
+          <label for="system.moveRate.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.Movement' }}</label>
           <div class="resource-content flexrow flex-center flex-between">
           <input type="text" name="system.moveRate.value" value="{{system.moveRate.value}}" data-dtype="Number"/>
           </div>
@@ -96,30 +96,25 @@
     <div class="tab features" data-group="primary" data-tab="features">
       <section class="grid grid-8col">
         <aside class="sidebar grid-span-3">
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
           <div class="abilities flexcol">
              <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeScores' }}</h3></span>
             {{#each system.abilities as |ability key|}}
-            <div class="ability flexrow flex-group-center">
-              <label for="system.abilities.{{key}}.value" class="resource-label flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
+            <div class="ability grid grid-6col">
+              <label for="system.abilities.{{key}}.value" class="resource-label grid-span-3 align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
               <input class="checkbox-small" type="checkbox" name="system.abilities.{{key}}.prime" {{checked ability.prime}}/>
-              <input class="resource-value" type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-             <!-- <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{numberFormat ability.mod decimals=0 sign=true}}</span> -->
+              <input class="resource-value grid-span-2" type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
             </div>
             {{/each}}
             <hr>
-          <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeBonuses' }}</h3></span>
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-            {{#each system.modifiers as |modifier key|}}
-            <div class="flexrow flex-group-center">
-              <label for="system.modifiers.{{modifier}}.value" class="modifier-label flexlarge align-left" data-label="{{modifier.label}}">{{modifier.label}}</label>
-              <input class="modifier-value" type="text" name="system.modifiers.{{key}}.value" value="{{modifier.value}}" data-dtype="Number"/>
+            <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeBonuses' }}</h3></span>
+            <div class="modifiers">
+              {{#each system.modifiers as |modifier key|}}
+              <div class="grid grid-3col">
+                <label for="system.modifiers.{{modifier}}.value" class="modifier-label grid-span-2" data-label="{{modifier.label}}">{{modifier.label}}</label>
+                <input class="modifier-value" type="text" name="system.modifiers.{{key}}.value" value="{{modifier.value}}" data-dtype="Number"/>
+              </div>
+              {{/each}}
             </div>
-            {{/each}}
-            
-          
           </div>
         </aside>
         {{!-- For the main features list, span the right two columns --}}
@@ -148,7 +143,7 @@
       <div class="flexrow flex-group-center">
         <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gold' }}</label>
         <input class="modifier-value  align-left" type="text" name="system.treasure.gp" value="{{system.treasure.gp}}" data-dtype="Number"/>
-      </div>  
+      </div>
       <div class="flexrow flex-group-center">
         <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gems' }}</label>
         <input class="modifier-value  align-left" type="text" name="system.treasure.gems" value="{{system.treasure.gems}}"/>
@@ -171,9 +166,6 @@
           <div class="grid-span-2">
             <label class="resource-label align-left">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Level.long' }}</label>
           </div>
-          <!-- <div class="grid-span-2 grid-row-start-2 align-self-center">
-            <label class="resource-label align-left align-self-center">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Remaining' }}</label>
-          </div> -->
           <div class="grid-span-2 grid-row-start-3 align-self-center">
             <label class="resource-label align-left">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Total' }}</label>
           </div>

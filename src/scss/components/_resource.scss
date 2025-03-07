@@ -1,3 +1,37 @@
-.resource-label {
-  font-weight: bold;
+.resource {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  label {
+    text-align: center;
+  }
+
+  input {
+    text-align: center;
+  }
+
+  select {
+    width: calc(100% - 2px);
+    text-align: center;
+  }
+
+  .slash {
+      margin-top: 5px;
+      font-weight: bold;
+  }
+}
+
+.resource-label, .modifier-label {
+    font-weight: bold;
+}
+
+.resource-value, .modifier-value {
+    text-align: center;
+}
+
+.abilities, .modifiers {
+    .resource-label, .modifier-label {
+        margin-top: 5px;
+    }
 }

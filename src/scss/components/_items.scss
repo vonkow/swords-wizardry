@@ -44,12 +44,13 @@
     flex: 2;
     margin: 0;
     overflow: hidden;
-    font-size: 13px;
+    //font-size: 13px;
     text-align: left;
     align-items: center;
     display: flex;
     h3, h4 {
       margin: 0;
+      margin-top: -3px;
       white-space: nowrap;
       overflow-x: hidden;
     }
@@ -58,12 +59,13 @@
   // Control Buttons
   .item-controls {
     display: flex;
-    flex: 0 0 100px;
+    flex: 0 0 150px;
     justify-content: flex-end;
     a {
       font-size: 12px;
       text-align: center;
       margin: 0 6px;
+      margin-top: -3px;
     }
   }
 
@@ -87,6 +89,7 @@
 
   .item-prop {
     text-align: center;
+    margin-top: -3px;
     border-left: 1px solid #c9c7b8;
     border-right: 1px solid #c9c7b8;
     font-size: 12px;
@@ -101,6 +104,9 @@
     background: rgba(0, 0, 0, 0.05);
     border: $border-groove;
     font-weight: bold;
+    .item-controls {
+        margin-top: 1px;
+    }
     > * {
       font-size: 12px;
       text-align: center;
@@ -111,11 +117,4 @@
       // font-size: 16px;
     }
   }
-}
-
-// Example style for SwordsWizardry (can be removed if not needed).
-.item-formula {
-  
-  flex: 0 0 200px;
-  padding: 0 8px;
 }

@@ -12,8 +12,8 @@ export class SwordsWizardryActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['swords-wizardry', 'sheet', 'actor'],
-      width: 600,
-      height: 600,
+      width: 640,
+      height: 640,
       tabs: [
         {
           navSelector: '.sheet-tabs',

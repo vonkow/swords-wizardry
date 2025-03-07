@@ -15,8 +15,9 @@
 
 /* Styles limited to swords-wizardry sheets */
 .swords-wizardry {
-  @import 'components/forms';
-  @import 'components/resource';
-  @import 'components/items';
+  @import 'components/apps';
   @import 'components/effects';
+  @import 'components/forms';
+  @import 'components/items';
+  @import 'components/resource';
 }
