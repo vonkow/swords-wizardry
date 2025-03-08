@@ -368,13 +368,12 @@ input {
 .swords-wizardry .sheet-tabs {
   flex: 0;
 }
-.swords-wizardry .sheet-body,
-.swords-wizardry .sheet-body .tab,
-.swords-wizardry .sheet-body .tab .editor {
+.swords-wizardry .editor {
+  min-height: 19.6em;
   height: 100%;
 }
-.swords-wizardry .editor {
-  min-height: 5em;
+.swords-wizardry .editor-container {
+  margin: 0;
 }
 .swords-wizardry .tox .tox-editor-container {
   background: #fff;
