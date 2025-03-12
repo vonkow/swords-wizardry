@@ -17,26 +17,26 @@ You will need GM access to a Foundry VTT server. This requires a [Foundry licens
 5. Create system content (see below).
 
 ## Content
-This system ships with partial content including class and ancestry features, weapons, armor, and other items. You will need to reference your personal copy of Swords & Wizardry in order to create:
+This system ships with no content, but all AELF-licensed monsters, items, and class/ancestry features are available in the [Swords & Wizardry Content Module]()
 
-- Class descriptions (including XP, HP, spell progressions, and restrictions)
-- Monsters and other NPCs
-- Spells
+You will need to reference your copy of Swords & Wizardry for all other rules and tables.
 
-The NPC importer can be used to speed up part of this task (see below). Missing content will be added over time.
+Additionally, The Import Statblock feature can be used to import monsters using the format that they are presented in in Swords & Wizardry Complete and similar products.
 
 ## Settings
 
 The system settings control global, system-wide behavior. They can be accessed under the Configure Settings menu in the right sidebar.
 
-There are currently no settings available. Options such as ascending AC and alternative initiative systems are planned.
+There is currently only one setting, Ascending AC. When this setting is enabled, the Ascending AC rules will be used and to-hit matrixes will be replaced with an Attack Bonus field. Changes made to characters and NPCs in one mode will be converted to the other mode automatically.
 
 ## Characters
-There are two types of Actors in the Swords & Wizardry system, Characters and NPCs. Characters represent Player Characters. 
+There are three types of Actors in the Swords & Wizardry system, Characters, Containers, and NPCs. Characters represent Player Characters, NPCs represent monsters and other non-player characters, and Containers are a special case that can be used to represent anything from treasure chests, to merchants, to a party's shared earnings.
 
-To create a new Character, click the Create Actor button on the Actor tab of the right sidebar, choose a name, select type Character, and click Create New Actor. This will create the character and open their sheet.
+To roll a new Player Character, automatically generating starting scores and funds, use the Roll a Character button.
 
-Character sheets have a top section that displays important information and tabs below which display additional information about the character. 
+To create a new Character without rolling stats or to create a Container or NPC, click the Create Actor button on the Actor tab of the right sidebar, choose a name, select the type of Actor, and click Create New Actor. This will create the actor and open their sheet.
+
+Character sheets have a top section that displays important information and tabs below which display additional information about the character.
 
 The top section includes the following fields:
 
@@ -100,14 +100,17 @@ Swords & Wizardry uses a statblock format for describing NPCs and this system co
 
 Example Statblock: `Black Bear: HD 4+1; AC 7[12]; Atk 2 claws (1d3), bite (1d6); Move 9; Save 13; Morale 7; AL N; CL/XP 4/120; Special: hug (if both claws hit, additional 1d8 damage).`
 
-**Notes:** HD are not rolled, HP is set at 4 by the importer. Number Encountered, % in Lair, fields and 1d4 HP creatures not yet supported.
+**Notes:** HD are not rolled. Number Encountered, % in Lair, fields and 1d4 HP creatures not yet supported.
+
+## Containers
+Containers are a special type of Actor that can be used to hold items. Containers are useful for creating treasure chests or other "lootable" items, representing a merchant and their inventory, or as a shared storage space for a party's earnings. Containers can also be used to represent a party in situations such as on a large overland map or when navigating a dungeon using an established marching order.
 
 ## Combat
 Swords & Wizardy has a very straightforward initiative system, which this system supports. Support for alternative initiative systems is planned.
 
 Clicking on a weapon while targeting a token will perform an attack against that token's actor. An attack roll message will display the result and allow you to perform a damage roll. _Damage is not automatically applied_.
 
-Support for ascending AC is planned.
+If you prefer to use Ascending AC, an option to use it can be found in the system's settings.
 
 ## Items
 TODO talk more about each item type and any attributes it may have.

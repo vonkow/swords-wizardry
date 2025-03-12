@@ -47,6 +47,7 @@
       "Equipment": {
         "Gems": "Gems",
         "Gold": "Gold",
+        "Items": "Items",
         "Other": "Other",
         "Table": {
           "Create": "Create Item",

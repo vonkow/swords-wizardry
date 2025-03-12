@@ -78,6 +78,7 @@ export class CharacterCreator extends FormApplication {
     await Actor.create({
       name,
       type: 'character',
+      img: 'systems/swords-wizardry/assets/game-icons-net/cowled.svg',
       system: {
         abilities: {
           str: { value: str.total },

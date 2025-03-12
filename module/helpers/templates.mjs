@@ -5,16 +5,10 @@
  */
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
-    // Actor partials.
-    'systems/swords-wizardry/templates/actor/parts/actor-features.hbs',
-    'systems/swords-wizardry/templates/actor/parts/actor-weapons.hbs',
-    'systems/swords-wizardry/templates/actor/parts/actor-items.hbs',
-    'systems/swords-wizardry/templates/actor/parts/actor-spell-slots.hbs',
-    'systems/swords-wizardry/templates/actor/parts/actor-spells.hbs',
-    'systems/swords-wizardry/templates/actor/parts/actor-effects.hbs',
-    // Item partials
-    'systems/swords-wizardry/templates/item/parts/item-effects.hbs',
-    // needed?
-    'systems/swords-wizardry/templates/rolls/attack-roll-sheet.hbs',
+    'systems/swords-wizardry/module/actor/features.hbs',
+    'systems/swords-wizardry/module/actor/weapons.hbs',
+    'systems/swords-wizardry/module/actor/items.hbs',
+    'systems/swords-wizardry/module/actor/spells.hbs',
+    'systems/swords-wizardry/module/actor/effects.hbs'
   ]);
 };

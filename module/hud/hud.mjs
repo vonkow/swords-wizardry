@@ -20,7 +20,7 @@ export class CombatHud extends Application {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['swords-wizardry', 'swords-wizardry-combat-hud'],
-      template: 'systems/swords-wizardry/templates/apps/combat-hud.hbs',
+      template: 'systems/swords-wizardry/module/hud/hud.hbs',
       title: 'Combat HUD',
       height: 'auto',
       width: 200,

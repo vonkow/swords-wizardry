@@ -24,7 +24,7 @@ export class ImportManager {
 
     }
   }
-} // end ImportManager
+}
 
 export class ImportSheet extends FormApplication {
   constructor(type) {
@@ -42,7 +42,7 @@ export class ImportSheet extends FormApplication {
       id: 'import-sheet',
       resizable: true,
       submitOnClose: true,
-      template: 'systems/swords-wizardry/templates/apps/import-sheet.hbs',
+      template: 'systems/swords-wizardry/module/importer/importer.hbs',
       title: 'Import Text',
       width: 500,
     });
@@ -51,7 +51,6 @@ export class ImportSheet extends FormApplication {
   async getData() {
     const page = {
       type: this.type,
-      expected: 'TODO',
       importText: ''
     };
     return page;
@@ -103,14 +102,16 @@ export class ImportSheet extends FormApplication {
     block.xp = parseInt(block.xp.split('/')[1]) || 1;
     block.cl = parseInt(block.cl.split('/')[0]) || 1;
     const npcName = block.name;
-    const npcImage = 'icons/svg/mystery-man.svg';
+    const npcImage = 'swords-wizardry/assets/game-icons-net/cowled.svg';
     const attacks = await this.createAttacks(block.attack);
     // check for if 1d4 and deal with that
     const [hd, mod] = block.hd.split('+');
-    // TODO roll HP?
-    const attackMatrix = this.createAttackMatrix(hd);
+    // TODO, do someting with mod like add it back to hd?
+    const tHAC0 = 19 - Math.min(hd, 15);
+    const tHAACB = 19 - tHAC0;
     const newData = {
       hd: block.hd || 1,
+      // don't fill this out unless there is block.hp?
       hp: {
         max: block.hp | 0,
         value: block.hp | 0
@@ -118,6 +119,8 @@ export class ImportSheet extends FormApplication {
       ac: {
         value: block.ac || 10,
       },
+      tHAC0,
+      tHAACB,
       morale: block.morale || '',
       moveRate: {
         value: block.moveRate || '',
@@ -132,8 +135,7 @@ export class ImportSheet extends FormApplication {
       },
       cl: block.cl || 1,
       special: block.special || '',
-      description: '',
-      toHitAC: attackMatrix
+      description: ''
     };
 
     this.createNPC(npcName, npcImage, newData, attacks);
@@ -195,32 +197,6 @@ export class ImportSheet extends FormApplication {
     return attackItems;
   }
 
-  createAttackMatrix(hd) {
-    const baseToHitAt9 = 10;
-    const toHitAt9 = baseToHitAt9 - parseInt(hd);
-    return {
-      "-9": Math.max(toHitAt9 + 18, 1),
-      "-8": Math.max(toHitAt9 + 17, 1),
-      "-7": Math.max(toHitAt9 + 16, 1),
-      "-6": Math.max(toHitAt9 + 15, 1),
-      "-5": Math.max(toHitAt9 + 14, 1),
-      "-4": Math.max(toHitAt9 + 13, 1),
-      "-3": Math.max(toHitAt9 + 12, 1),
-      "-2": Math.max(toHitAt9 + 11, 1),
-      "-1": Math.max(toHitAt9 + 10, 1),
-      "+0": Math.max(toHitAt9 + 9, 1),
-      "+1": Math.max(toHitAt9 + 8, 1),
-      "+2": Math.max(toHitAt9 + 7, 1),
-      "+3": Math.max(toHitAt9 + 6, 1),
-      "+4": Math.max(toHitAt9 + 5, 1),
-      "+5": Math.max(toHitAt9 + 4, 1),
-      "+6": Math.max(toHitAt9 + 3, 1),
-      "+7": Math.max(toHitAt9 + 2, 1),
-      "+8": Math.max(toHitAt9 + 1, 1),
-      "+9": Math.max(toHitAt9, 1)
-    }
-  }
-
   createSave(hd) {
     const effectiveHd = Math.min(hd, 12);
     const saveMap = {
@@ -237,7 +213,7 @@ export class ImportSheet extends FormApplication {
       10: 5,
       11: 4,
       12: 3
-    }
+    };
     return saveMap[effectiveHd];
   }
 
@@ -255,7 +231,6 @@ export class ImportSheet extends FormApplication {
     items.forEach(async item => {
       await actor.createEmbeddedDocuments('Item', [item.toObject()]);
       item.delete();
-    })
+    });
   }
-
 }

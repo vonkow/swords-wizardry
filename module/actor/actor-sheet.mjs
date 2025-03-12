@@ -26,8 +26,7 @@ export class SwordsWizardryActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    //return `systems/swords-wizardry/templates/actor/actor-${this.actor.type}-sheet-new.hbs`;
-    return `systems/swords-wizardry/templates/actor/actor-${this.actor.type}-sheet.hbs`;
+    return `systems/swords-wizardry/module/actor/${this.actor.type}-sheet.hbs`;
   }
 
   /* -------------------------------------------- */

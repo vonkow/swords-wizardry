@@ -37,7 +37,7 @@ export class AttackRoll extends Roll {
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render()
-    const template = 'systems/swords-wizardry/templates/rolls/attack-roll-sheet.hbs';
+    const template = 'systems/swords-wizardry/module/rolls/attack-roll-sheet.hbs';
     const chatData = {
       item: this.data.item,
       actor: this.data.actor,
@@ -78,7 +78,7 @@ export class DamageRoll extends Roll {
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render();
-    const template = 'systems/swords-wizardry/templates/rolls/damage-roll-sheet.hbs';
+    const template = 'systems/swords-wizardry/module/rolls/damage-roll-sheet.hbs';
     const chatData = {
       item: this.data.item,
       actor: this.data.actor,
@@ -114,7 +114,7 @@ export class FeatureRoll extends Roll {
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render()
-    const template = 'systems/swords-wizardry/templates/rolls/feature-roll-sheet.hbs';
+    const template = 'systems/swords-wizardry/module/rolls/feature-roll-sheet.hbs';
     const chatData = {
       total: this.total,
       success: this.success,
@@ -149,7 +149,7 @@ export class SaveRoll extends Roll {
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render()
-    const template = 'systems/swords-wizardry/templates/rolls/save-roll-sheet.hbs';
+    const template = 'systems/swords-wizardry/module/rolls/save-roll-sheet.hbs';
     const chatData = {
       total: this.total,
       target: this.save.value,

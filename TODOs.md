@@ -11,17 +11,15 @@
   - clean up spell memorization
     - make code pretty, move to methods on actor and item from actor-sheet.
     - alert when you can't memorize
-  - Roll stats automatically when sheet is created (or option to do so)?
 - importer improvements
   - detect old-form save as and convert
   - strip newlines automatically (but smart like)
 - fix all the places where localization was skipped
-- move content to its own module and make a dependency
 - new character sheets
-- character creation tool should roll and let you preview and add a name
 - Support for quantity of missile weapons (like darts) on sheets
 - Support for alternative initiative types
 - Maybe verging too far into the land of excess automation:
   - ammo consumed by ranged attacks?
   - Calculate carry weight?
-  - Auto-calculate stats from abilities?
+- add roll tables and text content from S&W
+
