@@ -38,7 +38,7 @@ export class CharacterCreator extends FormApplication {
       closeOnSubit: true,
       submitOnClose: false,
       title: 'Character Creator',
-      template: 'systems/swords-wizardry/templates/apps/character-creator.hbs'
+      template: 'systems/swords-wizardry/module/character-creator/character-creator.hbs'
     });
   }
 
