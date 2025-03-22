@@ -41,6 +41,11 @@
       "lang": "de",
       "name": "Deutsch",
       "path": "lang/de.json"
+    },
+    {
+      "lang": "sp",
+      "name": "Spanish",
+      "path": "lang/sp.json"
     }
   ],
   "packs":[],

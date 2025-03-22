@@ -16,6 +16,7 @@ Can be found [here](documentation.md).
 
  - English
  - German (by René Kremer)
+ - Spanish (by Javier García)
  
 ## Legal
 
