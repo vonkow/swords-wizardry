@@ -1,4 +1,4 @@
-<h3>Prepared Spells</h3>
+<h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Prepared'}}</h3>
 <ol class='items-list'>
   {{#each system.spellSlots as |slots spellLevel|}}
     {{# if slots.memorizedSpells }}
@@ -39,7 +39,7 @@
   </div>
   {{/each}}
 </div>
-<h3>Known Spells</h3>
+<h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.Known'}}</h3>
 <ol class='items-list'>
   {{#each spells as |spells spellLevel|}}
   <li class='item items-header grid grid-6col'>

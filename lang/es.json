@@ -1,5 +1,15 @@
 {
   "SWORDS_WIZARDRY": {
+    "Chat": {
+      "Rolled": "Tirada",
+      "Hit": "Impacto",
+      "Missed": "Fallo",
+      "Damage": "Daño",
+      "Special": "Especial",
+      "Target": "Objetivo",
+      "Success": "Éxito",
+      "Failure": "Fallo"
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Nombre",
@@ -14,7 +24,7 @@
     "CharacterSheet": {
       "Main": {
         "Age": "Edad",
-        "Ancestry": "Ancestro",
+        "Ancestry": "Especie",
         "AttributeBonuses": "Modificadores",
         "AttributeScores": "Características",
         "Deity": "Religión",
@@ -24,29 +34,31 @@
       "Combat": {
         "RollNeededToHitAC": "Ataque base",
         "Table": {
+          "Title": "Armas",
           "Create": "Crear arma",
           "Delete": "Borrar arma",
           "Name": "Nombre",
           "New": "Nueva arma",
-          "ToHitModifier": "Bono a impactar",
-          "DamageRollFormula": "Tirada de daño",
+          "ToHitModifier": "Bono Imp.",
+          "DamageRollFormula": "Daño",
           "RollFormula": "Tirada para impactar",
           "Update": "Actualizar arma",
           "Weight": "Peso"
         },
         "ArmorTable": {
+          "Title": "Protecciones",
           "Create": "Crear armadura",
           "Delete": "Borrar armadura",
           "Name": "Nombre",
           "New": "Nueva armadura",
-          "EffectOnAC": "Bono a la CA",
+          "EffectOnAC": "Bono CA",
           "Update": "Actualizar armadura",
           "Weight": "Peso"
         }
       },
       "Equipment": {
         "Gems": "Gemas",
-        "Gold": "Oro",
+        "Gold": "Monedas (mo)",
         "Items": "Objetos",
         "Other": "Otros",
         "Table": {
@@ -62,6 +74,7 @@
       },
       "Features": {
         "Table": {
+          "Title": "Rasgos y habilidades de clase",
           "Create": "Crear rasgo",
           "Delete": "Borrar rasgo",
           "Name": "Nombre",
@@ -71,12 +84,13 @@
       },
       "Spells": {
         "AddLVL": "Añadir conjuro",
-        "SpellSlots": "Espacios de conjuros",
+        "SpellSlots": "Conjuros diarios",
         "Level": { "long": "Nivel", "abbr": "Niv" },
         "SpellLVL": "Conjuros de nivel {level}",
         "Remaining": "Restantes",
         "Total": "Total",
-        "Prepared": "Preparados",
+        "Prepared": "Conjuros memorizados",
+        "Known": "Conjuros conocidos",
         "Table": {
           "Create": "Crear conjuro",
           "Delete": "Borrar conjuro",
@@ -88,7 +102,7 @@
         "Combat": "Combate",
         "Description": "Descripción",
         "Equipment": "Equipo",
-        "Main": "Principal",
+        "Main": "Atributos",
         "Spells": "Conjuros"
       }
     },
@@ -100,13 +114,13 @@
         "long": "Nivel de reto / Puntos de experiencia",
         "abbr": "NR / PX"
       },
-      "HitDie": { "long": "Dado de golpe", "abbr": "DG" },
-      "HitPoints": { "long": "Puntos de golpe", "abbr": "PG" },
+      "HitDie": { "long": "DG", "abbr": "DG" },
+      "HitPoints": { "long": "PG", "abbr": "PG" },
       "Level": "Nivel",
       "Morale": "Moral",
       "Movement": "Movimiento",
       "SavingThrow": { "long": "Tirada de salvación", "abbr": "TS" },
-      "WeightCarried": "Peso transportado",
+      "WeightCarried": "Carga",
       "XP": { "long": "Puntos de experiencia", "abbr": "PX" },
       "XPBonus": { "long": "Bono a la experiencia", "abbr": "Bono PX" },
       "NumberEncountered": { "long": "Número", "abbr": "No." },
@@ -121,24 +135,24 @@
       "Cha": { "long": "Carisma", "abbr": "CAR" }
     },
     "Modifier": {
-      "toHit": { "long": "Bono a impactar", "abbr": "Ataque" },
+      "toHit": { "long": "Bono a impactar", "abbr": "Bono CaC" },
       "OpenDoors": { "long": "Forzar puertas", "abbr": "Forzar puertas" },
-      "Damage": { "long": "Bono al daño", "abbr": "Daño" },
-      "Carry": { "long": "Bono a la carga", "abbr": "Bono de carga" },
-      "MissileToHit": { "long": "Bono a imp. con proyectiles", "abbr": "Proyectiles" },
+      "Damage": { "long": "Bono al daño", "abbr": "Bono daño" },
+      "Carry": { "long": "Bono a la carga", "abbr": "Bono carga" },
+      "MissileToHit": { "long": "Bono a imp. con proyectiles", "abbr": "Bono Proy." },
       "AC": { "long": "Bono a la clase de armadura", "abbr": "Bono CA" },
       "HP": { "long": "Bono a los puntos de golpe", "abbr": "Bono PG" },
       "RaiseDeadChance": { "long": "Supervivencia a la resurrección", "abbr": "Resurreción (%)" },
       "AdditionalLanguages": { "long": "Idiomas adicionales", "abbr": "Idiomas extra" },
-      "MaximumSpellLevel": { "long": "Nivel máximo de conjuro", "abbr": "Nivel max" },
+      "MaximumSpellLevel": { "long": "Nivel máximo de conjuro", "abbr": "Nivel conj max" },
       "ChanceToUnderstandSpell": { "long": "Aprender conjuros nuevos", "abbr": "Aprender conj" },
       "MinimumSpellsPerLevel": { "long": "Conjuros mínimos por nivel", "abbr": "Min conj/nivel" },
       "MaximumSpellsPerLevel": { "long": "Conjuros máximos por nivel", "abbr": "Max conj/nivel" },
       "MaxSpecialHirelings": {
         "long": "Máximos seguidores especiales",
-        "abbr": "Seguidores max"
+        "abbr": "Max seguidores"
       },
-      "RetainerMoraleAdjustment": { "long": "Ajuste a la moral", "abbr": "moral" }
+      "RetainerMoraleAdjustment": { "long": "Bono a la moral", "abbr": "Bono moral" }
     },
     "SheetLabels": {
       "Actor": "SwordsWizardry Ficha de Actor",
@@ -159,30 +173,36 @@
         },
         "Name": "Nombre",
         "Quantity": "Cantidad",
-        "Gold": "Oro",
+        "Gold": "Coste (mo)",
         "Tabs": {
           "Attributes": "Atributos",
           "Description": "Descripción"
         },
-        "Weight": "Peso"
+        "Weight": "Peso (kg)"
       },
       "Item": {
         "Attributes": {
           "ToHitModifier": "Bono a impactar",
-          "RollFormula": "Tirada"
+          "RollFormula": "Tirada",
+          "Target": "Valor objetivo",
+          "TargetType": "Tipo de tirada",
+          "TargetTypeAsc": "Ascendente",
+          "TargetTypeDes": "Descendente"
         },
         "Name": "Nombre",
         "Quantity": "Cantidad",
-        "Gold": "Oro",
+        "Gold": "Coste (mo)",
         "Tabs": {
           "Attributes": "Atributos",
           "Description": "Descripción"
         },
-        "Weight": "Peso"
+        "Weight": "Peso (kg)"
       },
       "Spell": {
         "Name": "Nombre",
         "Level": "Nivel",
+        "Range": "Alcance",
+        "Duration": "Duración",
         "Tabs": {
           "Attributes": "Atributos",
           "Description": "Descripción"
@@ -192,20 +212,20 @@
         "Attributes": {
           "RollFormula": "Tirada de ataque",
           "ToHitModifier": "Bono a impactar",
-          "DamageRollFormula": "Tirada de daño",
-          "Range": "Alcance",
-          "Missile": "Arma de proyectiles?",
+          "DamageRollFormula": "Daño",
+          "Range": "Alcance (m)",
+          "Missile": "Arrojadiza/Disparo",
           "RateOfFire": "Tasa de disparo",
           "SpecialDamage": "Daño especial"
         },
         "Name": "Nombre",
         "Quantity": "Cantidad",
-        "Gold": "Oro",
+        "Gold": "Coste (mo)",
         "Tabs": {
           "Attributes": "Atributos",
           "Description": "Descripción"
         },
-        "Weight": "Peso"
+        "Weight": "Peso (kg)"
       }
     },
     "Effect": {
@@ -236,7 +256,7 @@
     }
   },
   "New": {
-    "armor": "Nueva arma",
+    "armor": "Nueva protección",
     "item": "Nuevo objeto",
     "feature": "Nuevo rasgo",
     "spell": "Nuevo conjuro",

@@ -1,5 +1,15 @@
 {
   "SWORDS_WIZARDRY": {
+    "Chat": {
+      "Hit": "Hit",
+      "Rolled": "Rolled",
+      "Missed": "Missed",
+      "Damage": "Damage",
+      "Special": "Special",
+      "Target": "Target",
+      "Success": "Success",
+      "Failure": "Failure"
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Name",
@@ -24,6 +34,7 @@
       "Combat": {
         "RollNeededToHitAC": "Erforderlicher Angriffswurf",
         "Table": {
+          "Title": "Weapons",
           "Create": "Neue Waffe hinzufügen",
           "Delete": "Waffe entfernen",
           "Name": "Name",
@@ -35,6 +46,7 @@
           "Weight": "Gewicht"
         },
         "ArmorTable": {
+          "Title": "Armour",
           "Create": "Create Armor",
           "Delete": "Delete Armor",
           "Name": "Name",
@@ -61,6 +73,7 @@
       },
       "Features": {
         "Table": {
+          "Title": "Class Abilities & Features",
           "Create": "Neues Merkmal hinzufügen",
           "Delete": "Merkmal entfernen",
           "Name": "Name",
@@ -76,6 +89,7 @@
         "Remaining": "Verfügbar",
         "Total": "Gesamt",
         "Prepared": "Vorbereitet",
+        "Known": "Known Spells",
         "Table": {
           "Create": "Neuen Zauber hinzufügen",
           "Delete": "Zauber entfernen",
@@ -158,7 +172,11 @@
       "Item": {
         "Attributes": {
           "ToHitModifier": "To Hit Modifier",
-          "RollFormula": "Würfelberechnung"
+          "RollFormula": "Würfelberechnung",
+          "Target": "Target",
+          "TargetType": "Target Type",
+          "TargetTypeAsc": "Ascending",
+          "TargetTypeDes": "Descending"
         },
         "Name": "Name",
         "Quantity": "Anzahl",
@@ -171,6 +189,8 @@
       "Spell": {
         "Name": "Name",
         "Level": "Zaubergrad",
+        "Range": "Range",
+        "Duration": "Duration",
         "Tabs": {
           "Attributes": "Eigenschaften",
           "Description": "Beschreibung"
