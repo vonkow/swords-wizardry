@@ -18,6 +18,8 @@
       "Tabs": {
         "Attacks": "Angriffe",
         "Description": "Beschreibung",
+        "Equipment": "Ausrüstung",
+        "Spells": "Zauber",
         "Effects": "Effekte"
       }
     },

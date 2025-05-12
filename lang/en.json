@@ -18,6 +18,8 @@
       "Tabs": {
         "Attacks": "Attacks",
         "Description": "Description",
+        "Equipment": "Equipment",
+        "Spells": "Spells",
         "Effects": "Effects"
       }
     },

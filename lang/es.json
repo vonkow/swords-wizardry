@@ -18,6 +18,8 @@
       "Tabs": {
         "Attacks": "Ataques",
         "Description": "Descripción",
+        "Equipment": "Equipo",
+        "Spells": "Conjuros",
         "Effects": "Efectos"
       }
     },
