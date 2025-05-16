@@ -3,10 +3,6 @@ body {
   font-size: 10pt;
 }
 
-button {
-  font-family: $font-primary;
-}
-
 .window-app {
   font-family: $font-primary;
 }
@@ -18,6 +14,10 @@ h1, h2, h3, h4, h5 {
     text-transform: uppercase;
 }
 */
+
+.swords-wizardry {
+  font-family: $font-primary;
+}
 
 input {
     font-family: $font-primary;

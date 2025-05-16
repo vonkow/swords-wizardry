@@ -113,14 +113,14 @@ export class FeatureRoll extends Roll {
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
-    const rollHtml = await super.render()
+    const rollHtml = await super.render();
     const template = 'systems/swords-wizardry/module/rolls/feature-roll-sheet.hbs';
     const chatData = {
       total: this.total,
       success: this.success,
       roll: rollHtml,
       ...this.data
-    }
+    };
     const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rollMode: rollMode,
@@ -148,7 +148,7 @@ export class SaveRoll extends Roll {
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
-    const rollHtml = await super.render()
+    const rollHtml = await super.render();
     const template = 'systems/swords-wizardry/module/rolls/save-roll-sheet.hbs';
     const chatData = {
       total: this.total,
@@ -156,7 +156,7 @@ export class SaveRoll extends Roll {
       success: this.success,
       roll: rollHtml,
       ...this.data
-    }
+    };
     const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rollMode: rollMode,
