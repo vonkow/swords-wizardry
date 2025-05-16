@@ -1,3 +1,9 @@
+// TODO for v13
+// attack targeting does not work right now.
+// make importer and roll a character be appv2 apps
+// make the roll a character button fill the whole width for players
+
+
 // Import settings.
 import { registerSystemSettings } from './settings.mjs';
 
@@ -70,7 +76,8 @@ Hooks.once('init', function() {
     label: 'SWORDS_WIZARDRY.SheetLabels.Item',
   });
 
-  Hooks.on('renderSidebarTab', (app, html) => {
+  Hooks.on('renderActorDirectory', (app, html, _data, _options) => {
+    console.log('renderActorDirectory', app, html);
     ImportManager.addImportActorButton(app, html);
     CharacterCreatorManager.addCharacterCreationButton(app, html);
   });

@@ -5,9 +5,8 @@ export class ImportManager {
   }
 
   static addImportActorButton(app, html) {
-    if (game.user.isGM && app.id == 'actors') {
-      const flexBlock = $(`<div class='npc-import-buttons' style='display: flex;flex-direction: row;'>` + `</div>`);
-      html.find('.header-actions').append(flexBlock);
+    if (game.user.isGM) {
+      const $html = $(html);
 
       const statblockImportButton = $(
         `<button class='import-manager' data-tooltip='Import NPC by statblock'> ` +
@@ -16,11 +15,11 @@ export class ImportManager {
         `</button>`
       );
 
-      statblockImportButton.click(function(env) {
+      statblockImportButton.click((_env) => {
         ImportManager.showImportFromStatblock();
       });
 
-      html.find('.npc-import-buttons').prepend(statblockImportButton);
+      $html.find('.header-actions').append(statblockImportButton);
 
     }
   }

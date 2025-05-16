@@ -5,26 +5,24 @@ export class CharacterCreatorManager {
   }
 
   static addCharacterCreationButton(app, html) {
-    if (app.id == 'actors') {
-      const flexBlock = $(`<div class='character-creator-buttons' style='display: flex;flex-direction: row;'>` + `</div>`);
-      html.find('.header-actions').append(flexBlock);
+    const $html = $(html);
 
-      const characterCreatorButton = $(
-        `<button class='character-creator' data-tooltip='Create a Character'> ` +
-        `<i class='fas fa-user-plus'></i>` +
-        `Roll a Character` +
-        `</button>`
-      );
+    const characterCreatorButton = $(
+      `<button class='character-creator' data-tooltip='Create a Character'> ` +
+      `<i class='fas fa-user-plus'></i>` +
+      `Roll a Character` +
+      `</button>`
+    );
 
-      characterCreatorButton.click(function(env) {
-        CharacterCreatorManager.showCharacterCreator();
-      });
+    characterCreatorButton.click((_env) => {
+      CharacterCreatorManager.showCharacterCreator();
+    });
 
-      html.find('.character-creator-buttons').prepend(characterCreatorButton);
+    $html.find('.header-actions').append(characterCreatorButton);
 
-    }
   }
 }
+
 export class CharacterCreator extends FormApplication {
   constructor() {
     super();

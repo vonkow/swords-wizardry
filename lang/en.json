@@ -48,7 +48,7 @@
           "Weight": "Weight"
         },
         "ArmorTable": {
-          "Title": "Armour",
+          "Title": "Armor",
           "Create": "Create Armor",
           "Delete": "Delete Armor",
           "Name": "Name",
@@ -142,7 +142,7 @@
       "Damage": { "long": "Damage Bonus", "abbr": "Damage" },
       "Carry": { "long": "Carry Modifier", "abbr": "Carry Mod" },
       "MissileToHit": { "long": "Bonus to Missiles", "abbr": "Missile Bonus" },
-      "AC": { "long": "Armour Bonus", "abbr": "AC Bonus" },
+      "AC": { "long": "Armor Bonus", "abbr": "AC Bonus" },
       "HP": { "long": "Hit Point Bonus", "abbr": "HP Bonus" },
       "RaiseDeadChance": { "long": "Raise Dead Survival", "abbr": "Raise Dead %" },
       "AdditionalLanguages": { "long": "Additional Languages", "abbr": "Add Lang" },
