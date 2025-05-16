@@ -29,10 +29,6 @@ body {
   font-size: 10pt;
 }
 
-button {
-  font-family: "Libre Baskerville";
-}
-
 .window-app {
   font-family: "Libre Baskerville";
 }
@@ -44,6 +40,10 @@ h1, h2, h3, h4, h5 {
     text-transform: uppercase;
 }
 */
+.swords-wizardry {
+  font-family: "Libre Baskerville";
+}
+
 input {
   font-family: "Libre Baskerville";
 }
@@ -482,6 +482,14 @@ input {
 .swords-wizardry .items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
+}
+.swords-wizardry .damage-roll-button {
+  font-family: "Libre Baskerville";
+  width: 100%;
+  margin-top: 5px;
+}
+.swords-wizardry .damage-special-text {
+  margin-top: 5px;
 }
 .swords-wizardry .resource {
   display: flex;

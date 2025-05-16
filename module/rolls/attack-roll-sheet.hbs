@@ -1,17 +1,14 @@
 {{ log 'attack-roll-sheet' this}}
-<h3>{{localize "SWORDS_WIZARDRY.Chat.Rolled"}}: {{item.name}}</h3>
-{{#each hitTargets as |hit hid|}}
-<span class="attack-hit">{{localize "SWORDS_WIZARDRY.Chat.Hit"}} {{hit.actor.name}}!</span>&nbsp;
-{{/each}}
-{{#each missedTargets as |miss hid|}}
-<span class="attack-miss">{{localize "SWORDS_WIZARDRY.Chat.Missed"}} {{miss.actor.name}}</span>&nbsp;
-{{/each}}
-<hr>
-<a class="inline-result"><span>{{{roll}}}</span></a>
-<div></div>
-<hr>
-<button class="damage-roll-button" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}">
-  {{localize "SWORDS_WIZARDRY.Chat.Damage"}}: <span class="attack-damage-roll">{{damageFormula}}{{# if item.system.specialDamage}} + {{item.system.specialDamage}}{{/if}}</span>
-</button>
-<hr>
-<div></div>
+<div class="swords-wizardry">
+  <h3>{{localize "SWORDS_WIZARDRY.Chat.Rolled"}}: {{item.name}}</h3>
+  {{#each hitTargets as |hit hid|}}
+  <span class="attack-hit">{{localize "SWORDS_WIZARDRY.Chat.Hit"}} {{hit.actor.name}}!</span>&nbsp;
+  {{/each}}
+  {{#each missedTargets as |miss hid|}}
+  <span class="attack-miss"{{localize "SWORDS_WIZARDRY.Chat.Missed"}} {{miss.actor.name}}</span>&nbsp;
+  {{/each}}
+  <a class="inline-result"><span>{{{roll}}}</span></a>
+  <button class="damage-roll-button" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}">
+    {{localize "SWORDS_WIZARDRY.Chat.Damage"}}: <span class="attack-damage-roll">{{damageFormula}}{{# if item.system.specialDamage}} + {{item.system.specialDamage}}{{/if}}</span>
+  </button>
+</div>
