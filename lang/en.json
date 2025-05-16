@@ -1,5 +1,15 @@
 {
   "SWORDS_WIZARDRY": {
+    "Chat": {
+      "Rolled": "Rolled",
+      "Hit": "Hit",
+      "Missed": "Missed",
+      "Damage": "Damage",
+      "Special": "Special",
+      "Target": "Target",
+      "Success": "Success",
+      "Failure": "Failure"
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Name",
@@ -8,6 +18,8 @@
       "Tabs": {
         "Attacks": "Attacks",
         "Description": "Description",
+        "Equipment": "Equipment",
+        "Spells": "Spells",
         "Effects": "Effects"
       }
     },
@@ -24,6 +36,7 @@
       "Combat": {
         "RollNeededToHitAC": "Roll Needed To Hit Armor Class",
         "Table": {
+          "Title": "Weapons",
           "Create": "Create Weapon",
           "Delete": "Delete Weapon",
           "Name": "Name",
@@ -35,6 +48,7 @@
           "Weight": "Weight"
         },
         "ArmorTable": {
+          "Title": "Armour",
           "Create": "Create Armor",
           "Delete": "Delete Armor",
           "Name": "Name",
@@ -62,6 +76,7 @@
       },
       "Features": {
         "Table": {
+          "Title": "Class Abilities & Features",
           "Create": "Create Feature",
           "Delete": "Delete Feature",
           "Name": "Name",
@@ -76,7 +91,8 @@
         "SpellLVL": "Level {level} Spells",
         "Remaining": "Remaining",
         "Total": "Total",
-        "Prepared": "Prepared",
+        "Prepared": "Prepared Spells",
+        "Known": "Known Spells",
         "Table": {
           "Create": "Create Spell",
           "Delete": "Delete Spell",
@@ -169,7 +185,11 @@
       "Item": {
         "Attributes": {
           "ToHitModifier": "To Hit Modifier",
-          "RollFormula": "Roll Formula"
+          "RollFormula": "Roll Formula",
+          "Target": "Target",
+          "TargetType": "Target Type",
+          "TargetTypeAsc": "Ascending",
+          "TargetTypeDes": "Descending"
         },
         "Name": "Name",
         "Quantity": "Quantity",
@@ -183,6 +203,8 @@
       "Spell": {
         "Name": "Name",
         "Level": "Level",
+        "Range": "Range",
+        "Duration": "Duration",
         "Tabs": {
           "Attributes": "Attributes",
           "Description": "Description"

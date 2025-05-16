@@ -1,0 +1,267 @@
+{
+  "SWORDS_WIZARDRY": {
+    "Chat": {
+      "Rolled": "Tirada",
+      "Hit": "Impacto",
+      "Missed": "Fallo",
+      "Damage": "Daño",
+      "Special": "Especial",
+      "Target": "Objetivo",
+      "Success": "Éxito",
+      "Failure": "Fallo"
+    },
+    "NPCSheet": {
+      "Main": {
+        "Name": "Nombre",
+        "Special": "Especial"
+      },
+      "Tabs": {
+        "Attacks": "Ataques",
+        "Description": "Descripción",
+        "Equipment": "Equipo",
+        "Spells": "Conjuros",
+        "Effects": "Efectos"
+      }
+    },
+    "CharacterSheet": {
+      "Main": {
+        "Age": "Edad",
+        "Ancestry": "Especie",
+        "AttributeBonuses": "Modificadores",
+        "AttributeScores": "Características",
+        "Deity": "Religión",
+        "Name": "Nombre",
+        "ThievingSkills": "Habilidades de ladrón"
+      },
+      "Combat": {
+        "RollNeededToHitAC": "Ataque base",
+        "Table": {
+          "Title": "Armas",
+          "Create": "Crear arma",
+          "Delete": "Borrar arma",
+          "Name": "Nombre",
+          "New": "Nueva arma",
+          "ToHitModifier": "Bono Imp.",
+          "DamageRollFormula": "Daño",
+          "RollFormula": "Tirada para impactar",
+          "Update": "Actualizar arma",
+          "Weight": "Peso"
+        },
+        "ArmorTable": {
+          "Title": "Protecciones",
+          "Create": "Crear armadura",
+          "Delete": "Borrar armadura",
+          "Name": "Nombre",
+          "New": "Nueva armadura",
+          "EffectOnAC": "Bono CA",
+          "Update": "Actualizar armadura",
+          "Weight": "Peso"
+        }
+      },
+      "Equipment": {
+        "Gems": "Gemas",
+        "Gold": "Monedas (mo)",
+        "Items": "Objetos",
+        "Other": "Otros",
+        "Table": {
+          "Create": "Crear objeto",
+          "Delete": "Borrar objeto",
+          "Name": "Nombre",
+          "New": "Nuevo objeto",
+          "Quantity": "Cantidad",
+          "Update": "Actualizar objeto",
+          "Weight": "Peso"
+        },
+        "Treasures": "Tesoro"
+      },
+      "Features": {
+        "Table": {
+          "Title": "Rasgos y habilidades de clase",
+          "Create": "Crear rasgo",
+          "Delete": "Borrar rasgo",
+          "Name": "Nombre",
+          "New": "Nuevo rasgo",
+          "Update": "Actualizar rasgo"
+        }
+      },
+      "Spells": {
+        "AddLVL": "Añadir conjuro",
+        "SpellSlots": "Conjuros diarios",
+        "Level": { "long": "Nivel", "abbr": "Niv" },
+        "SpellLVL": "Conjuros de nivel {level}",
+        "Remaining": "Restantes",
+        "Total": "Total",
+        "Prepared": "Conjuros memorizados",
+        "Known": "Conjuros conocidos",
+        "Table": {
+          "Create": "Crear conjuro",
+          "Delete": "Borrar conjuro",
+          "New": "Nuevo conjuro",
+          "Update": "Actualizar conjuro"
+        }
+      },
+      "Tabs": {
+        "Combat": "Combate",
+        "Description": "Descripción",
+        "Equipment": "Equipo",
+        "Main": "Atributos",
+        "Spells": "Conjuros"
+      }
+    },
+    "Stats": {
+      "Alignment": "Alineamiento",
+      "ArmorClass": { "long": "Clase de armadura", "abbr": "CA" },
+      "Class": "Clase",
+      "CL_XP": {
+        "long": "Nivel de reto / Puntos de experiencia",
+        "abbr": "NR / PX"
+      },
+      "HitDie": { "long": "DG", "abbr": "DG" },
+      "HitPoints": { "long": "PG", "abbr": "PG" },
+      "Level": "Nivel",
+      "Morale": "Moral",
+      "Movement": "Movimiento",
+      "SavingThrow": { "long": "Tirada de salvación", "abbr": "TS" },
+      "WeightCarried": "Carga",
+      "XP": { "long": "Puntos de experiencia", "abbr": "PX" },
+      "XPBonus": { "long": "Bono a la experiencia", "abbr": "Bono PX" },
+      "NumberEncountered": { "long": "Número", "abbr": "No." },
+      "PercentInLair": { "long": "Prob. de guarida", "abbr": "Guarida (%)" }
+    },
+    "Ability": {
+      "Str": { "long": "Fuerza", "abbr": "FUE" },
+      "Con": { "long": "Constitución", "abbr": "CON" },
+      "Dex": { "long": "Destreza", "abbr": "DES" },
+      "Int": { "long": "Inteligencia", "abbr": "INT" },
+      "Wis": { "long": "Sabiduría", "abbr": "SAB" },
+      "Cha": { "long": "Carisma", "abbr": "CAR" }
+    },
+    "Modifier": {
+      "toHit": { "long": "Bono a impactar", "abbr": "Bono CaC" },
+      "OpenDoors": { "long": "Forzar puertas", "abbr": "Forzar puertas" },
+      "Damage": { "long": "Bono al daño", "abbr": "Bono daño" },
+      "Carry": { "long": "Bono a la carga", "abbr": "Bono carga" },
+      "MissileToHit": { "long": "Bono a imp. con proyectiles", "abbr": "Bono Proy." },
+      "AC": { "long": "Bono a la clase de armadura", "abbr": "Bono CA" },
+      "HP": { "long": "Bono a los puntos de golpe", "abbr": "Bono PG" },
+      "RaiseDeadChance": { "long": "Supervivencia a la resurrección", "abbr": "Resurreción (%)" },
+      "AdditionalLanguages": { "long": "Idiomas adicionales", "abbr": "Idiomas extra" },
+      "MaximumSpellLevel": { "long": "Nivel máximo de conjuro", "abbr": "Nivel conj max" },
+      "ChanceToUnderstandSpell": { "long": "Aprender conjuros nuevos", "abbr": "Aprender conj" },
+      "MinimumSpellsPerLevel": { "long": "Conjuros mínimos por nivel", "abbr": "Min conj/nivel" },
+      "MaximumSpellsPerLevel": { "long": "Conjuros máximos por nivel", "abbr": "Max conj/nivel" },
+      "MaxSpecialHirelings": {
+        "long": "Máximos seguidores especiales",
+        "abbr": "Max seguidores"
+      },
+      "RetainerMoraleAdjustment": { "long": "Bono a la moral", "abbr": "Bono moral" }
+    },
+    "SheetLabels": {
+      "Actor": "SwordsWizardry Ficha de Actor",
+      "Item": "SwordsWizardry Ficha de Objeto"
+    },
+    "Item": {
+      "Feature": {
+        "Name": "Nombre",
+        "Tabs": {
+          "Attributes": "Atributos",
+          "Description": "Descripción",
+          "Effects": "Efectos"
+        }
+      },
+      "Armor": {
+        "Attributes": {
+          "EffectOnAC": "Bono a la CA"
+        },
+        "Name": "Nombre",
+        "Quantity": "Cantidad",
+        "Gold": "Coste (mo)",
+        "Tabs": {
+          "Attributes": "Atributos",
+          "Description": "Descripción"
+        },
+        "Weight": "Peso (kg)"
+      },
+      "Item": {
+        "Attributes": {
+          "ToHitModifier": "Bono a impactar",
+          "RollFormula": "Tirada",
+          "Target": "Valor objetivo",
+          "TargetType": "Tipo de tirada",
+          "TargetTypeAsc": "Ascendente",
+          "TargetTypeDes": "Descendente"
+        },
+        "Name": "Nombre",
+        "Quantity": "Cantidad",
+        "Gold": "Coste (mo)",
+        "Tabs": {
+          "Attributes": "Atributos",
+          "Description": "Descripción"
+        },
+        "Weight": "Peso (kg)"
+      },
+      "Spell": {
+        "Name": "Nombre",
+        "Level": "Nivel",
+        "Range": "Alcance",
+        "Duration": "Duración",
+        "Tabs": {
+          "Attributes": "Atributos",
+          "Description": "Descripción"
+        }
+      },
+      "Weapon": {
+        "Attributes": {
+          "RollFormula": "Tirada de ataque",
+          "ToHitModifier": "Bono a impactar",
+          "DamageRollFormula": "Daño",
+          "Range": "Alcance (m)",
+          "Missile": "Arrojadiza/Disparo",
+          "RateOfFire": "Tasa de disparo",
+          "SpecialDamage": "Daño especial"
+        },
+        "Name": "Nombre",
+        "Quantity": "Cantidad",
+        "Gold": "Coste (mo)",
+        "Tabs": {
+          "Attributes": "Atributos",
+          "Description": "Descripción"
+        },
+        "Weight": "Peso (kg)"
+      }
+    },
+    "Effect": {
+      "Create": "Crear efecto",
+      "Delete": "Borrar efecto",
+      "Duration": "Duración",
+      "New": "Nuevo efecto",
+      "Source": "Fuente",
+      "Toggle": "Activar efecto",
+      "Temporary": "Efectos temporales",
+      "Passive": "Efectos pasivos",
+      "Inactive": "Efectos inactivos",
+      "Update": "Actualizar efecto"
+    }
+  },
+  "TYPES": {
+    "Actor": {
+      "character": "Personaje",
+      "container": "Contenedor",
+      "npc": "PNJ"
+    },
+    "Item": {
+      "item": "Objeto",
+      "feature": "Rasgo",
+      "spell": "Conjuro",
+      "armor": "Armadura",
+      "weapon": "Arma"
+    }
+  },
+  "New": {
+    "armor": "Nueva protección",
+    "item": "Nuevo objeto",
+    "feature": "Nuevo rasgo",
+    "spell": "Nuevo conjuro",
+    "weapon": "Nueva arma"
+  }
+}

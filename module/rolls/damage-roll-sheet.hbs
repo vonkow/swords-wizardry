@@ -1,8 +1,8 @@
 {{ log 'damage-roll-sheet' this}}
 <div class="swords-wizardry">
-  <h3>Damage: {{item.name}}</h3>
+  <h3>{{localize "SWORDS_WIZARDRY.Chat.Damage"}}: {{item.name}}</h3>
   <a class="inline-result"><span>{{{roll}}}</span></a>
   {{#if item.system.specialDamage}}
-  <div class="damage-special-text" >Special: {{item.system.specialDamage}}</div>
+  <div class="damage-special-text" >{{localize "SWORDS_WIZARDRY.Chat.Special"}}: {{item.system.specialDamage}}</div>
   {{/if}}
 </div>

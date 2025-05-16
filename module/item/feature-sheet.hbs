@@ -23,14 +23,14 @@
           <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
         </div>
         <div class="resource">
-          <label class="resource-label">Target</label>
+          <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.Target"}}</label>
           <input type="text" name="system.target" value="{{system.target}}" data-dtype="String"/>
         </div>
         <div class="resource">
-          <label class="resource-label">Target Type</label>
+          <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.TargetType"}}</label>
           <select name="system.targetType" value="{{system.targetType}}" data-dtype="String">
-            <option value="ascending" {{# if (eq system.targetType 'ascending')}}selected{{/if}}>Ascending</option>
-            <option value="descending" {{# if (eq system.targetType 'descending')}}selected{{/if}}>Descending</option>
+            <option value="ascending" {{# if (eq system.targetType 'ascending')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.TargetTypeAsc"}}</option>
+            <option value="descending" {{# if (eq system.targetType 'descending')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.TargetTypeDes"}}</option>
           </select>
         </div>
       </div>

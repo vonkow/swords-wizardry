@@ -1,8 +1,8 @@
 {{ log 'feature-roll-sheet' this}}
-<h3>Rolled: {{item.name}}</h3>
+<h3>{{localize "SWORDS_WIZARDRY.Chat.Rolled"}}: {{item.name}}</h3>
 <a class="inline-result"><span>{{{roll}}}</span></a>
 <div/>
-Target {{#if (eq targetType 'ascending')}}>={{else}}<={{/if}} {{target}}
+{{localize "SWORDS_WIZARDRY.Chat.Target"}} {{#if (eq targetType 'ascending')}}>={{else}}<={{/if}} {{target}}
 <br/>
-{{# if success}}Success{{else}}Failure{{/if}}
+{{# if success}}{{localize "SWORDS_WIZARDRY.Chat.Success"}}{{else}}{{localize "SWORDS_WIZARDRY.Chat.Failure"}}{{/if}}
 <hr/>
