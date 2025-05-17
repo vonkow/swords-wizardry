@@ -1,4 +1,6 @@
-export class CombatHud extends Application {
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+
+export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
   RERENDER_EVENTS = [
     'createItem',
     'updateItem',
@@ -12,22 +14,26 @@ export class CombatHud extends Application {
     this.actor = token.actor;
     if (game.user.combatHuds == null) game.user.combatHuds = [];
     game.user.combatHuds.push(this);
-
     this.registeredHooks = {};
     this._registerHooks();
   }
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['swords-wizardry', 'swords-wizardry-combat-hud'],
-      template: 'systems/swords-wizardry/module/hud/hud.hbs',
+  static DEFAULT_OPTIONS = {
+    position: {
+      left: 15,
+      width: 200
+    },
+    window: {
+      icon: 'fa fa-gear', // TODO CHANGEME
       title: 'Combat HUD',
-      height: 'auto',
-      width: 200,
-      resizable: true,
-      left: 15
-      //dragDrop []
-    });
+      classes: ['swords-wizardry', 'swords-wizardry-combat-hud']
+    }
+  }
+
+  static PARTS = {
+    main: {
+      template: 'systems/swords-wizardry/module/hud/hud.hbs'
+    }
   }
 
   get id() {
@@ -35,32 +41,37 @@ export class CombatHud extends Application {
   }
 
   get title() {
+    return 'Combat HUD';
+  }
+
+  get title() {
     //TODO do AC and HP
     return `${this.actor.name}`;
   }
 
-  getData() {
+  _prepareContext() {
     return {
       token: this.token,
       actor: this.actor
     }
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(context, options) {
+    // TODO de-jQuery-ify
+    const $html = $(this.element);
 
-    html.on('click', '.save-roll', (ev) => {
+    $html.on('click', '.save-roll', (ev) => {
       const item = this.actor.rollSave();
     });
 
-    html.on('click', '.item', (ev) => {
+    $html.on('click', '.item', (ev) => {
       const li = $(ev.currentTarget);
       const item = this.actor.items.get(li.data('itemId'));
       if (!item) return;
       item.roll();
     });
 
-    html.on('click', '.item-feature', (ev) => {
+    $html.on('click', '.item-feature', (ev) => {
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
@@ -68,7 +79,7 @@ export class CombatHud extends Application {
       item.roll();
     });
 
-    html.on('click', '.item-cast', (ev) => {
+    $html.on('click', '.item-cast', (ev) => {
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);

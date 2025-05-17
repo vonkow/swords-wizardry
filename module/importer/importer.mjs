@@ -1,3 +1,5 @@
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+
 export class ImportManager {
   static showImportFromStatblock() {
     const form = new ImportSheet('statblock');
@@ -25,62 +27,61 @@ export class ImportManager {
   }
 }
 
-export class ImportSheet extends FormApplication {
+export class ImportSheet extends HandlebarsApplicationMixin(ApplicationV2) {
   constructor(type) {
     super(type);
     this.type = type;
   }
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      actionId: undefined,
-      classes: ['swords-wizardry'],
-      closeOnSubmit: false,
+  static DEFAULT_OPTIONS = {
+    id: 'import-sheet',
+    form: {
+      handler: ImportSheet.#onSubmit,
+      closeOnSubmit: true
+    },
+    position: {
       height: 400,
-      id: 'import-sheet',
-      resizable: true,
-      submitOnClose: true,
-      template: 'systems/swords-wizardry/module/importer/importer.hbs',
-      title: 'Import Text',
-      width: 500,
-    });
+      width: 500
+    },
+    tag: "form",
+    window: {
+      icon: "fas fa-gear",
+      title: "Import Text",
+      contentClasses: ['swords-wizardry']
+    }
   }
 
-  async getData() {
-    const page = {
+  static PARTS = {
+    main: {
+      template: 'systems/swords-wizardry/module/importer/importer.hbs'
+    }
+    // TODO Add generic footer here and buttons to _prepareContext
+  }
+
+  get title() {
+    return 'Import Text';
+  }
+
+  _prepareContext() {
+    return {
       type: this.type,
       importText: ''
     };
-    return page;
   }
 
-  /** @override */
-  async _updateObject(event, formData) {
-    // this.render();
-  }
+  // Not used yet.
+  //_onRender(context, options) {
+  //}
 
-  /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    html.find('#importform').submit(this._importTextSubmit.bind(this));
-  }
-
-  _importTextSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
+  static #onSubmit(event, form, formData) {
     const text = formData.get('importext');
-
     try {
       this.importStatBlockText(text);
     } catch (err) {
+      // TODO prevent close?
       ui.notifications.error(`Error: ${err}: Import failed, check format of stat block text.`);
     }
-    this.close();
   }
-
 
   async importStatBlockText(text) {
     const fieldMappings = {

@@ -1,3 +1,5 @@
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+
 export class CharacterCreatorManager {
   static showCharacterCreator() {
     const form = new CharacterCreator();
@@ -22,44 +24,40 @@ export class CharacterCreatorManager {
 
   }
 }
+export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) {
 
-export class CharacterCreator extends FormApplication {
-  constructor() {
-    super();
+  static DEFAULT_OPTIONS = {
+    id: 'character-creator',
+    form: {
+      handler: CharacterCreator.#onSubmit,
+      closeOnSubmit: true
+    },
+    tag: 'form',
+    window: {
+      icon: "fas fa-gear", // TODO CHANGEME?,
+      title: "CharacterCreator",
+      contentClasses: ["swords-wizardry"]
+      // TODO Resizable = true?
+    }
   }
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['swords-wizardry'],
-      id: 'character-creator',
-      resizable: true,
-      closeOnSubit: true,
-      submitOnClose: false,
-      title: 'Character Creator',
+  static PARTS = {
+    main: {
       template: 'systems/swords-wizardry/module/character-creator/character-creator.hbs'
-    });
+    }
   }
 
-  /** @override */
-  async _updateObject(event, formData) {
-    // this.render();
+  get title() {
+    return 'Character Creator';
   }
 
-  async getData() {
+  _prepareContext() {
     return {
       folders: game.folders.filter(f => f.type === 'Actor')
     };
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    html.find('#character-form').submit(this.handleSubmit.bind(this));
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
+  static #onSubmit(event, form, formData) {
     this.createCharacter(formData);
   }
 

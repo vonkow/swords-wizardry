@@ -1,7 +1,9 @@
 // TODO for v13
-// attack targeting does not work right now.
-// make importer and roll a character be appv2 apps
-// make the roll a character button fill the whole width for players
+// fix broken images on character creation and importer apps
+// move app submit buttons to default footer template and _prepareContext
+// make apps resizable?
+// fix styling of HUD app
+// make the roll a character button fill the whole width for players (not GM)
 
 
 // Import settings.
