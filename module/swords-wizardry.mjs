@@ -1,4 +1,4 @@
-// TODO for v13
+// TODO 
 // move app submit buttons to default footer template and _prepareContext
 // make apps resizable?
 // make the roll a character button fill the whole width for players (not GM)
