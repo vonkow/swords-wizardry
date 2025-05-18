@@ -74,7 +74,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
     await Actor.create({
       name,
       type: 'character',
-      img: 'systems/swords-wizardry/assets/game-icons-net/cowled.svg',
+      img: '/systems/swords-wizardry/assets/game-icons-net/cowled.svg',
       system: {
         abilities: {
           str: { value: str.total },

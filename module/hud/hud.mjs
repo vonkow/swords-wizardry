@@ -26,7 +26,7 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
     window: {
       icon: 'fa fa-gear', // TODO CHANGEME
       title: 'Combat HUD',
-      classes: ['swords-wizardry', 'swords-wizardry-combat-hud']
+      contentClasses: ['swords-wizardry', 'swords-wizardry-combat-hud']
     }
   }
 

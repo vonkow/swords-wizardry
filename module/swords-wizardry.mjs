@@ -1,10 +1,8 @@
 // TODO for v13
-// fix broken images on character creation and importer apps
 // move app submit buttons to default footer template and _prepareContext
 // make apps resizable?
-// fix styling of HUD app
 // make the roll a character button fill the whole width for players (not GM)
-
+// ? Update actor and item sheets to v2?
 
 // Import settings.
 import { registerSystemSettings } from './settings.mjs';

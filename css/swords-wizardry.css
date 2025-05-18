@@ -48,12 +48,6 @@ input {
   font-family: "Libre Baskerville";
 }
 
-.rollable:hover, .rollable:focus {
-  color: #000;
-  text-shadow: 0 0 10px red;
-  cursor: pointer;
-}
-
 .grid,
 .grid-2col {
   display: grid;
@@ -312,8 +306,21 @@ input {
 }
 
 /* Styles limited to swords-wizardry sheets */
+.swords-wizardry .combat-hud-name {
+  font-family: "Libre Baskerville";
+}
 .swords-wizardry .combat-hud-list {
   list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.swords-wizardry .combat-hud-list img {
+  display: inline;
+  vertical-align: middle;
+}
+.swords-wizardry .combat-hud-list span {
+  vertical-align: middle;
+  padding-left: 4px;
 }
 .swords-wizardry .combat-hud-list .save-roll .rollable > div {
   height: 24px;

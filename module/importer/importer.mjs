@@ -102,7 +102,7 @@ export class ImportSheet extends HandlebarsApplicationMixin(ApplicationV2) {
     block.xp = parseInt(block.xp.split('/')[1]) || 1;
     block.cl = parseInt(block.cl.split('/')[0]) || 1;
     const npcName = block.name;
-    const npcImage = 'swords-wizardry/assets/game-icons-net/cowled.svg';
+    const npcImage = '/systems/swords-wizardry/assets/game-icons-net/cowled.svg';
     const attacks = await this.createAttacks(block.attack);
     // check for if 1d4 and deal with that
     const [hd, mod] = block.hd.split('+');

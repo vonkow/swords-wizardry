@@ -1,8 +1,7 @@
 {{ log 'save-roll-sheet' this}}
 <h3>{{ localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long' }}</h3>
 <a class="inline-result"><span>{{{roll}}}</span></a>
-<div/>
+<div>
 {{localize "SWORDS_WIZARDRY.Chat.Target"}} >= {{target}}
-<br/>
 {{# if success}}{{localize "SWORDS_WIZARDRY.Chat.Success"}}{{else}}{{localize "SWORDS_WIZARDRY.Chat.Failure"}}{{/if}}
-<hr/>
+</div>

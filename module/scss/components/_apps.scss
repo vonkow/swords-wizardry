@@ -1,6 +1,22 @@
+.combat-hud-name {
+  font-family: $font-primary;
+}
 .combat-hud-list {
   list-style: none;
+  padding: 0;
+  margin-bottom: 0;
 }
+
+.combat-hud-list img {
+  display: inline;
+  vertical-align: middle;
+}
+
+.combat-hud-list span {
+  vertical-align: middle;
+  padding-left: 4px;
+}
+
 
 .combat-hud-list .save-roll .rollable > div {
   height:24px;
