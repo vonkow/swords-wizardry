@@ -126,8 +126,8 @@
       "AutoSpells": "Conjuros aleatorios de nivel 1",
       "SpellCount": "Cantidad",
       "CreateButton": "Crear personaje",
-  "DefaultName": "Nuevo Aventurero",
-  "InvalidClassAncestry": "Clase y raza incompatibles; se ajustó la raza."
+      "DefaultName": "Nuevo Aventurero",
+      "InvalidClassAncestry": "Clase y raza incompatibles; se ajustó la raza."
     },
     "Stats": {
       "Alignment": "Alineamiento",

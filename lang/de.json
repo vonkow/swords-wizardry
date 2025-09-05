@@ -26,9 +26,9 @@
       "AutoSpells": "Zufällige Zauber Grad 1",
       "SpellCount": "Anzahl",
       "CreateButton": "Charakter erstellen",
-  "Title": "Charakter-Ersteller",
-  "DefaultName": "Neuer Abenteurer",
-  "InvalidClassAncestry": "Klasse und Abstammung waren nicht kompatibel; Abstammung angepasst."
+      "Title": "Charakter-Ersteller",
+      "DefaultName": "Neuer Abenteurer",
+      "InvalidClassAncestry": "Klasse und Abstammung waren nicht kompatibel; Abstammung angepasst."
     },
     "NPCSheet": {
       "Main": {

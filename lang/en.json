@@ -126,8 +126,8 @@
       "AutoSpells": "Random level-1 spells",
       "SpellCount": "Count",
       "CreateButton": "Create Character",
-  "DefaultName": "New Adventurer",
-  "InvalidClassAncestry": "Class and ancestry were incompatible; ancestry adjusted."
+      "DefaultName": "New Adventurer",
+      "InvalidClassAncestry": "Class and ancestry were incompatible; ancestry adjusted."
     },
     "Stats": {
       "Alignment": "Alignment",
