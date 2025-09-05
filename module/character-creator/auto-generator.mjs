@@ -120,17 +120,104 @@ function localizeAncestryKey(key) {
   return map[lang] || map.en || key;
 }
 
-// Starter kits by class, using Spanish item names with common English fallbacks
+// Starter kits by class (bilingual "ES|EN" exact name matching). Each kit:
+// - Two weapons (melee + optional ranged or backup) respecting class restrictions
+// - Appropriate armor (or none) per class
+// - A light set of adventuring gear ("no mucho")
+// NOTE: Use exact compendium item names shown in both Spanish and English packs.
 const STARTER_KITS = {
-  'Fighter': ['Espada larga|Longsword', 'Escudo|Shield', 'Cota de malla|Chain Mail'],
-  'Wizard': ['Daga|Dagger', 'Libro de conjuros|Spellbook'],
-  'Cleric': ['Maza|Mace', 'Escudo|Shield', 'Cota de malla|Chain Mail'],
-  'Thief': ['Daga|Dagger', 'Espada corta|Short Sword', 'Armadura de cuero|Leather Armor'],
-  'Paladin': ['Espada larga|Longsword', 'Escudo|Shield', 'Cota de malla|Chain Mail'],
-  'Ranger': ['Espada larga|Longsword', 'Arco corto|Shortbow', 'Armadura de cuero tachonado|Studded Leather'],
-  'Druid': ['Bastón|Quarterstaff', 'Armadura de cuero|Leather Armor'],
-  'Assassin': ['Daga|Dagger', 'Espada corta|Short Sword', 'Armadura de cuero|Leather Armor'],
-  'Monk': ['Bastón|Quarterstaff']
+  Fighter: [
+    'Espada larga|Sword, long',
+    'Lanza|Spear',
+    'Cota de malla|Chain',
+    'Escudo|Shield',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Antorcha|Torch',
+    'Cuerda de cáñamo (15m)|Rope, hemp (50 feet)',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin'
+  ],
+  Paladin: [
+    'Espada larga|Sword, long',
+    'Lanza de caballería|Lance',
+    'Cota de malla|Chain',
+    'Escudo|Shield',
+    'Símbolo sagrado (plata)|Holy symbol, silver',
+    'Agua bendita (vial de 0.25l)|Holy water (flask)',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin'
+  ],
+  Ranger: [
+    'Espada larga|Sword, long',
+    'Arco largo|Bow, long',
+    'Flechas|Arrows',
+    'Peto de cuero|Leather',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Cuerda de cáñamo (15m)|Rope, hemp (50 feet)',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin'
+  ],
+  Cleric: [
+    'Maza pesada|Mace, heavy',
+    'Martillo de guerra|Hammer, war',
+    'Cota de malla|Chain',
+    'Escudo|Shield',
+    'Símbolo sagrado (madera)|Holy symbol, wooden',
+    'Agua bendita (vial de 0.25l)|Holy water (flask)',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Antorcha|Torch',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin'
+  ],
+  Druid: [
+    'Bastón (2 manos)|Staff (two-handed)',
+    'Lanza|Spear',
+    'Peto de cuero|Leather',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Yesca y pedernal|Flint & steel',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin'
+  ],
+  Thief: [
+    'Espada corta|Sword, short',
+    'Daga|Dagger',
+    'Peto de cuero|Leather',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Cuerda de cáñamo (15m)|Rope, hemp (50 feet)',
+    'Antorcha|Torch',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin',
+    'Tiza (una pieza)|Chalk, 1 piece'
+  ],
+  Assassin: [
+    'Espada corta|Sword, short',
+    'Daga|Dagger',
+    'Peto de cuero|Leather',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Cuerda de cáñamo (15m)|Rope, hemp (50 feet)',
+    'Antorcha|Torch',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin',
+    'Tiza (una pieza)|Chalk, 1 piece'
+  ],
+  Monk: [
+    'Bastón (2 manos)|Staff (two-handed)',
+    'Dardos|Dart',
+    'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+    'Raciones secas (por día)|Rations, dried (per day)',
+    'Odre de agua (2l)|Waterskin'
+  ],
+  Wizard: [
+  'Daga|Dagger',
+  // Include several synonyms/variants so at least one matches whichever naming the compendium uses
+  'Bastón (2 manos)|Baston (2 manos)|Bastón|Baston|Staff (two-handed)|Quarterstaff|Staff',
+  'Libro de conjuros (en blanco)|Spellbook, blank',
+  'Mochila (hasta 15kg)|Backpack (30-pound capacity)',
+  'Tiza (una pieza)|Chalk, 1 piece',
+  'Raciones secas (por día)|Rations, dried (per day)',
+  'Odre de agua (2l)|Waterskin'
+  ]
 };
 
 // Hit dice per class (level 1). Ranger has 2 HD at level 1 per S&W interpretation.
@@ -328,9 +415,14 @@ export async function ensurePack(collectionName) {
 }
 
 function nameMatcher(candidate) {
-  // Allow "Nombre ES|Name EN" patterns
-  const parts = candidate.split('|').map(s => s.trim());
-  return (name) => parts.some(p => new RegExp(`^${p}$`, 'i').test(name));
+  // Allow "Nombre ES|Name EN|..." patterns; accent-insensitive matching
+  const stripAccents = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const parts = candidate.split('|').map(s => s.trim()).filter(Boolean);
+  const normalized = parts.map(p => stripAccents(p.toLowerCase()));
+  return (name) => {
+    const n = stripAccents(String(name || '').toLowerCase());
+    return normalized.includes(n);
+  };
 }
 
 async function fetchByNames(pack, names) {
@@ -509,6 +601,18 @@ function filterAllowedByClass(clsKey, items) {
   const rules = DISALLOWED[normalizeClassKey(clsKey)];
   if (!rules) return items;
   return items.filter(it => !rules.some(rx => rx.test(it.name)));
+}
+
+// Final safety pass: strip any disallowed gear that slipped in (but keep features & spells)
+function sanitizeClassEquipment(clsKey, items) {
+  const rules = DISALLOWED[normalizeClassKey(clsKey)];
+  if (!rules) return items;
+  return items.filter(it => {
+    const t = (it.type || '').toLowerCase();
+    if (t === 'spell' || t === 'feature') return true; // never strip spells/features here
+    const name = it.name || '';
+    return !rules.some(rx => rx.test(name));
+  });
 }
 
 async function pickStarterKit(clsKey, pack) {
@@ -811,7 +915,12 @@ export class AutoGenerator {
       console.warn('S&W AutoGen: no se pudieron obtener rasgos de clase/raza', e);
     }
 
-    if (items.length) await actor.createEmbeddedDocuments('Item', items);
+    // Sanitize equipment one more time (e.g., ensure Wizard never gets shield/armor)
+    const finalItems = sanitizeClassEquipment(cls.key, items);
+    if (finalItems.length !== items.length) {
+      console.debug('S&W AutoGen: removed disallowed gear for class', cls.key);
+    }
+    if (finalItems.length) await actor.createEmbeddedDocuments('Item', finalItems);
 
     // Return summary for logging/UI if needed
     return {
@@ -819,7 +928,7 @@ export class AutoGenerator {
       abilities,
       cls: localizeClassKey(cls.key),
       ancestry: localizeAncestryKey(ancestry),
-  itemsAdded: items.map(i => i.name),
+  itemsAdded: (items || []).map(i => i.name),
   hp: totalHP
     };
   }
