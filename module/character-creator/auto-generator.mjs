@@ -133,6 +133,20 @@ const STARTER_KITS = {
   'Monk': ['Bastón|Quarterstaff']
 };
 
+// Hit dice per class (level 1). Ranger has 2 HD at level 1 per S&W interpretation.
+// Format: dice expression understood by Foundry Roll.
+const CLASS_HIT_DICE = {
+  Fighter: '1d8',
+  Paladin: '1d8',
+  Ranger: '2d8',
+  Cleric: '1d6',
+  Druid: '1d6',
+  Assassin: '1d6',
+  Thief: '1d4',
+  Wizard: '1d4',
+  Monk: '1d4'
+};
+
 // Basic weapon allowance by class to weed out bad picks (heuristic)
 const DISALLOWED = {
   'Cleric': [/espada|sword/i, /arco|bow/i],
@@ -702,8 +716,23 @@ export class AutoGenerator {
     }
     const gp = (await new Roll('3d6').evaluate({ async: true })).total * 10;
 
-    // Precompute modifiers so we can use INT learn chance for Wizards
+  // Precompute modifiers (used for spell learning and HP adjustments; AC no longer auto-applied)
     const precomputedModifiers = computeModifiersFromScores(abilities, cls.key);
+
+    // --- Hit Points generation ---
+    const hdFormula = CLASS_HIT_DICE[cls.key] || '1d6';
+    let rolledHP = 0;
+    try {
+      rolledHP = (await new Roll(hdFormula).evaluate({ async: true })).total || 0;
+    } catch (e) {
+      console.warn('S&W AutoGen: failed rolling hit dice, fallback 1d6', e);
+      rolledHP = (await new Roll('1d6').evaluate({ async: true })).total || 0;
+    }
+    const conHpMod = Number(precomputedModifiers?.hp?.value || 0);
+    let totalHP = rolledHP + conHpMod;
+    if (totalHP < 1) totalHP = 1; // Minimum 1 HP at level 1
+
+  // AC is left at template defaults (no automatic DEX application here)
 
   const actor = await Actor.create({
       name: name || (game.i18n?.localize('SWORDS_WIZARDRY.CharacterCreator.DefaultName') ?? 'New Adventurer'),
@@ -717,7 +746,8 @@ export class AutoGenerator {
     class: localizeClassKey(cls.key),
     ancestry: localizeAncestryKey(ancestry),
     treasure: { gp },
-    modifiers: precomputedModifiers
+    modifiers: precomputedModifiers,
+  hp: { value: totalHP, max: totalHP, min: 1 }
       },
       permission: { default: 3 },
       folder
@@ -789,7 +819,8 @@ export class AutoGenerator {
       abilities,
       cls: localizeClassKey(cls.key),
       ancestry: localizeAncestryKey(ancestry),
-      itemsAdded: items.map(i => i.name)
+  itemsAdded: items.map(i => i.name),
+  hp: totalHP
     };
   }
 }
