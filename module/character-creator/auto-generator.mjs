@@ -644,6 +644,22 @@ async function pickRandomSpells(pack, clsKey, count = 1) {
   return pickedDocs.map(d => d.toObject());
 }
 
+// Collect all level-1 spells for a given spellcasting class (currently used for Wizard learn chance)
+async function getAllLevel1SpellsForClass(pack, clsKey) {
+  if (!pack) return [];
+  if (!classHasLevel1Spells(clsKey)) return [];
+  if (!pack.index.size) await pack.getIndex({ fields: ['type', 'name', 'folder', 'system.spellLevel'] });
+  const entries = [...pack.index];
+  if (!entries.length) return [];
+  const docs = await Promise.all(entries.map(e => pack.getDocument(e._id)));
+  const norm = normalizeClassKey(clsKey);
+  const pathFor = (d) => resolveFolderPath(pack, d);
+  const list = docs.filter(d => (d.type || '').toLowerCase() === 'spell'
+    && detectSpellClass(d, pathFor(d)) === norm
+    && getSpellLevel(d, pathFor(d)) === 1);
+  return list.map(d => d.toObject());
+}
+
 export class AutoGenerator {
   static async generateLevel1({ name, folder, packCollection, autoEquip = true, autoSpells = true, spellCount = 1, fixedClass, fixedAncestry } = {}) {
     const abilities = {
@@ -686,6 +702,9 @@ export class AutoGenerator {
     }
     const gp = (await new Roll('3d6').evaluate({ async: true })).total * 10;
 
+    // Precompute modifiers so we can use INT learn chance for Wizards
+    const precomputedModifiers = computeModifiersFromScores(abilities, cls.key);
+
   const actor = await Actor.create({
       name: name || (game.i18n?.localize('SWORDS_WIZARDRY.CharacterCreator.DefaultName') ?? 'New Adventurer'),
       type: 'character',
@@ -698,7 +717,7 @@ export class AutoGenerator {
     class: localizeClassKey(cls.key),
     ancestry: localizeAncestryKey(ancestry),
     treasure: { gp },
-    modifiers: computeModifiersFromScores(abilities, cls.key)
+    modifiers: precomputedModifiers
       },
       permission: { default: 3 },
       folder
@@ -713,8 +732,37 @@ export class AutoGenerator {
     }
 
   if (autoSpells && classHasLevel1Spells(cls.key)) {
-      const spells = await pickRandomSpells(pack, cls.key, Math.max(1, Number(spellCount) || 1));
-      items.push(...spells);
+      if (cls.key === 'Wizard') {
+        // Wizard: iterate every level-1 spell and apply INT learn chance
+        const chance = Number(precomputedModifiers?.chanceToUnderstandSpell?.value || 0); // percentage
+        const minSpells = Number(precomputedModifiers?.minimumSpellsPerLevel?.value || 0);
+        const maxSpells = Number(precomputedModifiers?.maximumSpellsPerLevel?.value || 999);
+        let allLevel1 = await getAllLevel1SpellsForClass(pack, cls.key);
+        // Fallback to hardcoded list if compendium detection fails
+        if (!allLevel1.length && Array.isArray(LVL1_SPELL_NAMES.Wizard)) {
+          allLevel1 = await fetchByNames(pack, LVL1_SPELL_NAMES.Wizard);
+        }
+        const learned = [];
+        for (const spell of allLevel1) {
+          if (learned.length >= maxSpells) break;
+            if (Math.random() * 100 < chance) learned.push(spell);
+        }
+        // Ensure minimum
+        if (learned.length < minSpells) {
+          const remaining = allLevel1.filter(s => !learned.includes(s));
+          while (learned.length < minSpells && remaining.length) {
+            const idx = Math.floor(Math.random() * remaining.length);
+            learned.push(remaining.splice(idx, 1)[0]);
+          }
+        }
+        // Absolute safety: at least 1
+        if (!learned.length && allLevel1.length) learned.push(allLevel1[Math.floor(Math.random() * allLevel1.length)]);
+        items.push(...learned);
+      } else {
+        // Druid (and any other class keyed here) retains old single random selection logic
+        const spells = await pickRandomSpells(pack, cls.key, Math.max(1, Number(spellCount) || 1));
+        items.push(...spells);
+      }
     }
 
     // Safety: ensure only Wizard/Druid end with spell items; strip any stray spells for other classes
