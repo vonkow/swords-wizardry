@@ -2,6 +2,7 @@ import {
   onManageActiveEffect,
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
+import { CharacterCreatorManager } from '../character-creator/character-creator.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -152,6 +153,13 @@ export class SwordsWizardryActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    // Open Character Creator from sheet header
+    html.on('click', '.generate-character', (_ev) => {
+      if (game?.systems?.get('swords-wizardry')) {
+        CharacterCreatorManager.showCharacterCreator();
+      }
+    });
+
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.on('click', '.item-edit', (ev) => {

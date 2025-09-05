@@ -24,6 +24,7 @@
       }
     },
     "CharacterSheet": {
+      "GenerateCharacter": "Generate Character",
       "Main": {
         "Age": "Age",
         "Ancestry": "Ancestry",
@@ -108,6 +109,26 @@
         "Spells": "Spells"
       }
     },
+    "CharacterCreator": {
+      "Mode": {
+        "Label": "Creation Mode",
+        "Auto": "Automagic Generation",
+        "Blank": "Blank"
+      },
+      "Title": "Character Creator",
+      "Name": "Name",
+      "ClassLabel": "Class (blank mode only)",
+      "AncestryLabel": "Ancestry (blank mode only)",
+      "Folder": "Folder",
+      "ItemPack": "Item Compendium",
+      "AutoAssign": "Auto-assign",
+      "AutoEquip": "Starter kit",
+      "AutoSpells": "Random level-1 spells",
+      "SpellCount": "Count",
+      "CreateButton": "Create Character",
+  "DefaultName": "New Adventurer",
+  "InvalidClassAncestry": "Class and ancestry were incompatible; ancestry adjusted."
+    },
     "Stats": {
       "Alignment": "Alignment",
       "ArmorClass": { "long": "Armor Class", "abbr": "AC" },
@@ -144,17 +165,38 @@
       "MissileToHit": { "long": "Bonus to Missiles", "abbr": "Missile Bonus" },
       "AC": { "long": "Armor Bonus", "abbr": "AC Bonus" },
       "HP": { "long": "Hit Point Bonus", "abbr": "HP Bonus" },
-      "RaiseDeadChance": { "long": "Raise Dead Survival", "abbr": "Raise Dead %" },
-      "AdditionalLanguages": { "long": "Additional Languages", "abbr": "Add Lang" },
-      "MaximumSpellLevel": { "long": "Maximum Spell Level", "abbr": "Max Spell Level" },
-      "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "Know Spell %" },
-      "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "Min Spells/lvl" },
-      "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "Max Spells/lvl" },
+      "RaiseDeadChance": {
+        "long": "Raise Dead Survival",
+        "abbr": "Raise Dead %"
+      },
+      "AdditionalLanguages": {
+        "long": "Additional Languages",
+        "abbr": "Add Lang"
+      },
+      "MaximumSpellLevel": {
+        "long": "Maximum Spell Level",
+        "abbr": "Max Spell Level"
+      },
+      "ChanceToUnderstandSpell": {
+        "long": "Chance to Understand Spell",
+        "abbr": "Know Spell %"
+      },
+      "MinimumSpellsPerLevel": {
+        "long": "Minimum Spells Per Level",
+        "abbr": "Min Spells/lvl"
+      },
+      "MaximumSpellsPerLevel": {
+        "long": "Maximum Spells Per Level",
+        "abbr": "Max Spells/lvl"
+      },
       "MaxSpecialHirelings": {
         "long": "Max # Special Hirelings",
         "abbr": "Max Hirelings"
       },
-      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "abbr": "Morale" }
+      "RetainerMoraleAdjustment": {
+        "long": "Retainer Morale Adjustment",
+        "abbr": "Morale"
+      }
     },
     "SheetLabels": {
       "Actor": "SwordsWizardry Actor Sheet",

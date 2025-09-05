@@ -24,6 +24,7 @@
       }
     },
     "CharacterSheet": {
+      "GenerateCharacter": "Generar personaje",
       "Main": {
         "Age": "Edad",
         "Ancestry": "Especie",
@@ -108,6 +109,26 @@
         "Spells": "Conjuros"
       }
     },
+    "CharacterCreator": {
+      "Mode": {
+        "Label": "Modo de creación",
+        "Auto": "Generación automágica",
+        "Blank": "En blanco"
+      },
+      "Title": "Creador de Personajes",
+      "Name": "Nombre",
+      "ClassLabel": "Clase (solo modo en blanco)",
+      "AncestryLabel": "Raza (solo modo en blanco)",
+      "Folder": "Carpeta",
+      "ItemPack": "Compendio de elementos",
+      "AutoAssign": "Asignación automática",
+      "AutoEquip": "Equipo inicial",
+      "AutoSpells": "Conjuros aleatorios de nivel 1",
+      "SpellCount": "Cantidad",
+      "CreateButton": "Crear personaje",
+  "DefaultName": "Nuevo Aventurero",
+  "InvalidClassAncestry": "Clase y raza incompatibles; se ajustó la raza."
+    },
     "Stats": {
       "Alignment": "Alineamiento",
       "ArmorClass": { "long": "Clase de armadura", "abbr": "CA" },
@@ -141,20 +162,44 @@
       "OpenDoors": { "long": "Forzar puertas", "abbr": "Forzar puertas" },
       "Damage": { "long": "Bono al daño", "abbr": "Bono daño" },
       "Carry": { "long": "Bono a la carga", "abbr": "Bono carga" },
-      "MissileToHit": { "long": "Bono a imp. con proyectiles", "abbr": "Bono Proy." },
+      "MissileToHit": {
+        "long": "Bono a imp. con proyectiles",
+        "abbr": "Bono Proy."
+      },
       "AC": { "long": "Bono a la clase de armadura", "abbr": "Bono CA" },
       "HP": { "long": "Bono a los puntos de golpe", "abbr": "Bono PG" },
-      "RaiseDeadChance": { "long": "Supervivencia a la resurrección", "abbr": "Resurreción (%)" },
-      "AdditionalLanguages": { "long": "Idiomas adicionales", "abbr": "Idiomas extra" },
-      "MaximumSpellLevel": { "long": "Nivel máximo de conjuro", "abbr": "Nivel conj max" },
-      "ChanceToUnderstandSpell": { "long": "Aprender conjuros nuevos", "abbr": "Aprender conj" },
-      "MinimumSpellsPerLevel": { "long": "Conjuros mínimos por nivel", "abbr": "Min conj/nivel" },
-      "MaximumSpellsPerLevel": { "long": "Conjuros máximos por nivel", "abbr": "Max conj/nivel" },
+      "RaiseDeadChance": {
+        "long": "Supervivencia a la resurrección",
+        "abbr": "Resurreción (%)"
+      },
+      "AdditionalLanguages": {
+        "long": "Idiomas adicionales",
+        "abbr": "Idiomas extra"
+      },
+      "MaximumSpellLevel": {
+        "long": "Nivel máximo de conjuro",
+        "abbr": "Nivel conj max"
+      },
+      "ChanceToUnderstandSpell": {
+        "long": "Aprender conjuros nuevos",
+        "abbr": "Aprender conj"
+      },
+      "MinimumSpellsPerLevel": {
+        "long": "Conjuros mínimos por nivel",
+        "abbr": "Min conj/nivel"
+      },
+      "MaximumSpellsPerLevel": {
+        "long": "Conjuros máximos por nivel",
+        "abbr": "Max conj/nivel"
+      },
       "MaxSpecialHirelings": {
         "long": "Máximos seguidores especiales",
         "abbr": "Max seguidores"
       },
-      "RetainerMoraleAdjustment": { "long": "Bono a la moral", "abbr": "Bono moral" }
+      "RetainerMoraleAdjustment": {
+        "long": "Bono a la moral",
+        "abbr": "Bono moral"
+      }
     },
     "SheetLabels": {
       "Actor": "SwordsWizardry Ficha de Actor",
