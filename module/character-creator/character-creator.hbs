@@ -4,26 +4,60 @@
   </head>
   <body>
     <div class="dialog-content">
+
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">{{localize
+            "SWORDS_WIZARDRY.CharacterCreator.Name"
+          }}</label>
         <div class="form-fields">
           <input name="name" type="text" />
         </div>
       </div>
       <div class="form-group">
-        <label for="folder">Folder</label>
+        <label for="class">{{localize "SWORDS_WIZARDRY.Stats.Class"}}</label>
         <div class="form-fields">
-          <select name="folder">
-            <option value="">--</option>
-            {{#each folders as |folder|}}
-            <option value="{{folder.id}}">{{folder.name}}</option>
+          <select name="class">
+            <option value=""></option>
+            {{#each classes as |cls|}}
+              <option value="{{cls.key}}">{{cls.label}}</option>
             {{/each}}
           </select>
         </div>
       </div>
+      <div class="form-group">
+        <label for="ancestry">{{localize
+            "SWORDS_WIZARDRY.CharacterSheet.Main.Ancestry"
+          }}</label>
+        <div class="form-fields">
+          <select name="ancestry">
+            <option value=""></option>
+            {{#each ancestries as |anc|}}
+              <option value="{{anc.key}}">{{anc.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="folder">{{localize
+            "SWORDS_WIZARDRY.CharacterCreator.Folder"
+          }}</label>
+        <div class="form-fields">
+          <select name="folder">
+            <option value="">--</option>
+            {{#each folders as |folder|}}
+              <option value="{{folder.id}}">{{folder.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+
     </div>
     <div class="dialog-buttons">
-      <button class="dialog-button ok default bright" data-button="ok" type="submit">Create Character</button>
+      <button
+        class="dialog-button ok default bright"
+        data-button="ok"
+        type="submit"
+      >{{localize "SWORDS_WIZARDRY.CharacterCreator.CreateButton"}}</button>
     </div>
   </body>
 </section>

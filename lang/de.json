@@ -10,6 +10,26 @@
       "Success": "Success",
       "Failure": "Failure"
     },
+    "CharacterCreator": {
+      "Mode": {
+        "Label": "Erstellungsmodus",
+        "Auto": "Automagische Erstellung",
+        "Blank": "Leer"
+      },
+      "Name": "Name",
+      "ClassLabel": "Klasse (nur Leer-Modus)",
+      "AncestryLabel": "Abstammung (nur Leer-Modus)",
+      "Folder": "Ordner",
+      "ItemPack": "Gegenstands-Kompendium",
+      "AutoAssign": "Automatisch zuweisen",
+      "AutoEquip": "Startausrüstung",
+      "AutoSpells": "Zufällige Zauber Grad 1",
+      "SpellCount": "Anzahl",
+      "CreateButton": "Charakter erstellen",
+      "Title": "Charakter-Ersteller",
+      "DefaultName": "Neuer Abenteurer",
+      "InvalidClassAncestry": "Klasse und Abstammung waren nicht kompatibel; Abstammung angepasst."
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Name",
@@ -24,6 +44,7 @@
       }
     },
     "CharacterSheet": {
+      "GenerateCharacter": "Charakter erzeugen",
       "Main": {
         "Age": "Alter",
         "Ancestry": "Abstammung",
@@ -148,15 +169,30 @@
         "long": "Höchstzahl Sprachen",
         "abbr": "Max. Sprachen"
       },
-      "MaximumSpellLevel": { "long": "Maximum Spell Level", "abbr": "spell lvl" },
-      "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "spell chance" },
-      "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "min spells" },
-      "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "max spells" },
+      "MaximumSpellLevel": {
+        "long": "Maximum Spell Level",
+        "abbr": "spell lvl"
+      },
+      "ChanceToUnderstandSpell": {
+        "long": "Chance to Understand Spell",
+        "abbr": "spell chance"
+      },
+      "MinimumSpellsPerLevel": {
+        "long": "Minimum Spells Per Level",
+        "abbr": "min spells"
+      },
+      "MaximumSpellsPerLevel": {
+        "long": "Maximum Spells Per Level",
+        "abbr": "max spells"
+      },
       "MaxSpecialHirelings": {
         "long": "Höchstzahl Spezialisten",
         "abbr": "Max. Spezialisten"
       },
-      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "short": "retainer" }
+      "RetainerMoraleAdjustment": {
+        "long": "Retainer Morale Adjustment",
+        "short": "retainer"
+      }
     },
     "SheetLabels": {
       "Actor": "SwordsWizardry Charakterbogen",
