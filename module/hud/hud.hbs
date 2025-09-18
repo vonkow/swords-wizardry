@@ -1,5 +1,5 @@
 <div>
-  <span>AC: {{actor.system.ac.value}} HP: {{actor.system.hp.value}}/{{actor.system.hp.max}}</span>
+  <span>AC: {{# if useAscendingAC }}{{actor.system.aac.value}}{{else}}{{actor.system.ac.value}}{{/if}} HP: {{actor.system.hp.value}}/{{actor.system.hp.max}}</span>
   <ul class="combat-hud-list">
     <li class="save-roll">
       <div class='item-name'>

@@ -52,7 +52,8 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
   _prepareContext() {
     return {
       token: this.token,
-      actor: this.actor
+      actor: this.actor,
+      useAscendingAC: game.settings.get('swords-wizardry', 'useAscendingAC')
     }
   }
 
