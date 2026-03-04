@@ -1,14 +1,29 @@
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 import { AutoGenerator, ensurePack, getAvailableClassesFromPack, getAvailableAncestriesFromPack, fetchClassFeatures, fetchAncestryFeatures, normalizeClassKey, normalizeAncestryKey, localizeClassKey, localizeAncestryKey } from './auto-generator.mjs';
 
-// 100 fantasy names used if the input name is blank
-const RANDOM_NAMES = [
-  'Aldric','Elowen','Thorin','Lyra','Garruk','Seraphine','Dorian','Kaelin','Mirella','Brom','Isolde','Kestrel','Rowan','Vaelin','Nymera','Lucan','Tamsin','Eldric','Ysara','Draven',
-  'Calder','Sorrel','Maeve','Ronan','Selene','Alaric','Brynn','Corvin','Elara','Fenris','Galen','Hester','Ivar','Jora','Kelric','Liora','Marek','Nerys','Orin','Phaedra',
-  'Quen','Rhea','Sylas','Torin','Uriel','Vesper','Wren','Xara','Yorric','Zara','Arian','Briala','Cassian','Daelin','Eira','Faelan','Gwyneira','Hadrian','Iskra',
-  'Jarek','Kaida','Luther','Maelis','Nolan','Ophira','Perin','Quilla','Riven','Sable','Taelon','Ula','Varyn','Wystan','Xander','Ysolda','Zeph','Arlen','Briar',
-  'Cyril','Delphine','Eamon','Fiora','Garran','Helene','Ishara','Jasper','Kara','Leoric','Mira','Nikolai','Ondine','Petra','Quorin','Rhosyn','Soren','Talia','Ulric','Violetta'
+// Syllable-based fantasy name generator
+const NAME_SYLLABLES = [
+  'al','ar','bra','bren','cal','cor','dar','dra','eld','era',
+  'fen','for','gal','gar','hal','har','il','ira','jor','kal',
+  'kel','kra','lar','lis','lor','lun','mal','mar','mor','myr',
+  'nal','nar','nel','nor','nyr','oel','ora','orin','pen','phar',
+  'quen','ral','ran','ren','rin','ron','sar','sel','ser','sil',
+  'sol','sor','tal','tar','tel','thor','tir','tor','tyr','ula',
+  'val','van','var','vel','ven','ver','vor','wren','xar','yar',
+  'yor','zar','zel','zor','aen','ael','eil','oin','uil','aer',
+  'bel','cael','daer','eil','fael','gael','hael','iael','jael','kael',
+  'lael','mael','nael','oel','pael','rael','sael','tael','vael','zael'
 ];
+
+function generateFantasyName() {
+  const count = Math.random() < 0.5 ? 2 : 3;
+  const syllables = [];
+  for (let i = 0; i < count; i++) {
+    syllables.push(NAME_SYLLABLES[Math.floor(Math.random() * NAME_SYLLABLES.length)]);
+  }
+  const name = syllables.join('');
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
 
 export class CharacterCreatorManager {
   static showCharacterCreator() {
@@ -99,7 +114,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
   async createCharacter(formData) {
     const folder = formData.get('folder');
     const rawName = (formData.get('name') || '').toString().trim();
-    const name = rawName || RANDOM_NAMES[Math.floor(Math.random() * RANDOM_NAMES.length)];
+    const name = rawName || generateFantasyName();
     const fixedClass = (formData.get('class') || '').toString().trim();
     const fixedAncestry = (formData.get('ancestry') || '').toString().trim();
     // Always auto-generate with equipment and spells; pack chosen by language
