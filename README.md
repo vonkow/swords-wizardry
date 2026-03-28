@@ -7,6 +7,16 @@
 Swords & Wizardry, S&W, and Mythmere Games are trademarks of Mythmere Games LLC (mythmeregames.com).
 
 The author is not affiliated in any way with Mythmere Games LLC.
+
+## Contributors
+- Tomasz Strasewski (@tomski80): Project founder
+- Caz (@vonkow): Current author/maintainer
+- René Kremer (@hadesrofl): Translation and German language support
+- Javier García (@fragarco): Spanish language support
+- Cussa Mitre (@Cussa): Bugfix
+- Ben Menesini (@sayhiben): RCP fixes and more
+- Juan Lucha (@JuanLucha): Encumbrance and movment calculations
+- Dan (@DT357): DM applied damage feature and deprecation fixes
  
 ## Documentation
 
