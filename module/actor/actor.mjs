@@ -1,4 +1,5 @@
 import { SaveRoll } from '../rolls/rolls.mjs';
+import { MoraleRoll } from '../rolls/rolls.mjs';
 
 export class SwordsWizardryActor extends Actor {
 
@@ -244,6 +245,12 @@ export class SwordsWizardryActor extends Actor {
 
   async rollSave() {
     const roll = new SaveRoll('d20', this);
+    roll.render();
+  }
+  
+ async rollMorale() {
+	if (this.type !== 'npc') return;
+    const roll = new MoraleRoll('2d6', this);
     roll.render();
   }
 

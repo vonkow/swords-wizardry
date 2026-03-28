@@ -1,8 +1,59 @@
 {{ log 'damage-roll-sheet' this}}
 <div class="swords-wizardry">
   <h3>{{localize "SWORDS_WIZARDRY.Chat.Damage"}}: {{item.name}}</h3>
-  <a class="inline-result"><span>{{{roll}}}</span></a>
-  {{#if item.system.specialDamage}}
-  <div class="damage-special-text" >{{localize "SWORDS_WIZARDRY.Chat.Special"}}: {{item.system.specialDamage}}</div>
+
+  <a class="inline-result">
+    <span>{{{roll}}}</span>
+  </a>
+
+  {{#if targets}}
+  <div class="damage-targets">
+
+    {{#each targets}}
+    <div class="damage-target">
+      <div class="target-name">
+        {{name}}
+      </div>
+
+      <div class="damage-buttons">
+
+        <button class="apply-damage"
+          data-action="damage"
+          data-target-id="{{id}}"
+          data-amount="{{../total}}"
+		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          Damage
+        </button>
+
+        <button class="apply-damage"
+          data-action="half"
+          data-target-id="{{id}}"
+          data-amount="{{../total}}"
+		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          Half
+        </button>
+
+        <button class="apply-damage"
+          data-action="double"
+          data-target-id="{{id}}"
+          data-amount="{{../total}}"
+		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          Double
+        </button>
+
+        <button class="apply-damage"
+          data-action="heal"
+          data-target-id="{{id}}"
+          data-amount="{{../total}}"
+		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          Heal
+        </button>
+      </div>
+	  <div class="damage-result"></div>
+    </div>
+    {{/each}}
+
+  </div>
   {{/if}}
+
 </div>

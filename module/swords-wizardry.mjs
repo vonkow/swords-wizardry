@@ -11,7 +11,7 @@ import { ImportManager } from './importer/importer.mjs';
 import { CharacterCreatorManager } from './character-creator/character-creator.mjs';
 import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
 
-import { AttackRoll, DamageRoll, FeatureRoll, SaveRoll } from './rolls/rolls.mjs';
+import { AttackRoll, DamageRoll, FeatureRoll, SaveRoll, MoraleRoll } from './rolls/rolls.mjs';
 // Import document classes.
 import { SwordsWizardryActor } from './actor/actor.mjs';
 import { SwordsWizardryItem } from './item/item.mjs';
@@ -56,7 +56,8 @@ Hooks.once('init', function() {
     AttackRoll,
     DamageRoll,
     FeatureRoll,
-    SaveRoll
+    SaveRoll,
+	MoraleRoll
   ];
 
   // Active Effects are never copied to the Actor,
@@ -64,14 +65,14 @@ Hooks.once('init', function() {
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
 
-  Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('swords-wizardry', SwordsWizardryActorSheet, {
+  foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet);
+  foundry.documents.collections.Actors.registerSheet('swords-wizardry', SwordsWizardryActorSheet, {
     makeDefault: true,
     label: 'SWORDS_WIZARDRY.SheetLabels.Actor',
   });
 
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('swords-wizardry', SwordsWizardryItemSheet, {
+  foundry.documents.collections.Items.unregisterSheet('core', foundry.appv1.sheets.ItemSheet);
+  foundry.documents.collections.Items.registerSheet('swords-wizardry', SwordsWizardryItemSheet, {
     makeDefault: true,
     label: 'SWORDS_WIZARDRY.SheetLabels.Item',
   });

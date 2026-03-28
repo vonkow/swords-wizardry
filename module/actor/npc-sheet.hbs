@@ -33,7 +33,11 @@
           </div>
         </div>
         <div class="resource">
-          <label for="system.morale" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Morale'}}</label>
+          <label for="system.morale" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Morale'}}
+		  <a class='morale-roll' data-roll-type='item'>
+              <i class="fas fa-dice-d20"></i>
+          </a>
+		  </label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="system.morale" value="{{system.morale}}" data-dtype="Number"/>
           </div>
@@ -41,17 +45,21 @@
         <div class="resource grid-span-3">
           <label for="system.special" class="resource-label">{{localize 'SWORDS_WIZARDRY.NPCSheet.Main.Special'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.special" value="{{system.special}}" data-dtype="Text"/>
+            <input type="text" name="system.special" value="{{system.special}}" data-dtype="String"/>
           </div>
         </div>
         <div class="resource grid-span-2">
           <label for="system.alignment" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Alignment'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.alignment" value="{{system.alignment}}" data-dtype="Text"/>
+            <input type="text" name="system.alignment" value="{{system.alignment}}" data-dtype="String"/>
           </div>
         </div>
        <div class="resource">
-          <label for="system.save" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long'}}</label>
+          <label for="system.save" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long'}}
+		  <a class='save-roll' data-roll-type='item'>
+            <i class="fas fa-dice-d20"></i>
+          </a>
+		  </label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
           </div>
@@ -72,13 +80,13 @@
         <div class="resource grid-span-3">
           <label for="system.numberEncountered" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.NumberEncountered.long'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.numberEncountered" value="{{system.numberEncountered}}" data-dtype="Text"/>
+            <input type="text" name="system.numberEncountered" value="{{system.numberEncountered}}" data-dtype="String"/>
           </div>
         </div>
         <div class="resource">
           <label for="system.percentInLair" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.PercentInLair.abbr'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.percentInLair" value="{{system.percentInLair}}" data-dtype="Text"/>
+            <input type="text" name="system.percentInLair" value="{{system.percentInLair}}" data-dtype="String"/>
           </div>
         </div>
       </div>

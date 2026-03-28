@@ -527,4 +527,20 @@ input {
   margin-top: 5px;
 }
 
+.damage-target{
+  border:1px solid #666;
+  padding:5px;
+  margin-top:5px;
+}
+
+.damage-buttons{
+  display:flex;
+  gap:4px;
+  margin-top:4px;
+}
+
+.damage-buttons button{
+  flex:1;
+  font-size:11px;
+}
 /*# sourceMappingURL=swords-wizardry.css.map */

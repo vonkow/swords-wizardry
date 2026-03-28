@@ -7,7 +7,7 @@ import {
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class SwordsWizardryActorSheet extends ActorSheet {
+export class SwordsWizardryActorSheet extends foundry.appv1.sheets.ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -162,6 +162,10 @@ export class SwordsWizardryActorSheet extends ActorSheet {
 
     html.on('click', '.save-roll', (ev) => {
       this.actor.rollSave();
+    });
+
+    html.on('click', '.morale-roll', (ev) => {
+      this.actor.rollMorale();
     });
 
     html.on('click', '.item-prepare', async (ev) => {
