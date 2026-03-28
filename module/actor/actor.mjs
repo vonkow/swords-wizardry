@@ -104,6 +104,60 @@ export class SwordsWizardryActor extends Actor {
       // Calculate the modifier using S&W
       modifier.v = Math.floor(modifier.value);
     }
+
+    this._calculateEncumbrance(actorData);
+  }
+
+  /**
+   * Calculate carry weight from inventory and derive movement rate.
+   */
+  _calculateEncumbrance(actorData) {
+    const systemData = actorData.system;
+
+    let totalWeight = 0;
+    let zeroWeightCount = 0;
+
+    for (const item of actorData.items) {
+      const itype = item.type;
+      if (itype !== 'item' && itype !== 'weapon' && itype !== 'armor') continue;
+
+      const w = Number(item.system.weight) || 0;
+      const q = Number(item.system.quantity) || 1;
+
+      if (w === 0) {
+        zeroWeightCount += q;
+      } else {
+        totalWeight += w * q;
+      }
+    }
+
+    // TODO If misc equipment is checked on character sheet add 10 lbs
+    // if (systemData.carryingMiscEquipment) totalWeight += 10;
+
+    // Every 5 zero-weight items add 1 lb (todo add later)
+    // totalWeight += Math.floor(zeroWeightCount / 5);
+
+    // Every 10 coins = 1 lb (gems excluded)
+    const treasure = systemData.treasure || {};
+    const totalCoins = (Number(treasure.gp) || 0)
+                     + (Number(treasure.pp) || 0)
+                     + (Number(treasure.sp) || 0)
+                     + (Number(treasure.cp) || 0);
+    totalWeight += Math.floor(totalCoins / 10);
+
+    systemData.carryWeight.value = totalWeight;
+
+    // Movement rate based on weight and STR carry modifier
+    const carryMod = Number(systemData.modifiers?.carry?.value) || 0;
+
+    const moveRate
+      = totalWeight <= 75 + carryMod ? 12
+      : totalWeight <= 100 + carryMod ? 9
+      : totalWeight <= 150 + carryMod ? 6
+      : totalWeight <= 300 + carryMod ? 3
+      : 0;
+
+    systemData.moveRate.value = moveRate;
   }
 
   /**
