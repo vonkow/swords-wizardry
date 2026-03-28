@@ -3,6 +3,8 @@
  * Pre-loaded templates are compiled and cached for fast access when rendering
  * @return {Promise}
  */
+const { loadTemplates } = foundry.applications.handlebars;
+
 export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
     'systems/swords-wizardry/module/actor/features.hbs',

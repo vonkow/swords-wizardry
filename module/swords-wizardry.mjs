@@ -11,7 +11,7 @@ import { ImportManager } from './importer/importer.mjs';
 import { CharacterCreatorManager } from './character-creator/character-creator.mjs';
 import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
 
-import { AttackRoll, DamageRoll, FeatureRoll, SaveRoll } from './rolls/rolls.mjs';
+import { AttackRoll, DamageRoll, FeatureRoll, SaveRoll, MoraleRoll } from './rolls/rolls.mjs';
 // Import document classes.
 import { SwordsWizardryActor } from './actor/actor.mjs';
 import { SwordsWizardryItem } from './item/item.mjs';
@@ -26,6 +26,9 @@ import { CombatHud } from './hud/hud.mjs';
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { handleRPC } from './helpers/rpc.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
+
+const { Actors, Items } = foundry.documents.collections;
+const { ActorSheet, ItemSheet } = foundry.appv1.sheets;
 
 Hooks.once('init', function() {
   registerSystemSettings();
@@ -56,7 +59,8 @@ Hooks.once('init', function() {
     AttackRoll,
     DamageRoll,
     FeatureRoll,
-    SaveRoll
+    SaveRoll,
+    MoraleRoll
   ];
 
   // Active Effects are never copied to the Actor,

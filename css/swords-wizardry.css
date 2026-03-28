@@ -498,6 +498,20 @@ input {
 .swords-wizardry .damage-special-text {
   margin-top: 5px;
 }
+.swords-wizardry .damage-target {
+  border: 1px solid #666666;
+  padding: 5px;
+  margin-top: 5px;
+}
+.swords-wizardry .damage-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+.swords-wizardry .damage-buttons button {
+  flex: 1;
+  font-size: 11px;
+}
 .swords-wizardry .resource {
   display: flex;
   flex-direction: column;
@@ -526,5 +540,3 @@ input {
 .swords-wizardry .abilities .resource-label, .swords-wizardry .abilities .modifier-label, .swords-wizardry .modifiers .resource-label, .swords-wizardry .modifiers .modifier-label {
   margin-top: 5px;
 }
-
-/*# sourceMappingURL=swords-wizardry.css.map */

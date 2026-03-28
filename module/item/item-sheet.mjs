@@ -3,6 +3,8 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+const { ItemSheet } = foundry.appv1.sheets;
+
 export class SwordsWizardryItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {

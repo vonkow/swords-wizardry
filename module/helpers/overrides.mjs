@@ -1,4 +1,9 @@
+// TODO: Rename this file to be ChatMessage or something, it's not really generic overrides
 import { DamageRoll } from '../rolls/rolls.mjs';
+import { rpc } from './rpc.mjs';
+
+const { deepClone } = foundry.utils;
+
 
 export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){
@@ -10,13 +15,19 @@ export class SwordsWizardryChatMessage extends ChatMessage {
     }
   }
 
-  async getHTML() {
-    const html = await super.getHTML();
+  async renderHTML() {
+    const html = await super.renderHTML();
     this.activateListeners(html);
     return html;
   }
 
   activateListeners(html) {
+    const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
+    this._activateRollDamageListener(html);
+    if (dmAppliesDamage) this._activateApplyDamageListener(html);
+  }
+
+  _activateRollDamageListener(html) {
     $(html).on('click', '.damage-roll-button', async (e) => {
       const { actorId, itemId } = e.currentTarget.dataset;
       let actor = game.actors.get(actorId);
@@ -37,4 +48,104 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       await roll.render();
     });
   }
+
+  _activateApplyDamageListener(html) {
+    $(html).on('click', '.apply-damage', async (e) => {
+
+      if (!game.user.isGM) {
+        ui.notifications.warn("Only GM can apply damage");
+        return;
+      }
+
+      const button = e.currentTarget;
+      const { action, targetId, amount: a } = button.dataset;
+      const initialAmount = Number(a);
+      const target = canvas.tokens.get(targetId);
+      if (!target) return;
+
+      const amount
+        = action === "half" ? Math.floor(initialAmount / 2)
+	: action === "double" ? initialAmount * 2
+	: action === "heal" ? initialAmount * -1
+	: initialAmount;
+
+      const oldHP = target.actor.system.hp.value;
+      const newHP = oldHP - amount;
+
+      await rpc({
+        recipient: 'GM',
+        target: target.id,
+        operation: 'damage',
+        amount: amount,
+        data: { system: { hp: { value: newHP } } }
+      });
+
+
+      const messageId = $(button)
+        .closest(".message")
+        .data("messageId");
+
+      const message = game.messages.get(messageId);
+
+      if (!message) return;
+
+      const applied = deepClone(
+        message.getFlag("swords-wizardry", "appliedDamage") || {}
+      );
+
+      applied[targetId] = { action, amount, oldHP, newHP };
+
+      await message.setFlag("swords-wizardry", "appliedDamage", applied);
+
+      await message.update({});
+    });
+  }
 }
+
+
+Hooks.on("renderChatMessageHTML", (message, html, data) => {
+  if (game.settings.get('swords-wizardry', 'dmAppliesDamage')) {
+
+    const appliedDamage = message.getFlag("swords-wizardry", "appliedDamage") || {};
+
+    const targets = html.querySelectorAll(".damage-target");
+
+    if(!targets.length) return;
+
+    targets.forEach(targetElement => {
+      const button = targetElement.querySelector(".apply-damage");
+      if (!button) return;
+
+      const { targetId } = button.dataset;
+      if (!appliedDamage[targetId]) return;
+
+      const result = appliedDamage[targetId];
+
+      const label
+        = result.action === "damage" ? "Damage"
+	: result.action === "heal" ? "Healing"
+	: result.action === "half" ? "Half Damage"
+	: result.action === "double" ? "Double Damage"
+	: "Damage";
+
+      const resultDiv = targetElement.querySelector(".damage-result");
+      if (!resultDiv) return;
+
+      /* Don't tell the players how much HP is remaining, they deserve nothing so useful!
+      // Consider making this another option in settings
+      resultDiv.innerHTML = `
+        Applied ${label}: ${result.amount}<br>
+        HP: ${result.oldHP} → ${result.newHP}
+      `;
+      */
+
+      // TODO This style of state update does not survive between game sessions.
+      // Investigate how to keep applied results baked into the message (someday, low-pri).
+      resultDiv.innerHTML = `Applied ${label}: ${result.amount}<br/>`;
+
+      const buttons = targetElement.querySelectorAll("button");
+
+      buttons.forEach(b => b.remove());
+    });
+  }
+});
