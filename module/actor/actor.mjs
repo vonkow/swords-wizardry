@@ -131,8 +131,11 @@ export class SwordsWizardryActor extends Actor {
       }
     }
 
-    // Every 5 zero-weight items add 1 lb
-    totalWeight += Math.floor(zeroWeightCount / 5);
+    // TODO If misc equipment is checked on character sheet add 10 lbs
+    // if (systemData.carryingMiscEquipment) totalWeight += 10;
+
+    // Every 5 zero-weight items add 1 lb (todo add later)
+    // totalWeight += Math.floor(zeroWeightCount / 5);
 
     // Every 10 coins = 1 lb (gems excluded)
     const treasure = systemData.treasure || {};
@@ -147,12 +150,12 @@ export class SwordsWizardryActor extends Actor {
     // Movement rate based on weight and STR carry modifier
     const carryMod = Number(systemData.modifiers?.carry?.value) || 0;
 
-    let moveRate;
-    if      (totalWeight <= 75  + carryMod) moveRate = 12;
-    else if (totalWeight <= 100 + carryMod) moveRate = 9;
-    else if (totalWeight <= 150 + carryMod) moveRate = 6;
-    else if (totalWeight <= 300 + carryMod) moveRate = 3;
-    else                                    moveRate = 0;
+    const moveRate
+      = totalWeight <= 75 + carryMod ? 12
+      : totalWeight <= 100 + carryMod ? 9
+      : totalWeight <= 150 + carryMod ? 6
+      : totalWeight <= 300 + carryMod ? 3
+      : 0;
 
     systemData.moveRate.value = moveRate;
   }
