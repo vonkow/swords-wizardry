@@ -27,6 +27,9 @@ import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { handleRPC } from './helpers/rpc.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
 
+const { Actors, Items } = foundry.documents.collections;
+const { ActorSheet, ItemSheet } = foundry.appv1.sheets;
+
 Hooks.once('init', function() {
   registerSystemSettings();
 
@@ -57,7 +60,7 @@ Hooks.once('init', function() {
     DamageRoll,
     FeatureRoll,
     SaveRoll,
-	MoraleRoll
+    MoraleRoll
   ];
 
   // Active Effects are never copied to the Actor,
@@ -65,14 +68,14 @@ Hooks.once('init', function() {
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
 
-  foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet);
-  foundry.documents.collections.Actors.registerSheet('swords-wizardry', SwordsWizardryActorSheet, {
+  Actors.unregisterSheet('core', ActorSheet);
+  Actors.registerSheet('swords-wizardry', SwordsWizardryActorSheet, {
     makeDefault: true,
     label: 'SWORDS_WIZARDRY.SheetLabels.Actor',
   });
 
-  foundry.documents.collections.Items.unregisterSheet('core', foundry.appv1.sheets.ItemSheet);
-  foundry.documents.collections.Items.registerSheet('swords-wizardry', SwordsWizardryItemSheet, {
+  Items.unregisterSheet('core', ItemSheet);
+  Items.registerSheet('swords-wizardry', SwordsWizardryItemSheet, {
     makeDefault: true,
     label: 'SWORDS_WIZARDRY.SheetLabels.Item',
   });

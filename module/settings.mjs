@@ -11,4 +11,14 @@ export function registerSystemSettings() {
     requiresReload: true,
     default: false
   });
+
+  // DM must apply damage
+  game.settings.register("swords-wizardry", "dmAppliesDamage", {
+    name: "DM must apply damage",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    requiresReload: true,
+    default: false
+  });
 }

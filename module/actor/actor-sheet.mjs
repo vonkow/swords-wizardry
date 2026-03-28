@@ -3,11 +3,13 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+const { ActorSheet } = foundry.appv1.sheets;
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class SwordsWizardryActorSheet extends foundry.appv1.sheets.ActorSheet {
+export class SwordsWizardryActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

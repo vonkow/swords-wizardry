@@ -6,6 +6,11 @@
     <span>{{{roll}}}</span>
   </a>
 
+  {{# if item.system.specialDamage}}
+  <div class="damage-special-text">{{localize "SWORDS_WIZARDRY.Chat.Special"}}: {{item.system.specialDamage}}</div>
+  {{/if}}
+
+  {{#if dmAppliesDamage}}
   {{#if targets}}
   <div class="damage-targets">
 
@@ -54,6 +59,7 @@
     {{/each}}
 
   </div>
+  {{/if}}
   {{/if}}
 
 </div>

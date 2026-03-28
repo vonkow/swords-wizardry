@@ -1,6 +1,8 @@
 import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
 import { rpc } from '../helpers/rpc.mjs';
 
+const { renderTemplate } = foundry.applications.handlebars;
+
 export class AttackRoll extends Roll {
 
   constructor(formula, rollData={}, options={}) {
@@ -47,7 +49,7 @@ export class AttackRoll extends Roll {
       missedTargets: this.missedTargets,
       damageFormula: this.data.damageFormula
     }
-    const resultsHtml = await foundry.applications.handlebars.renderTemplate(template, chatData);
+    const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rolls: [this],
       rollMode: rollMode,
@@ -62,60 +64,59 @@ export class DamageRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
 	
-	/* Commenting out the old auto-application of damage to add a GM-clickable button */
-	/*
-    game.user.targets.forEach(async (target) => {
-      await rpc({
-        recipient: 'GM',
-        target: target.id,
-        operation: 'damage',
-        amount: result.total,
-        data: { system: { hp: { value: target.actor.system.hp.value - result.total } } }
+    if (!game.settings.get('swords-wizardry', 'dmAppliesDamage')) {
+      game.user.targets.forEach(async (target) => {
+        await rpc({
+          recipient: 'GM',
+          target: target.id,
+          operation: 'damage',
+          amount: result.total,
+          data: { system: { hp: { value: target.actor.system.hp.value - result.total } } }
+        });
       });
-    });
-	*/
+    }
+
     return result;
   }
 
   async render(options) {
+    const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
+
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render();
     const template = 'systems/swords-wizardry/module/rolls/damage-roll-sheet.hbs';
 	
-	/* 3/23/26: pass targets to chat box */
-	const targets = Array.from(game.user.targets).map(t => ({
-	  id: t.id,
-	  name: t.name,
-	  hp: t.actor.system.hp.value
-	}));
-
-	const message = this.message;
-
-	let appliedDamage = {};
-
-	if(message){
-	  appliedDamage =
-		message.getFlag(
-		  "swords-wizardry",
-		  "appliedDamage"
-		) || {};
-	}
-
     const chatData = {
       item: this.data.item,
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
-	  targets: targets,
-	  appliedDamage:appliedDamage,
+      dmAppliesDamage
     };
-	
-    const resultsHtml = await foundry.applications.handlebars.renderTemplate(template, chatData);
+
+    if (dmAppliesDamage) {
+      const targets = Array.from(game.user.targets).map(t => ({
+        id: t.id,
+        name: t.name,
+        hp: t.actor.system.hp.value
+      }));
+
+      const message = this.message;
+
+      const appliedDamage = message
+        ? message.getFlag('swords-wizardry', 'appliedDamage') || {}
+	: {}
+
+      chatData.targets = targets;
+      chatData.appliedDamage = appliedDamage;
+    }
+
+    const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rolls: [this],
-	  rollMode: rollMode,
+      rollMode: rollMode,
       user: game.user._id,
       speaker: speaker,
       content: resultsHtml
@@ -149,7 +150,7 @@ export class FeatureRoll extends Roll {
       roll: rollHtml,
       ...this.data
     };
-    const resultsHtml = await foundry.applications.handlebars.renderTemplate(template, chatData);
+    const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rolls: [this],
 	  rollMode: rollMode,
@@ -187,10 +188,10 @@ export class SaveRoll extends Roll {
       roll: rollHtml,
       ...this.data
     };
-    const resultsHtml = await foundry.applications.handlebars.renderTemplate(template, chatData);
+    const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rolls: [this],
-	  rollMode: rollMode,
+      rollMode: rollMode,
       user: game.user._id,
       speaker: speaker,
       content: resultsHtml
@@ -211,15 +212,17 @@ export class MoraleRoll extends Roll {
   }
 
   async render(options) {
-	if (!game.user.isGM) {
-	  return rpc({
-		recipient: "GM",
-		operation: "moraleRoll",
-		actorId: this.data.actor.id
-	  });
-	}
+    if (!game.user.isGM) {
+      return rpc({
+        recipient: "GM",
+        operation: "moraleRoll",
+        actorId: this.data.actor.id
+      });
+    }
+
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     if (!this._evaluated) await this.evaluate();
+
     const rollHtml = await super.render();
     const template = 'systems/swords-wizardry/module/rolls/morale-roll-sheet.hbs';
     const chatData = {
@@ -229,7 +232,8 @@ export class MoraleRoll extends Roll {
       roll: rollHtml,
       ...this.data
     };
-    const resultsHtml = await foundry.applications.handlebars.renderTemplate(template, chatData);
+    const resultsHtml = await renderTemplate(template, chatData);
+
     const msg = await SwordsWizardryChatMessage.create({
       rolls: [this],
 	  rollMode: CONST.DICE_ROLL_MODES.GMROLL,

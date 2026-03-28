@@ -1,4 +1,6 @@
-export class SwordsWizardryCombatTracker extends foundry.applications.sidebar.tabs.CombatTracker {
+const { CombatTracker } = foundry.applications.sidebar.tabs;
+
+export class SwordsWizardryCombatTracker extends CombatTracker {
   /** @override
     * we do this so we can inject "game" into the combat.turns and turns
     *

@@ -1,5 +1,9 @@
+// TODO: Rename this file to be ChatMessage or something, it's not really generic overrides
 import { DamageRoll } from '../rolls/rolls.mjs';
 import { rpc } from './rpc.mjs';
+
+const { deepClone } = foundry.utils;
+
 
 export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){
@@ -18,6 +22,12 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   }
 
   activateListeners(html) {
+    const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
+    this._activateRollDamageListener(html);
+    if (dmAppliesDamage) this._activateApplyDamageListener(html);
+  }
+
+  _activateRollDamageListener(html) {
     $(html).on('click', '.damage-roll-button', async (e) => {
       const { actorId, itemId } = e.currentTarget.dataset;
       let actor = game.actors.get(actorId);
@@ -37,140 +47,105 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       const roll = new DamageRoll(damageFormula, rollData);
       await roll.render();
     });
-	
-	$(html).on('click', '.apply-damage', async (e) => {
+  }
 
-	  if (!game.user.isGM) {
-		ui.notifications.warn("Only GM can apply damage");
-		return;
-	  }
-	  const button = e.currentTarget;
-	  const action = e.currentTarget.dataset.action;
-	  const targetId = e.currentTarget.dataset.targetId;
+  _activateApplyDamageListener(html) {
+    $(html).on('click', '.apply-damage', async (e) => {
 
-	  let amount = Number(e.currentTarget.dataset.amount);
+      if (!game.user.isGM) {
+        ui.notifications.warn("Only GM can apply damage");
+        return;
+      }
 
-	  if (action === "half") {
-		amount = Math.floor(amount / 2);
-	  }
+      const button = e.currentTarget;
+      const { action, targetId, amount: a } = button.dataset;
+      const initialAmount = Number(a);
+      const target = canvas.tokens.get(targetId);
+      if (!target) return;
 
-	  if (action === "double") {
-		amount = amount * 2;
-	  }
+      const amount
+        = action === "half" ? Math.floor(initialAmount / 2)
+	: action === "double" ? initialAmount * 2
+	: action === "heal" ? initialAmount * -1
+	: initialAmount;
 
-	  if (action === "heal") {
-		amount = amount * -1;
-	  }
-	  
-	  const target = canvas.tokens.get(targetId);
+      const oldHP = target.actor.system.hp.value;
+      const newHP = oldHP - amount;
 
-	  if (!target) return;
-
-	  let oldHP = target.actor.system.hp.value;
-	  let newHP = target.actor.system.hp.value;
-      newHP -= amount;
-
-
-	  await rpc({
-		recipient: 'GM',
-		target: target.id,
-		operation: 'damage',
-		amount: amount,
-		data: {
-		  system: {
-			hp: {
-			  value: newHP
-			}
-		  }
-		}
-	  });
+      await rpc({
+        recipient: 'GM',
+        target: target.id,
+        operation: 'damage',
+        amount: amount,
+        data: { system: { hp: { value: newHP } } }
+      });
 
 
-	const messageId = $(button)
-	  .closest(".message")
-	  .data("messageId");
+      const messageId = $(button)
+        .closest(".message")
+        .data("messageId");
 
-	const message = game.messages.get(messageId);
+      const message = game.messages.get(messageId);
 
-	if (!message) return;
+      if (!message) return;
 
-	const applied =
-	  foundry.utils.deepClone(
-		message.getFlag(
-		  "swords-wizardry",
-		  "appliedDamage"
-		) || {}
-	  );
+      const applied = deepClone(
+        message.getFlag("swords-wizardry", "appliedDamage") || {}
+      );
 
-	applied[targetId] = {
-	  action: action,
-	  amount: amount,
-	  oldHP: oldHP,
-	  newHP: newHP
-	};
+      applied[targetId] = { action, amount, oldHP, newHP };
 
-	await message.setFlag(
-	  "swords-wizardry",
-	  "appliedDamage",
-	  applied
-	);
+      await message.setFlag("swords-wizardry", "appliedDamage", applied);
 
-	await message.update({});
-	
-	});
+      await message.update({});
+    });
   }
 }
 
+
 Hooks.on("renderChatMessageHTML", (message, html, data) => {
+  if (game.settings.get('swords-wizardry', 'dmAppliesDamage')) {
 
-  const appliedDamage =
-    message.getFlag(
-      "swords-wizardry",
-      "appliedDamage"
-    ) || {};
+    const appliedDamage = message.getFlag("swords-wizardry", "appliedDamage") || {};
 
-  const targets =
-    html.querySelectorAll(".damage-target");
+    const targets = html.querySelectorAll(".damage-target");
 
-  if(!targets.length) return;
+    if(!targets.length) return;
 
-  targets.forEach(targetElement => {
+    targets.forEach(targetElement => {
+      const button = targetElement.querySelector(".apply-damage");
+      if (!button) return;
 
-    const button = targetElement.querySelector(".apply-damage");
-    if(!button) return;
+      const { targetId } = button.dataset;
+      if (!appliedDamage[targetId]) return;
 
-    const targetId = button.dataset.targetId;
-    if(!appliedDamage[targetId]) return;
+      const result = appliedDamage[targetId];
 
-    const result = appliedDamage[targetId];
+      const label
+        = result.action === "damage" ? "Damage"
+	: result.action === "heal" ? "Healing"
+	: result.action === "half" ? "Half Damage"
+	: result.action === "double" ? "Double Damage"
+	: "Damage";
 
-    let label = result.action;
+      const resultDiv = targetElement.querySelector(".damage-result");
+      if (!resultDiv) return;
 
-    if(result.action==="damage") label="Damage";
-    if(result.action==="heal") label="Healing";
-    if(result.action==="half") label="Half Damage";
-    if(result.action==="double") label="Double Damage";
+      /* Don't tell the players how much HP is remaining, they deserve nothing so useful!
+      // Consider making this another option in settings
+      resultDiv.innerHTML = `
+        Applied ${label}: ${result.amount}<br>
+        HP: ${result.oldHP} → ${result.newHP}
+      `;
+      */
 
-    const resultDiv = targetElement.querySelector(".damage-result");
-    if(!resultDiv) return;
+      // TODO This style of state update does not survive between game sessions.
+      // Investigate how to keep applied results baked into the message (someday, low-pri).
+      resultDiv.innerHTML = `Applied ${label}: ${result.amount}<br/>`;
 
-/* Don't tell the players how much HP is remaining, they deserve nothing so useful!
-    resultDiv.innerHTML = `
-      Applied ${label}: ${result.amount}<br>
-      HP: ${result.oldHP} → ${result.newHP}
-    `;
-*/
-    resultDiv.innerHTML = `
-      Applied ${label}: ${result.amount}<br>
-    `;
+      const buttons = targetElement.querySelectorAll("button");
 
-    const buttons =
-      targetElement.querySelectorAll("button");
-
-    buttons.forEach(b=>{
-      b.disabled = true;
+      buttons.forEach(b => b.remove());
     });
-
-  });
-
+  }
 });
