@@ -60,7 +60,10 @@
       },
       "Equipment": {
         "Gems": "Gemas",
-        "Gold": "Monedas (mo)",
+        "Copper": "Monedas de cobre",
+        "Gold": "Monedas de oro",
+        "Platinum": "Monedas de platino",
+        "Silver": "Monedas de plata",
         "Items": "Objetos",
         "Other": "Otros",
         "Table": {

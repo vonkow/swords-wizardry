@@ -60,7 +60,10 @@
       },
       "Equipment": {
         "Gems": "Edelsteine",
-        "Gold": "Gold",
+        "Copper": "Kupfermünzen",
+        "Gold": "Goldmünzen",
+        "Platinum": "Platinmünzen",
+        "Silver": "Silbermünzen",
         "Other": "Sonstiges",
         "Table": {
           "Create": "Neuen Gegenstand hinzufügen",

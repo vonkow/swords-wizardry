@@ -60,7 +60,10 @@
       },
       "Equipment": {
         "Gems": "Gems",
+        "Copper": "Copper",
         "Gold": "Gold",
+        "Platinum": "Platinum",
+        "Silver": "Silver",
         "Items": "Items",
         "Other": "Other",
         "Table": {

@@ -22,6 +22,36 @@
   }
 }
 
+h3 {
+  font-family: 'Libre Baskerville';
+  font-size: 20px;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+h4 {
+  font-family: 'Libre Baskerville';
+  font-size: 16px;
+}
+
+.ability {
+  label {
+    padding-top: 8px;
+  }
+  .checkbox-small {
+    padding-top: 3px;
+  }
+}
+
+.toggle {
+  margin-top: 4px;
+  i {
+    margin-left: -3px;
+  }
+}
+/*
 .resource-label, .modifier-label {
     font-weight: bold;
 }
@@ -32,6 +62,8 @@
 
 .abilities, .modifiers {
     .resource-label, .modifier-label {
-        margin-top: 5px;
+        //margin-top: 5px;
     }
 }
+
+*/

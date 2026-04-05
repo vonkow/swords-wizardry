@@ -12,8 +12,9 @@
     </div>
   </div>
   {{else}}
-  <h3 class="resource-label align-center">{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.RollNeededToHitAC'}}</h3>
-  
+  <div class="grid grid-1col">
+    <h3 class="align-center">{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.RollNeededToHitAC'}}</h3>
+  </div>
   <div class="grid grid-19col align-center">
     {{#each system.toHitACMatrix as |val key|}}
     <div>
@@ -32,9 +33,8 @@
     {{/ if }}
     {{/each}}
   </div>
-  <br>
   {{/ if }}
-  <h3>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Title'}}</h3>
+  <h3 class="align-center">{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Title'}}</h3>
   <ol class='items-list'>
     <li class='item items-header grid grid-6col'>
       <div class='item-name grid-span-2'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Name'}}</div>
@@ -44,8 +44,9 @@
       <div class='item-controls'>
         <a
           class='item-control item-create'
-          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Create" type='weapon'}}'
+          data-action='itemCreate'
           data-type='weapon'
+          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Create" type='weapon'}}'
         >
           <i class='fas fa-plus'></i>
         </a>
@@ -55,7 +56,12 @@
     <li class='item grid grid-6col' data-item-id='{{item._id}}'>
       <div class='item-name grid-span-2'>
         <div class='item-image'>
-          <a class='rollable' data-roll-type='item'>
+          <a
+            class='rollable'
+            data-action='roll'
+            data-id='{{item._id}}'
+            data-roll-type='item'
+          >
             <img
               src='{{item.img}}'
               title='{{item.name}}'
@@ -64,7 +70,7 @@
             />
           </a>
         </div>
-        <h4>{{item.name}}</h4>
+        <span class='item-name-span'>{{item.name}}</span>
       </div>
       <div class='item-prop'>{{item.system.weight}}</div>
   
@@ -73,12 +79,16 @@
       <div class='item-controls'>
         <a
           class='item-control item-edit'
+          data-action='itemEdit'
+          data-id='{{item._id}}'
           title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Update" type='weapon'}}'
         >
           <i class='fas fa-edit'></i>
         </a>
         <a
           class='item-control item-delete'
+          data-action='itemDelete'
+          data-id='{{item._id}}'
           title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.Table.Delete" type='weapon'}}'
         >
           <i class='fas fa-trash'></i>
@@ -87,8 +97,7 @@
     </li>
     {{/each}}
   </ol>
-  <h3></h3>
-  <h3>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Title'}}</h3>
+  <h3 class="align-center">{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Title'}}</h3>
   <ol class='items-list'>
     <li class='item items-header grid grid-5col'>
       <div class='item-name grid-span-2'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Name'}}</div>
@@ -97,8 +106,9 @@
       <div class='item-controls'>
         <a
           class='item-control item-create'
-          title="{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Create" type='armor'}}"
+          data-action='itemCreate'
           data-type='armor'
+          title="{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Create" type='armor'}}"
         >
           <i class='fas fa-plus'></i>
         </a>
@@ -108,7 +118,12 @@
       <li class='item grid grid-5col' data-item-id='{{item._id}}'>
         <div class='item-name grid-span-2'>
           <div class='item-image'>
-            <a class='rollable' data-roll-type='item'>
+            <a
+              class='rollable'
+              data-action='roll'
+              data-id='{{item._id}}'
+              data-roll-type='item'
+            >
               <img
                 src='{{item.img}}'
                 title='{{item.name}}'
@@ -117,7 +132,7 @@
               />
             </a>
           </div>
-          <h4>{{item.name}}</h4>
+          <span class='item-name-span'>{{item.name}}</span>
         </div>
         <div class='item-prop'>{{item.system.weight}}</div>
   
@@ -125,12 +140,16 @@
         <div class='item-controls'>
           <a
             class='item-control item-edit'
+            data-action='itemEdit'
+            data-id='{{item._id}}'
             title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Update" type='armor'}}'
           >
             <i class='fas fa-edit'></i>
           </a>
           <a
             class='item-control item-delete'
+            data-action='itemDelete'
+            data-id='{{item._id}}'
             title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Combat.ArmorTable.Delete" type='armor'}}'
           >
             <i class='fas fa-trash'></i>

@@ -306,6 +306,54 @@ input {
 }
 
 /* Styles limited to swords-wizardry sheets */
+.swords-wizardry {
+  /*
+  .sheet-tabs {
+    flex: 0;
+  }
+
+  .sheet-body,
+  .sheet-body .tab,
+  .sheet-body .tab .editor {
+    //height: 100%;
+  }
+
+  .editor {
+    min-height: 19.6em;
+    height: 100%;
+  }
+
+  .editor-container {
+      margin: 0;
+  }
+
+  .tox {
+    .tox-editor-container {
+      background: $c-white;
+    }
+
+    .tox-edit-area {
+      padding: 0 8px;
+    }
+  }
+  */
+  /*
+  .resource-label, .modifier-label {
+      font-weight: bold;
+  }
+
+  .resource-value, .modifier-value {
+      text-align: center;
+  }
+
+  .abilities, .modifiers {
+      .resource-label, .modifier-label {
+          //margin-top: 5px;
+      }
+  }
+
+  */
+}
 .swords-wizardry .window-content {
   overflow: scroll;
 }
@@ -373,22 +421,6 @@ input {
   height: 100%;
   margin: 0;
 }
-.swords-wizardry .sheet-tabs {
-  flex: 0;
-}
-.swords-wizardry .editor {
-  min-height: 19.6em;
-  height: 100%;
-}
-.swords-wizardry .editor-container {
-  margin: 0;
-}
-.swords-wizardry .tox .tox-editor-container {
-  background: #fff;
-}
-.swords-wizardry .tox .tox-edit-area {
-  padding: 0 8px;
-}
 .swords-wizardry .items-header {
   height: 28px;
   margin: 2px 0;
@@ -414,7 +446,6 @@ input {
   padding: 0;
   overflow-y: auto;
   scrollbar-width: thin;
-  color: #444;
 }
 .swords-wizardry .items-list .item-list {
   list-style: none;
@@ -454,15 +485,15 @@ input {
 .swords-wizardry .items-list .item:last-child {
   border-bottom: none;
 }
-.swords-wizardry .items-list .item .item-name {
-  color: #191813;
-}
 .swords-wizardry .items-list .item .item-name .item-image {
   flex: 0 0 30px;
   height: 30px;
   background-size: 30px;
   border: none;
   margin-right: 5px;
+}
+.swords-wizardry .items-list .item .item-name .item-name-span {
+  margin-top: -3px;
 }
 .swords-wizardry .items-list .item-prop {
   text-align: center;
@@ -532,14 +563,28 @@ input {
   margin-top: 5px;
   font-weight: bold;
 }
-.swords-wizardry .resource-label, .swords-wizardry .modifier-label {
-  font-weight: bold;
+.swords-wizardry h3 {
+  font-family: "Libre Baskerville";
+  font-size: 20px;
 }
-.swords-wizardry .resource-value, .swords-wizardry .modifier-value {
-  text-align: center;
+.swords-wizardry .no-margin {
+  margin: 0;
 }
-.swords-wizardry .abilities .resource-label, .swords-wizardry .abilities .modifier-label, .swords-wizardry .modifiers .resource-label, .swords-wizardry .modifiers .modifier-label {
-  margin-top: 5px;
+.swords-wizardry h4 {
+  font-family: "Libre Baskerville";
+  font-size: 16px;
+}
+.swords-wizardry .ability label {
+  padding-top: 8px;
+}
+.swords-wizardry .ability .checkbox-small {
+  padding-top: 3px;
+}
+.swords-wizardry .toggle {
+  margin-top: 4px;
+}
+.swords-wizardry .toggle i {
+  margin-left: -3px;
 }
 
 /*# sourceMappingURL=swords-wizardry.css.map */

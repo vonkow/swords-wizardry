@@ -59,8 +59,11 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
         ];
       }
       else if (this.actor.type === 'container') {
-        tabs.initial = '';
-        tabs.tabs = [];
+        tabs.initial = 'items';
+        tabs.tabs = [
+          { id: 'items', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Equipment' },
+          { id: 'description', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Description' }
+        ];
       }
     }
     return tabs;
@@ -140,6 +143,7 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
 
     for (let i of this.actor.items) {
       i.img = i.img || Item.DEFAULT_ICON;
+      if (!i.system.spellLevel) i.system.spellLevel = 1;
       switch (i.type) {
         case 'armor': context.armor.push(i); break;
         case 'feature': context.features.push(i); break;
@@ -170,11 +174,14 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   }
 
   static async #itemCreate(event, target) {
-    const { type } = target.dataset;
+    const { type, spellLevel } = target.dataset;
+    console.log(spellLevel);
     const name = game.i18n.localize(`New.${type}`);
+    const data = { name, type };
+    if (spellLevel) data.system = { spellLevel };
     // Grab any data associated with this control.
     //const system = duplicate(target.dataset);
-    return await Item.create({ name, type }, { parent: this.actor });
+    return await Item.create(data, { parent: this.actor });
   }
 
   static async #itemDelete(event, target) {

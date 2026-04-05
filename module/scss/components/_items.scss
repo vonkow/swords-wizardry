@@ -30,7 +30,7 @@
   padding: 0;
   overflow-y: auto;
   scrollbar-width: thin;
-  color: $c-tan;
+  //color: $c-tan;
 
   // Child lists
   .item-list {
@@ -76,13 +76,16 @@
     border-bottom: 1px solid $c-faint;
     &:last-child { border-bottom: none; }
     .item-name {
-      color: $c-dark;
+      //color: $c-dark;
       .item-image {
         flex: 0 0 30px;
         height: 30px;
         background-size: 30px;
         border: none;
         margin-right: 5px;
+      }
+      .item-name-span {
+        margin-top: -3px;
       }
     }
   }

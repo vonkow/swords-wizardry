@@ -21,4 +21,24 @@ export function registerSystemSettings() {
     requiresReload: true,
     default: false
   });
+
+  // Show welcome message on startup
+  game.settings.register("swords-wizardry", "showWelcome", {
+    name: "Show welcome message on startup",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    requiresReload: false,
+    default: true
+  });
+
+  // Store system version to show welcome message on startup when the version jumps
+  game.settings.register("swords-wizardry", "systemVersion", {
+    name: "Stores the system version",
+    scope: "world",
+    type: String,
+    requiresReload: false,
+    default: '4.0.0'
+  });
+
 }

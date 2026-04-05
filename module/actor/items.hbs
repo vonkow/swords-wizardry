@@ -3,20 +3,102 @@
   data-tab="{{tabs.items.id}}"
   data-group="{{tabs.items.group}}"
 >
-  <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Treasures' }}</h3>
-  <div class="flexrow flex-group-center">
-    <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gold' }}</label>
-    <input class="modifier-value  align-left" type="text" name="system.treasure.gp" value="{{system.treasure.gp}}" data-dtype="Number"/>
+  <div class="grid grid-1col">
+    <h3 class="align-center">
+      {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Treasures' }}
+    </h3>
   </div>
-  <div class="flexrow flex-group-center">
-    <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gems' }}</label>
-    <input class="modifier-value  align-left" type="text" name="system.treasure.gems" value="{{system.treasure.gems}}"/>
+  <div class="resources grid grid-4col">
+    <div class="resource">
+      <label class="modifier-label" >
+        {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Platinum' }}
+      </label>
+      <div class="resource-content">
+        <input
+          class="modifier-value"
+          type="text"
+          name="system.treasure.pp"
+          value="{{system.treasure.pp}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    <div class="resource">
+      <label class="modifier-label" >
+        {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gold' }}
+      </label>
+      <div class="resource-content">
+        <input
+          class="modifier-value"
+          type="text"
+          name="system.treasure.gp"
+          value="{{system.treasure.gp}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    <div class="resource">
+      <label class="modifier-label" >
+        {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Silver' }}
+      </label>
+      <div class="resource-content">
+        <input
+          class="modifier-value"
+          type="text"
+          name="system.treasure.sp"
+          value="{{system.treasure.sp}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+    <div class="resource">
+      <label class="modifier-label" >
+        {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Copper' }}
+      </label>
+      <div class="resource-content">
+        <input
+          class="modifier-value"
+          type="text"
+          name="system.treasure.cp"
+          value="{{system.treasure.cp}}"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
   </div>
-  <div class="flexrow flex-group-center">
-    <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Other' }}</label>
-    <input class="modifier-value  align-left" type="text" name="system.treasure.misc" value="{{system.treasure.misc}}"/>
+  <div class="resources grid grid-1col">
+    <div class="resource">
+      <label class="modifier-label" >
+        {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gems' }}
+      </label>
+      <div class="resource-content">
+        <input
+          class="modifier-value"
+          type="text"
+          name="system.treasure.gems"
+          value="{{system.treasure.gems}}"
+        />
+      </div>
+    </div>
   </div>
-  <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Items' }}</h3>
+  <div class="resources grid grid-1col">
+    <div class="resource">
+      <label class="modifier-label" >
+        {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Other' }}
+      </label>
+      <div class="resource-content">
+        <input
+          class="modifier-value"
+          type="text"
+          name="system.treasure.misc"
+          value="{{system.treasure.misc}}"
+        />
+      </div>
+    </div>
+  </div>
+  <h3 class="align-center">
+    {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Items' }}
+  </h3>
   <ol class='items-list'>
     <li class="item items-header grid grid-6col">
       <div class='item-name grid-span-3'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Name'}}</div> 
@@ -51,7 +133,7 @@
             />
           </a>
         </div>
-        <h4>{{item.name}}</h4>
+        <span class='item-name-span'>{{item.name}}</span>
       </div>
       <div class='item-prop'>
         <a

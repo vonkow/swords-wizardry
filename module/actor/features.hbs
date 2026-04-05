@@ -6,7 +6,7 @@
   <section class="grid grid-8col">
     <aside class="sidebar grid-span-3">
       <div class="abilities flexcol">
-         <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeScores' }}</h3></span>
+        <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeScores' }}</h3>
         {{#each system.abilities as |ability key|}}
         <div class="ability grid grid-6col">
           <label
@@ -41,11 +41,7 @@
       </div>
     </aside>
     <section class="main grid-span-5">
-      <span class="resource-label">
-        <h3>
-          {{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Title'}}
-        </h3>
-      </span>
+      <h3>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Title'}}</h3>
       <ol class='items-list'>
         <li class='item items-header grid grid-4col'>
           <div class='item-name grid-span-3'>
@@ -83,7 +79,7 @@
                 />
               </a>
             </div>
-            <h4>{{item.name}}</h4>
+            <span class='item-name-span'>{{item.name}}</span>
           </div>
           <div class='item-controls'>
             <a

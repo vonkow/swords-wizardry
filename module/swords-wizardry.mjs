@@ -104,14 +104,38 @@ Handlebars.registerHelper({
     }
 });
 
+function showWelcome() {
+  SwordsWizardryChatMessage.create({
+    content: `<h3><strong>Welcome to Swords & Wizardry!</strong></h3>
+<p><em>Swords & Wizardry, S&W, and Mythmere Games are trademarks of <a href="mythmeregames.com">Mythmere Games LLC</a>. The author is not affiliated in any way with Mythmere Games LLC.</em></p>
+<p>This system can be used to play Swords & Wizardry and pretty much any variant of Swords & Wizardry or the original edition of the first published RPG. To support this flexibility, it is relatively light on automations. Feedback and Pull Requests are always welcome; see our <a href="https://github.com/vonkow/swords-wizardry">project page</a> to submit either.</p>
+<p>Check out the following modules to improve your gaming experience with official game content and additional automations:</p>
+<ul>
+  <li><a href="https://foundryvtt.com/packages/swords-wizardry-content">Swords & Wizardry Complete Revised Content</a> (ancestries, classes, items, spells, and monsters)</li>
+  <li><a href="">Swords & Wizardry Book of Options</a> (Coming soon, additional ancestries and classes)</li>
+  <li><a href="">Swords & Wizardry Fiends and Foes</a> (Coming soon, additional monsters)</li>
+</ul>`
+  });
+}
+
 Hooks.once('ready', async () => {
+  if (game.user.isGM) {
+    if (game.settings.get('swords-wizardry', 'systemVersion') !== game.system.version) {
+      game.settings.set('swords-wizardry', 'systemVersion', game.system.version);
+      showWelcome();
+      game.settings.set('swords-wizardry', 'showWelcome', false);
+    }
+    else if (game.settings.get('swords-wizardry', 'showWelcome')) {
+      showWelcome();
+      game.settings.set('swords-wizardry', 'showWelcome', false);
+    }
+  }
   game.socket.on('system.swords-wizardry',(packet) => {
     if (packet.type === 'rpc') handleRPC(packet);
     else console.log('system.swords-wizardry', 'socket event', packet);
   });
   Hooks.on('hotbarDrop', (_bar, data, slot) => createItemMacro(data, slot));
 });
-
 
 Hooks.on('controlToken', async (token, selected) => {
   CombatHud.activateHud(token, selected);

@@ -7,13 +7,18 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     },
     tag: 'form',
     form: {
+      handler: SwordsWizardryItemSheet.#onSubmitForm,
       closeOnSubmit: false,
-      sumbmitOnChange: true
+      submitOnChange: true
     },
     classes: ['swords-wizardry', 'sheet', 'item'],
     position: {
       height: 480,
       width: 520
+    },
+    window: {
+      resizable: true,
+      title: 'TODO'
     }
   }
 
@@ -32,4 +37,10 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     context.flags = this.item.flags;
     return context;
   }
+
+  static async #onSubmitForm(event, form, formData) {
+    event.preventDefault();
+    await this.document.update(formData.object);
+  }
+
 }

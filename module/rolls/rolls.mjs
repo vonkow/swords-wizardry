@@ -153,7 +153,7 @@ export class FeatureRoll extends Roll {
     const resultsHtml = await renderTemplate(template, chatData);
     const msg = await SwordsWizardryChatMessage.create({
       rolls: [this],
-	  rollMode: rollMode,
+      rollMode: rollMode,
       user: game.user._id,
       speaker: speaker,
       content: resultsHtml
