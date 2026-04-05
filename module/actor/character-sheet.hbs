@@ -1,135 +1,146 @@
-<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+{{#if (eq actor.type 'character') }}
+<section class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="96" width="96"/>
+    <img
+      class="profile-img"
+      src="{{actor.img}}"
+      data-edit="img"
+      title="{{actor.name}}"
+      height="96"
+      width="96" />
     <div class="header-fields">
-      <h2 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder={{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Name' }}></h2>
+      <h2 class="charname">
+        <input
+          name="name"
+          type="text"
+          value="{{actor.name}}"
+          placeholder={{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Name' }} >
+      </h2>
       <div class="resources grid grid-2col">
-        <h3 class="charname"><input name="system.class" type="text" value="{{system.class}}" placeholder={{ localize 'SWORDS_WIZARDRY.Stats.Class' }}></h3>
-        <h3 class="charname"><input name="system.ancestry" type="text" value="{{system.ancestry}}" placeholder={{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Ancestry' }}></h3>
-        <h3 class="charname"><input name="system.alignment" type="text" value="{{system.alignment}}" placeholder={{ localize 'SWORDS_WIZARDRY.Stats.Alignment' }}></h3>
-        <h3 class="charname"><input name="system.age" type="text" value="{{system.age}}" placeholder={{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Age' }}></h3>
-      <h3 class="charname"><input name="system.deity" type="text" value="{{system.deity}}" placeholder={{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Deity' }}></h3>
-      </div>
-      <div class="resources grid grid-4col">
-        <div class="resource flex-group-center">
-          <label for="system.hp.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.HitPoints.long' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
-          <span class="slash"> / </span>
-          <input type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/>
-          </div>
-        </div>
-        <div class="resource flex-group-center ">
-          <label for="system.save.value" class="resource-label">
-            {{ localize 'SWORDS_WIZARDRY.Stats.SavingThrow.abbr' }}
-            <a class='save-roll' data-roll-type='item'>
-              <i class="fas fa-dice-d20"></i>
-            </a>
+        <div class="resource">
+          <label for="system.class" class="resource-label">
+            {{ localize 'SWORDS_WIZARDRY.Stats.Class' }}
           </label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
+          <div class="resource-content">
+            <input type="text" name="system.class" value="{{system.class}}" data-dtype="Text"/>
           </div>
         </div>
-        <div class="resource flex-group-center">
-          {{# if useAscendingAC }}
-          <label for="system.aac.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }} (Asc)</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number"/>
-          </div>
-          {{else}}
-          <label for="system.ac.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number"/>
-          </div>
-          {{/if}}
-        </div>
-        <div class="resource flex-group-center">
-          <label for="system.xp.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.XP.abbr' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.xp.value" value="{{system.xp.value}}" data-dtype="Number"/>
+        <div class="resource">
+          <label for="system.ancestry" class="resource-label">
+            {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Ancestry' }}
+          </label>
+          <div class="resource-content">
+            <input type="text" name="system.ancestry" value="{{system.ancestry}}" data-dtype="Text"/>
           </div>
         </div>
-        <div class="resource flex-group-center">
-          <label for="system.xpBonus.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.XPBonus.abbr' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.xpBonus.value" value="{{system.xpBonus.value}}" data-dtype="Number"/>
-          </div>
-        </div>
-        <div class="resource flex-group-center">
-          <label for="system.level.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.Level' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" name="system.level.value" value="{{system.level.value}}" data-dtype="Number"/>
-          </div>
-        </div>
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.Movement' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" value="{{system.moveRate.value}}" disabled/>
-          </div>
-        </div>
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.WeightCarried' }}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-          <input type="text" value="{{system.carryWeight.value}}" disabled/>
-          </div>
-        </div>
-
       </div>
     </div>
   </header>
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Main' }}</a>
-    <a class="item" data-tab="weapons">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Combat' }}</a>
-    <a class="item" data-tab="items">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Equipment' }}</a>
-    <a class="item" data-tab="spells">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Spells' }}</a>
-    <a class="item" data-tab="description">{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Description' }}</a>
-   <!-- <a class="item" data-tab="effects">Effects</a> -->
-  </nav>
-  <section class="sheet-body">
-    <div class="tab features" data-group="primary" data-tab="features">
-      <section class="grid grid-8col">
-        <aside class="sidebar grid-span-3">
-          <div class="abilities flexcol">
-             <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeScores' }}</h3></span>
-            {{#each system.abilities as |ability key|}}
-            <div class="ability grid grid-6col">
-              <label for="system.abilities.{{key}}.value" class="resource-label grid-span-3 align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
-              <input class="checkbox-small" type="checkbox" name="system.abilities.{{key}}.prime" {{checked ability.prime}}/>
-              <input class="resource-value grid-span-2" type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-            </div>
-            {{/each}}
-            <hr>
-            <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeBonuses' }}</h3></span>
-            <div class="modifiers">
-              {{#each system.modifiers as |modifier key|}}
-              <div class="grid grid-3col">
-                <label for="system.modifiers.{{modifier}}.value" class="modifier-label grid-span-2" data-label="{{modifier.label}}">{{modifier.label}}</label>
-                <input class="modifier-value" type="text" name="system.modifiers.{{key}}.value" value="{{modifier.value}}" data-dtype="Number"/>
-              </div>
-              {{/each}}
-            </div>
-          </div>
-        </aside>
-        <section class="main grid-span-5">
-          {{> "systems/swords-wizardry/module/actor/features.hbs"}}
-       </section>
-      </section>
+  <section>
+    <div class="resources grid grid-3col">
+      <div class="resource">
+        <label for="system.alignment" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.Alignment' }}
+        </label>
+        <div class="resource-content">
+          <input type="text" name="system.alignment" value="{{system.alignment}}" data-dtype="Text"/>
+        </div>
+      </div>
+      <div class="resource">
+        <label for="system.age" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Age' }}
+        </label>
+        <div class="resource-content">
+          <input type="text" name="system.age" value="{{system.age}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource">
+        <label for="system.deity" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.Deity' }}
+        </label>
+        <div class="resource-content">
+          <input type="text" name="system.deity" value="{{system.deity}}" data-dtype="Text"/>
+        </div>
+      </div>
     </div>
-    <div class="tab biography" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true engine="prosemirror" owner=owner editable=editable}}
-    </div>
-    <div class="tab weapons" data-group="primary" data-tab="weapons">
-      {{> "systems/swords-wizardry/module/actor/weapons.hbs"}}
-    </div>
-    <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/swords-wizardry/module/actor/items.hbs"}}
-    </div>
-    <div class="tab spells" data-group="primary" data-tab="spells">
-      {{> "systems/swords-wizardry/module/actor/spells.hbs"}}
-    </div>
-    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      {{> "systems/swords-wizardry/module/actor/effects.hbs"}}
+    <div class="resources grid grid-4col">
+      <div class="resource flex-group-center">
+        <label for="system.hp.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.HitPoints.long' }}
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number"/>
+          <span class="slash"> / </span>
+          <input type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource flex-group-center ">
+        <label for="system.save.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.SavingThrow.abbr' }}
+          <a data-action="saveRoll" class='save-roll'>
+            <i class="fas fa-dice-d20"></i>
+          </a>
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource flex-group-center">
+        {{# if useAscendingAC }}
+        <label for="system.aac.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }} (Asc)
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number"/>
+        </div>
+        {{else}}
+        <label for="system.ac.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }}
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number"/>
+        </div>
+        {{/if}}
+      </div>
+      <div class="resource flex-group-center">
+        <label for="system.level.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.Level' }}
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.level.value" value="{{system.level.value}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource flex-group-center">
+        <label for="system.xp.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.XP.abbr' }}
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.xp.value" value="{{system.xp.value}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource flex-group-center">
+        <label for="system.xpBonus.value" class="resource-label">
+          {{ localize 'SWORDS_WIZARDRY.Stats.XPBonus.abbr' }}
+        </label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.xpBonus.value" value="{{system.xpBonus.value}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource flex-group-center">
+        <label class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.Movement' }}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" value="{{system.moveRate.value}}" disabled/>
+        </div>
+      </div>
+      <div class="resource flex-group-center">
+        <label class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.WeightCarried' }}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" value="{{system.carryWeight.value}}" disabled/>
+        </div>
+      </div>
     </div>
   </section>
-</form>
+</section>
+{{else}}
+<div></div>
+{{/if}}

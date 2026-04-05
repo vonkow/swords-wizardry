@@ -1,8 +1,9 @@
-<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+{{#if (eq actor.type 'npc')}}
+<section class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder={{localize 'SWORDS_WIZARDRY.NPCSheet.Main.Name'}}></h1>
+      <h2 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder={{localize 'SWORDS_WIZARDRY.NPCSheet.Main.Name'}}></h2>
       <div class="resources grid grid-4col">
         <div class="resource flex-group-center">
           <label for="system.hp.value" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.HitPoints.long'}}</label>
@@ -32,89 +33,71 @@
             <input type="text" name="system.moveRate.value" value="{{system.moveRate.value}}"/>
           </div>
         </div>
-        <div class="resource">
-          <label for="system.morale" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Morale'}}
-		  <a class='morale-roll' data-roll-type='item'>
-              <i class="fas fa-dice-d20"></i>
-          </a>
-		  </label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.morale" value="{{system.morale}}" data-dtype="Number"/>
-          </div>
-        </div>
-        <div class="resource grid-span-3">
-          <label for="system.special" class="resource-label">{{localize 'SWORDS_WIZARDRY.NPCSheet.Main.Special'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.special" value="{{system.special}}" data-dtype="String"/>
-          </div>
-        </div>
-        <div class="resource grid-span-2">
-          <label for="system.alignment" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Alignment'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.alignment" value="{{system.alignment}}" data-dtype="String"/>
-          </div>
-        </div>
-       <div class="resource">
-          <label for="system.save" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long'}}
-		  <a class='save-roll' data-roll-type='item'>
-            <i class="fas fa-dice-d20"></i>
-          </a>
-		  </label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
-          </div>
-        </div>
-        <div class="resource">
-          {{# if useAscendingAC }}
-          <label for="system.aac.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }} (Asc)</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number"/>
-          </div>
-          {{else}}
-          <label for="system.ac" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number"/>
-          </div>
-          {{/if}}
-        </div>
-        <div class="resource grid-span-3">
-          <label for="system.numberEncountered" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.NumberEncountered.long'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.numberEncountered" value="{{system.numberEncountered}}" data-dtype="String"/>
-          </div>
-        </div>
-        <div class="resource">
-          <label for="system.percentInLair" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.PercentInLair.abbr'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.percentInLair" value="{{system.percentInLair}}" data-dtype="String"/>
-          </div>
-        </div>
       </div>
     </div>
   </header>
-  <nav class="sheet-tabs tabs" data-group="primary">
-    {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="weapons">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Attacks'}}</a>
-    <a class="item" data-tab="description">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Description'}}</a>
-    <a class="item" data-tab="items">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Equipment'}}</a>
-    <a class="item" data-tab="spells">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Spells'}}</a>
-    <a class="item" data-tab="effects">{{localize 'SWORDS_WIZARDRY.NPCSheet.Tabs.Effects'}}</a>
-  </nav>
-  <section class="sheet-body">
-    <div class="tab weapons" data-group="primary" data-tab="weapons">
-       {{> "systems/swords-wizardry/module/actor/weapons.hbs"}}
-    </div>
-    <div class="tab biography" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true engine="prosemirror" owner=owner editable=editable}}
-    </div>
-    <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/swords-wizardry/module/actor/items.hbs"}}
-    </div>
-    <div class="tab spells" data-group="primary" data-tab="spells">
-      {{> "systems/swords-wizardry/module/actor/spells.hbs"}}
-    </div>
-    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      {{> "systems/swords-wizardry/module/actor/effects.hbs"}}
+  <section>
+    <div class="resources grid grid-4col">
+      <div class="resource">
+        <label for="system.alignment" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Alignment'}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.alignment" value="{{system.alignment}}" data-dtype="String"/>
+        </div>
+      </div>
+      <div class="resource">
+        {{# if useAscendingAC }}
+        <label for="system.aac.value" class="resource-label">{{ localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr' }} (Asc)</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number"/>
+        </div>
+        {{else}}
+        <label for="system.ac" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.ArmorClass.abbr'}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.ac.value" value="{{system.ac.value}}" data-dtype="Number"/>
+        </div>
+        {{/if}}
+      </div>
+      <div class="resource">
+        <label for="system.save" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.SavingThrow.long'}}
+	  <a class='save-roll' data-roll-type='item'>
+            <i class="fas fa-dice-d20"></i>
+          </a>
+	</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.save.value" value="{{system.save.value}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource">
+        <label for="system.morale" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.Morale'}}
+	  <a class='morale-roll' data-roll-type='item'>
+            <i class="fas fa-dice-d20"></i>
+          </a>
+	</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.morale" value="{{system.morale}}" data-dtype="Number"/>
+        </div>
+      </div>
+      <div class="resource grid-span-3">
+        <label for="system.numberEncountered" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.NumberEncountered.long'}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.numberEncountered" value="{{system.numberEncountered}}" data-dtype="String"/>
+        </div>
+      </div>
+      <div class="resource">
+        <label for="system.percentInLair" class="resource-label">{{localize 'SWORDS_WIZARDRY.Stats.PercentInLair.abbr'}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.percentInLair" value="{{system.percentInLair}}" data-dtype="String"/>
+        </div>
+      </div>
+      <div class="resource grid-span-4">
+        <label for="system.special" class="resource-label">{{localize 'SWORDS_WIZARDRY.NPCSheet.Main.Special'}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.special" value="{{system.special}}" data-dtype="String"/>
+        </div>
+      </div>
     </div>
   </section>
-</form>
+</section>
+{{else}}
+<div></div>
+{{/if}}

@@ -1,325 +1,263 @@
-import {
-  onManageActiveEffect,
-  prepareActiveEffectCategories,
-} from '../helpers/effects.mjs';
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ActorSheetV2 } = foundry.applications.sheets;
 
-const { ActorSheet } = foundry.appv1.sheets;
+export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
-/**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
- */
-export class SwordsWizardryActorSheet extends ActorSheet {
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['swords-wizardry', 'sheet', 'actor'],
+  static DEFAULT_OPTIONS = {
+    actions: {
+      itemCreate: this.#itemCreate,
+      itemDecrement: this.#itemDecrement,
+      itemDelete: this.#itemDelete,
+      itemEdit: this.#itemEdit,
+      itemIncrement: this.#itemIncrement,
+      moraleRoll: this.#moraleRoll,
+      roll: this.#roll,
+      saveRoll: this.#saveRoll,
+      spellCast: this.#spellCast,
+      spellPrepare: this.#spellPrepare
+    },
+    tag: 'form',
+    form: {
+      handler: SwordsWizardryActorSheet.#onSubmitForm,
+      closeOnSubmit: false,
+      submitOnChange: true
+    },
+    classes: ['swords-wizardry', 'sheet', 'actor'],
+    position: {
       width: 640,
-      height: 640,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'features',
-        },
-      ],
-    });
+      height: 640
+    },
+    window: {
+      resizable: true,
+      title: 'TODO'
+    }
   }
 
-  /** @override */
-  get template() {
-    return `systems/swords-wizardry/module/actor/${this.actor.type}-sheet.hbs`;
+  static TABS = { sheet: {} }
+
+  _getTabsConfig(group) {
+    const tabs = foundry.utils.deepClone(super._getTabsConfig(group));
+    if (group === 'sheet') {
+      if (this.actor.type === 'character') {
+        tabs.initial = 'features';
+        tabs.tabs = [
+          // id, icon?, label?, tooltip?, cssClass?
+          { id: 'features', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Main' },
+          { id: 'weapons', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Combat' },
+          { id: 'items', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Equipment' },
+          { id: 'spells', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Spells' },
+          { id: 'description', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Description' }
+        ];
+      }
+      else if (this.actor.type === 'npc') {
+        tabs.initial = 'weapons';
+        tabs.tabs = [
+          { id: 'weapons', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Combat' },
+          { id: 'description', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Description' },
+          { id: 'items', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Equipment' },
+          { id: 'spells', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Spells' }
+        ];
+      }
+      else if (this.actor.type === 'container') {
+        tabs.initial = '';
+        tabs.tabs = [];
+      }
+    }
+    return tabs;
   }
 
-  /* -------------------------------------------- */
+  static PARTS = {
+    character: {
+      template: 'systems/swords-wizardry/module/actor/character-sheet.hbs',
+      scrollable: ''
+    },
+    container: {
+      template: 'systems/swords-wizardry/module/actor/container-sheet.hbs',
+      scrollable: ''
+    },
+    npc: {
+      template: 'systems/swords-wizardry/module/actor/npc-sheet.hbs',
+      scrollable: ''
+    },
+    tabs: {
+      template: 'templates/generic/tab-navigation.hbs',
+      scrollable: ''
+    },
+    features: {
+      template: 'systems/swords-wizardry/module/actor/features.hbs',
+      scrollable: ''
+    },
+    weapons: {
+      template: 'systems/swords-wizardry/module/actor/weapons.hbs',
+      scrollable: ''
+    },
+    items: {
+      template: 'systems/swords-wizardry/module/actor/items.hbs',
+      scrollable: ''
+    },
+    spells: {
+      template: 'systems/swords-wizardry/module/actor/spells.hbs',
+      scrollable: ''
+    },
+    description: {
+      template: 'systems/swords-wizardry/module/actor/description.hbs',
+      scrollable: ''
+    }
+  }
 
-  /** @override */
-  getData() {
-    // Retrieve the data structure from the base sheet. You can inspect or log
-    // the context variable to see the structure, but some key properties for
-    // sheets are the actor object, the data object, whether or not it's
-    // editable, the items array, and the effects array.
-    const context = super.getData();
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    context.useAscendingAC = game.settings.get(
+      'swords-wizardry',
+      'useAscendingAC'
+    );
+    // TODO do we want to set context.actor or just this.actor it? figure out why
+    context.actor = this.actor;
+    context.system = this.actor.system;
+    context.flags = this.actor.flags;
 
-    context.useAscendingAC = game.settings.get('swords-wizardry', 'useAscendingAC');
-    // Use a safe clone of the actor data for further operations.
-    const actorData = context.data;
-
-    // Add the actor's data to context.data for easier access, as well as flags.
-    context.system = actorData.system;
-    context.flags = actorData.flags;
-
-    // Prepare character data and items.
-    if (actorData.type == 'character') {
-      this._prepareItems(context);
+    // todo will container type get mad at this?
+    this._prepareItems(context);
+    if (this.actor.type == 'character') {
       this._prepareCharacterData(context);
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
-      this._prepareItems(context);
-    }
-
+    // TODO is this needed?
     // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
-
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(
-      // A generator that returns all effects stored on the actor
-      // as well as any items
-      this.actor.allApplicableEffects()
-    );
-
+    context.rollData = this.actor.getRollData();
+    console.log(this._configureRenderParts());
     return context;
   }
 
-  /**
-   * Organize and classify Items for Character sheets.
-   *
-   * @param {Object} actorData The actor to prepare.
-   *
-   * @return {undefined}
-   */
+  _prepareItems(context) {
+    context.armor = [];
+    context.gear = [];
+    context.features = [];
+    context.weapons = [];
+    context.spells = {
+      1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []
+    };
+
+    for (let i of this.actor.items) {
+      i.img = i.img || Item.DEFAULT_ICON;
+      switch (i.type) {
+        case 'armor': context.armor.push(i); break;
+        case 'feature': context.features.push(i); break;
+        case 'item': context.gear.push(i); break;
+        case 'spell': context.spells[i.system.spellLevel].push(i); break;
+        case 'weapon': context.weapons.push(i); break;
+      }
+    }
+  }
+
   _prepareCharacterData(context) {
-    // Handle ability scores.
     for (let [k, v] of Object.entries(context.system.abilities)) {
-      v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.abilities[k]) ?? k;
+      v.label = game.i18n.localize(
+        CONFIG.SWORDS_WIZARDRY.abilities[k]
+      ) ?? k;
     }
 
     for (let [k, v] of Object.entries(context.system.modifiers)) {
-      v.label = game.i18n.localize(CONFIG.SWORDS_WIZARDRY.modifiers[k]) ?? k;
+      v.label = game.i18n.localize(
+        CONFIG.SWORDS_WIZARDRY.modifiers[k]
+      ) ?? k;
     }
   }
 
-  /**
-   * Organize and classify Items for Character sheets.
-   *
-   * @param {Object} actorData The actor to prepare.
-   *
-   * @return {undefined}
-   */
-  _prepareItems(context) {
-    // Initialize containers.
-    const armor = [];
-    const gear = [];
-    const features = [];
-    const weapons = [];
-    const spells = {
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: [],
-    };
-
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || Item.DEFAULT_ICON;
-      // Append to gear.
-      if (i.type === 'armor') {
-        armor.push(i);
-      }
-      if (i.type === 'item') {
-        gear.push(i);
-      }
-      else if (i.type === 'weapon') {
-        weapons.push(i);
-      }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined && i.system.spellLevel > 0) {    // added minimum check to not break old char sheets
-          spells[i.system.spellLevel].push(i);
-        }
-      }
-    }
-
-    // Assign and return
-    context.armor = armor;
-    context.gear = gear;
-    context.features = features;
-    context.weapons = weapons;
-    context.spells = spells;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    // Render the item sheet for viewing/editing prior to the editable check.
-    html.on('click', '.item-edit', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      item.sheet.render(true);
-    });
-
-    html.on('click', '.save-roll', (ev) => {
-      this.actor.rollSave();
-    });
-
-    html.on('click', '.morale-roll', (ev) => {
-      this.actor.rollMorale();
-    });
-
-    html.on('click', '.item-prepare', async (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      const { spellLevel } = item.system;
-      const slots = this.actor.system.spellSlots[spellLevel];
-      if (slots.memorized.length < slots.max) {
-        slots.memorized.push(item._id);
-        slots.memorizedSpells = slots.memorizedSpells || [];
-        slots.memorizedSpells.push(item);
-      }
-      const spellSlots = {};
-      //await this.actor.update({ spellLevel: { [spellLevel]: slots } });
-      const key = `system.spellSlots.${spellLevel}.memorized`;
-      await this.actor.update({
-        [key]: slots.memorized
-      });
-      this.actor.render();
-    });
-
-    html.on('click', '.item-cast', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const itemId = li.data('itemId');
-      const item = this.actor.items.get(itemId);
-      if (!item) return;
-      item.roll();
-      const { spellLevel } = item.system;
-      const slots = this.actor.system.spellSlots[spellLevel];
-      const mIndex = slots.memorized.indexOf(itemId);
-      if (mIndex > -1) slots.memorized.splice(mIndex, 1);
-      const sIndex = slots.memorizedSpells.indexOf(item);
-      if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
-      this.actor.render();
-    });
-
-
-    // Rollable abilities.
-    html.on('click', '.rollable', this._onRoll.bind(this));
-
-
-    // -------------------------------------------------------------
-    // Everything below here is only needed if the sheet is editable
-    if (!this.isEditable) return;
-
-    // Add Inventory Item
-    html.on('click', '.item-create', this._onItemCreate.bind(this));
-
-    // Delete Inventory Item
-    html.on('click', '.item-delete', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
-    });
-
-    // Active Effect management
-    html.on('click', '.effect-control', (ev) => {
-      const row = ev.currentTarget.closest('li');
-      const document =
-        row.dataset.parentId === this.actor.id
-          ? this.actor
-          : this.actor.items.get(row.dataset.parentId);
-      onManageActiveEffect(ev, document);
-    });
-
-    html.on('click', '.item-inc', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      const newq = item.system.quantity + 1;
-      item.update({ 'system.quantity': newq });
-      this.actor.render();
-    });
-
-    html.on('click', '.item-dec', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      const newq = item.system.quantity - 1;
-      if (newq > 0)
-        item.update({ 'system.quantity': newq });
-      this.actor.render();
-    });
-
-    // Drag events for macros.
-    if (this.actor.isOwner) {
-      let handler = (ev) => this._onDragStart(ev);
-      html.find('li.item').each((i, li) => {
-        if (li.classList.contains('inventory-header')) return;
-        li.setAttribute('draggable', true);
-        li.addEventListener('dragstart', handler, false);
-      });
-    }
-  }
-
-  /**
-   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-   * @param {Event} event   The originating click event
-   * @private
-   */
-  async _onItemCreate(event) {
+  static async #onSubmitForm(event, form, formData) {
     event.preventDefault();
-    const header = event.currentTarget;
-    // Get the type of item to create.
-    const type = header.dataset.type;
-    // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
-    // Initialize a default name.
+    await this.document.update(formData.object);
+  }
+
+  static async #itemCreate(event, target) {
+    const { type } = target.dataset;
     const name = game.i18n.localize(`New.${type}`);
-    // Prepare the item object.
-    const itemData = {
-      name: name,
-      type: type,
-      system: data,
-    };
-    // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.system['type'];
-
-    // Finally, create the item!
-    return await Item.create(itemData, { parent: this.actor });
+    // Grab any data associated with this control.
+    //const system = duplicate(target.dataset);
+    return await Item.create({ name, type }, { parent: this.actor });
   }
 
-  /**
-   * Handle clickable rolls.
-   * @param {Event} event   The originating click event
-   * @private
-   */
-  _onRoll(event) {
-    event.preventDefault();
-    const element = event.currentTarget;
-    const dataset = element.dataset;
+  static async #itemDelete(event, target) {
+    const { id } = target.dataset;
+    const item = this.actor.items.get(id);
+    item.delete();
+    this.render(false);
+  }
 
-    // Handle item rolls.
-    if (dataset.rollType) {
-      if (dataset.rollType == 'item') {
-        const itemId = element.closest('.item').dataset.itemId;
-        const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
-      }
+  static async #itemEdit(event, target) {
+    const { id } =  target.dataset;
+    const item = this.actor.items.get(id);
+    item.sheet.render(true);
+  }
+
+  static async #itemIncrement(event, target) {
+    const { id } =  target.dataset;
+    const item = this.actor.items.get(id);
+    const newQuantity = item.system.quantity + 1;
+    item.update({ 'system.quantity': newQuantity });
+  }
+
+  static async #itemDecrement(event, target) {
+    const { id } =  target.dataset;
+    const item = this.actor.items.get(id);
+    const newQuantity = item.system.quantity - 1;
+    if (newQuantity > 0) await item.update({ 'system.quantity': newQuantity });
+  }
+
+  static async #moraleRoll(_event, _target) {
+    this.actor.rollMorale();
+  }
+
+  static async #roll(event, target) {
+    const { id, rollType, roll, label } = target.dataset;
+    if (rollType === 'item') {
+      const item = this.actor.items.get(id);
+      if (item) return item.roll();
     }
-
-    // Handle rolls that supply the formula directly.
-    if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
-
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
-
-      roll.toMessage({
+    if (roll) {
+      const flavor = label ? `[ability] ${label}` : '';
+      const rollObj = new Roll(roll, this.actor.getRollData());
+      rollObj.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label,
+        flavor,
         rollMode: game.settings.get('core', 'rollMode'),
       });
       return roll;
     }
+  }
+
+  static async #saveRoll(_event, _target) {
+    this.actor.rollSave();
+  }
+
+  static async #spellPrepare(event, target) {
+    const { id } = target.dataset;
+    const item = this.actor.items.get(id);
+    const { spellLevel } = item.system;
+    const slots = this.actor.system.spellSlots[spellLevel];
+    if (slots.memorized.length < slots.max) {
+      slots.memorized.push(item._id);
+      slots.memorizedSpells = slots.memorizedSpells || [];
+      slots.memorizedSpells.push(item);
+    }
+    const spellSlots = {};
+    const key = `system.spellSlots.${spellLevel}.memorized`;
+    await this.actor.update({
+      [key]: slots.memorized
+    });
+    this.actor.render();
+  }
+
+  static async #spellCast(event, target) {
+    const { id } = target.dataset;
+    const item = this.actor.items.get(id);
+    item.roll();
+    const { spellLevel } = item.system;
+    const slots = this.actor.system.spellSlots[spellLevel];
+    const mIndex = slots.memorized.indexOf(id);
+    if (mIndex > -1) slots.memorized.splice(mIndex, 1);
+    const sIndex = slots.memorizedSpells.indexOf(item);
+    if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
+    this.actor.render();
   }
 }

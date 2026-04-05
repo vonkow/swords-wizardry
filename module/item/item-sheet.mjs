@@ -1,49 +1,35 @@
-import {
-  onManageActiveEffect,
-  prepareActiveEffectCategories,
-} from '../helpers/effects.mjs';
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ItemSheetV2 } = foundry.applications.sheets;
 
-const { ItemSheet } = foundry.appv1.sheets;
-
-export class SwordsWizardryItemSheet extends ItemSheet {
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['swords-wizardry', 'sheet', 'item'],
-      width: 520,
+export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
+  static DEFAULT_OPTIONS = {
+    actions: {
+    },
+    tag: 'form',
+    form: {
+      closeOnSubmit: false,
+      sumbmitOnChange: true
+    },
+    classes: ['swords-wizardry', 'sheet', 'item'],
+    position: {
       height: 480,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'description',
-        },
-      ],
-    });
+      width: 520
+    }
   }
 
-  /** @override */
-  get template() {
-    return `systems/swords-wizardry/module/item/${this.item.type}-sheet.hbs`;
+  static PARTS = {
+    form: {
+      template: 'systems/swords-wizardry/module/item/item-sheet.hbs',
+      scrollable: ''
+    }
   }
 
-  /** @override */
-  getData() {
-    const context = super.getData();
-    const itemData = context.data;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    context.item = this.item;
     context.rollData = this.item.getRollData();
-    context.system = itemData.system;
-    context.flags = itemData.flags;
-    context.effects = prepareActiveEffectCategories(this.item.effects);
+    context.system = this.item.system;
+    context.flags = this.item.flags;
     return context;
-  }
-
-  /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
-    if (!this.isEditable) return;
-    html.on('click', '.effect-control', (ev) =>
-      onManageActiveEffect(ev, this.item)
-    );
   }
 }

@@ -1,8 +1,9 @@
-<form class="{{cssClass}}" autocomplete="off">
+<section class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder={{localize "SWORDS_WIZARDRY.Item.Item.Name"}}/></h1>
+      {{#if (or (or (eq item.type 'item') (eq item.type 'weapon')) (eq item.type 'armor'))}}
       <div class="grid grid-3col">
         <div class="resource">
           <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Quantity"}}</label>
@@ -17,19 +18,105 @@
           <input type="text" name="system.gp" value="{{system.gp}}" data-dtype="Number"/>
         </div>
       </div>
+      {{/if}}
     </div>
   </header>
   <section class="sheet-body">
-    <div class="tab" data-group="primary">
-      <div class="grid grid-1col">
-        <div class="resource">
-          <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.RollFormula"}}</label>
-          <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
-        </div>
-      </div>
-      <div class="grid grid-1col">
-        {{editor system.description target="system.description" rollData=rollData button=true engine="prosemirror" owner=owner editable=editable}}
+    {{#if (eq item.type 'armor')}}
+    <div class="grid grid-1col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Armor.Attributes.EffectOnAC"}}</label>
+        <input type="text" name="system.effectOnAC" value="{{system.effectOnAC}}" data-dtype="String"/>
       </div>
     </div>
+    {{/if}}
+    {{#if (eq item.type 'feature')}}
+    <div class="grid grid-3col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.RollFormula"}}</label>
+        <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.Target"}}</label>
+        <input type="text" name="system.target" value="{{system.target}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.TargetType"}}</label>
+        <select name="system.targetType" value="{{system.targetType}}" data-dtype="String">
+          <option value="ascending" {{# if (eq system.targetType 'ascending')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.TargetTypeAsc"}}</option>
+          <option value="descending" {{# if (eq system.targetType 'descending')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.TargetTypeDes"}}</option>
+        </select>
+      </div>
+    </div>
+    {{/if}}
+    {{#if (eq item.type 'item')}}
+    <div class="grid grid-1col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Attributes.RollFormula"}}</label>
+        <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String"/>
+      </div>
+    </div>
+    {{/if}}
+    {{#if (eq item.type 'spell')}}
+    <div class="grid grid-2col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Level"}}</label>
+        <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Text"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Range"}}</label>
+        <input type="text" name="system.range" value="{{system.range}}" data-dtype="Text"/>
+      </div>
+    </div>
+    <div class="grid grid-1col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}}</label>
+        <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="Text"/>
+      </div>
+    </div>
+    {{/if}}
+    {{#if (eq item.type 'weapon')}}
+    <div class="grid grid-3col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Weapon.Attributes.ToHitModifier"}}</label>
+        <input type="text" name="system.modifier" value="{{system.modifier}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Weapon.Attributes.DamageRollFormula"}}</label>
+        <input type="text" name="system.damageFormula" value="{{system.damageFormula}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Weapon.Attributes.SpecialDamage"}}</label>
+        <input type="text" name="system.specialDamage" value="{{system.specialDamage}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Weapon.Attributes.Missile"}}</label>
+        <input type="checkbox" name="system.missile" class="checkbox-small align-self-center" {{checked system.missile}}/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Weapon.Attributes.Range"}}</label>
+        <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Weapon.Attributes.RateOfFire"}}</label>
+        <input type="text" name="system.rateOfFire" value="{{system.rateOfFire}}" data-dtype="Number"/>
+      </div>
+    </div>
+    {{/if}}
+    <div class="grid grid-1col">
+      {{#if editable}}
+      <prose-mirror
+        name="system.description"
+        button="true"
+        editable="{{editable}}"
+        toggled="false"
+        value="{{system.description}}"
+      >
+        {{system.description}}
+      </prose-mirror>
+      {{else}}
+      {{system.description}}
+      {{/if}}
+    </div>
   </section>
-</form>
+</section>

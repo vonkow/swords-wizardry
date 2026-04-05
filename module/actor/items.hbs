@@ -1,71 +1,101 @@
-<h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Treasures' }}</h3>
-<div class="flexrow flex-group-center">
-  <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gold' }}</label>
-  <input class="modifier-value  align-left" type="text" name="system.treasure.gp" value="{{system.treasure.gp}}" data-dtype="Number"/>
-</div>
-<div class="flexrow flex-group-center">
-  <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gems' }}</label>
-  <input class="modifier-value  align-left" type="text" name="system.treasure.gems" value="{{system.treasure.gems}}"/>
-</div>
-<div class="flexrow flex-group-center">
-  <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Other' }}</label>
-  <input class="modifier-value  align-left" type="text" name="system.treasure.misc" value="{{system.treasure.misc}}"/>
-</div>
-<h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Items' }}</h3>
-<ol class='items-list'>
-  <li class="item items-header grid grid-6col">
-    <div class='item-name grid-span-3'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Name'}}</div> 
-    <div class='item-prop'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Quantity'}}</div>
-    <div class='item-prop'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Weight'}}</div>
-    <div class='item-controls'>
-      <a
-          class='item-control item-create'
-          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Create" type='Item'}}'
+<section
+  class="tab {{tabs.items.id}} {{tabs.items.cssClass}}"
+  data-tab="{{tabs.items.id}}"
+  data-group="{{tabs.items.group}}"
+>
+  <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Treasures' }}</h3>
+  <div class="flexrow flex-group-center">
+    <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gold' }}</label>
+    <input class="modifier-value  align-left" type="text" name="system.treasure.gp" value="{{system.treasure.gp}}" data-dtype="Number"/>
+  </div>
+  <div class="flexrow flex-group-center">
+    <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Gems' }}</label>
+    <input class="modifier-value  align-left" type="text" name="system.treasure.gems" value="{{system.treasure.gems}}"/>
+  </div>
+  <div class="flexrow flex-group-center">
+    <label class="modifier-label  align-left" >{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Other' }}</label>
+    <input class="modifier-value  align-left" type="text" name="system.treasure.misc" value="{{system.treasure.misc}}"/>
+  </div>
+  <h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Items' }}</h3>
+  <ol class='items-list'>
+    <li class="item items-header grid grid-6col">
+      <div class='item-name grid-span-3'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Name'}}</div> 
+      <div class='item-prop'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Quantity'}}</div>
+      <div class='item-prop'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Weight'}}</div>
+      <div class='item-controls'>
+        <a
+          class='item-control'
+          data-action="itemCreate"
           data-type='item'
-      >
-        <i class='fas fa-plus'></i>
-      </a>
-    </div>
-  </li>
-  {{#each gear as |item id|}}
-  <li class="item grid grid-6col" data-item-id="{{item._id}}">
-    <div class='item-name grid-span-3'>
-      <div class='item-image'>
-        <a class='rollable' data-roll-type='item'>
-          <img
+          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Create" type='Item'}}'
+        >
+          <i class='fas fa-plus'></i>
+        </a>
+      </div>
+    </li>
+    {{#each gear as |item id|}}
+    <li class="item grid grid-6col" data-item-id="{{item._id}}">
+      <div class='item-name grid-span-3'>
+        <div class='item-image'>
+          <a
+            class='rollable'
+            data-action="roll"
+            data-id="{{item._id}}"
+            data-roll-type='item'
+          >
+            <img
               src='{{item.img}}'
               title='{{item.name}}'
               width='24'
               height='24'
-          />
+            />
+          </a>
+        </div>
+        <h4>{{item.name}}</h4>
+      </div>
+      <div class='item-prop'>
+        <a
+          class='item-control'
+          data-action="itemDecrement"
+          data-id="{{item._id}}"
+        >
+          <i class="fas fa-minus"></i>
+        </a>
+        {{item.system.quantity}}
+        <a
+          class='item-control'
+          data-action="itemIncrement"
+          data-id="{{item._id}}"
+         >
+          <i class="fas fa-plus"></i>
         </a>
       </div>
-      <h4>{{item.name}}</h4>
-    </div>
-    <div class='item-prop'>
-      <a class='item-control item-dec'>
-        <i class="fas fa-minus"></i>
-      </a>
-      {{item.system.quantity}}
-      <a class='item-control item-inc'>
-        <i class="fas fa-plus"></i>
-      </a>
-    </div>
-    <div class='item-prop'>{{item.system.weight}}</div>
-    <div class='item-controls'>
-      <a
-          class='item-control item-edit'
-          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Update" type='Item'}}'
-      >
-        <i class='fas fa-edit'></i>
-      </a>
-      <a
-          class='item-control item-delete'
-          title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Delete" type='Item'}}'
-      >
-        <i class='fas fa-trash'></i>
-      </a>
-    </div>
-  </li>
-  {{/each}}
-</ol>
+      <div class='item-prop'>{{item.system.weight}}</div>
+      <div class='item-controls'>
+        <a
+          class='item-control'
+          data-action="itemEdit"
+          data-id="{{item._id}}"
+          title='{{
+            localize "SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Update"
+            type='Item'
+          }}'
+        >
+          <i class='fas fa-edit'></i>
+        </a>
+        <a
+          class='item-control'
+          data-action="itemDelete"
+          data-id="{{item._id}}"
+          title='{{
+            localize "SWORDS_WIZARDRY.CharacterSheet.Equipment.Table.Delete"
+            type='Item
+          '}}'
+        >
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+</section>

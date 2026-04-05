@@ -1,46 +1,117 @@
-<span class="resource-label"><h3>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Title'}}</h3></span>
-<ol class='items-list'>
-  <li class='item items-header grid grid-4col'>
-   <div class='item-name grid-span-3'>{{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Name'}}</div>
-    <div class='item-controls'>
-      <a
-        class='item-control item-create'
-        title={{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Create' type='feature'}}
-        data-type='feature'
-      >
-        <i class='fas fa-plus'></i>
-      </a>
-    </div>
-  </li>
-  {{#each features as |item id|}}
-  <li class='item grid grid-4col' data-item-id='{{item._id}}'>
-    <div class='item-name grid-span-3'>
-      <div class='item-image'>
-        <a class='rollable' data-roll-type='item'>
-          <img
-            src='{{item.img}}'
-            title='{{item.name}}'
-            width='24'
-            height='24'
-          />
-        </a>
+<section
+  class="tab {{tabs.features.id}} {{tabs.features.cssClass}}"
+  data-tab="{{tabs.features.id}}"
+  data-group="{{tabs.features.group}}"
+>
+  <section class="grid grid-8col">
+    <aside class="sidebar grid-span-3">
+      <div class="abilities flexcol">
+         <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeScores' }}</h3></span>
+        {{#each system.abilities as |ability key|}}
+        <div class="ability grid grid-6col">
+          <label
+            for="system.abilities.{{key}}.value"
+            class="resource-label grid-span-3 align-left"
+            data-action="roll"
+            data-roll="d20+@abilities.{{key}}.mod"
+            data-label="{{ability.label}}"
+          >
+            {{ability.label}}
+          </label>
+          <input class="checkbox-small" type="checkbox" name="system.abilities.{{key}}.prime" {{checked ability.prime}}/>
+          <input class="resource-value grid-span-2" type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+        </div>
+        {{/each}}
+        <hr>
+        <span class="resource-label"><h3>{{ localize 'SWORDS_WIZARDRY.CharacterSheet.Main.AttributeBonuses' }}</h3></span>
+        <div class="modifiers">
+          {{#each system.modifiers as |modifier key|}}
+          <div class="grid grid-3col">
+            <label
+              for="system.modifiers.{{modifier}}.value"
+              class="modifier-label grid-span-2"
+              data-label="{{modifier.label}}"
+            >
+              {{modifier.label}}
+            </label>
+            <input class="modifier-value" type="text" name="system.modifiers.{{key}}.value" value="{{modifier.value}}" data-dtype="Number"/>
+          </div>
+          {{/each}}
+        </div>
       </div>
-      <h4>{{item.name}}</h4>
-    </div>
-    <div class='item-controls'>
-      <a
-        class='item-control item-edit'
-        title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Features.Table.Update" type='feature'}}'
-      >
-        <i class='fas fa-edit'></i>
-      </a>
-      <a
-        class='item-control item-delete'
-        title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Features.Table.Delete" type='feature'}}'
-      >
-        <i class='fas fa-trash'></i>
-      </a>
-    </div>
-  </li>
-  {{/each}}
-</ol>
+    </aside>
+    <section class="main grid-span-5">
+      <span class="resource-label">
+        <h3>
+          {{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Title'}}
+        </h3>
+      </span>
+      <ol class='items-list'>
+        <li class='item items-header grid grid-4col'>
+          <div class='item-name grid-span-3'>
+            {{localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Name'}}
+          </div>
+          <div class='item-controls'>
+            <a
+              class='item-control'
+              data-action="itemCreate"
+              data-type='feature'
+              title={{
+                localize 'SWORDS_WIZARDRY.CharacterSheet.Features.Table.Create'
+                type='feature'
+              }}
+            >
+              <i class='fas fa-plus'></i>
+            </a>
+          </div>
+        </li>
+        {{#each features as |item id|}}
+        <li class='item grid grid-4col' data-item-id='{{item._id}}'>
+          <div class='item-name grid-span-3'>
+            <div class='item-image'>
+              <a
+                class='rollable'
+                data-action="roll"
+                data-id="{{item._id}}"
+                data-roll-type='item'
+              >
+                <img
+                  src='{{item.img}}'
+                  title='{{item.name}}'
+                  width='24'
+                  height='24'
+                />
+              </a>
+            </div>
+            <h4>{{item.name}}</h4>
+          </div>
+          <div class='item-controls'>
+            <a
+              class='item-control'
+              data-action="itemEdit"
+              data-id="{{item.id}}"
+              title='{{
+                localize "SWORDS_WIZARDRY.CharacterSheet.Features.Table.Update"
+                type='feature'
+              }}'
+            >
+              <i class='fas fa-edit'></i>
+            </a>
+            <a
+              class='item-control'
+              data-action="itemDelete"
+              data-id="{{item.id}}"
+              title='{{
+                localize "SWORDS_WIZARDRY.CharacterSheet.Features.Table.Delete"
+                type='feature'
+              }}'
+            >
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+  </section>
+</section>

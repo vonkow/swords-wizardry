@@ -306,6 +306,9 @@ input {
 }
 
 /* Styles limited to swords-wizardry sheets */
+.swords-wizardry .window-content {
+  overflow: scroll;
+}
 .swords-wizardry .combat-hud-name {
   font-family: "Libre Baskerville";
 }
@@ -346,12 +349,10 @@ input {
 }
 .swords-wizardry .sheet-header {
   flex: 0 auto;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-bottom: 10px;
 }
 .swords-wizardry .sheet-header .profile-img {
   flex: 0 0 100px;
@@ -540,3 +541,5 @@ input {
 .swords-wizardry .abilities .resource-label, .swords-wizardry .abilities .modifier-label, .swords-wizardry .modifiers .resource-label, .swords-wizardry .modifiers .modifier-label {
   margin-top: 5px;
 }
+
+/*# sourceMappingURL=swords-wizardry.css.map */

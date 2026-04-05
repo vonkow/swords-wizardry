@@ -15,6 +15,9 @@
 
 /* Styles limited to swords-wizardry sheets */
 .swords-wizardry {
+  .window-content {
+    overflow: scroll;
+  }
   @import 'components/apps';
   @import 'components/effects';
   @import 'components/forms';

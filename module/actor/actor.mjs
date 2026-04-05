@@ -28,24 +28,6 @@ export class SwordsWizardryActor extends Actor {
     await this.updateSource(createData);
   }
 
-  /** @override */
-  prepareData() {
-    super.prepareData();
-  }
-
-  /** @override */
-  prepareBaseData() {
-  }
-
-  /**
-   * @override
-   * Augment the actor source data with additional dynamic data. Typically,
-   * you'll want to handle most of your calculated/derived data in this step.
-   * Data calculated in this step should generally not exist in template.json
-   * (such as ability modifiers rather than ability scores) and should be
-   * available both inside and outside of character sheets (such as if an actor
-   * is queried and has a roll executed directly from it).
-   */
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
@@ -56,7 +38,6 @@ export class SwordsWizardryActor extends Actor {
     }
 
     this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
     this._prepareMemorizedSpells(actorData);
   }
 
@@ -85,33 +66,20 @@ export class SwordsWizardryActor extends Actor {
     };
   }
 
-  /**
-   * Prepare Character type specific data
-   */
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
-
-    // Make modifications to data here. For example:
     const systemData = actorData.system;
-
     // TODO delete this?
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
-      // Calculate the modifier using S&W
       ability.mod = Math.floor((ability.value - 10) / 2);
     }
-
     for (let [key, modifier] of Object.entries(systemData.modifiers)) {
-      // Calculate the modifier using S&W
       modifier.v = Math.floor(modifier.value);
     }
-
     this._calculateEncumbrance(actorData);
   }
 
-  /**
-   * Calculate carry weight from inventory and derive movement rate.
-   */
   _calculateEncumbrance(actorData) {
     const systemData = actorData.system;
 
@@ -134,10 +102,8 @@ export class SwordsWizardryActor extends Actor {
 
     // TODO If misc equipment is checked on character sheet add 10 lbs
     // if (systemData.carryingMiscEquipment) totalWeight += 10;
-
-    // Every 5 zero-weight items add 1 lb (todo add later)
+    // Every 5 zero-weight items add 1 lb (todo add later behind a flag)
     // totalWeight += Math.floor(zeroWeightCount / 5);
-
     // Every 10 coins = 1 lb (gems excluded)
     const treasure = systemData.treasure || {};
     const totalCoins = (Number(treasure.gp) || 0)
@@ -159,17 +125,6 @@ export class SwordsWizardryActor extends Actor {
       : 0;
 
     systemData.moveRate.value = moveRate;
-  }
-
-  /**
-   * Prepare NPC type specific data.
-   */
-  _prepareNpcData(actorData) {
-    if (actorData.type !== 'npc') return;
-
-    // Make modifications to data here. For example:
-    const systemData = actorData.system;
-    //systemData.xp = systemData.cr * systemData.cr * 100;
   }
 
   _prepareMemorizedSpells(actorData) {
@@ -194,11 +149,7 @@ export class SwordsWizardryActor extends Actor {
   getRollData() {
     // Starts off by populating the roll data with `this.system`
     const data = { ...super.getRollData() };
-
-    // Prepare character roll data.
     this._getCharacterRollData(data);
-    this._getNpcRollData(data);
-
     return data;
   }
 
@@ -207,7 +158,6 @@ export class SwordsWizardryActor extends Actor {
    */
   _getCharacterRollData(data) {
     if (this.type !== 'character') return;
-
     // Copy the ability scores to the top level, so that rolls can use
     // formulas like `@str.mod + 4`.
     if (data.abilities) {
@@ -215,32 +165,14 @@ export class SwordsWizardryActor extends Actor {
         data[k] = foundry.utils.deepClone(v);
       }
     }
-
     if (data.modifiers) {
       for (let [k, v] of Object.entries(data.modifiers)) {
         data[k] = foundry.utils.deepClone(v);
       }
     }
-
-    if (data.thievingSkills) {
-      for (let [k, v] of Object.entries(data.thievingSkills)) {
-        data[k] = foundry.utils.deepClone(v);
-      }
-    }
-
-    // Add level for easier access, or fall back to 0.
     if (data.level) {
       data.lvl = data.level.value ?? 0;
     }
-  }
-
-  /**
-   * Prepare NPC roll data.
-   */
-  _getNpcRollData(data) {
-    if (this.type !== 'npc') return;
-
-    // Process additional NPC data here.
   }
 
   async rollSave() {
