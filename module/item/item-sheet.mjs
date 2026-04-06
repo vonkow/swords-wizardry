@@ -4,6 +4,7 @@ const { ItemSheetV2 } = foundry.applications.sheets;
 export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static DEFAULT_OPTIONS = {
     actions: {
+      editImage: this.#onEditImage
     },
     tag: 'form',
     form: {
@@ -41,6 +42,19 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
   static async #onSubmitForm(event, form, formData) {
     event.preventDefault();
     await this.document.update(formData.object);
+  }
+
+  static async #onEditImage(event, target) {
+    const field = target.dataset.field || "img";
+    const current = foundry.utils.getProperty(this.document, field);
+
+    const fp = new foundry.applications.apps.FilePicker({
+      type: "image",
+      current: current,
+      callback: (path) => this.document.update({ [field]: path })
+    });
+
+    fp.render(true);
   }
 
 }

@@ -111,8 +111,8 @@ function showWelcome() {
 <p>This system can be used to play Swords & Wizardry and pretty much any variant of Swords & Wizardry or the original edition of the first published RPG. To support this flexibility, it is relatively light on automations. Feedback and Pull Requests are always welcome; see our <a href="https://github.com/vonkow/swords-wizardry">project page</a> to submit either.</p>
 <p>Check out the following modules to improve your gaming experience with official game content and additional automations:</p>
 <ul>
-  <li><a href="https://foundryvtt.com/packages/swords-wizardry-content">Swords & Wizardry Complete Revised Content</a> (ancestries, classes, items, spells, and monsters)</li>
-  <li><a href="">Swords & Wizardry Book of Options</a> (Coming soon, additional ancestries and classes)</li>
+  <li><a href="https://foundryvtt.com/packages/swords-wizardry-content">Swords & Wizardry Complete Revised Content</a> (Ancestries, classes, items, spells, and monsters)</li>
+  <li><a href="https://foundryvtt.com/packages/swords-wizardry-optional-content">Swords & Wizardry Book of Options</a> (Additional ancestries and classes)</li>
   <li><a href="">Swords & Wizardry Fiends and Foes</a> (Coming soon, additional monsters)</li>
 </ul>`
   });

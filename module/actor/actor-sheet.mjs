@@ -5,6 +5,7 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
 
   static DEFAULT_OPTIONS = {
     actions: {
+      editImage: this.#onEditImage,
       itemCreate: this.#itemCreate,
       itemDecrement: this.#itemDecrement,
       itemDelete: this.#itemDelete,
@@ -133,23 +134,28 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   }
 
   _prepareItems(context) {
-    context.armor = [];
-    context.gear = [];
-    context.features = [];
-    context.weapons = [];
-    context.spells = {
-      1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []
-    };
+    if (this.actor.type === 'container') {
+      context.gear = this.actor.items;
+    }
+    else {
+      context.armor = [];
+      context.gear = [];
+      context.features = [];
+      context.weapons = [];
+      context.spells = {
+        1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []
+      };
 
-    for (let i of this.actor.items) {
-      i.img = i.img || Item.DEFAULT_ICON;
-      if (!i.system.spellLevel) i.system.spellLevel = 1;
-      switch (i.type) {
-        case 'armor': context.armor.push(i); break;
-        case 'feature': context.features.push(i); break;
-        case 'item': context.gear.push(i); break;
-        case 'spell': context.spells[i.system.spellLevel].push(i); break;
-        case 'weapon': context.weapons.push(i); break;
+      for (let i of this.actor.items) {
+        i.img = i.img || Item.DEFAULT_ICON;
+        if (!i.system.spellLevel) i.system.spellLevel = 1;
+        switch (i.type) {
+          case 'armor': context.armor.push(i); break;
+          case 'feature': context.features.push(i); break;
+          case 'item': context.gear.push(i); break;
+          case 'spell': context.spells[i.system.spellLevel].push(i); break;
+          case 'weapon': context.weapons.push(i); break;
+        }
       }
     }
   }
@@ -171,6 +177,19 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   static async #onSubmitForm(event, form, formData) {
     event.preventDefault();
     await this.document.update(formData.object);
+  }
+
+  static async #onEditImage(event, target) {
+    const field = target.dataset.field || "img";
+    const current = foundry.utils.getProperty(this.document, field);
+
+    const fp = new foundry.applications.apps.FilePicker({
+      type: "image",
+      current: current,
+      callback: (path) => this.document.update({ [field]: path })
+    });
+
+    fp.render(true);
   }
 
   static async #itemCreate(event, target) {
