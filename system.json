@@ -24,9 +24,9 @@
       "thumbnail": ""
     }
   ],
-  "version": "4.0.1",
+  "version": "4.1.0",
   "compatibility": {
-    "minimum": 12,
+    "minimum": 13,
     "verified": "14.359"
   },
   "esmodules": ["module/swords-wizardry.mjs"],
@@ -51,13 +51,8 @@
   "packs":[],
   "packFolders": [],
   "socket": true,
-  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v4.0.1/system.json",
-  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v4.0.1/swords-wizardry.zip",
-  "background": "",
-  "gridDistance": 5,
-  "gridUnits": "ft",
-  "primaryTokenAttribute": "hp",
-  "secondaryTokenAttribute": "ac",
+  "manifest": "https://github.com/vonkow/swords-wizardry/releases/download/v4.1.0/system.json",
+  "download": "https://github.com/vonkow/swords-wizardry/releases/download/v4.1.0/swords-wizardry.zip",
   "relationships": {
     "recommends": [
       {
@@ -69,5 +64,26 @@
         }
       }
     ]
-  }
+  },
+  "documentTypes": {
+    "Actor": {
+      "character": { "htmlFields": ["description"] },
+      "container": { "htmlFields": ["description"] },
+      "npc": { "htmlFields": ["description"] }
+    },
+    "Item": {
+      "armor": { "htmlFields": ["description"] },
+      "feature": { "htmlFields": ["description"] },
+      "item": { "htmlFields": ["description"] },
+      "spell": { "htmlFields": ["description"] },
+      "weapon": { "htmlFields": ["description"] }
+    }
+  },
+  "background": "",
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": "ac"
 }

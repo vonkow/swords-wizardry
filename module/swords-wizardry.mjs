@@ -1,28 +1,27 @@
-// TODO 
-// move app submit buttons to default footer template and _prepareContext
-// make apps resizable?
-// make the roll a character button fill the whole width for players (not GM)
-// ? Update actor and item sheets to v2?
-
-// Import settings.
 import { registerSystemSettings } from './settings.mjs';
-
 import { ImportManager } from './importer/importer.mjs';
-import { CharacterCreatorManager } from './character-creator/character-creator.mjs';
+import {
+  CharacterCreatorManager
+} from './character-creator/character-creator.mjs';
 import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
-
-import { AttackRoll, DamageRoll, FeatureRoll, SaveRoll, MoraleRoll } from './rolls/rolls.mjs';
-// Import document classes.
+import {
+  AttackRoll, DamageRoll, FeatureRoll, SaveRoll, MoraleRoll
+} from './rolls/rolls.mjs';
+import {
+  CharacterData, ContainerData, NPCData
+} from './actor/actor-model.mjs';
 import { SwordsWizardryActor } from './actor/actor.mjs';
-import { SwordsWizardryItem } from './item/item.mjs';
-import { SwordsWizardryCombatTracker, SwordsWizardryCombat } from './combat/combat.mjs';
-import { SwordsWizardryTokenDocument } from './tokens/token.mjs';
-// Import sheet classes.
 import { SwordsWizardryActorSheet } from './actor/actor-sheet.mjs';
+import {
+  ArmorData, FeatureData, ItemData, SpellData, WeaponData
+} from './item/item-model.mjs';
+import { SwordsWizardryItem } from './item/item.mjs';
 import { SwordsWizardryItemSheet } from './item/item-sheet.mjs';
-// Import apps
+import { SwordsWizardryTokenDocument } from './tokens/token.mjs';
+import {
+  SwordsWizardryCombatTracker, SwordsWizardryCombat
+} from './combat/combat.mjs';
 import { CombatHud } from './hud/hud.mjs';
-// Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { handleRPC } from './helpers/rpc.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
@@ -46,7 +45,15 @@ Hooks.once('init', function() {
     decimals: 2,
   };
 
+  CONFIG.Actor.dataModels.character = CharacterData;
+  CONFIG.Actor.dataModels.container = ContainerData;
+  CONFIG.Actor.dataModels.npc = NPCData;
   CONFIG.Actor.documentClass = SwordsWizardryActor;
+  CONFIG.Item.dataModels.armor = ArmorData;
+  CONFIG.Item.dataModels.feature = FeatureData;
+  CONFIG.Item.dataModels.item = ItemData;
+  CONFIG.Item.dataModels.spell = SpellData;
+  CONFIG.Item.dataModels.weapon = WeaponData;
   CONFIG.Item.documentClass = SwordsWizardryItem;
   CONFIG.Combat.documentClass = SwordsWizardryCombat;
   CONFIG.ChatMessage.documentClass = SwordsWizardryChatMessage;
@@ -104,6 +111,7 @@ Handlebars.registerHelper({
     }
 });
 
+// TODO Move this to a template, lazy
 function showWelcome() {
   SwordsWizardryChatMessage.create({
     content: `<h3><strong>Welcome to Swords & Wizardry!</strong></h3>

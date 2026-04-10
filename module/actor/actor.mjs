@@ -69,11 +69,6 @@ export class SwordsWizardryActor extends Actor {
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
     const systemData = actorData.system;
-    // TODO delete this?
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(systemData.abilities)) {
-      ability.mod = Math.floor((ability.value - 10) / 2);
-    }
     for (let [key, modifier] of Object.entries(systemData.modifiers)) {
       modifier.v = Math.floor(modifier.value);
     }
@@ -102,9 +97,6 @@ export class SwordsWizardryActor extends Actor {
 
     // TODO If misc equipment is checked on character sheet add 10 lbs
     // if (systemData.carryingMiscEquipment) totalWeight += 10;
-    // Every 5 zero-weight items add 1 lb (todo add later behind a flag)
-    // totalWeight += Math.floor(zeroWeightCount / 5);
-    // Every 10 coins = 1 lb (gems excluded)
     const treasure = systemData.treasure || {};
     const totalCoins = (Number(treasure.gp) || 0)
                      + (Number(treasure.pp) || 0)
@@ -181,7 +173,7 @@ export class SwordsWizardryActor extends Actor {
   }
   
  async rollMorale() {
-	if (this.type !== 'npc') return;
+    if (this.type !== 'npc') return;
     const roll = new MoraleRoll('2d6', this);
     roll.render();
   }
