@@ -1,6 +1,8 @@
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
+  EVENT_NAMESPACE = '.swords-wizardry-combat-hud';
+
   RERENDER_EVENTS = [
     'createItem',
     'updateItem',
@@ -60,19 +62,22 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
   _onRender(context, options) {
     // TODO de-jQuery-ify
     const $html = $(this.element);
+    const clickEvent = `click${this.EVENT_NAMESPACE}`;
 
-    $html.on('click', '.save-roll', (ev) => {
+    $html.off(this.EVENT_NAMESPACE);
+
+    $html.on(clickEvent, '.save-roll', (ev) => {
       const item = this.actor.rollSave();
     });
 
-    $html.on('click', '.item', (ev) => {
+    $html.on(clickEvent, '.item', (ev) => {
       const li = $(ev.currentTarget);
       const item = this.actor.items.get(li.data('itemId'));
       if (!item) return;
       item.roll();
     });
 
-    $html.on('click', '.item-feature', (ev) => {
+    $html.on(clickEvent, '.item-feature', (ev) => {
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
@@ -80,7 +85,7 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
       item.roll();
     });
 
-    $html.on('click', '.item-cast', (ev) => {
+    $html.on(clickEvent, '.item-cast', (ev) => {
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
@@ -123,8 +128,10 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
   static async activateHud(token, selected) {
     if (game.user.combatHuds?.length) {
       const controlled = canvas.tokens.controlled;
-      for (const hud of game.user.combatHuds) {
-        if (!controlled.includes(token)) {
+      for (const hud of Array.from(game.user.combatHuds)) {
+        const isCurrentToken = hud.token === token;
+        const isControlled = controlled.includes(hud.token);
+        if (!isControlled || isCurrentToken) {
           await hud.close();
         }
       }
