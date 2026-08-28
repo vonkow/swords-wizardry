@@ -10,6 +10,153 @@
       "Success": "Success",
       "Failure": "Failure"
     },
+    "Spell": {
+      "Actions": {
+        "Post": "Anzeigen",
+        "Cast": "Wirken",
+        "Continue": "Weiter",
+        "PostNamed": "{spell} anzeigen",
+        "CastNamed": "{spell} wirken",
+        "PrepareNamed": "{spell} vorbereiten",
+        "ApplyDamage": "Schaden anwenden",
+        "ApplyHalfDamage": "Halben Schaden anwenden",
+        "ApplyDoubleDamage": "Doppelten Schaden anwenden",
+        "ApplyHealing": "Heilung anwenden",
+        "Damage": "Schaden",
+        "Half": "Hälfte",
+        "Double": "Doppelt"
+      },
+      "CasterLevelSources": {
+        "automatic": "Bei Bedarf fragen",
+        "fixed": "Feste Stufe",
+        "prompt": "Immer fragen",
+        "characterLevel": "Charakterstufe",
+        "npcHitDice": "NSC-Trefferwürfel"
+      },
+      "CasterLevelPrompt": {
+        "Title": "Zauberstufe",
+        "Label": "Zauberstufe"
+      },
+      "ActionKinds": {
+        "damage": "Schaden",
+        "healing": "Heilung",
+        "attack": "Angriff",
+        "roll": "Wurf",
+        "effect": "Regelverweis",
+        "manual": "Beschreibung"
+      },
+      "TargetModes": {
+        "none": "Kein Ziel",
+        "single": "Ein Ziel",
+        "selected": "Ausgewählte Ziele",
+        "manual": "Manuelle Zielwahl"
+      },
+      "SaveOutcomes": {
+        "none": "Kein Rettungswurf",
+        "negates": "Negiert",
+        "half": "Halbiert",
+        "partial": "Teilweise",
+        "custom": "Benutzerdefiniert"
+      },
+      "AttackModes": {
+        "none": "Kein Angriff",
+        "melee": "Nahkampf",
+        "missile": "Fernkampf",
+        "custom": "Benutzerdefiniert"
+      },
+      "Editor": {
+        "Title": "Zaubereffekte: {spell}",
+        "Help": "Füge Würfe oder Anweisungen für die Chatkarte des Zaubers hinzu. Es werden nur Optionen für die gewählte Effektart angezeigt.",
+        "ActionCount": "{count} von {maximum} Effekten",
+        "AddAction": "Effekt hinzufügen",
+        "NewAction": "Neuer Effekt",
+        "ActionHeading": "Effekt {number}",
+        "MoveUp": "Effekt nach oben",
+        "MoveDown": "Effekt nach unten",
+        "RemoveAction": "Effekt entfernen",
+        "Label": "Name",
+        "Kind": "Effektart",
+        "Formula": "Würfelformel",
+        "TargetMode": "Ziele",
+        "SaveOutcome": "Ergebnis des Rettungswurfs",
+        "SaveNotes": "Hinweise zum Rettungswurf",
+        "AttackMode": "Angriffsart",
+        "AttackNotes": "Hinweise zum Angriff",
+        "EffectReference": "Regelverweis",
+        "Notes": "Notizen",
+        "Empty": "Dieser Zauber hat keine Zaubereffekte.",
+        "Save": "Zaubereffekte speichern"
+      },
+      "Card": {
+        "CastBy": "Gewirkt von {caster}",
+        "CasterLevel": "Zauberstufe",
+        "Description": "Zauberbeschreibung",
+        "RollResult": "Wurfergebnis",
+        "Save": "Rettungswurf",
+        "Attack": "Angriff",
+        "AttackOutcome": {
+          "hit": "Treffer",
+          "miss": "Verfehlt",
+          "manual": "Manuell abwickeln",
+          "missing": "Ziel nicht verfügbar"
+        },
+        "Effect": "Effekt",
+        "Targets": "Ziele",
+        "MissingTarget": "Ziel ist nicht mehr verfügbar",
+        "Applied": "Angewendet: {amount}",
+        "ConsumptionFailed": "Die Zauberkarte wurde angezeigt, aber der vorbereitete Zauber wurde nicht verbraucht. Bitte den Charakter prüfen."
+      },
+      "Notifications": {
+        "AuditFailed": "Der Zauber wurde verbraucht, aber die Zauberkarte konnte nicht aktualisiert werden.",
+        "AutoApplicationFailed": "Automatischer Zauberschaden oder automatische Heilung konnte bei {count} Ziel(en) nicht angewendet werden."
+      },
+      "Validation": {
+        "UNKNOWN": "Der Zaubereffekt konnte nicht abgeschlossen werden.",
+        "UNKNOWN_FIELD": "Der Zaubereffekt enthält ein nicht unterstütztes Feld.",
+        "INVALID_ACTION_KIND": "Bitte eine gültige Effektart wählen.",
+        "FORMULA_REQUIRED": "Dieser Effekt benötigt eine Würfelformel.",
+        "INVALID_TARGET_MODE": "Bitte eine gültige Zielart wählen.",
+        "INVALID_SAVE_OUTCOME": "Bitte ein gültiges Rettungswurfergebnis wählen.",
+        "SAVE_NOTES_REQUIRED": "Bitte Hinweise zu diesem Rettungswurf hinzufügen.",
+        "INVALID_ATTACK_MODE": "Bitte eine gültige Angriffsart wählen.",
+        "ATTACK_MODE_REQUIRED": "Angriffseffekte benötigen eine Angriffsart.",
+        "ATTACK_NOTES_REQUIRED": "Benutzerdefinierte Angriffe benötigen Hinweise.",
+        "EFFECT_REFERENCE_OR_NOTES_REQUIRED": "Effekte mit Regelverweis benötigen einen Verweis oder Notizen.",
+        "TOO_MANY_ACTIONS": "Dieser Zauber hat zu viele Effekte.",
+        "DUPLICATE_ACTION_ID": "Jeder Zaubereffekt benötigt eine eindeutige ID.",
+        "UNSUPPORTED_FORMULA_REFERENCE": "Die Formel verwendet einen nicht unterstützten Datenverweis.",
+        "INVALID_LEVEL_SOURCE": "Bitte eine gültige Quelle der Zauberstufe wählen.",
+        "FIXED_LEVEL_REQUIRED": "Bitte eine feste Zauberstufe eingeben.",
+        "INVALID_FIXED_LEVEL": "Die feste Zauberstufe muss eine ganze Zahl von 1 bis 100 sein.",
+        "INVALID_CASTER_LEVEL": "Die Zauberstufe muss eine ganze Zahl von 1 bis 100 sein.",
+        "ABILITY_MODIFIER_REQUIRED": "Diese Formel benötigt einen Attributsmodifikator, aber keiner ist verfügbar.",
+        "ITEM_NOT_FOUND": "Der Zauber ist nicht mehr verfügbar.",
+        "NOT_AUTHORIZED": "Du darfst diesen Zaubereffekt nicht verwenden.",
+        "CAST_IN_PROGRESS": "Dieser Zauber wird bereits gewirkt.",
+        "SPELL_NOT_PREPARED": "Dieser Zauber ist derzeit nicht vorbereitet.",
+        "MESSAGE_CREATE_FAILED": "Die Zauberkarte konnte nicht erstellt werden; der Zauber wurde nicht verbraucht.",
+        "STALE_PREPARATION": "Die vorbereiteten Zauber wurden während des Wirkens geändert.",
+        "CONSUMPTION_FAILED": "Die Zauberkarte wurde erstellt, aber der Zauber konnte nicht verbraucht werden.",
+        "ACTION_NOT_FOUND": "Dieser Zaubereffekt existiert nicht mehr.",
+        "STALE_ACTION": "Dieser Zaubereffekt wurde nach dem Anzeigen der Karte geändert.",
+        "ACTION_IN_PROGRESS": "Dieser Zaubereffekt wird bereits abgewickelt.",
+        "SINGLE_TARGET_REQUIRED": "Bitte genau ein Ziel auswählen.",
+        "TARGET_REQUIRED": "Bitte mindestens ein Ziel auswählen.",
+        "NON_FINITE_ROLL": "Der Zauberwurf ergab keinen endlichen Wert.",
+        "INVALID_ROLL_FORMULA": "Die Würfelformel des Zaubers ist ungültig.",
+        "GM_REQUIRED": "Nur die Spielleitung kann Schaden oder Heilung anwenden.",
+        "INVALID_MESSAGE_SCHEMA": "Diese Zauberkarte verwendet eine nicht unterstützte Datenversion.",
+        "ACTION_NOT_APPLICABLE": "Dieser Effekt kann keine Trefferpunkte ändern.",
+        "ACTION_KIND_MISMATCH": "Die Anwendung passt nicht zum Zaubereffekt.",
+        "TARGET_NOT_IN_RESULT": "Das Ziel gehört nicht zu diesem Zauberergebnis.",
+        "APPLICATION_IN_PROGRESS": "Dieses Ergebnis wird bereits angewendet.",
+        "TARGET_NOT_FOUND": "Das Ziel ist nicht mehr verfügbar.",
+        "TARGET_UPDATE_FAILED": "Das Ziel konnte nicht aktualisiert werden.",
+        "AUDIT_FAILED_ROLLED_BACK": "Die Protokollierung schlug fehl; die Trefferpunktänderung wurde zurückgenommen.",
+        "ROLLBACK_FAILED": "Protokollierung und Rücknahme sind fehlgeschlagen. Trefferpunkte sofort prüfen.",
+        "APPLICATION_FAILED": "Schaden oder Heilung konnte nicht angewendet werden."
+      }
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Name",
@@ -64,6 +211,7 @@
         "Gold": "Goldmünzen",
         "Platinum": "Platinmünzen",
         "Silver": "Silbermünzen",
+        "Items": "Gegenstände",
         "Other": "Sonstiges",
         "Table": {
           "Create": "Neuen Gegenstand hinzufügen",
@@ -159,7 +307,7 @@
         "long": "Höchstzahl Spezialisten",
         "abbr": "Max. Spezialisten"
       },
-      "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "short": "retainer" }
+      "RetainerMoraleAdjustment": { "long": "Moralmodifikator für Gefolgsleute", "abbr": "Gefolgsleute" }
     },
     "SheetLabels": {
       "Actor": "SwordsWizardry Charakterbogen",
@@ -174,6 +322,19 @@
           "Effects": "Effekte"
         }
       },
+      "Armor": {
+        "Attributes": {
+          "EffectOnAC": "Auswirkung auf RK"
+        },
+        "Name": "Name",
+        "Quantity": "Anzahl",
+        "Gold": "Gold",
+        "Tabs": {
+          "Attributes": "Eigenschaften",
+          "Description": "Beschreibung"
+        },
+        "Weight": "Gewicht"
+      },
       "Item": {
         "Attributes": {
           "ToHitModifier": "To Hit Modifier",
@@ -185,6 +346,7 @@
         },
         "Name": "Name",
         "Quantity": "Anzahl",
+        "Gold": "Gold",
         "Tabs": {
           "Attributes": "Eigenschaften",
           "Description": "Beschreibung"
@@ -196,6 +358,11 @@
         "Level": "Zaubergrad",
         "Range": "Range",
         "Duration": "Duration",
+        "CasterLevelSource": "Quelle der Zauberstufe",
+        "FixedCasterLevel": "Feste Zauberstufe",
+        "Actions": "Zaubereffekte",
+        "EditActions": "Zaubereffekte bearbeiten",
+        "NoActions": "Keine Zaubereffekte",
         "Tabs": {
           "Attributes": "Eigenschaften",
           "Description": "Beschreibung"
@@ -208,7 +375,8 @@
           "DamageRollFormula": "Schadensberechnung",
           "Range": "Reichweite",
           "Missile": "Missile Weapon?",
-          "RateOfFire": "Feuerrate"
+          "RateOfFire": "Feuerrate",
+          "SpecialDamage": "Besonderer Schaden"
         },
         "Name": "Name",
         "Quantity": "Anzahl",
@@ -236,6 +404,7 @@
   "TYPES": {
     "Actor": {
       "character": "SC",
+      "container": "Behälter",
       "npc": "NSC"
     },
     "Item": {
@@ -247,6 +416,7 @@
     }
   },
   "New": {
+    "armor": "Neue Rüstung",
     "item": "Neuer Gegenstand",
     "feature": "Neues Merkmal",
     "spell": "Neuer Zauber",

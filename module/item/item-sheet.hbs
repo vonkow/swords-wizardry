@@ -69,18 +69,62 @@
     <div class="grid grid-2col">
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Level"}}</label>
-        <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Text"/>
+        <input type="number" name="system.spellLevel" value="{{system.spellLevel}}" min="1" max="9" step="1" {{#unless editable}}disabled{{/unless}}/>
       </div>
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Range"}}</label>
-        <input type="text" name="system.range" value="{{system.range}}" data-dtype="Text"/>
+        <input type="text" name="system.range" value="{{system.range}}" {{#unless editable}}disabled{{/unless}}/>
       </div>
     </div>
     <div class="grid grid-1col">
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}}</label>
-        <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="Text"/>
+        <input type="text" name="system.duration" value="{{system.duration}}" {{#unless editable}}disabled{{/unless}}/>
       </div>
+    </div>
+    <div class="grid grid-2col spell-casting-fields">
+      <div class="resource">
+        <label class="resource-label" for="{{rootId}}-caster-level-source">{{localize "SWORDS_WIZARDRY.Item.Spell.CasterLevelSource"}}</label>
+        <select id="{{rootId}}-caster-level-source" name="system.casting.levelSource" {{#unless editable}}disabled{{/unless}}>
+          {{#each casterLevelSources as |option|}}
+            <option value="{{option.value}}" {{#if (eq option.value ../system.casting.levelSource)}}selected{{/if}}>{{localize option.label}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="resource">
+        <label class="resource-label" for="{{rootId}}-fixed-caster-level">{{localize "SWORDS_WIZARDRY.Item.Spell.FixedCasterLevel"}}</label>
+        <input id="{{rootId}}-fixed-caster-level" type="number" name="system.casting.fixedLevel" value="{{system.casting.fixedLevel}}" min="1" max="100" step="1" {{#unless editable}}disabled{{/unless}}/>
+      </div>
+    </div>
+    <section class="spell-actions-summary" aria-labelledby="{{rootId}}-spell-actions-heading">
+      <div class="spell-actions-summary__header">
+        <h3 id="{{rootId}}-spell-actions-heading">{{localize "SWORDS_WIZARDRY.Item.Spell.Actions"}}</h3>
+        {{#if editable}}
+          <button type="button" data-action="editSpellActions">
+            <i class="fas fa-pen" aria-hidden="true"></i>
+            {{localize "SWORDS_WIZARDRY.Item.Spell.EditActions"}}
+          </button>
+        {{/if}}
+      </div>
+      <ol>
+        {{#each spellActions as |action|}}
+          <li><strong>{{action.label}}</strong> <span>({{action.kindLabel}})</span>{{#if action.formula}} <code>{{action.formula}}</code>{{/if}}</li>
+        {{else}}
+          <li class="spell-actions-summary__empty">{{localize "SWORDS_WIZARDRY.Item.Spell.NoActions"}}</li>
+        {{/each}}
+      </ol>
+    </section>
+    <div class="spell-sheet-actions">
+      <button type="button" data-action="spellPost">
+        <i class="fas fa-message" aria-hidden="true"></i>
+        {{localize "SWORDS_WIZARDRY.Spell.Actions.Post"}}
+      </button>
+      {{#if canCast}}
+        <button type="button" data-action="spellCast">
+          <i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i>
+          {{localize "SWORDS_WIZARDRY.Spell.Actions.Cast"}}
+        </button>
+      {{/if}}
     </div>
     {{/if}}
     {{#if (eq item.type 'weapon')}}

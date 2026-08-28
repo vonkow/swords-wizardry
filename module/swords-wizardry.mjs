@@ -25,17 +25,34 @@ import { CombatHud } from './hud/hud.mjs';
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { handleRPC } from './helpers/rpc.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
+import { createFoundrySpellService } from './spells/service.mjs';
+import { createFoundrySpellApplicationService } from './spells/application.mjs';
+import { createFoundrySpellChatController } from './spells/chat-controller.mjs';
 
 const { Actors, Items } = foundry.documents.collections;
 const { ActorSheet, ItemSheet } = foundry.appv1.sheets;
+let spellChatController;
 
 Hooks.once('init', function() {
   registerSystemSettings();
+
+  const spellService = createFoundrySpellService();
+  const spellApplicationService = createFoundrySpellApplicationService();
+  spellChatController = createFoundrySpellChatController(
+    spellService,
+    spellApplicationService
+  );
 
   game.swordswizardry = {
     SwordsWizardryActor,
     SwordsWizardryItem,
     rollItemMacro,
+    spells: Object.freeze({
+      post: spellService.post.bind(spellService),
+      cast: spellService.cast.bind(spellService),
+      invoke: spellService.invoke.bind(spellService),
+      requestApplication: spellApplicationService.apply.bind(spellApplicationService)
+    })
   };
 
   CONFIG.SWORDS_WIZARDRY = SWORDS_WIZARDRY;
@@ -127,6 +144,7 @@ function showWelcome() {
 }
 
 Hooks.once('ready', async () => {
+  spellChatController.start();
   if (game.user.isGM) {
     if (game.settings.get('swords-wizardry', 'systemVersion') !== game.system.version) {
       game.settings.set('swords-wizardry', 'systemVersion', game.system.version);

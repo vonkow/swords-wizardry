@@ -1,5 +1,6 @@
 import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
 import { rpc } from '../helpers/rpc.mjs';
+import { evaluateAttackPlan } from '../spells/attack-plan.mjs';
 
 const { renderTemplate } = foundry.applications.handlebars;
 
@@ -13,24 +14,20 @@ export class AttackRoll extends Roll {
 
   async evaluate() {
     const result = await super.evaluate();
-    // TODO move game.user.targets to up the chain and pass it in for more generic attacks?
-    game.user.targets.forEach((target) => {
-      let hit = false;
-      if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
-        // Attack bonus is added to the roll formula by the item.
-        const targetAAC = target.actor.system.aac.value;
-        if (result.total >= targetAAC) hit = true;
-      } else {
-        const targetAC = target.actor.system.ac.value;
-        const targetNumber = this.data.actor.tHAC0 - targetAC;
-        if (result.total >= targetNumber) hit = true;
-      }
-      if (hit) {
-        this.hitTargets.push(target);
-      } else {
-        this.missedTargets.push(target);
-      }
+    const targetSnapshots = this.data.targetSnapshots ?? [];
+    const outcomes = evaluateAttackPlan({
+      total: result.total,
+      mode: this.data.missile ? 'missile' : 'melee',
+      useAscendingAC: game.settings.get('swords-wizardry', 'useAscendingAC'),
+      attacker: this.data.actor,
+      targets: targetSnapshots
     });
+    this.hitTargets = targetSnapshots.filter((target) => (
+      outcomes.find((outcome) => outcome.uuid === target.uuid)?.outcome === 'hit'
+    ));
+    this.missedTargets = targetSnapshots.filter((target) => (
+      outcomes.find((outcome) => outcome.uuid === target.uuid)?.outcome === 'miss'
+    ));
     return result;
   }
 

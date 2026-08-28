@@ -1,4 +1,5 @@
 import { AttackRoll, FeatureRoll } from  '../rolls/rolls.mjs';
+import { captureTargetSnapshots } from '../spells/attack-plan.mjs';
 
 export class SwordsWizardryItem extends Item {
 
@@ -50,6 +51,7 @@ export class SwordsWizardryItem extends Item {
     if (this.actor) {
       rollData.actor = this.actor.getRollData();
       rollData.actor._id = this.actor._id;
+      rollData.targetSnapshots = captureTargetSnapshots(game.user.targets);
       if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
         rollData.formula += ` + ${rollData.actor.tHAACB}`;
       }
@@ -71,7 +73,17 @@ export class SwordsWizardryItem extends Item {
     return rollData;
   }
 
-  async roll() {
+  async post(options = {}) {
+    if (this.type !== 'spell') return this.roll(options);
+    return game.swordswizardry.spells.post(this, options);
+  }
+
+  async cast(options = {}) {
+    if (this.type !== 'spell') return this.roll(options);
+    return game.swordswizardry.spells.cast(this, options);
+  }
+
+  async roll(options = {}) {
     const item = this;
     let rollData, roll;
     switch (this.type) {
@@ -88,19 +100,19 @@ export class SwordsWizardryItem extends Item {
           return roll;
         }
       case 'spell':
+        return this.post(options);
       case 'item':
       case 'armor':
         // TODO update this 
         const speaker = ChatMessage.getSpeaker({ actor: this.actor });
         const rollMode = game.settings.get('core', 'rollMode');
         const label = `[${item.type}] ${item.name}`;
-        ChatMessage.create({
+        return ChatMessage.create({
           speaker: speaker,
           rollMode: rollMode,
           flavor: label,
           content: item.system.description ?? '',
         });
-        break;
     }
   }
 }

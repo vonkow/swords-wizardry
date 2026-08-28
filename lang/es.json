@@ -10,6 +10,153 @@
       "Success": "Éxito",
       "Failure": "Fallo"
     },
+    "Spell": {
+      "Actions": {
+        "Post": "Publicar",
+        "Cast": "Lanzar",
+        "Continue": "Continuar",
+        "PostNamed": "Publicar {spell}",
+        "CastNamed": "Lanzar {spell}",
+        "PrepareNamed": "Memorizar {spell}",
+        "ApplyDamage": "Aplicar daño",
+        "ApplyHalfDamage": "Aplicar medio daño",
+        "ApplyDoubleDamage": "Aplicar daño doble",
+        "ApplyHealing": "Aplicar curación",
+        "Damage": "Daño",
+        "Half": "Mitad",
+        "Double": "Doble"
+      },
+      "CasterLevelSources": {
+        "automatic": "Preguntar cuando sea necesario",
+        "fixed": "Nivel fijo",
+        "prompt": "Preguntar siempre",
+        "characterLevel": "Nivel de personaje",
+        "npcHitDice": "Dados de golpe del PNJ"
+      },
+      "CasterLevelPrompt": {
+        "Title": "Nivel de lanzador",
+        "Label": "Nivel de lanzador"
+      },
+      "ActionKinds": {
+        "damage": "Daño",
+        "healing": "Curación",
+        "attack": "Ataque",
+        "roll": "Tirada",
+        "effect": "Referencia de reglas",
+        "manual": "Descripción"
+      },
+      "TargetModes": {
+        "none": "Sin objetivo",
+        "single": "Un objetivo",
+        "selected": "Objetivos seleccionados",
+        "manual": "Selección manual"
+      },
+      "SaveOutcomes": {
+        "none": "Sin salvación",
+        "negates": "Anula",
+        "half": "Mitad",
+        "partial": "Parcial",
+        "custom": "Personalizado"
+      },
+      "AttackModes": {
+        "none": "Sin ataque",
+        "melee": "Cuerpo a cuerpo",
+        "missile": "Proyectil",
+        "custom": "Personalizado"
+      },
+      "Editor": {
+        "Title": "Efectos del conjuro: {spell}",
+        "Help": "Añade las tiradas o instrucciones de la tarjeta de chat del conjuro. Solo se muestran las opciones del tipo de efecto seleccionado.",
+        "ActionCount": "{count} de {maximum} efectos",
+        "AddAction": "Añadir efecto",
+        "NewAction": "Nuevo efecto",
+        "ActionHeading": "Efecto {number}",
+        "MoveUp": "Subir efecto",
+        "MoveDown": "Bajar efecto",
+        "RemoveAction": "Eliminar efecto",
+        "Label": "Nombre",
+        "Kind": "Tipo de efecto",
+        "Formula": "Fórmula de tirada",
+        "TargetMode": "Objetivos",
+        "SaveOutcome": "Resultado de salvación",
+        "SaveNotes": "Indicaciones de salvación",
+        "AttackMode": "Tipo de ataque",
+        "AttackNotes": "Indicaciones de ataque",
+        "EffectReference": "Referencia de reglas",
+        "Notes": "Notas",
+        "Empty": "Este conjuro no tiene efectos.",
+        "Save": "Guardar efectos del conjuro"
+      },
+      "Card": {
+        "CastBy": "Lanzado por {caster}",
+        "CasterLevel": "Nivel de lanzador",
+        "Description": "Descripción del conjuro",
+        "RollResult": "Resultado de tirada",
+        "Save": "Salvación",
+        "Attack": "Ataque",
+        "AttackOutcome": {
+          "hit": "Impacto",
+          "miss": "Fallo",
+          "manual": "Resolver manualmente",
+          "missing": "Objetivo no disponible"
+        },
+        "Effect": "Efecto",
+        "Targets": "Objetivos",
+        "MissingTarget": "El objetivo ya no está disponible",
+        "Applied": "Aplicado: {amount}",
+        "ConsumptionFailed": "La tarjeta se publicó, pero el conjuro memorizado no se consumió. Revisa el Actor antes de continuar."
+      },
+      "Notifications": {
+        "AuditFailed": "El conjuro se consumió, pero no se pudo actualizar la auditoría de la tarjeta.",
+        "AutoApplicationFailed": "No se pudo aplicar automáticamente el daño o la curación del conjuro a {count} objetivo(s)."
+      },
+      "Validation": {
+        "UNKNOWN": "No se pudo completar el efecto del conjuro.",
+        "UNKNOWN_FIELD": "El efecto contiene un campo no compatible.",
+        "INVALID_ACTION_KIND": "Elige un tipo de efecto válido.",
+        "FORMULA_REQUIRED": "Este efecto necesita una fórmula de tirada.",
+        "INVALID_TARGET_MODE": "Elige un modo de objetivo válido.",
+        "INVALID_SAVE_OUTCOME": "Elige un resultado de salvación válido.",
+        "SAVE_NOTES_REQUIRED": "Añade indicaciones para esta salvación.",
+        "INVALID_ATTACK_MODE": "Elige un tipo de ataque válido.",
+        "ATTACK_MODE_REQUIRED": "Los efectos de ataque necesitan un tipo de ataque.",
+        "ATTACK_NOTES_REQUIRED": "Los ataques personalizados necesitan indicaciones.",
+        "EFFECT_REFERENCE_OR_NOTES_REQUIRED": "Los efectos con referencia necesitan una referencia de reglas o notas.",
+        "TOO_MANY_ACTIONS": "Este conjuro tiene demasiados efectos.",
+        "DUPLICATE_ACTION_ID": "Cada efecto del conjuro debe tener un ID único.",
+        "UNSUPPORTED_FORMULA_REFERENCE": "La fórmula usa una referencia de datos no compatible.",
+        "INVALID_LEVEL_SOURCE": "Elige una fuente de nivel de lanzador válida.",
+        "FIXED_LEVEL_REQUIRED": "Introduce un nivel de lanzador fijo.",
+        "INVALID_FIXED_LEVEL": "El nivel fijo debe ser un entero entre 1 y 100.",
+        "INVALID_CASTER_LEVEL": "El nivel de lanzador debe ser un entero entre 1 y 100.",
+        "ABILITY_MODIFIER_REQUIRED": "Esta fórmula necesita un modificador de característica, pero no hay ninguno disponible.",
+        "ITEM_NOT_FOUND": "El conjuro ya no está disponible.",
+        "NOT_AUTHORIZED": "No puedes usar este efecto del conjuro.",
+        "CAST_IN_PROGRESS": "Este conjuro ya se está lanzando.",
+        "SPELL_NOT_PREPARED": "Este conjuro no está memorizado.",
+        "MESSAGE_CREATE_FAILED": "No se pudo crear la tarjeta; el conjuro no se consumió.",
+        "STALE_PREPARATION": "Los conjuros memorizados cambiaron durante el lanzamiento.",
+        "CONSUMPTION_FAILED": "La tarjeta se creó, pero no se pudo consumir el conjuro.",
+        "ACTION_NOT_FOUND": "Este efecto ya no existe.",
+        "STALE_ACTION": "El efecto cambió después de publicar la tarjeta.",
+        "ACTION_IN_PROGRESS": "Este efecto ya se está resolviendo.",
+        "SINGLE_TARGET_REQUIRED": "Selecciona exactamente un objetivo.",
+        "TARGET_REQUIRED": "Selecciona al menos un objetivo.",
+        "NON_FINITE_ROLL": "La tirada no produjo un total finito.",
+        "INVALID_ROLL_FORMULA": "La fórmula de tirada es inválida.",
+        "GM_REQUIRED": "Solo un DJ puede aplicar daño o curación.",
+        "INVALID_MESSAGE_SCHEMA": "Esta tarjeta usa una versión de datos no compatible.",
+        "ACTION_NOT_APPLICABLE": "Este efecto no puede cambiar puntos de golpe.",
+        "ACTION_KIND_MISMATCH": "La aplicación solicitada no coincide con el efecto.",
+        "TARGET_NOT_IN_RESULT": "El objetivo no forma parte de este resultado.",
+        "APPLICATION_IN_PROGRESS": "Este resultado ya se está aplicando.",
+        "TARGET_NOT_FOUND": "El objetivo ya no está disponible.",
+        "TARGET_UPDATE_FAILED": "No se pudo actualizar el objetivo.",
+        "AUDIT_FAILED_ROLLED_BACK": "Falló la auditoría y se revirtió el cambio de puntos de golpe.",
+        "ROLLBACK_FAILED": "Fallaron la auditoría y la reversión. Revisa los puntos de golpe inmediatamente.",
+        "APPLICATION_FAILED": "No se pudo aplicar el daño o la curación."
+      }
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Nombre",
@@ -208,6 +355,11 @@
         "Level": "Nivel",
         "Range": "Alcance",
         "Duration": "Duración",
+        "CasterLevelSource": "Fuente del nivel de lanzador",
+        "FixedCasterLevel": "Nivel de lanzador fijo",
+        "Actions": "Efectos del conjuro",
+        "EditActions": "Editar efectos del conjuro",
+        "NoActions": "Sin efectos del conjuro",
         "Tabs": {
           "Attributes": "Atributos",
           "Description": "Descripción"

@@ -1,3 +1,5 @@
+@use '../utils/typography' as *;
+
 .damage-roll-button {
   font-family: $font-primary;
   width: 100%;
