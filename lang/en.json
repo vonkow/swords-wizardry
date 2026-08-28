@@ -10,6 +10,153 @@
       "Success": "Success",
       "Failure": "Failure"
     },
+    "Spell": {
+      "Actions": {
+        "Post": "Post",
+        "Cast": "Cast",
+        "Continue": "Continue",
+        "PostNamed": "Post {spell}",
+        "CastNamed": "Cast {spell}",
+        "PrepareNamed": "Prepare {spell}",
+        "ApplyDamage": "Apply Damage",
+        "ApplyHalfDamage": "Apply Half Damage",
+        "ApplyDoubleDamage": "Apply Double Damage",
+        "ApplyHealing": "Apply Healing",
+        "Damage": "Damage",
+        "Half": "Half",
+        "Double": "Double"
+      },
+      "CasterLevelSources": {
+        "automatic": "Ask when needed",
+        "fixed": "Fixed level",
+        "prompt": "Always ask",
+        "characterLevel": "Character level",
+        "npcHitDice": "NPC Hit Dice"
+      },
+      "CasterLevelPrompt": {
+        "Title": "Caster Level",
+        "Label": "Caster level"
+      },
+      "ActionKinds": {
+        "damage": "Damage",
+        "healing": "Healing",
+        "attack": "Attack",
+        "roll": "Roll",
+        "effect": "Rules reference",
+        "manual": "Description"
+      },
+      "TargetModes": {
+        "none": "No target",
+        "single": "Single target",
+        "selected": "Selected targets",
+        "manual": "Manual targeting"
+      },
+      "SaveOutcomes": {
+        "none": "No save",
+        "negates": "Negates",
+        "half": "Half",
+        "partial": "Partial",
+        "custom": "Custom"
+      },
+      "AttackModes": {
+        "none": "No attack",
+        "melee": "Melee",
+        "missile": "Missile",
+        "custom": "Custom"
+      },
+      "Editor": {
+        "Title": "Spell Effects: {spell}",
+        "Help": "Add the rolls or instructions shown on this spell's chat card. Only options used by the selected effect type are shown.",
+        "ActionCount": "{count} of {maximum} effects",
+        "AddAction": "Add Effect",
+        "NewAction": "New Effect",
+        "ActionHeading": "Effect {number}",
+        "MoveUp": "Move effect up",
+        "MoveDown": "Move effect down",
+        "RemoveAction": "Remove effect",
+        "Label": "Name",
+        "Kind": "Effect type",
+        "Formula": "Roll formula",
+        "TargetMode": "Targets",
+        "SaveOutcome": "Saving throw outcome",
+        "SaveNotes": "Saving throw guidance",
+        "AttackMode": "Attack mode",
+        "AttackNotes": "Attack guidance",
+        "EffectReference": "Rules reference",
+        "Notes": "Notes",
+        "Empty": "This spell has no spell effects.",
+        "Save": "Save Spell Effects"
+      },
+      "Card": {
+        "CastBy": "Cast by {caster}",
+        "CasterLevel": "Caster Level",
+        "Description": "Spell description",
+        "RollResult": "Roll result",
+        "Save": "Save",
+        "Attack": "Attack",
+        "AttackOutcome": {
+          "hit": "Hit",
+          "miss": "Miss",
+          "manual": "Resolve manually",
+          "missing": "Target unavailable"
+        },
+        "Effect": "Effect",
+        "Targets": "Targets",
+        "MissingTarget": "Target is no longer available",
+        "Applied": "Applied: {amount}",
+        "ConsumptionFailed": "The spell card was posted, but the prepared spell was not consumed. Review the Actor before continuing."
+      },
+      "Notifications": {
+        "AuditFailed": "The prepared spell was consumed, but the chat-card audit could not be updated.",
+        "AutoApplicationFailed": "Automatic spell damage or healing could not be applied to {count} target(s)."
+      },
+      "Validation": {
+        "UNKNOWN": "The spell effect could not be completed.",
+        "UNKNOWN_FIELD": "The spell effect contains an unsupported field.",
+        "INVALID_ACTION_KIND": "Choose a valid spell effect type.",
+        "FORMULA_REQUIRED": "This effect requires a roll formula.",
+        "INVALID_TARGET_MODE": "Choose a valid target mode.",
+        "INVALID_SAVE_OUTCOME": "Choose a valid saving throw outcome.",
+        "SAVE_NOTES_REQUIRED": "Add guidance for this saving throw outcome.",
+        "INVALID_ATTACK_MODE": "Choose a valid attack mode.",
+        "ATTACK_MODE_REQUIRED": "Attack effects require an attack mode.",
+        "ATTACK_NOTES_REQUIRED": "Custom attacks require guidance.",
+        "EFFECT_REFERENCE_OR_NOTES_REQUIRED": "Referenced effects require a rules reference or notes.",
+        "TOO_MANY_ACTIONS": "This spell has too many effects.",
+        "DUPLICATE_ACTION_ID": "Each spell effect must have a unique ID.",
+        "UNSUPPORTED_FORMULA_REFERENCE": "The formula uses an unsupported data reference.",
+        "INVALID_LEVEL_SOURCE": "Choose a valid caster-level source.",
+        "FIXED_LEVEL_REQUIRED": "Enter a fixed caster level.",
+        "INVALID_FIXED_LEVEL": "The fixed caster level must be a whole number from 1 to 100.",
+        "INVALID_CASTER_LEVEL": "Caster level must be a whole number from 1 to 100.",
+        "ABILITY_MODIFIER_REQUIRED": "This formula requires an ability modifier, but none is available.",
+        "ITEM_NOT_FOUND": "The spell Item is no longer available.",
+        "NOT_AUTHORIZED": "You are not allowed to use this spell effect.",
+        "CAST_IN_PROGRESS": "This spell is already being cast.",
+        "SPELL_NOT_PREPARED": "This spell is not currently prepared.",
+        "MESSAGE_CREATE_FAILED": "The spell card could not be created; preparation was not consumed.",
+        "STALE_PREPARATION": "Prepared spells changed before casting completed.",
+        "CONSUMPTION_FAILED": "The spell card was created, but preparation could not be consumed.",
+        "ACTION_NOT_FOUND": "This spell effect no longer exists.",
+        "STALE_ACTION": "This spell effect changed after the card was posted.",
+        "ACTION_IN_PROGRESS": "This spell effect is already being resolved.",
+        "SINGLE_TARGET_REQUIRED": "Select exactly one target.",
+        "TARGET_REQUIRED": "Select at least one target.",
+        "NON_FINITE_ROLL": "The spell roll did not produce a finite total.",
+        "INVALID_ROLL_FORMULA": "The spell roll formula is invalid.",
+        "GM_REQUIRED": "Only a GM can apply damage or healing.",
+        "INVALID_MESSAGE_SCHEMA": "This spell card uses an unsupported data version.",
+        "ACTION_NOT_APPLICABLE": "This effect cannot change hit points.",
+        "ACTION_KIND_MISMATCH": "The requested application does not match the spell effect.",
+        "TARGET_NOT_IN_RESULT": "The target is not part of this spell result.",
+        "APPLICATION_IN_PROGRESS": "This result is already being applied.",
+        "TARGET_NOT_FOUND": "The target is no longer available.",
+        "TARGET_UPDATE_FAILED": "The target could not be updated.",
+        "AUDIT_FAILED_ROLLED_BACK": "The audit update failed, so the hit-point change was rolled back.",
+        "ROLLBACK_FAILED": "The audit and rollback both failed. Review the target's hit points immediately.",
+        "APPLICATION_FAILED": "Damage or healing could not be applied."
+      }
+    },
     "NPCSheet": {
       "Main": {
         "Name": "Name",
@@ -208,6 +355,11 @@
         "Level": "Level",
         "Range": "Range",
         "Duration": "Duration",
+        "CasterLevelSource": "Caster level source",
+        "FixedCasterLevel": "Fixed caster level",
+        "Actions": "Spell Effects",
+        "EditActions": "Edit Spell Effects",
+        "NoActions": "No spell effects",
         "Tabs": {
           "Attributes": "Attributes",
           "Description": "Description"

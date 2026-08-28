@@ -13,26 +13,23 @@
           <li class='item grid grid-6col' data-item-id='{{spell._id}}'>
             <div class='item-name grid-span-5'>
               <div class='item-image'>
-                <a
-                  class='rollable'
-                  data-action='roll'
-                  data-id='{{item._id}}'
-                  data-roll-type='item'
-                >
-                  <img src='{{spell.img}}' title='{{spell.name}}' width='24' height='24'/>
-                </a>
+                <button type="button" class="rollable image-button" data-action="spellPost" data-id="{{spell._id}}" title="{{localize 'SWORDS_WIZARDRY.Spell.Actions.PostNamed' spell=spell.name}}">
+                  <img src='{{spell.img}}' alt='' width='24' height='24'/>
+                  <span class="sr-only">{{localize 'SWORDS_WIZARDRY.Spell.Actions.PostNamed' spell=spell.name}}</span>
+                </button>
               </div>
               <span class='item-name-span'>{{spell.name}}</span>
             </div>
             <div class='item-controls'>
-              <a
+              <button type="button"
                 class='item-control'
                 data-action="spellCast"
                 data-id="{{spell._id}}"
-                title='Cast'
+                title='{{localize "SWORDS_WIZARDRY.Spell.Actions.CastNamed" spell=spell.name}}'
               >
-                <i class='fas fa-wand-magic'></i>
-              </a>
+                <i class='fas fa-wand-magic' aria-hidden="true"></i>
+                <span class="sr-only">{{localize "SWORDS_WIZARDRY.Spell.Actions.CastNamed" spell=spell.name}}</span>
+              </button>
             </div>
           </li>
         {{/each}}
@@ -68,56 +65,61 @@
         {{localize 'SWORDS_WIZARDRY.CharacterSheet.Spells.SpellLVL' level=spellLevel}}
       </div>
       <div class='item-controls'>
-        <a
+        <button type="button"
           class='item-control item-create'
           title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Create" type='Spell'}}'
           data-action="itemCreate"
           data-type='spell'
           data-spell-level='{{spellLevel}}'
         >
-          <i class='fas fa-plus'></i>
-        </a>
+          <i class='fas fa-plus' aria-hidden="true"></i>
+          <span class="sr-only">{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Create" type='Spell'}}</span>
+        </button>
       </div>
     </li>
     {{#each spells as |item id|}}
     <li class='item grid grid-6col' data-item-id='{{item._id}}'>
       <div class='item-name flexrow grid-span-5'>
         <div class='item-image'>
-          <a
-            class='rollable'
-            data-action='roll'
+          <button type="button"
+            class='rollable image-button'
+            data-action='spellPost'
             data-id='{{item._id}}'
-            data-roll-type='item'
+            title="{{localize 'SWORDS_WIZARDRY.Spell.Actions.PostNamed' spell=item.name}}"
           >
-            <img src='{{item.img}}' title='{{item.name}}' width='24' height='24'/>
-          </a>
+            <img src='{{item.img}}' alt='' width='24' height='24'/>
+            <span class="sr-only">{{localize 'SWORDS_WIZARDRY.Spell.Actions.PostNamed' spell=item.name}}</span>
+          </button>
         </div>
         <span class='item-name-span'>{{item.name}}</span>
       </div>
       <div class='item-controls'>
-        <a
+        <button type="button"
           class='item-control'
           data-action="spellPrepare"
           data-id="{{item._id}}"
-          title='Memorize'
+          title='{{localize "SWORDS_WIZARDRY.Spell.Actions.PrepareNamed" spell=item.name}}'
         >
-          <i class='fas fa-brain'></i>
-        </a>
-        <a
+          <i class='fas fa-brain' aria-hidden="true"></i>
+          <span class="sr-only">{{localize "SWORDS_WIZARDRY.Spell.Actions.PrepareNamed" spell=item.name}}</span>
+        </button>
+        <button type="button"
           class='item-control item-edit'
           data-action='itemEdit'
           data-id='{{item._id}}'
           title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Update" type='spell'}}'
         >
-          <i class='fas fa-edit'></i>
-        </a>
-        <a
+          <i class='fas fa-edit' aria-hidden="true"></i>
+          <span class="sr-only">{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Update" type='spell'}}</span>
+        </button>
+        <button type="button"
           class='item-control item-delete'
           data-action='itemDelete'
           data-id='{{item._id}}'
           title='{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Delete" type='spell'}}'>
-          <i class='fas fa-trash'></i>
-        </a>
+          <i class='fas fa-trash' aria-hidden="true"></i>
+          <span class="sr-only">{{localize "SWORDS_WIZARDRY.CharacterSheet.Spells.Table.Delete" type='spell'}}</span>
+        </button>
       </div>
     </li>
     {{/each}}

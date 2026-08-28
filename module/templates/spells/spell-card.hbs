@@ -1,0 +1,39 @@
+<article class="swords-wizardry spell-card" data-spell-message-kind="spell-card">
+  <header class="spell-card__header">
+    {{#if spell.item.img}}<img src="{{spell.item.img}}" alt="" width="36" height="36">{{/if}}
+    <div>
+      <h3>{{spell.item.name}}</h3>
+      {{#if spell.casterName}}<p>{{localize "SWORDS_WIZARDRY.Spell.Card.CastBy" caster=spell.casterName}}</p>{{/if}}
+    </div>
+  </header>
+
+  <dl class="spell-card__metadata">
+    <div><dt>{{localize "SWORDS_WIZARDRY.Item.Spell.Level"}}</dt><dd>{{spell.item.spellLevel}}</dd></div>
+    <div><dt>{{localize "SWORDS_WIZARDRY.Item.Spell.Range"}}</dt><dd>{{spell.item.range}}</dd></div>
+    <div><dt>{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}}</dt><dd>{{spell.item.duration}}</dd></div>
+    <div><dt>{{localize "SWORDS_WIZARDRY.Spell.Card.CasterLevel"}}</dt><dd>{{spell.casting.casterLevel}}</dd></div>
+  </dl>
+
+  <section class="spell-card__description" aria-label="{{localize 'SWORDS_WIZARDRY.Spell.Card.Description'}}">
+    {{{descriptionHTML}}}
+  </section>
+
+  {{#if spell.actions.length}}
+    <section class="spell-card__actions" aria-label="{{localize 'SWORDS_WIZARDRY.Item.Spell.Actions'}}">
+      <h4>{{localize "SWORDS_WIZARDRY.Item.Spell.Actions"}}</h4>
+      <div class="spell-card__action-list">
+        {{#each spell.actions as |action|}}
+          <button type="button" data-action="spellAction" data-spell-action-id="{{action.id}}">
+            <span>{{action.label}}</span>
+            {{#if action.formula}}<code>{{action.formula}}</code>{{/if}}
+          </button>
+          {{#if action.notes}}<p class="hint">{{action.notes}}</p>{{/if}}
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
+  {{#if (eq spell.consumption.status "failed")}}
+    <p class="spell-card__warning" role="alert">{{localize "SWORDS_WIZARDRY.Spell.Card.ConsumptionFailed"}}</p>
+  {{/if}}
+</article>

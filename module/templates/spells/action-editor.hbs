@@ -1,0 +1,108 @@
+<div class="spell-action-editor__body">
+  <p class="hint">{{localize "SWORDS_WIZARDRY.Spell.Editor.Help"}}</p>
+
+  {{#if validationError}}
+    <div class="spell-action-editor__error" role="alert">{{validationError}}</div>
+  {{/if}}
+
+  <div class="spell-action-editor__toolbar">
+    <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.ActionCount" count=actions.length maximum=limits.count}}</span>
+    <button type="button" data-action="addAction" {{#unless canAdd}}disabled{{/unless}}>
+      <i class="fas fa-plus" aria-hidden="true"></i>
+      {{localize "SWORDS_WIZARDRY.Spell.Editor.AddAction"}}
+    </button>
+  </div>
+
+  <ol class="spell-action-editor__list">
+    {{#each actions as |action index|}}
+      <li class="spell-action-editor__action" data-action-index="{{index}}">
+        <input type="hidden" name="actions.{{index}}.id" value="{{action.id}}">
+        <header>
+          <h3>{{localize "SWORDS_WIZARDRY.Spell.Editor.ActionHeading" number=action.number}}</h3>
+          <div class="spell-action-editor__order-controls">
+            <button type="button" data-action="moveActionUp" data-index="{{index}}" title="{{localize 'SWORDS_WIZARDRY.Spell.Editor.MoveUp'}}" {{#if @first}}disabled{{/if}}>
+              <i class="fas fa-arrow-up" aria-hidden="true"></i>
+              <span class="sr-only">{{localize "SWORDS_WIZARDRY.Spell.Editor.MoveUp"}}</span>
+            </button>
+            <button type="button" data-action="moveActionDown" data-index="{{index}}" title="{{localize 'SWORDS_WIZARDRY.Spell.Editor.MoveDown'}}" {{#if @last}}disabled{{/if}}>
+              <i class="fas fa-arrow-down" aria-hidden="true"></i>
+              <span class="sr-only">{{localize "SWORDS_WIZARDRY.Spell.Editor.MoveDown"}}</span>
+            </button>
+            <button type="button" data-action="removeAction" data-index="{{index}}" title="{{localize 'SWORDS_WIZARDRY.Spell.Editor.RemoveAction'}}">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+              <span class="sr-only">{{localize "SWORDS_WIZARDRY.Spell.Editor.RemoveAction"}}</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="spell-action-editor__grid">
+          <label>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.Label"}}</span>
+            <input name="actions.{{index}}.label" type="text" value="{{action.label}}" maxlength="{{../limits.label}}" required>
+          </label>
+          <label>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.Kind"}}</span>
+            <select name="actions.{{index}}.kind" data-effect-kind>
+              {{#each ../actionKinds as |option|}}
+                <option value="{{option.value}}" {{#if (eq option.value action.kind)}}selected{{/if}}>{{localize option.label}}</option>
+              {{/each}}
+            </select>
+          </label>
+          <label class="grid-span-2" data-effect-field="formula" {{#unless action.visibility.formula}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.Formula"}}</span>
+            <input name="actions.{{index}}.formula" type="text" value="{{action.formula}}" maxlength="{{../limits.formula}}" placeholder="1d6 + @spell.casterLevel" data-effect-input="formula">
+          </label>
+          <label data-effect-field="target" {{#unless action.visibility.target}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.TargetMode"}}</span>
+            <select name="actions.{{index}}.target.mode">
+              {{#each ../targetModes as |option|}}
+                <option value="{{option.value}}" {{#if (eq option.value action.target.mode)}}selected{{/if}}>{{localize option.label}}</option>
+              {{/each}}
+            </select>
+          </label>
+          <label data-effect-field="save" {{#unless action.visibility.save}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.SaveOutcome"}}</span>
+            <select name="actions.{{index}}.save.outcome" data-effect-save>
+              {{#each ../saveOutcomes as |option|}}
+                <option value="{{option.value}}" {{#if (eq option.value action.save.outcome)}}selected{{/if}}>{{localize option.label}}</option>
+              {{/each}}
+            </select>
+          </label>
+          <label class="grid-span-2" data-effect-field="save-notes" {{#unless action.visibility.saveNotes}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.SaveNotes"}}</span>
+            <textarea name="actions.{{index}}.save.notes" maxlength="{{../limits.notes}}" data-effect-input="save-notes">{{action.save.notes}}</textarea>
+          </label>
+          <label data-effect-field="attack" {{#unless action.visibility.attack}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.AttackMode"}}</span>
+            <select name="actions.{{index}}.attack.mode" data-effect-attack>
+              {{#each ../attackModes as |option|}}
+                <option value="{{option.value}}" {{#if (eq option.value action.attack.mode)}}selected{{/if}}>{{localize option.label}}</option>
+              {{/each}}
+            </select>
+          </label>
+          <label data-effect-field="reference" {{#unless action.visibility.reference}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.EffectReference"}}</span>
+            <input name="actions.{{index}}.effect.reference" type="text" value="{{action.effect.reference}}" maxlength="{{../limits.effectReference}}" data-effect-input="reference">
+          </label>
+          <label class="grid-span-2" data-effect-field="attack-notes" {{#unless action.visibility.attackNotes}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.AttackNotes"}}</span>
+            <textarea name="actions.{{index}}.attack.notes" maxlength="{{../limits.notes}}" data-effect-input="attack-notes">{{action.attack.notes}}</textarea>
+          </label>
+          <label class="grid-span-2" data-effect-field="notes" {{#unless action.visibility.notes}}hidden{{/unless}}>
+            <span>{{localize "SWORDS_WIZARDRY.Spell.Editor.Notes"}}</span>
+            <textarea name="actions.{{index}}.notes" maxlength="{{../limits.notes}}" data-effect-input="notes">{{action.notes}}</textarea>
+          </label>
+        </div>
+      </li>
+    {{else}}
+      <li class="spell-action-editor__empty">{{localize "SWORDS_WIZARDRY.Spell.Editor.Empty"}}</li>
+    {{/each}}
+  </ol>
+
+  <footer class="spell-action-editor__footer">
+    <button type="submit">
+      <i class="fas fa-save" aria-hidden="true"></i>
+      {{localize "SWORDS_WIZARDRY.Spell.Editor.Save"}}
+    </button>
+  </footer>
+</div>

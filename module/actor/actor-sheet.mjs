@@ -15,6 +15,7 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
       roll: this.#roll,
       saveRoll: this.#saveRoll,
       spellCast: this.#spellCast,
+      spellPost: this.#spellPost,
       spellPrepare: this.#spellPrepare
     },
     tag: 'form',
@@ -129,7 +130,6 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     // TODO is this needed?
     // Add roll data for TinyMCE editors.
     context.rollData = this.actor.getRollData();
-    console.log(this._configureRenderParts());
     return context;
   }
 
@@ -148,7 +148,6 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
 
       for (let i of this.actor.items) {
         i.img = i.img || Item.DEFAULT_ICON;
-        if (!i.system.spellLevel) i.system.spellLevel = 1;
         switch (i.type) {
           case 'armor': context.armor.push(i); break;
           case 'feature': context.features.push(i); break;
@@ -194,7 +193,6 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
 
   static async #itemCreate(event, target) {
     const { type, spellLevel } = target.dataset;
-    console.log(spellLevel);
     const name = game.i18n.localize(`New.${type}`);
     const data = { name, type };
     if (spellLevel) data.system = { spellLevel };
@@ -259,31 +257,42 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   static async #spellPrepare(event, target) {
     const { id } = target.dataset;
     const item = this.actor.items.get(id);
+    if (!item || !this.actor.isOwner) return;
     const { spellLevel } = item.system;
     const slots = this.actor.system.spellSlots[spellLevel];
-    if (slots.memorized.length < slots.max) {
-      slots.memorized.push(item._id);
-      slots.memorizedSpells = slots.memorizedSpells || [];
-      slots.memorizedSpells.push(item);
-    }
-    const spellSlots = {};
+    if (!slots || slots.memorized.length >= slots.max) return;
+    const memorized = [...slots.memorized, item.id];
     const key = `system.spellSlots.${spellLevel}.memorized`;
-    await this.actor.update({
-      [key]: slots.memorized
-    });
+    await this.actor.update({ [key]: memorized });
     this.actor.render();
   }
 
   static async #spellCast(event, target) {
     const { id } = target.dataset;
     const item = this.actor.items.get(id);
-    item.roll();
-    const { spellLevel } = item.system;
-    const slots = this.actor.system.spellSlots[spellLevel];
-    const mIndex = slots.memorized.indexOf(id);
-    if (mIndex > -1) slots.memorized.splice(mIndex, 1);
-    const sIndex = slots.memorizedSpells.indexOf(item);
-    if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
-    this.actor.render();
+    if (!item) return;
+    await runSpellAction(target, () => item.cast());
+  }
+
+  static async #spellPost(event, target) {
+    const { id } = target.dataset;
+    const item = this.actor.items.get(id);
+    if (!item) return;
+    await runSpellAction(target, () => item.post());
+  }
+}
+
+async function runSpellAction(target, operation) {
+  target.disabled = true;
+  try {
+    const result = await operation();
+    if (result?.status !== 'failure') return;
+    const key = `SWORDS_WIZARDRY.Spell.Validation.${result.code}`;
+    const localized = game.i18n.localize(key);
+    ui.notifications.warn(localized === key
+      ? game.i18n.localize('SWORDS_WIZARDRY.Spell.Validation.UNKNOWN')
+      : localized);
+  } finally {
+    target.disabled = false;
   }
 }

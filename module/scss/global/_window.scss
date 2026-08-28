@@ -1,3 +1,5 @@
+@use '../utils/typography' as *;
+
 body {
   font-family: $font-primary;
   font-size: 10pt;

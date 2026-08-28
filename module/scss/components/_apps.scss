@@ -1,3 +1,5 @@
+@use '../utils/typography' as *;
+
 .combat-hud-name {
   font-family: $font-primary;
 }

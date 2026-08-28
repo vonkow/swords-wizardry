@@ -1,27 +1,44 @@
+@use 'sass:meta';
+@use 'utils/typography';
+
 // Add custom fonts by visiting and search https://fonts.google.com
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-// Import utilities.
-@import 'utils/typography';
-@import 'utils/colors';
-@import 'utils/mixins';
-@import 'utils/variables';
-
 /* Global styles */
-@import 'global/window';
-@import 'global/grid';
-@import 'global/flex';
-@import 'global/border';
+@include meta.load-css('global/window');
+@include meta.load-css('global/grid');
+@include meta.load-css('global/flex');
+@include meta.load-css('global/border');
 
 /* Styles limited to swords-wizardry sheets */
 .swords-wizardry {
   .window-content {
     overflow: scroll;
   }
-  @import 'components/apps';
-  @import 'components/effects';
-  @import 'components/forms';
-  @import 'components/items';
-  @import 'components/messages';
-  @import 'components/resource';
+  @include meta.load-css('components/apps');
+  @include meta.load-css('components/effects');
+  @include meta.load-css('components/forms');
+  @include meta.load-css('components/items');
+  @include meta.load-css('components/messages');
+  @include meta.load-css('components/resource');
+  @include meta.load-css('components/spells');
+}
+
+// Spell chat cards share the system class on their root element, so this reset
+// must use a compound selector rather than the sheet-oriented descendant scope.
+.swords-wizardry.spell-card {
+  &,
+  h3,
+  h4,
+  p,
+  dt,
+  dd,
+  strong {
+    color: inherit;
+    text-shadow: none;
+  }
+
+  button {
+    text-shadow: none;
+  }
 }

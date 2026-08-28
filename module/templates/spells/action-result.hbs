@@ -1,0 +1,59 @@
+<article class="swords-wizardry spell-card spell-result" data-spell-message-kind="spell-result">
+  <header class="spell-card__header">
+    {{#if spell.item.img}}<img src="{{spell.item.img}}" alt="" width="36" height="36">{{/if}}
+    <div>
+      <h3>{{spell.action.label}}</h3>
+      <p>{{spell.item.name}}</p>
+    </div>
+  </header>
+
+  {{#if spell.result.formula}}
+    <div class="spell-result__roll" aria-label="{{localize 'SWORDS_WIZARDRY.Spell.Card.RollResult'}}">
+      {{{rollHTML}}}
+    </div>
+  {{/if}}
+
+  {{#if spell.action.save.notes}}
+    <p><strong>{{localize "SWORDS_WIZARDRY.Spell.Card.Save"}}:</strong> {{spell.action.save.notes}}</p>
+  {{/if}}
+  {{#if spell.action.attack.notes}}
+    <p><strong>{{localize "SWORDS_WIZARDRY.Spell.Card.Attack"}}:</strong> {{spell.action.attack.notes}}</p>
+  {{/if}}
+  {{#if spell.action.effect.reference}}
+    <p><strong>{{localize "SWORDS_WIZARDRY.Spell.Card.Effect"}}:</strong> {{spell.action.effect.reference}}</p>
+  {{/if}}
+  {{#if spell.action.notes}}<p>{{spell.action.notes}}</p>{{/if}}
+
+  {{#if spell.targets.length}}
+    <section class="spell-result__targets{{#if (eq spell.action.kind "damage")}} damage-targets{{/if}}" aria-label="{{localize 'SWORDS_WIZARDRY.Spell.Card.Targets'}}">
+      <h4>{{localize "SWORDS_WIZARDRY.Spell.Card.Targets"}}</h4>
+      <ol>
+        {{#each spell.targets as |target|}}
+          <li class="spell-result__target{{#if (eq ../spell.action.kind "damage")}} damage-target{{/if}}" data-spell-target-uuid="{{target.uuid}}">
+            <span class="spell-result__target-name{{#if (eq ../spell.action.kind "damage")}} target-name{{/if}}">{{target.name}}</span>
+            {{#if target.attackOutcome}}
+              <span class="spell-result__target-status">{{target.attackOutcomeLabel}}</span>
+            {{/if}}
+            {{#if (eq target.status "missing")}}
+              <span class="spell-result__target-status">{{localize "SWORDS_WIZARDRY.Spell.Card.MissingTarget"}}</span>
+            {{/if}}
+            <span class="spell-result__application-status" aria-live="polite"></span>
+            {{#if (eq target.status "resolved")}}
+              {{#if (or (eq ../spell.action.kind "damage") (eq ../spell.action.kind "healing"))}}
+                <div class="spell-result__application-controls{{#if (eq ../spell.action.kind "damage")}} damage-buttons{{/if}}">
+                  {{#if (eq ../spell.action.kind "damage")}}
+                    <button class="apply-damage" type="button" data-action="spellApply" data-target-uuid="{{target.uuid}}" data-kind="damage" data-multiplier="1" aria-label="{{localize 'SWORDS_WIZARDRY.Spell.Actions.ApplyDamage'}}">{{localize "SWORDS_WIZARDRY.Spell.Actions.Damage"}}</button>
+                    <button class="apply-damage" type="button" data-action="spellApply" data-target-uuid="{{target.uuid}}" data-kind="damage" data-multiplier="0.5" aria-label="{{localize 'SWORDS_WIZARDRY.Spell.Actions.ApplyHalfDamage'}}">{{localize "SWORDS_WIZARDRY.Spell.Actions.Half"}}</button>
+                    <button class="apply-damage" type="button" data-action="spellApply" data-target-uuid="{{target.uuid}}" data-kind="damage" data-multiplier="2" aria-label="{{localize 'SWORDS_WIZARDRY.Spell.Actions.ApplyDoubleDamage'}}">{{localize "SWORDS_WIZARDRY.Spell.Actions.Double"}}</button>
+                  {{else}}
+                    <button type="button" data-action="spellApply" data-target-uuid="{{target.uuid}}" data-kind="healing" data-multiplier="1">{{localize "SWORDS_WIZARDRY.Spell.Actions.ApplyHealing"}}</button>
+                  {{/if}}
+                </div>
+              {{/if}}
+            {{/if}}
+          </li>
+        {{/each}}
+      </ol>
+    </section>
+  {{/if}}
+</article>

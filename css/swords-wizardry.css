@@ -24,6 +24,30 @@
 }
 /*$font-header: 'Inter';*/
 /* Global styles */
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Regular.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-weight: bold;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Bold.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Italic.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-Regular.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 800;
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-ExtraBold.ttf");
+}
+/*$font-header: 'Inter';*/
 body {
   font-family: "Libre Baskerville";
   font-size: 10pt;
@@ -306,56 +330,34 @@ input {
 }
 
 /* Styles limited to swords-wizardry sheets */
-.swords-wizardry {
-  /*
-  .sheet-tabs {
-    flex: 0;
-  }
-
-  .sheet-body,
-  .sheet-body .tab,
-  .sheet-body .tab .editor {
-    //height: 100%;
-  }
-
-  .editor {
-    min-height: 19.6em;
-    height: 100%;
-  }
-
-  .editor-container {
-      margin: 0;
-  }
-
-  .tox {
-    .tox-editor-container {
-      background: $c-white;
-    }
-
-    .tox-edit-area {
-      padding: 0 8px;
-    }
-  }
-  */
-  /*
-  .resource-label, .modifier-label {
-      font-weight: bold;
-  }
-
-  .resource-value, .modifier-value {
-      text-align: center;
-  }
-
-  .abilities, .modifiers {
-      .resource-label, .modifier-label {
-          //margin-top: 5px;
-      }
-  }
-
-  */
-}
 .swords-wizardry .window-content {
   overflow: scroll;
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Regular.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-weight: bold;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Bold.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Italic.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-Regular.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 800;
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-ExtraBold.ttf");
+}
+.swords-wizardry {
+  /*$font-header: 'Inter';*/
 }
 .swords-wizardry .combat-hud-name {
   font-family: "Libre Baskerville";
@@ -420,6 +422,38 @@ input {
   width: 100%;
   height: 100%;
   margin: 0;
+}
+.swords-wizardry {
+  /*
+  .sheet-tabs {
+    flex: 0;
+  }
+
+  .sheet-body,
+  .sheet-body .tab,
+  .sheet-body .tab .editor {
+    //height: 100%;
+  }
+
+  .editor {
+    min-height: 19.6em;
+    height: 100%;
+  }
+
+  .editor-container {
+      margin: 0;
+  }
+
+  .tox {
+    .tox-editor-container {
+      background: $c-white;
+    }
+
+    .tox-edit-area {
+      padding: 0 8px;
+    }
+  }
+  */
 }
 .swords-wizardry .items-header {
   height: 28px;
@@ -522,6 +556,32 @@ input {
   padding-left: 5px;
   text-align: left;
 }
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Regular.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-weight: bold;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Bold.ttf");
+}
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  src: url("/systems/swords-wizardry/assets/fonts/LibreBaskerville/LibreBaskerville-Italic.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-Regular.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 800;
+  src: url("/systems/swords-wizardry/assets/fonts/Inter/Inter_24pt-ExtraBold.ttf");
+}
+.swords-wizardry {
+  /*$font-header: 'Inter';*/
+}
 .swords-wizardry .damage-roll-button {
   font-family: "Libre Baskerville";
   width: 100%;
@@ -586,5 +646,268 @@ input {
 .swords-wizardry .toggle i {
   margin-left: -3px;
 }
+.swords-wizardry {
+  /*
+  .resource-label, .modifier-label {
+      font-weight: bold;
+  }
 
-/*# sourceMappingURL=swords-wizardry.css.map */
+  .resource-value, .modifier-value {
+      text-align: center;
+  }
+
+  .abilities, .modifiers {
+      .resource-label, .modifier-label {
+          //margin-top: 5px;
+      }
+  }
+
+  */
+}
+.swords-wizardry .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.swords-wizardry button:focus-visible,
+.swords-wizardry input:focus-visible,
+.swords-wizardry select:focus-visible,
+.swords-wizardry textarea:focus-visible {
+  outline: 2px solid var(--color-shadow-primary, #7a4d00);
+  outline-offset: 2px;
+}
+.swords-wizardry .image-button {
+  width: 26px;
+  height: 26px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.swords-wizardry .image-button img {
+  display: block;
+}
+.swords-wizardry .spell-casting-fields {
+  align-items: end;
+}
+.swords-wizardry .spell-actions-summary {
+  margin-block: 0.5rem;
+}
+.swords-wizardry .spell-actions-summary__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.swords-wizardry .spell-actions-summary__header h3 {
+  margin: 0;
+}
+.swords-wizardry .spell-actions-summary__header button {
+  width: auto;
+  white-space: nowrap;
+}
+.swords-wizardry .spell-actions-summary ol {
+  margin-block: 0.4rem;
+  padding-inline-start: 1.5rem;
+}
+.swords-wizardry .spell-actions-summary code {
+  display: inline-block;
+  overflow-wrap: anywhere;
+}
+.swords-wizardry .spell-actions-summary__empty {
+  font-style: italic;
+}
+.swords-wizardry .spell-sheet-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-block: 0.5rem;
+}
+.swords-wizardry .spell-sheet-actions button {
+  flex: 1;
+}
+.swords-wizardry .spell-action-editor__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+.swords-wizardry .spell-action-editor__toolbar, .swords-wizardry .spell-action-editor__footer, .swords-wizardry .spell-action-editor__action > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.swords-wizardry .spell-action-editor__toolbar button, .swords-wizardry .spell-action-editor__footer button, .swords-wizardry .spell-action-editor__order-controls button {
+  width: auto;
+}
+.swords-wizardry .spell-action-editor__error,
+.swords-wizardry .spell-action-editor .spell-card__warning {
+  border: 1px solid var(--color-level-error, #a00000);
+  padding: 0.5rem;
+}
+.swords-wizardry .spell-action-editor__list {
+  flex: 1;
+  overflow: auto;
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+.swords-wizardry .spell-action-editor__action {
+  border: 1px solid var(--color-border-light-primary, #777);
+  border-radius: 4px;
+  padding: 0.6rem;
+  margin-block-end: 0.6rem;
+}
+.swords-wizardry .spell-action-editor__action h3 {
+  margin: 0;
+}
+.swords-wizardry .spell-action-editor__order-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+.swords-wizardry .spell-action-editor__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-block-start: 0.5rem;
+}
+.swords-wizardry .spell-action-editor__grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.swords-wizardry .spell-action-editor__grid [hidden] {
+  display: none;
+}
+.swords-wizardry .spell-action-editor__grid .grid-span-2 {
+  grid-column: 1/-1;
+}
+.swords-wizardry .spell-action-editor__grid textarea {
+  min-height: 3.5rem;
+  resize: vertical;
+}
+.swords-wizardry .spell-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.swords-wizardry .spell-card__header img {
+  flex: 0 0 auto;
+  object-fit: cover;
+}
+.swords-wizardry .spell-card__header h3,
+.swords-wizardry .spell-card__header p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.swords-wizardry .spell-card__metadata {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem 0.75rem;
+  margin-block: 0.6rem;
+}
+.swords-wizardry .spell-card__metadata div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.swords-wizardry .spell-card__metadata dt {
+  font-weight: 400;
+}
+.swords-wizardry .spell-card__metadata dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.swords-wizardry .spell-card__description, .swords-wizardry .spell-card__actions {
+  margin-block-start: 0.6rem;
+}
+.swords-wizardry .spell-card__action-list {
+  display: grid;
+  gap: 0.35rem;
+}
+.swords-wizardry .spell-card__action-list button {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.swords-wizardry .spell-card__action-list code {
+  overflow-wrap: anywhere;
+}
+.swords-wizardry .spell-card__action-list .hint {
+  margin: -0.2rem 0 0.25rem;
+}
+.swords-wizardry .spell-card__warning {
+  border-inline-start: 4px solid var(--color-level-warning, #9a6700);
+  padding: 0.4rem 0.6rem;
+}
+.swords-wizardry .spell-result__roll {
+  margin-block: 0.5rem;
+}
+.swords-wizardry .spell-result__targets ol {
+  padding-inline-start: 1.5rem;
+}
+.swords-wizardry .spell-result__targets.damage-targets ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.swords-wizardry .spell-result__target {
+  margin-block: 0.4rem;
+}
+.swords-wizardry .spell-result__target-name {
+  font-weight: 700;
+}
+.swords-wizardry .spell-result__target-status, .swords-wizardry .spell-result__application-status {
+  display: block;
+}
+.swords-wizardry .spell-result__application-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-block-start: 0.25rem;
+}
+.swords-wizardry .spell-result__application-controls button {
+  flex: 1 1 7rem;
+}
+.swords-wizardry .spell-result__application-controls.damage-buttons {
+  flex-wrap: nowrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.swords-wizardry .spell-result__application-controls.damage-buttons button {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+}
+@media (max-width: 520px) {
+  .swords-wizardry .spell-action-editor__grid,
+  .swords-wizardry .spell-card__metadata {
+    grid-template-columns: 1fr;
+  }
+  .swords-wizardry .spell-action-editor__grid .grid-span-2 {
+    grid-column: auto;
+  }
+}
+
+.swords-wizardry.spell-card,
+.swords-wizardry.spell-card h3,
+.swords-wizardry.spell-card h4,
+.swords-wizardry.spell-card p,
+.swords-wizardry.spell-card dt,
+.swords-wizardry.spell-card dd,
+.swords-wizardry.spell-card strong {
+  color: inherit;
+  text-shadow: none;
+}
+.swords-wizardry.spell-card button {
+  text-shadow: none;
+}
