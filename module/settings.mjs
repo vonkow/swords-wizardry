@@ -12,9 +12,9 @@ export function registerSystemSettings() {
     default: false
   });
 
-  // DM must apply damage
+  // DM must apply damage / healing
   game.settings.register("swords-wizardry", "dmAppliesDamage", {
-    name: "DM must apply damage",
+    name: "DM must apply damage / healing",
     scope: "world",
     config: true,
     type: Boolean,

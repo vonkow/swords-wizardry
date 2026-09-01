@@ -71,7 +71,19 @@ export class SpellData extends BaseItemData {
         required: true, integer: true, initial: 1
       }),
       range: new StringField(),
-      duration: new StringField()
+      duration: new StringField(),
+      formula: new StringField({ initial: "" }),
+      effectType: new StringField({
+        required: true,
+        choices: ["none", "damage", "healing"],
+        initial: "none"
+      }),
+      requiresSave: new BooleanField({ initial: false }),
+      saveEffect: new StringField({
+        required: true,
+        choices: ["half", "negate"],
+        initial: "negate"
+      })
     };
   }
 }

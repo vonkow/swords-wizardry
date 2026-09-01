@@ -1,4 +1,7 @@
-import { AttackRoll, FeatureRoll } from  '../rolls/rolls.mjs';
+import { AttackRoll, DamageRoll, FeatureRoll } from  '../rolls/rolls.mjs';
+
+const { renderTemplate } = foundry.applications.handlebars;
+const SPELL_ROLL_TEMPLATE = 'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs';
 
 export class SwordsWizardryItem extends Item {
 
@@ -40,6 +43,8 @@ export class SwordsWizardryItem extends Item {
         return this.getWeaponRollData(rollData);
       case 'feature':
         return this.getFeatureRollData(rollData);
+      case 'spell':
+        return this.getSpellRollData(rollData);
       default:
         return rollData;
     }
@@ -71,6 +76,57 @@ export class SwordsWizardryItem extends Item {
     return rollData;
   }
 
+  getSpellRollData(rollData) {
+    if (this.actor) {
+      Object.assign(rollData, this.actor.getRollData());
+      rollData.actor = this.actor;
+    }
+    rollData.effectType = this.system.effectType;
+    rollData.requiresSave = this.system.requiresSave;
+    rollData.saveEffect = this.system.saveEffect;
+    return rollData;
+  }
+
+  async rollSpell() {
+    const rollData = this.getRollData();
+    const formula = this.system.formula?.trim();
+
+    if (formula) {
+      try {
+        const roll = new DamageRoll(formula, rollData);
+        await roll.render();
+        return roll;
+      } catch (error) {
+        console.error('Swords & Wizardry | Invalid spell roll formula', error);
+        ui.notifications.error(game.i18n.format(
+          'SWORDS_WIZARDRY.Item.Spell.InvalidFormula',
+          { formula }
+        ));
+        return null;
+      }
+    }
+
+    const targets = this.system.requiresSave
+      ? Array.from(game.user.targets).map(target => ({
+          id: target.id,
+          name: target.name
+        }))
+      : [];
+    const content = await renderTemplate(SPELL_ROLL_TEMPLATE, {
+      item: this,
+      actor: this.actor,
+      requiresSave: this.system.requiresSave,
+      saveEffectHalf: this.system.saveEffect === 'half',
+      targets
+    });
+
+    return ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      rollMode: game.settings.get('core', 'rollMode'),
+      content
+    });
+  }
+
   async roll() {
     const item = this;
     let rollData, roll;
@@ -80,6 +136,8 @@ export class SwordsWizardryItem extends Item {
         roll = new AttackRoll(rollData.formula, rollData);
         await roll.render();
         return roll;
+      case 'spell':
+        return this.rollSpell();
       case 'feature':
         if (this.system.formula) {
           rollData = this.getRollData();
@@ -87,7 +145,6 @@ export class SwordsWizardryItem extends Item {
           await roll.render();
           return roll;
         }
-      case 'spell':
       case 'item':
       case 'armor':
         // TODO update this 

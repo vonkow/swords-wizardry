@@ -22,9 +22,8 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   }
 
   activateListeners(html) {
-    const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
     this._activateRollDamageListener(html);
-    if (dmAppliesDamage) this._activateApplyDamageListener(html);
+    this._activateApplyDamageListener(html);
   }
 
   _activateRollDamageListener(html) {
@@ -53,7 +52,9 @@ export class SwordsWizardryChatMessage extends ChatMessage {
     $(html).on('click', '.apply-damage', async (e) => {
 
       if (!game.user.isGM) {
-        ui.notifications.warn("Only GM can apply damage");
+        ui.notifications.warn(game.i18n.localize(
+          'SWORDS_WIZARDRY.Chat.OnlyGMCanApply'
+        ));
         return;
       }
 
@@ -64,21 +65,25 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       if (!target) return;
 
       const amount
-        = action === "half" ? Math.floor(initialAmount / 2)
-	: action === "double" ? initialAmount * 2
-	: action === "heal" ? initialAmount * -1
-	: initialAmount;
+        = action === "none" ? 0
+        : action === "half" ? Math.floor(initialAmount / 2)
+        : action === "double" ? initialAmount * 2
+        : action === "heal" ? initialAmount * -1
+        : action === "half-heal" ? Math.floor(initialAmount / 2) * -1
+        : initialAmount;
 
       const oldHP = target.actor.system.hp.value;
       const newHP = oldHP - amount;
 
-      await rpc({
-        recipient: 'GM',
-        target: target.id,
-        operation: 'damage',
-        amount: amount,
-        data: { system: { hp: { value: newHP } } }
-      });
+      if (action !== "none") {
+        await rpc({
+          recipient: 'GM',
+          target: target.id,
+          operation: 'damage',
+          amount: amount,
+          data: { system: { hp: { value: newHP } } }
+        });
+      }
 
 
       const messageId = $(button)
@@ -104,9 +109,8 @@ export class SwordsWizardryChatMessage extends ChatMessage {
 
 
 Hooks.on("renderChatMessageHTML", (message, html, data) => {
-  if (game.settings.get('swords-wizardry', 'dmAppliesDamage')) {
-
-    const appliedDamage = message.getFlag("swords-wizardry", "appliedDamage") || {};
+  const appliedDamage = message.getFlag("swords-wizardry", "appliedDamage") || {};
+  if (Object.keys(appliedDamage).length) {
 
     const targets = html.querySelectorAll(".damage-target");
 
@@ -121,12 +125,15 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
 
       const result = appliedDamage[targetId];
 
-      const label
+      const labelKey
         = result.action === "damage" ? "Damage"
-	: result.action === "heal" ? "Healing"
-	: result.action === "half" ? "Half Damage"
-	: result.action === "double" ? "Double Damage"
-	: "Damage";
+        : result.action === "heal" ? "Healing"
+        : result.action === "half" ? "HalfDamage"
+        : result.action === "half-heal" ? "HalfHealing"
+        : result.action === "double" ? "DoubleDamage"
+        : result.action === "none" ? "NoEffect"
+        : "Damage";
+      const label = game.i18n.localize(`SWORDS_WIZARDRY.Chat.${labelKey}`);
 
       const resultDiv = targetElement.querySelector(".damage-result");
       if (!resultDiv) return;
@@ -141,7 +148,10 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
 
       // TODO This style of state update does not survive between game sessions.
       // Investigate how to keep applied results baked into the message (someday, low-pri).
-      resultDiv.innerHTML = `Applied ${label}: ${result.amount}<br/>`;
+      const applied = game.i18n.localize('SWORDS_WIZARDRY.Chat.Applied');
+      resultDiv.textContent = result.action === "none"
+        ? `${applied}: ${label}`
+        : `${applied} ${label}: ${Math.abs(result.amount)}`;
 
       const buttons = targetElement.querySelectorAll("button");
 
