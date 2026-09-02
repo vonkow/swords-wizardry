@@ -82,6 +82,31 @@
         <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="Text"/>
       </div>
     </div>
+    <div class="grid grid-2col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.RollFormula"}}</label>
+        <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String" placeholder="(@lvl)d6"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.EffectType"}}</label>
+        <select name="system.effectType" data-dtype="String">
+          <option value="none" {{#if (eq system.effectType 'none')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.EffectNone"}}</option>
+          <option value="damage" {{#if (eq system.effectType 'damage')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.EffectDamage"}}</option>
+          <option value="healing" {{#if (eq system.effectType 'healing')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.EffectHealing"}}</option>
+        </select>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.RequiresSave"}}</label>
+        <input type="checkbox" name="system.requiresSave" class="checkbox-small align-self-center" {{checked system.requiresSave}}/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.SaveEffect"}}</label>
+        <select name="system.saveEffect" data-dtype="String">
+          <option value="half" {{#if (eq system.saveEffect 'half')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Chat.HalfEffect"}}</option>
+          <option value="negate" {{#if (eq system.saveEffect 'negate')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Chat.NegatesSpell"}}</option>
+        </select>
+      </div>
+    </div>
     {{/if}}
     {{#if (eq item.type 'weapon')}}
     <div class="grid grid-3col">

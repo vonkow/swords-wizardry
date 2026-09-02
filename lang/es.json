@@ -8,7 +8,21 @@
       "Special": "Especial",
       "Target": "Objetivo",
       "Success": "Éxito",
-      "Failure": "Fallo"
+      "Failure": "Fallo",
+      "Healing": "Curación",
+      "SavingThrow": "Tirada de salvación",
+      "Targets": "Objetivos",
+      "CastBy": "Lanzado por",
+      "FullEffect": "Efecto completo",
+      "HalfEffect": "Mitad del efecto",
+      "NegatesSpell": "Anula el hechizo",
+      "SuccessfulSave": "Salvación exitosa",
+      "Applied": "Aplicado",
+      "HalfDamage": "Mitad del daño",
+      "HalfHealing": "Mitad de la curación",
+      "DoubleDamage": "Daño doble",
+      "NoEffect": "Sin efecto",
+      "OnlyGMCanApply": "Solo el DJ puede aplicar daño o curación."
     },
     "NPCSheet": {
       "Main": {
@@ -208,6 +222,14 @@
         "Level": "Nivel",
         "Range": "Alcance",
         "Duration": "Duración",
+        "RollFormula": "Fórmula de tirada",
+        "EffectType": "Tipo de efecto",
+        "EffectNone": "Ninguno",
+        "EffectDamage": "Daño",
+        "EffectHealing": "Curación",
+        "RequiresSave": "Requiere tirada de salvación",
+        "SaveEffect": "Con una salvación exitosa",
+        "InvalidFormula": "La fórmula de tirada del hechizo '{formula}' no es válida.",
         "Tabs": {
           "Attributes": "Atributos",
           "Description": "Descripción"

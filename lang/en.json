@@ -8,7 +8,21 @@
       "Special": "Special",
       "Target": "Target",
       "Success": "Success",
-      "Failure": "Failure"
+      "Failure": "Failure",
+      "Healing": "Healing",
+      "SavingThrow": "Saving Throw",
+      "Targets": "Targets",
+      "CastBy": "Cast by",
+      "FullEffect": "Full Effect",
+      "HalfEffect": "Half Effect",
+      "NegatesSpell": "Negates Spell",
+      "SuccessfulSave": "Successful Save",
+      "Applied": "Applied",
+      "HalfDamage": "Half Damage",
+      "HalfHealing": "Half Healing",
+      "DoubleDamage": "Double Damage",
+      "NoEffect": "No Effect",
+      "OnlyGMCanApply": "Only the GM can apply damage or healing."
     },
     "NPCSheet": {
       "Main": {
@@ -208,6 +222,14 @@
         "Level": "Level",
         "Range": "Range",
         "Duration": "Duration",
+        "RollFormula": "Roll Formula",
+        "EffectType": "Effect Type",
+        "EffectNone": "None",
+        "EffectDamage": "Damage",
+        "EffectHealing": "Healing",
+        "RequiresSave": "Requires Saving Throw",
+        "SaveEffect": "On Successful Save",
+        "InvalidFormula": "The spell roll formula '{formula}' is invalid.",
         "Tabs": {
           "Attributes": "Attributes",
           "Description": "Description"

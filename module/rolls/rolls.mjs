@@ -63,17 +63,25 @@ export class AttackRoll extends Roll {
 export class DamageRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
-	
-    if (!game.settings.get('swords-wizardry', 'dmAppliesDamage')) {
-      game.user.targets.forEach(async (target) => {
-        await rpc({
+
+    const isSpell = this.data.item?.type === 'spell';
+    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const requiresSave = isSpell && Boolean(this.data.requiresSave);
+    if (
+      !game.settings.get('swords-wizardry', 'dmAppliesDamage')
+      && !requiresSave
+      && effectType !== 'none'
+    ) {
+      const amount = effectType === 'healing' ? result.total * -1 : result.total;
+      await Promise.all(Array.from(game.user.targets).map(target =>
+        rpc({
           recipient: 'GM',
           target: target.id,
           operation: 'damage',
-          amount: result.total,
-          data: { system: { hp: { value: target.actor.system.hp.value - result.total } } }
-        });
-      });
+          amount,
+          data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
+        })
+      ));
     }
 
     return result;
@@ -81,22 +89,37 @@ export class DamageRoll extends Roll {
 
   async render(options) {
     const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
-
+    const isSpell = this.data.item?.type === 'spell';
+    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const requiresSave = isSpell && Boolean(this.data.requiresSave);
+    const saveEffect = this.data.saveEffect === 'half' ? 'half' : 'negate';
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render();
-    const template = 'systems/swords-wizardry/module/rolls/damage-roll-sheet.hbs';
-	
+    const template = isSpell
+      ? 'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs'
+      : 'systems/swords-wizardry/module/rolls/damage-roll-sheet.hbs';
+
     const chatData = {
       item: this.data.item,
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
-      dmAppliesDamage
+      dmAppliesDamage,
+      requiresSave,
+      saveEffectHalf: saveEffect === 'half',
+      fullAction: effectType === 'healing'
+        ? 'heal'
+        : effectType === 'damage' ? 'damage' : null,
+      saveAction: saveEffect === 'half'
+        ? effectType === 'healing' ? 'half-heal' : 'half'
+        : 'none'
     };
 
-    if (dmAppliesDamage) {
+    const needsManualApplication = effectType !== 'none'
+      && (dmAppliesDamage || requiresSave);
+    if (needsManualApplication || requiresSave) {
       const targets = Array.from(game.user.targets).map(t => ({
         id: t.id,
         name: t.name,
@@ -114,7 +137,7 @@ export class DamageRoll extends Roll {
     }
 
     const resultsHtml = await renderTemplate(template, chatData);
-    const msg = await SwordsWizardryChatMessage.create({
+    return SwordsWizardryChatMessage.create({
       rolls: [this],
       rollMode: rollMode,
       user: game.user._id,

@@ -8,7 +8,21 @@
       "Special": "Special",
       "Target": "Target",
       "Success": "Success",
-      "Failure": "Failure"
+      "Failure": "Failure",
+      "Healing": "Heilung",
+      "SavingThrow": "Rettungswurf",
+      "Targets": "Ziele",
+      "CastBy": "Gewirkt von",
+      "FullEffect": "Volle Wirkung",
+      "HalfEffect": "Halbe Wirkung",
+      "NegatesSpell": "Zauber unwirksam",
+      "SuccessfulSave": "Erfolgreicher Rettungswurf",
+      "Applied": "Angewendet",
+      "HalfDamage": "Halber Schaden",
+      "HalfHealing": "Halbe Heilung",
+      "DoubleDamage": "Doppelter Schaden",
+      "NoEffect": "Keine Wirkung",
+      "OnlyGMCanApply": "Nur die Spielleitung kann Schaden oder Heilung anwenden."
     },
     "NPCSheet": {
       "Main": {
@@ -196,6 +210,14 @@
         "Level": "Zaubergrad",
         "Range": "Range",
         "Duration": "Duration",
+        "RollFormula": "Würfelformel",
+        "EffectType": "Effekttyp",
+        "EffectNone": "Keiner",
+        "EffectDamage": "Schaden",
+        "EffectHealing": "Heilung",
+        "RequiresSave": "Rettungswurf erforderlich",
+        "SaveEffect": "Bei erfolgreichem Rettungswurf",
+        "InvalidFormula": "Die Zauberformel '{formula}' ist ungültig.",
         "Tabs": {
           "Attributes": "Eigenschaften",
           "Description": "Beschreibung"
