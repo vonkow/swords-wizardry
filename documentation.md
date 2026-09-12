@@ -17,17 +17,26 @@ You will need GM access to a Foundry VTT server. This requires a [Foundry licens
 5. Create system content (see below).
 
 ## Content
-This system ships with no content, but all AELF-licensed monsters, items, and class/ancestry features are available in the [Swords & Wizardry Content Module]()
+This system ships with no content, but all AELF-licensed monsters, items, and class/ancestry features are available in the [Swords & Wizardry Content Module](https://github.com/vonkow/swords-wizardry-content).
+
+If you own the Swords & Wizardry Book of Options, the [Swords & Wizardry Optional Content Module](https://github.com/vonkow/swords-wizardry-optional-content) adds support for the classes and ancestries contained within.
 
 You will need to reference your copy of Swords & Wizardry for all other rules and tables.
 
-Additionally, The Import Statblock feature can be used to import monsters using the format that they are presented in in Swords & Wizardry Complete and similar products.
+Additionally, The Import Statblock feature can be used to import monsters using the format that they are presented in in Swords & Wizardry Complete Revised and similar products.
 
 ## Settings
 
 The system settings control global, system-wide behavior. They can be accessed under the Configure Settings menu in the right sidebar.
 
-There is currently only one setting, Ascending AC. When this setting is enabled, the Ascending AC rules will be used and to-hit matrixes will be replaced with an Attack Bonus field. Changes made to characters and NPCs in one mode will be converted to the other mode automatically.
+### Ascending AC
+When this setting is enabled, the Ascending AC rules will be used and to-hit matrixes will be replaced with an Attack Bonus field. Changes made to characters and NPCs in one mode will be converted to the other mode automatically.
+
+### DM must apply damage/healing
+All damage and healing must be applied by the DM rather than the players.
+
+### Show welcome message
+Is set to true when a world is created and set to false immediately after the welcome message is sent. Set it to true to see the welcome message again the next time you launch the world.
 
 ## Characters
 There are three types of Actors in the Swords & Wizardry system, Characters, Containers, and NPCs. Characters represent Player Characters, NPCs represent monsters and other non-player characters, and Containers are a special case that can be used to represent anything from treasure chests, to merchants, to a party's shared earnings.

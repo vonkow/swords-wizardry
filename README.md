@@ -16,7 +16,7 @@ The author is not affiliated in any way with Mythmere Games LLC.
 - Cussa Mitre (@Cussa): Bugfix
 - Ben Menesini (@sayhiben): RCP fixes and more
 - Juan Lucha (@JuanLucha): Encumbrance and movment calculations
-- Dan (@DT357): DM applied damage feature and deprecation fixes
+- Dan (@DT357): DM applied damage feature, spell damage/healing/saves, and deprecation fixes
  
 ## Documentation
 
