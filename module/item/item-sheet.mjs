@@ -66,7 +66,6 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     const name = game.i18n.localize('New.effect');
     const data = { name, type, disabled: true, transfer: false };
     const effect = await this.item.createEmbeddedDocuments("ActiveEffect", [data]);
-    console.log(effect);
     return effect;
   }
 

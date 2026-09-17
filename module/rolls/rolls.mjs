@@ -73,7 +73,7 @@ export class DamageRoll extends Roll {
     ) {
       const amount = effectType === 'healing' ? result.total * -1 : result.total;
       await Promise.all(Array.from(game.user.targets).map(target => {
-	// TODO: do we even need this check, damage rolls don't fire for effectType none?
+        // TODO: do we even need this check, damage rolls don't fire for effectType none?
         if (effectType !== 'none') {
           rpc({
             recipient: 'GM',
@@ -83,7 +83,7 @@ export class DamageRoll extends Roll {
             data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
           });
         }
-	if (isSpell) {
+        if (isSpell) {
           rpc({
             recpient: 'GM',
             target: target.id,
@@ -91,12 +91,11 @@ export class DamageRoll extends Roll {
             sender: this.data.actor.id,
             item: this.data.item.id
           });
-	}
+        }
       }));
-          // apply spell effects if isSpell (this branch is only for spells that have a damage roll and even then right now this is inside effectType != none (need to detangle effectType none and action none in the message (and need to rename action because this old-style onclick handler is using the function call name signature of the new style and it's confusing))
-        // see circa line 83 in message/message.mjs for the other half of this.
+      // TODO (need to detangle effectType none (should be damage/heal type or something) and action none in the message 
+      // (and need to rename action because this old-style onclick handler is using the function call name signature of the new style and it's confusing))
     }
-
     return result;
   }
 
@@ -167,7 +166,6 @@ export class DamageRoll extends Roll {
 export class FeatureRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
-    // do something with result.total and this.data.target based on this.data.targetType
     result.success = (
         result.data.targetType == 'ascending'
         && result.total >= parseInt(result.data.target)

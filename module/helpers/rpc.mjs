@@ -28,28 +28,21 @@ async function run(data = {}) {
   const { operation, target, sender, item } = data;
   const targetActor = game.actors.get(target);
   const targetToken = canvas.tokens.get(target);
+  const actor = targetActor ? targetActor : targetToken ? targetToken.actor : null;
+  if (!actor) return;
   if (operation === 'damage') {
-    if (targetActor) targetActor.update({
-      system: { hp: { value: targetActor.system.hp.value - data.amount } }
-    });
-    else if (targetToken) targetToken.actor.update({
-      system: { hp: { value: targetToken.actor.system.hp.value - data.amount } }
-    });
+    actor.update({ system: { hp: { value: actor.system.hp.value - data.amount } } });
   }
   else if (operation === 'spell-effect') {
     const sendingActor = Actor.get(sender);
     const spell = sendingActor.items.get(item);
-    const effects = spell.effects;
-    const actor = targetActor ? targetActor : targetToken ? targetToken.actor : null;
-    console.log(spell);
-    console.log(actor);
     if (actor && spell) {
+      const effects = spell.effects;
       effects.forEach((effect) => {
-        const appliedEffect = effect.toObject();
-	console.log(appliedEffect);
-        appliedEffect.disabled = false;
-        appliedEffect.transfer = true;
-        actor.createEmbeddedDocuments("ActiveEffect", [appliedEffect]);
+        const effectData = effect.toObject();
+        effectData.disabled = false;
+        effectData.transfer = true;
+        actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
       });
     }
   }

@@ -85,12 +85,12 @@ export class SwordsWizardryChatMessage extends ChatMessage {
           amount: amount,
           data: { system: { hp: { value: newHP } } }
         });
-        // apply the spell effects TODO what about effects with half save, do those exist?
+        // TODO what about effects with half save, do those exist?
         await rpc({
           recpient: 'GM',
           target: target.id,
           operation: 'spell-effect',
-	  sender: actor.id,
+          sender: actor.id,
           item: itemId
         });
       }

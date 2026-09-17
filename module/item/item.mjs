@@ -109,7 +109,6 @@ export class SwordsWizardryItem extends Item {
       }
     }
 
-    // TODO Branch where we apply spell effects without a save or damage
     const targets = Array.from(game.user.targets).map(target => ({
       id: target.id,
       name: target.name
