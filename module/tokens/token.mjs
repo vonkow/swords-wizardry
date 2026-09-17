@@ -1,6 +1,6 @@
 export class SwordsWizardryTokenDocument extends TokenDocument {
-  async _onCreate(data, options, id) {
-    await super._onCreate(data, options, id);
+  async _preCreate(data, options, id) {
+    await super._preCreate(data, options, id);
     const { actor } = this;
     if (game.user.isGM) {
       if (actor.type === 'npc' && !this.actorLink) {
@@ -20,8 +20,7 @@ export class SwordsWizardryTokenDocument extends TokenDocument {
           dice = dice.indexOf('d') > -1 ? dice : `${dice}d8`;
           const rollFormula = dice + modifier;
           const roll = await new Roll(rollFormula).evaluate();
-          actor.system.hp.max = roll.total;
-          actor.system.hp.value = roll.total;
+          this.updateSource({ delta: { system: { hp: { max: roll.total, value: roll.total } } } });
         }
       }
     }

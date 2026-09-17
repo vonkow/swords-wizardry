@@ -14,7 +14,7 @@ class BaseCharacterData extends TypeDataModel {
           required: true, integer: true, min: 0, initial: 4
         }),
         value: new NumberField({
-          required: true, integer: true, min: 0, initial: 4
+          required: true, integer: true, min: -10, initial: 4
         }),
       }),
       ac: new SchemaField({

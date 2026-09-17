@@ -60,19 +60,20 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
   _onRender(context, options) {
     // TODO de-jQuery-ify
     const $html = $(this.element);
+    $html.off('.swCombatHud');
 
-    $html.on('click', '.save-roll', (ev) => {
+    $html.on('click.swCombatHud', '.save-roll', (ev) => {
       const item = this.actor.rollSave();
     });
 
-    $html.on('click', '.item', (ev) => {
+    $html.on('click.swCombatHud', '.item', (ev) => {
       const li = $(ev.currentTarget);
       const item = this.actor.items.get(li.data('itemId'));
       if (!item) return;
       item.roll();
     });
 
-    $html.on('click', '.item-feature', (ev) => {
+    $html.on('click.swCombatHud', '.item-feature', (ev) => {
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
@@ -80,7 +81,7 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
       item.roll();
     });
 
-    $html.on('click', '.item-cast', (ev) => {
+    $html.on('click.swCombatHud', '.item-cast', (ev) => {
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
