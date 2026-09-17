@@ -122,7 +122,8 @@
         "Description": "Description",
         "Equipment": "Equipment",
         "Main": "Main",
-        "Spells": "Spells"
+        "Spells": "Spells",
+        "Effects": "Effects"
       }
     },
     "Stats": {
@@ -213,7 +214,8 @@
         "Gold": "Gold",
         "Tabs": {
           "Attributes": "Attributes",
-          "Description": "Description"
+          "Description": "Description",
+          "Effects": "Effects"
         },
         "Weight": "Weight"
       },
@@ -259,7 +261,6 @@
       "Create": "Create Effect",
       "Delete": "Delete Effect",
       "Duration": "Duration",
-      "New": "New Effect",
       "Source": "Source",
       "Toggle": "Toggle Effect",
       "Temporary": "Temporary Effects",
@@ -284,8 +285,9 @@
   },
   "New": {
     "armor": "New Armor",
-    "item": "New Item",
+    "effect": "New Effect",
     "feature": "New Feature",
+    "item": "New Item",
     "spell": "New Spell",
     "weapon": "New Weapon"
   }

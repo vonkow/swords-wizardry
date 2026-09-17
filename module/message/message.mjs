@@ -1,6 +1,6 @@
 // TODO: Rename this file to be ChatMessage or something, it's not really generic overrides
 import { DamageRoll } from '../rolls/rolls.mjs';
-import { rpc } from './rpc.mjs';
+import { rpc } from '../helpers/rpc.mjs';
 
 const { deepClone } = foundry.utils;
 
@@ -59,11 +59,13 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       }
 
       const button = e.currentTarget;
-      const { action, targetId, amount: a } = button.dataset;
+      const { action, actorId, itemId, targetId, amount: a } = button.dataset;
       const initialAmount = Number(a);
+      const actor = Actor.get(actorId);
       const target = canvas.tokens.get(targetId);
       if (!target) return;
 
+      // TODO Move to a common damage location to collapes all into one
       const amount
         = action === "none" ? 0
         : action === "half" ? Math.floor(initialAmount / 2)
@@ -83,8 +85,15 @@ export class SwordsWizardryChatMessage extends ChatMessage {
           amount: amount,
           data: { system: { hp: { value: newHP } } }
         });
+        // apply the spell effects TODO what about effects with half save, do those exist?
+        await rpc({
+          recpient: 'GM',
+          target: target.id,
+          operation: 'spell-effect',
+	  sender: actor.id,
+          item: itemId
+        });
       }
-
 
       const messageId = $(button)
         .closest(".message")

@@ -3,7 +3,7 @@ import { ImportManager } from './importer/importer.mjs';
 import {
   CharacterCreatorManager
 } from './character-creator/character-creator.mjs';
-import { SwordsWizardryChatMessage } from './helpers/overrides.mjs';
+import { SwordsWizardryChatMessage } from './message/message.mjs';
 import {
   AttackRoll, DamageRoll, FeatureRoll, SaveRoll, MoraleRoll
 } from './rolls/rolls.mjs';

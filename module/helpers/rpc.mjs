@@ -25,14 +25,32 @@ export async function handleRPC(data = {}) {
 }
 
 async function run(data = {}) {
-  if (data.operation === 'damage') {
-    const targetActor = game.actors.get(data.target);
-    const targetToken = canvas.tokens.get(data.target);
+  const { operation, target, sender, item } = data;
+  const targetActor = game.actors.get(target);
+  const targetToken = canvas.tokens.get(target);
+  if (operation === 'damage') {
     if (targetActor) targetActor.update({
       system: { hp: { value: targetActor.system.hp.value - data.amount } }
     });
     else if (targetToken) targetToken.actor.update({
       system: { hp: { value: targetToken.actor.system.hp.value - data.amount } }
     });
+  }
+  else if (operation === 'spell-effect') {
+    const sendingActor = Actor.get(sender);
+    const spell = sendingActor.items.get(item);
+    const effects = spell.effects;
+    const actor = targetActor ? targetActor : targetToken ? targetToken.actor : null;
+    console.log(spell);
+    console.log(actor);
+    if (actor && spell) {
+      effects.forEach((effect) => {
+        const appliedEffect = effect.toObject();
+	console.log(appliedEffect);
+        appliedEffect.disabled = false;
+        appliedEffect.transfer = true;
+        actor.createEmbeddedDocuments("ActiveEffect", [appliedEffect]);
+      });
+    }
   }
 }

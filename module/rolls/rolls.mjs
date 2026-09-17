@@ -1,4 +1,4 @@
-import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
+import { SwordsWizardryChatMessage } from '../message/message.mjs';
 import { rpc } from '../helpers/rpc.mjs';
 
 const { renderTemplate } = foundry.applications.handlebars;
@@ -70,18 +70,31 @@ export class DamageRoll extends Roll {
     if (
       !game.settings.get('swords-wizardry', 'dmAppliesDamage')
       && !requiresSave
-      && effectType !== 'none'
     ) {
       const amount = effectType === 'healing' ? result.total * -1 : result.total;
-      await Promise.all(Array.from(game.user.targets).map(target =>
-        rpc({
-          recipient: 'GM',
-          target: target.id,
-          operation: 'damage',
-          amount,
-          data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
-        })
-      ));
+      await Promise.all(Array.from(game.user.targets).map(target => {
+	// TODO: do we even need this check, damage rolls don't fire for effectType none?
+        if (effectType !== 'none') {
+          rpc({
+            recipient: 'GM',
+            target: target.id,
+            operation: 'damage',
+            amount,
+            data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
+          });
+        }
+	if (isSpell) {
+          rpc({
+            recpient: 'GM',
+            target: target.id,
+            operation: 'spell-effect',
+            sender: this.data.actor.id,
+            item: this.data.item.id
+          });
+	}
+      }));
+          // apply spell effects if isSpell (this branch is only for spells that have a damage roll and even then right now this is inside effectType != none (need to detangle effectType none and action none in the message (and need to rename action because this old-style onclick handler is using the function call name signature of the new style and it's confusing))
+        // see circa line 83 in message/message.mjs for the other half of this.
     }
 
     return result;
@@ -111,9 +124,13 @@ export class DamageRoll extends Roll {
       saveEffectHalf: saveEffect === 'half',
       fullAction: effectType === 'healing'
         ? 'heal'
-        : effectType === 'damage' ? 'damage' : null,
+        : effectType === 'damage' 
+          ? 'damage'
+          : null,
       saveAction: saveEffect === 'half'
-        ? effectType === 'healing' ? 'half-heal' : 'half'
+        ? effectType === 'healing' 
+          ? 'half-heal' 
+          : 'half'
         : 'none'
     };
 
