@@ -48,7 +48,7 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     const field = target.dataset.field || "img";
     const current = foundry.utils.getProperty(this.document, field);
 
-    const fp = new foundry.applications.apps.FilePicker({
+    const fp = new foundry.applications.apps.FilePicker.implementation({
       type: "image",
       current: current,
       callback: (path) => this.document.update({ [field]: path })
