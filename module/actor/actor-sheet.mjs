@@ -308,6 +308,7 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   }
 
   static async #spellCast(event, target) {
+    // TODO this code is duplicated in the hud. Move to common location and call
     const { id } = target.dataset;
     const item = this.actor.items.get(id);
     item.roll();
@@ -317,6 +318,13 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     if (mIndex > -1) slots.memorized.splice(mIndex, 1);
     const sIndex = slots.memorizedSpells.indexOf(item);
     if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
+    const key = `system.spellSlots.${spellLevel}.memorized`;
+    console.log(this.actor);
+    console.log(spellLevel);
+    console.log(slots.memorized);
+    await this.actor.update({
+      [key]: slots.memorized
+    });
     this.actor.render();
   }
 }

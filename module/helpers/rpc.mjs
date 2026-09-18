@@ -38,11 +38,19 @@ async function run(data = {}) {
     const spell = sendingActor.items.get(item);
     if (actor && spell) {
       const effects = spell.effects;
-      effects.forEach((effect) => {
+      effects.forEach(async (effect) => {
         const effectData = effect.toObject();
-        effectData.disabled = false;
-        effectData.transfer = true;
-        actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
+        if (effectData.system.targeted) {
+          effectData.disabled = false;
+          effectData.transfer = true;
+          effectData.system.targeted = false;
+          if (effectData.system.durationFormula) {
+            // TODO roll formula
+            const roll = new Roll(effectData.system.durationFormula, sendingActor.getRollData());
+            effectData.duration.value = await roll.evaluate();
+          }
+          actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
+        }
       });
     }
   }

@@ -1,9 +1,7 @@
-// TODO: Rename this file to be ChatMessage or something, it's not really generic overrides
 import { DamageRoll } from '../rolls/rolls.mjs';
 import { rpc } from '../helpers/rpc.mjs';
 
 const { deepClone } = foundry.utils;
-
 
 export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){

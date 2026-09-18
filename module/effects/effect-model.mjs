@@ -1,11 +1,20 @@
 const { ActiveEffectTypeDataModel } = foundry.data;
-const { StringField } = foundry.data.fields;
+const { BooleanField, StringField } = foundry.data.fields;
 
 export class SwordsWizardryActiveEffectDataModel extends ActiveEffectTypeDataModel {
   static defineSchema() {
     return {
       ...super.defineSchema(),
-      durationFormula: new StringField({ label: 'duration formula', required: true, blank: true, initial: "" })
+      targeted: new BooleanField({
+        label: 'Targeted TODO',
+        initial: false
+      }),
+      durationFormula: new StringField({ 
+        label: 'duration formula TODO',
+        required: true,
+        blank: true,
+        initial: ""
+      })
     }
   }
 }

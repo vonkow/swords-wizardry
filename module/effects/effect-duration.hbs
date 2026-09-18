@@ -26,6 +26,7 @@
     {{/if}}
     <fieldset>
         <legend>{{localize "EFFECT.DURATION.Header"}}</legend>
+        {{formGroup fields.system.targeted value=source.system.targeted id=(concat rootId "-targeted")}}
         {{formGroup fields.system.durationFormula value=source.system.durationFormula id=(concat rootId "-durationFormula")}}
         <div class="form-group slim duration" data-duration>
             <label class="flexrow" for="{{rootId}}-duration.value">
