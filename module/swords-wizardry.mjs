@@ -17,6 +17,8 @@ import {
 } from './item/item-model.mjs';
 import { SwordsWizardryItem } from './item/item.mjs';
 import { SwordsWizardryItemSheet } from './item/item-sheet.mjs';
+import { SwordsWizardryActiveEffectDataModel } from './effects/effect-model.mjs';
+import { SwordsWizardryActiveEffectConfig } from './effects/effect.mjs';
 import { SwordsWizardryTokenDocument } from './tokens/token.mjs';
 import {
   SwordsWizardryCombatTracker, SwordsWizardryCombat
@@ -55,6 +57,8 @@ Hooks.once('init', function() {
   CONFIG.Item.dataModels.spell = SpellData;
   CONFIG.Item.dataModels.weapon = WeaponData;
   CONFIG.Item.documentClass = SwordsWizardryItem;
+  CONFIG.ActiveEffect.dataModels.base = SwordsWizardryActiveEffectDataModel;
+  CONFIG.ActiveEffect.base = SwordsWizardryActiveEffectDataModel;
   CONFIG.Combat.documentClass = SwordsWizardryCombat;
   CONFIG.ChatMessage.documentClass = SwordsWizardryChatMessage;
   CONFIG.Token.documentClass = SwordsWizardryTokenDocument;
@@ -74,6 +78,11 @@ Hooks.once('init', function() {
   // but will still apply to the Actor from within the Item
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
+  const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
+  DocumentSheetConfig.unregisterSheet(ActiveEffect, 'core', foundry.applications.sheets.ActiveEffectConfig);
+  DocumentSheetConfig.registerSheet(ActiveEffect, 'swords-wizardry', SwordsWizardryActiveEffectConfig, { 
+    makeDefault: true
+  });
 
   Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('swords-wizardry', SwordsWizardryActorSheet, {
