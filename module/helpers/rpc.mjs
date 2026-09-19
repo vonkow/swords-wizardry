@@ -48,6 +48,7 @@ async function run(data = {}) {
             const roll = new Roll(effectData.system.durationFormula, sendingActor.getRollData());
             const result = await roll.evaluate();
             effectData.duration.value = result.total;
+            effectData.duration.units = effectData.system.durationFormulaUnits;
           }
           actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
         }

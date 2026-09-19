@@ -14,6 +14,12 @@ export class SwordsWizardryActiveEffectDataModel extends ActiveEffectTypeDataMod
         required: true,
         blank: true,
         initial: ""
+      }),
+      durationFormulaUnits: new StringField({
+        label: 'duration formula units TODO',
+        required: true,
+	choices: CONST.ACTIVE_EFFECT_DURATION_UNITS,
+	initial: "minutes" // TODO change to rounds once the list view on actors supports it
       })
     }
   }

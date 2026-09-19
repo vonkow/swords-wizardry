@@ -24,6 +24,7 @@ export class SwordsWizardryActiveEffectConfig extends ActiveEffectConfig {
     }
     if (partId === 'duration') {
       partContext.fields.system.durationFormula = this.document.system.schema.fields.durationFormula;
+      partContext.fields.system.durationFormulaUnits = this.document.system.schema.fields.durationFormulaUnits;
     }
     return partContext;
   }
