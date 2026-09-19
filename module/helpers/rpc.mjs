@@ -45,9 +45,9 @@ async function run(data = {}) {
           effectData.transfer = true;
           effectData.system.targeted = false;
           if (effectData.system.durationFormula) {
-            // TODO roll formula
             const roll = new Roll(effectData.system.durationFormula, sendingActor.getRollData());
-            effectData.duration.value = await roll.evaluate();
+            const result = await roll.evaluate();
+            effectData.duration.value = result.total;
           }
           actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
         }
