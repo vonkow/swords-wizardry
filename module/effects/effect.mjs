@@ -1,10 +1,20 @@
 const { ActiveEffectConfig } = foundry.applications.sheets;
 
 export class SwordsWizardryActiveEffectConfig extends ActiveEffectConfig {
+
+  static DEFAULT_OPTIONS = {
+    ...super.DEFAULT_OPTIONS,
+    form: {
+      closeOnSubmit: false,
+      submitOnChange: true
+    }
+  }
+
   static PARTS = {
     ...super.PARTS,
     details: { template: "systems/swords-wizardry/module/effects/effect-details.hbs" },
-    duration: { template: "systems/swords-wizardry/module/effects/effect-duration.hbs" }
+    duration: { template: "systems/swords-wizardry/module/effects/effect-duration.hbs" },
+    footer: { template: "systems/swords-wizardry/module/effects/empty-footer.hbs" }
   }
 
   async _preparePartContext(partId, context) {
@@ -16,5 +26,13 @@ export class SwordsWizardryActiveEffectConfig extends ActiveEffectConfig {
       partContext.fields.system.durationFormula = this.document.system.schema.fields.durationFormula;
     }
     return partContext;
+  }
+
+  _processFormData(event, form, formData) {
+    if (formData.system?.targeted) {
+      formData.disabled = true;
+      formData.transfer = false;
+    }
+    return super._processFormData(Event, form, formData);
   }
 }

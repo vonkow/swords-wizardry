@@ -26,7 +26,10 @@
     {{/if}}
     <fieldset>
         <legend>{{localize "EFFECT.DURATION.Header"}}</legend>
+        {{#if source.system.targeted}}
         {{formGroup fields.system.durationFormula value=source.system.durationFormula id=(concat rootId "-durationFormula")}}
+        {{else}}
+
         <div class="form-group slim duration" data-duration>
             <label class="flexrow" for="{{rootId}}-duration.value">
                 <span>{{localize "EFFECT.DURATION.Label"}}</span>
@@ -40,5 +43,6 @@
             </div>
         </div>
         {{formGroup fields.duration.fields.expiry choices=expiryEvents value=source.duration.expiry rootId=rootId}}
+        {{/if}}
     </fieldset>
 </section>
