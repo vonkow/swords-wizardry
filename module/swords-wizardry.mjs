@@ -97,7 +97,6 @@ Hooks.once('init', function() {
   });
 
   Hooks.on('renderActorDirectory', (app, html, _data, _options) => {
-    console.log('renderActorDirectory', app, html);
     ImportManager.addImportActorButton(app, html);
     CharacterCreatorManager.addCharacterCreationButton(app, html);
   });

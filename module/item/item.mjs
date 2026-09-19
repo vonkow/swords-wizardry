@@ -82,7 +82,7 @@ export class SwordsWizardryItem extends Item {
       Object.assign(rollData, this.actor.getRollData());
       rollData.actor = this.actor;
     }
-    rollData.effectType = this.system.effectType;
+    rollData.rollType = this.system.rollType;
     rollData.requiresSave = this.system.requiresSave;
     rollData.saveEffect = this.system.saveEffect;
     rollData.effects = this.effects;

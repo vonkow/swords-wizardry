@@ -73,7 +73,7 @@ export class SpellData extends BaseItemData {
       range: new StringField(),
       duration: new StringField(),
       formula: new StringField({ initial: "" }),
-      effectType: new StringField({
+      rollType: new StringField({
         required: true,
         choices: ["none", "damage", "healing"],
         initial: "none"
@@ -85,6 +85,14 @@ export class SpellData extends BaseItemData {
         initial: "negate"
       })
     };
+  }
+
+  static migrateData(source) {
+    if ("effectType" in source) {
+      source.rollType = source.effectType;
+      delete source.effectType;
+    }
+    return super.migrateData(source);
   }
 }
 

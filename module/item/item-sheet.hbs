@@ -88,11 +88,11 @@
         <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String" placeholder="(@lvl)d6"/>
       </div>
       <div class="resource">
-        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.EffectType"}}</label>
-        <select name="system.effectType" data-dtype="String">
-          <option value="none" {{#if (eq system.effectType 'none')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.EffectNone"}}</option>
-          <option value="damage" {{#if (eq system.effectType 'damage')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.EffectDamage"}}</option>
-          <option value="healing" {{#if (eq system.effectType 'healing')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.EffectHealing"}}</option>
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.RollType"}}</label>
+        <select name="system.rollType" data-dtype="String" {{#unless system.formula}}disabled{{/unless}}>
+          <option value="none" {{#if (eq system.rollType 'none')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollNone"}}</option>
+          <option value="damage" {{#if (eq system.rollType 'damage')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollDamage"}}</option>
+          <option value="healing" {{#if (eq system.rollType 'healing')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollHealing"}}</option>
         </select>
       </div>
       <div class="resource">
@@ -101,13 +101,14 @@
       </div>
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.SaveEffect"}}</label>
-        <select name="system.saveEffect" data-dtype="String">
+        <select name="system.saveEffect" data-dtype="String" {{#unless system.requiresSave}}disabled{{/unless}}>
           <option value="half" {{#if (eq system.saveEffect 'half')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Chat.HalfEffect"}}</option>
           <option value="negate" {{#if (eq system.saveEffect 'negate')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Chat.NegatesSpell"}}</option>
         </select>
       </div>
     </div>
     <div>
+      <label class="resource-label">{{localize "SWORDS_WIZARDRY.TODO.SpellEffects"}}</label>
       <ol class="items-list effects-list">
         <li 
           class="items-header flexrow" 

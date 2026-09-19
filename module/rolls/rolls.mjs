@@ -65,16 +65,16 @@ export class DamageRoll extends Roll {
     const result = await super.evaluate();
 
     const isSpell = this.data.item?.type === 'spell';
-    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const rollType = isSpell ? this.data.rollType ?? 'none' : 'damage';
     const requiresSave = isSpell && Boolean(this.data.requiresSave);
     if (
       !game.settings.get('swords-wizardry', 'dmAppliesDamage')
       && !requiresSave
     ) {
-      const amount = effectType === 'healing' ? result.total * -1 : result.total;
+      const amount = rollType === 'healing' ? result.total * -1 : result.total;
       await Promise.all(Array.from(game.user.targets).map(target => {
-        // TODO: do we even need this check, damage rolls don't fire for effectType none?
-        if (effectType !== 'none') {
+        // TODO: do we even need this check, damage rolls don't fire for rollType none?
+        if (rollType !== 'none') {
           rpc({
             recipient: 'GM',
             target: target.id,
@@ -93,7 +93,7 @@ export class DamageRoll extends Roll {
           });
         }
       }));
-      // TODO (need to detangle effectType none (should be damage/heal type or something) and action none in the message 
+      // TODO (need to detangle rollType none (should be damage/heal type or something) and action none in the message 
       // (and need to rename action because this old-style onclick handler is using the function call name signature of the new style and it's confusing))
     }
     return result;
@@ -102,7 +102,7 @@ export class DamageRoll extends Roll {
   async render(options) {
     const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
     const isSpell = this.data.item?.type === 'spell';
-    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const rollType = isSpell ? this.data.rollType ?? 'none' : 'damage';
     const requiresSave = isSpell && Boolean(this.data.requiresSave);
     const saveEffect = this.data.saveEffect === 'half' ? 'half' : 'negate';
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
@@ -121,19 +121,19 @@ export class DamageRoll extends Roll {
       dmAppliesDamage,
       requiresSave,
       saveEffectHalf: saveEffect === 'half',
-      fullAction: effectType === 'healing'
+      fullAction: rollType === 'healing'
         ? 'heal'
-        : effectType === 'damage' 
+        : rollType === 'damage' 
           ? 'damage'
           : null,
       saveAction: saveEffect === 'half'
-        ? effectType === 'healing' 
+        ? rollType === 'healing' 
           ? 'half-heal' 
           : 'half'
         : 'none'
     };
 
-    const needsManualApplication = effectType !== 'none'
+    const needsManualApplication = rollType !== 'none'
       && (dmAppliesDamage || requiresSave);
     if (needsManualApplication || requiresSave) {
       const targets = Array.from(game.user.targets).map(t => ({
