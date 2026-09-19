@@ -26,9 +26,31 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     }
   }
 
+  static TABS = {
+    sources: {
+      tabs: [
+        { id: 'details', label: 'SWORDS_WIZARDRY.ItemSheet.Tabs.Details' },
+        { id: 'effects', label: 'SWORDS_WIZARDRY.ItemSheet.Tabs.Effects' }
+      ],
+      initial: 'details'
+    }
+  }
+
   static PARTS = {
     form: {
       template: 'systems/swords-wizardry/module/item/item-sheet.hbs',
+      scrollable: ''
+    },
+    tabs: {
+      template: 'templates/generic/tab-navigation.hbs',
+      scrollable: ''
+    },
+    details: {
+      template: 'systems/swords-wizardry/module/item/item-details.hbs',
+      scrollable: ''
+    },
+    effects: {
+      template: 'systems/swords-wizardry/module/item/item-effects.hbs',
       scrollable: ''
     }
   }
