@@ -319,9 +319,6 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     const sIndex = slots.memorizedSpells.indexOf(item);
     if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
     const key = `system.spellSlots.${spellLevel}.memorized`;
-    console.log(this.actor);
-    console.log(spellLevel);
-    console.log(slots.memorized);
     await this.actor.update({
       [key]: slots.memorized
     });
