@@ -1,4 +1,4 @@
-import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
+import { SwordsWizardryChatMessage } from '../message/message.mjs';
 import { rpc } from '../helpers/rpc.mjs';
 
 const { renderTemplate } = foundry.applications.handlebars;
@@ -65,32 +65,44 @@ export class DamageRoll extends Roll {
     const result = await super.evaluate();
 
     const isSpell = this.data.item?.type === 'spell';
-    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const rollType = isSpell ? this.data.rollType ?? 'none' : 'damage';
     const requiresSave = isSpell && Boolean(this.data.requiresSave);
     if (
       !game.settings.get('swords-wizardry', 'dmAppliesDamage')
       && !requiresSave
-      && effectType !== 'none'
     ) {
-      const amount = effectType === 'healing' ? result.total * -1 : result.total;
-      await Promise.all(Array.from(game.user.targets).map(target =>
-        rpc({
-          recipient: 'GM',
-          target: target.id,
-          operation: 'damage',
-          amount,
-          data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
-        })
-      ));
+      const amount = rollType === 'healing' ? result.total * -1 : result.total;
+      await Promise.all(Array.from(game.user.targets).map(target => {
+        // TODO: do we even need this check, damage rolls don't fire for rollType none?
+        if (rollType !== 'none') {
+          rpc({
+            recipient: 'GM',
+            target: target.id,
+            operation: 'damage',
+            amount,
+            data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
+          });
+        }
+        if (isSpell) {
+          rpc({
+            recpient: 'GM',
+            target: target.id,
+            operation: 'spell-effect',
+            sender: this.data.actor.id,
+            item: this.data.item.id
+          });
+        }
+      }));
+      // TODO (need to detangle rollType none (should be damage/heal type or something) and action none in the message 
+      // (and need to rename action because this old-style onclick handler is using the function call name signature of the new style and it's confusing))
     }
-
     return result;
   }
 
   async render(options) {
     const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
     const isSpell = this.data.item?.type === 'spell';
-    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const rollType = isSpell ? this.data.rollType ?? 'none' : 'damage';
     const requiresSave = isSpell && Boolean(this.data.requiresSave);
     const saveEffect = this.data.saveEffect === 'half' ? 'half' : 'negate';
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
@@ -109,15 +121,19 @@ export class DamageRoll extends Roll {
       dmAppliesDamage,
       requiresSave,
       saveEffectHalf: saveEffect === 'half',
-      fullAction: effectType === 'healing'
+      fullAction: rollType === 'healing'
         ? 'heal'
-        : effectType === 'damage' ? 'damage' : null,
+        : rollType === 'damage' 
+          ? 'damage'
+          : null,
       saveAction: saveEffect === 'half'
-        ? effectType === 'healing' ? 'half-heal' : 'half'
+        ? rollType === 'healing' 
+          ? 'half-heal' 
+          : 'half'
         : 'none'
     };
 
-    const needsManualApplication = effectType !== 'none'
+    const needsManualApplication = rollType !== 'none'
       && (dmAppliesDamage || requiresSave);
     if (needsManualApplication || requiresSave) {
       const targets = Array.from(game.user.targets).map(t => ({
@@ -150,7 +166,6 @@ export class DamageRoll extends Roll {
 export class FeatureRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
-    // do something with result.total and this.data.target based on this.data.targetType
     result.success = (
         result.data.targetType == 'ascending'
         && result.total >= parseInt(result.data.target)

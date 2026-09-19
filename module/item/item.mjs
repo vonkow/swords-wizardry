@@ -1,4 +1,5 @@
 import { AttackRoll, DamageRoll, FeatureRoll } from  '../rolls/rolls.mjs';
+import { rpc } from '../helpers/rpc.mjs';
 
 const { renderTemplate } = foundry.applications.handlebars;
 const SPELL_ROLL_TEMPLATE = 'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs';
@@ -81,15 +82,17 @@ export class SwordsWizardryItem extends Item {
       Object.assign(rollData, this.actor.getRollData());
       rollData.actor = this.actor;
     }
-    rollData.effectType = this.system.effectType;
+    rollData.rollType = this.system.rollType;
     rollData.requiresSave = this.system.requiresSave;
     rollData.saveEffect = this.system.saveEffect;
+    rollData.effects = this.effects;
     return rollData;
   }
 
   async rollSpell() {
     const rollData = this.getRollData();
     const formula = this.system.formula?.trim();
+    const { requiresSave } = this.system;
 
     if (formula) {
       try {
@@ -106,16 +109,27 @@ export class SwordsWizardryItem extends Item {
       }
     }
 
-    const targets = this.system.requiresSave
-      ? Array.from(game.user.targets).map(target => ({
-          id: target.id,
-          name: target.name
-        }))
-      : [];
+    const targets = Array.from(game.user.targets).map(target => ({
+      id: target.id,
+      name: target.name
+    }));
+
+    if (!requiresSave) {
+      targets.forEach(target => {
+        rpc({
+          recpient: 'GM',
+          target: target.id,
+          operation: 'spell-effect',
+          sender: this.actor.id,
+          item: this.id
+        });
+      });
+    }
+
     const content = await renderTemplate(SPELL_ROLL_TEMPLATE, {
       item: this,
       actor: this.actor,
-      requiresSave: this.system.requiresSave,
+      requiresSave,
       saveEffectHalf: this.system.saveEffect === 'half',
       targets
     });

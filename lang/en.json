@@ -122,8 +122,15 @@
         "Description": "Description",
         "Equipment": "Equipment",
         "Main": "Main",
-        "Spells": "Spells"
+        "Spells": "Spells",
+        "Effects": "Effects"
       }
+    },
+    "ItemSheet": {
+       "Tabs": {
+         "Details": "Details",
+         "Effects": "Effects"
+       }
     },
     "Stats": {
       "Alignment": "Alignment",
@@ -213,7 +220,8 @@
         "Gold": "Gold",
         "Tabs": {
           "Attributes": "Attributes",
-          "Description": "Description"
+          "Description": "Description",
+          "Effects": "Effects"
         },
         "Weight": "Weight"
       },
@@ -223,10 +231,10 @@
         "Range": "Range",
         "Duration": "Duration",
         "RollFormula": "Roll Formula",
-        "EffectType": "Effect Type",
-        "EffectNone": "None",
-        "EffectDamage": "Damage",
-        "EffectHealing": "Healing",
+        "RollType": "Roll Type",
+        "RollNone": "None",
+        "RollDamage": "Damage",
+        "RollHealing": "Healing",
         "RequiresSave": "Requires Saving Throw",
         "SaveEffect": "On Successful Save",
         "InvalidFormula": "The spell roll formula '{formula}' is invalid.",
@@ -259,7 +267,6 @@
       "Create": "Create Effect",
       "Delete": "Delete Effect",
       "Duration": "Duration",
-      "New": "New Effect",
       "Source": "Source",
       "Toggle": "Toggle Effect",
       "Temporary": "Temporary Effects",
@@ -284,8 +291,9 @@
   },
   "New": {
     "armor": "New Armor",
-    "item": "New Item",
+    "effect": "New Effect",
     "feature": "New Feature",
+    "item": "New Item",
     "spell": "New Spell",
     "weapon": "New Weapon"
   }

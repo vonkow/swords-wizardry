@@ -48,6 +48,8 @@
       <div class="damage-buttons">
         <button class="apply-damage"
           data-action="{{../fullAction}}"
+          data-actor-id="{{../actor.id}}"
+          data-item-id="{{../item.id}}"
           data-target-id="{{id}}"
           data-amount="{{../total}}"
           {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
@@ -56,7 +58,9 @@
         {{#if ../requiresSave}}
         <button class="apply-damage"
           data-action="{{../saveAction}}"
+          data-actor-id="{{../actor.id}}"
           data-target-id="{{id}}"
+          data-item-id="{{../item.id}}"
           data-amount="{{../total}}"
           {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
           {{localize "SWORDS_WIZARDRY.Chat.SuccessfulSave"}}:
