@@ -126,6 +126,12 @@
         "Effects": "Effects"
       }
     },
+    "ItemSheet": {
+       "Tabs": {
+         "Details": "Details",
+         "Effects": "Effects"
+       }
+    },
     "Stats": {
       "Alignment": "Alignment",
       "ArmorClass": { "long": "Armor Class", "abbr": "AC" },

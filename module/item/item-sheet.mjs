@@ -17,7 +17,6 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     },
     classes: ['swords-wizardry', 'sheet', 'item'],
     position: {
-      height: 600,
       width: 520
     },
     window: {

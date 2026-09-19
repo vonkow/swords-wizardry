@@ -29,8 +29,8 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     },
     classes: ['swords-wizardry', 'sheet', 'actor'],
     position: {
-      width: 640,
-      height: 640
+      height: 640, // TODO delete this for dynamic height? i wish there was maxHeight
+      width: 640
     },
     window: {
       resizable: true,
