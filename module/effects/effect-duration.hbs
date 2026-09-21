@@ -27,16 +27,20 @@
     <fieldset>
         <legend>{{localize "EFFECT.DURATION.Header"}}</legend>
         {{#if source.system.targeted}}
-        <div class="form-group slim duration" data-duration>
+        <div class="form-group slim duration" data-durationForumla>
             <label class="flexrow" for="{{rootId}}-durationFormula">
-                <span>{{localize "TODO Duration Formula"}}</span>
-                <span class="warning" hidden><i class="fa-duotone fa-triangle-exclamation"></i></span>
+                <span>{{localize "SWORDS_WIZARDRY.Effect.DurationFormula"}}</span>
             </label>
             <div class="form-fields">
                 {{formInput fields.system.durationFormula value=source.system.durationFormula id=(concat rootId "-durationFormula")
-                            aria=(object label=(localize "TODO"))}}
+                            aria=(object label=(localize "SWORDS_WIZARDRY.Effect.DurationFormula"))}}
+            </div>
+            <label class="flexrow" for="{{rootId}}-durationFormulaUnits">
+                <span>{{localize "SWORDS_WIZARDRY.Effect.DurationFormulaUnits"}}</span>
+            </label>
+            <div class="form-fields">
                 {{formInput fields.system.durationFormulaUnits value=source.system.durationFormulaUnits id=(concat rootId "-durationFormulaUnits")
-                            options=durationUnits aria=(object label=(localize "TODO"))}}
+                            options=durationUnits aria=(object label=(localize "SWORDS_WIZARDRY.Effect.DurationFormulaUnits"))}}
             </div>
             <!-- TODO Expiry like below as an option? or maybe remove it completely -->
         </div>

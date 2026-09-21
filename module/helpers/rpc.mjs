@@ -35,10 +35,11 @@ async function run(data = {}) {
   }
   else if (operation === 'spell-effect') {
     const sendingActor = Actor.get(sender);
+    // TODO get target and use that in the change loop if needed.
     const spell = sendingActor.items.get(item);
     if (actor && spell) {
       const effects = spell.effects;
-      effects.forEach(async (effect) => {
+      await effects.forEach(async (effect) => {
         const effectData = effect.toObject();
         if (effectData.system.targeted) {
           effectData.disabled = false;
@@ -50,6 +51,13 @@ async function run(data = {}) {
             effectData.duration.value = result.total;
             effectData.duration.units = effectData.system.durationFormulaUnits;
           }
+	  // This wasn't working as a map but nothing beats good old forloop when push comes to shove.
+          for (let x = 0, change, cRoll; x < effectData.changes.length; x++) {
+            change = effectData.changes[x];
+            cRoll = new Roll(change.value, sendingActor.getRollData());
+            await cRoll.evaluate();
+            change.value = cRoll.total;
+	  }
           actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
         }
       });

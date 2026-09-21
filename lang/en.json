@@ -267,12 +267,15 @@
       "Create": "Create Effect",
       "Delete": "Delete Effect",
       "Duration": "Duration",
+      "DurationFormula": "Duration Formula",
+      "DurationFormulaUnits": "Duration Units",
       "Source": "Source",
       "Toggle": "Toggle Effect",
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects",
-      "Update": "Update Effect"
+      "Update": "Update Effect",
+      "Targeted": "Affects Target Actors"
     }
   },
   "TYPES": {

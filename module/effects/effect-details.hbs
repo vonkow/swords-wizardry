@@ -2,7 +2,7 @@
     {{formGroup fields.tint value=source.tint rootId=rootId placeholder="#ffffff"}}
     {{formGroup fields.description value=source.description rootId=rootId}}
     {{#if isItemEffect}}
-    {{formGroup fields.system.targeted value=source.system.targeted id=(concat rootId "-targeted")}}
+    {{formGroup fields.system.targeted value=source.system.targeted label=(localize "SWORDS_WIZARDRY.Effect.Targeted") id=(concat rootId "-targeted")}}
     {{/if}}
     {{#if source.system.targeted}}
     {{else}}
