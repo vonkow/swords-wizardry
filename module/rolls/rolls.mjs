@@ -62,10 +62,7 @@ export class AttackRoll extends Roll {
 
 export class DamageRoll extends Roll {
   async evaluate() {
-    // I think this part is wrong and needs fixing, can't just override formula like that
-    console.log(this);
     const ignoreResult = this.formula === '';
-    // TODO set formula to something for spells/items without a formula
     if (!this._evaluated) {
       if (ignoreResult) {
         this._evaluated = true;
@@ -73,7 +70,6 @@ export class DamageRoll extends Roll {
         return this;
       } else {
         const result = await super.evaluate();
-        console.log(this);
         return result;
       }
     }
@@ -90,16 +86,25 @@ export class DamageRoll extends Roll {
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render();
     const template = 'systems/swords-wizardry/module/rolls/damage-and-effect-roll-sheet.hbs';
-    //const template = isSpell
-      //? 'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs'
-      //: 'systems/swords-wizardry/module/rolls/damage-roll-sheet.hbs';
-    console.log(rollType);
+    const message = this.message;
+    const appliedDamage = message
+      ? message.getFlag('swords-wizardry', 'appliedDamage') || {}
+	    : {};
+    const needsManualApplication = rollType !== 'none' && dmAppliesDamage;
+
+    const targets = Array.from(game.user.targets).map(t => ({
+      id: t.id,
+      name: t.name,
+      hp: t.actor.system.hp.value
+    }));
 
     const chatData = {
       item: this.data.item,
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
+      targets,
+      appliedDamage,
       dmAppliesDamage,
       isSpell,
       requiresSave,
@@ -118,35 +123,13 @@ export class DamageRoll extends Roll {
         : 'none'
     };
 
-    const message = this.message;
-    const appliedDamage = message
-      ? message.getFlag('swords-wizardry', 'appliedDamage') || {}
-	    : {};
-    const needsManualApplication = rollType !== 'none' && dmAppliesDamage;
-
-    //const needsManualApplication = rollType !== 'none'
-      //&& (dmAppliesDamage || requiresSave);
-    //if (needsManualApplication || requiresSave) {
-      const targets = Array.from(game.user.targets).map(t => ({
-        id: t.id,
-        name: t.name,
-        hp: t.actor.system.hp.value
-      }));
-
-      chatData.targets = targets;
-      chatData.appliedDamage = appliedDamage;
-    //} else if (!dmAppliesDamage && !requiresSave) {
     if (!dmAppliesDamage && !requiresSave) {
-    // rollType = rollType or none if spell else damage
-    //const rollType = isSpell ? this.data.rollType ?? 'none' : 'damage';
-      // INFO Here is one call to applyDamageAndEffects
       await Promise.all(Array.from(game.user.targets).map(async target => {
         const data = await this.data.item.applyDamageAndEffects(target, this.total, chatData.fullAction);
         const { amount, oldHP, newHP, effects, action } = data;
         chatData.appliedDamage[target.id] = { action, amount, oldHP, newHP };
       }));
     }
-    console.log(chatData);
 
     const resultsHtml = await renderTemplate(template, chatData);
     return SwordsWizardryChatMessage.create({

@@ -2,7 +2,6 @@ import { AttackRoll, DamageRoll, FeatureRoll } from  '../rolls/rolls.mjs';
 import { rpc } from '../helpers/rpc.mjs';
 
 const { renderTemplate } = foundry.applications.handlebars;
-const SPELL_ROLL_TEMPLATE = 'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs';
 
 export class SwordsWizardryItem extends Item {
 
@@ -69,6 +68,7 @@ export class SwordsWizardryItem extends Item {
     if (rollData.modifier && rollData.modifier !== '0') {
       rollData.formula += ` + ${rollData.modifier}`;
     }
+    rollData.effects = this.effects;
     return rollData;
   }
 
@@ -120,7 +120,7 @@ export class SwordsWizardryItem extends Item {
   }
 
   async rollItem(rollData) {
-    // TODO update this 
+    // TODO update this so items can cause effects
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     const label = `[${item.type}] ${item.name}`;
@@ -134,8 +134,6 @@ export class SwordsWizardryItem extends Item {
 
   async rollSpell(rollData) {
     const formula = this.system.formula?.trim();
-    console.log(formula);
-    console.log(rollData);
     try {
       const roll = new DamageRoll(formula, rollData)
       const result = await roll.render();
@@ -148,71 +146,14 @@ export class SwordsWizardryItem extends Item {
       ));
       return null;
     }
-    // TODO rework to only call new DamageRoll();
-    /*
-    const formula = this.system.formula?.trim();
-    const { requiresSave } = this.system;
-
-    // TODO or if requiresSave? and then pass in empty formula and if formula is empty than it's just save?
-    if (formula || requiresSave) {
-      console.log(`formula: ${formula}, requiresSave: ${requiresSave}`);
-      try {
-        const roll = new DamageRoll(formula, rollData);
-        await roll.render();
-        return roll;
-      } catch (error) {
-        console.error('Swords & Wizardry | Invalid spell roll formula', error);
-        ui.notifications.error(game.i18n.format(
-          'SWORDS_WIZARDRY.Item.Spell.InvalidFormula',
-          { formula }
-        ));
-        return null;
-      }
-    }
-
-    const targets = Array.from(game.user.targets).map(target => ({
-      id: target.id,
-      name: target.name
-    }));
-
-    if (!requiresSave) {
-      console.log('no save, just get affected');
-      console.log(targets);
-      targets.forEach(target => {
-        const t = canvas.tokens.get(target.id).actor;
-        // INFO Here is a call to applyEffect (maybe a bad one)
-        // not bad if we then render the card in its completed state
-        // ezpz
-        this.applyDamageAndEffects(t, '');
-      });
-    }
-
-    // TODO don't render down here, always call DamageRoll? and have it call applyDamageAndEffect?
-
-    const content = await renderTemplate(SPELL_ROLL_TEMPLATE, {
-      item: this,
-      actor: this.actor,
-      requiresSave,
-      saveEffectHalf: this.system.saveEffect === 'half',
-      targets
-    });
-
-    return ChatMessage.create({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      rollMode: game.settings.get('core', 'rollMode'),
-      content
-    });
-    */
   }
 
-  // TODO maek this rollWeaponDamageAndEffects to not confuse?
-  // or genericize and call from rollSpell?
+  // TODO maek this rollWeaponDamageAndEffects to not confuse? or genericize and call from rollSpell?
   async rollDamageAndEffects() {
     const { actor } = this;
     const rollData = { actor, item: this };
     let { damageFormula } = this.system;
     if (actor.system.modifiers?.damage?.value != 0) damageFormula += `+${actor.system.modifiers.damage.value}`;
-    // TODO change to DamageAndEffectRoll or have a separate one?
     const roll = new DamageRoll(damageFormula, rollData);
     await roll.render();
     return roll;
@@ -220,11 +161,6 @@ export class SwordsWizardryItem extends Item {
 
   async applyDamageAndEffects(target, initialAmount, rollType=this.system.rollType) {
     const sender = this.actor;
-    
-    console.log(target);
-    console.log(initialAmount);
-    console.log(rollType);
-
     const amount
       = rollType === "none" ? 0
       : rollType === "half" ? Math.floor(initialAmount / 2)
@@ -232,10 +168,8 @@ export class SwordsWizardryItem extends Item {
       : rollType === "heal" ? initialAmount * -1
       : rollType === "half-heal" ? Math.floor(initialAmount / 2) * -1
       : initialAmount;
-
     const oldHP = target.actor.system.hp.value;
     const newHP = oldHP - amount;
-    console.log(newHP);
     
     const effects = this.effects
       .filter((effect) => effect.targeted)
@@ -255,11 +189,9 @@ export class SwordsWizardryItem extends Item {
   }
 
   async applyDamageAndEffectsGM(target, data) {
-    console.log(data);
     const { newHP, sender: senderId } = data;
     const sender = game.actors.get(senderId);
     // TODO If amount
-    console.log(target);
     target.update({ system: { hp: { value: newHP } } });
 
     // TODO this is not blocking, need Promise.all and maybe map instead
@@ -275,7 +207,7 @@ export class SwordsWizardryItem extends Item {
           effectData.duration.value = result.total;
           effectData.duration.units = effectData.system.durationFormulaUnits;
         }
-        // This wasn't working as a map but nothing beats good old forloop when push comes to shove.
+        // This wasn't working as a map but nothing beats good old forloop when push comes to shove. (fix is same as above)
         for (let x = 0, change, cRoll; x < effectData.changes.length; x++) {
           change = effectData.changes[x];
           cRoll = new Roll(change.value, sender.getRollData());

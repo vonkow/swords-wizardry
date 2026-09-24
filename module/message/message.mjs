@@ -25,8 +25,6 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   }
 
   _activateRollDamageListener(html) {
-    // damage button after a successful(?) weapon attack
-    // calls rollDamageAndEffects -> new DamageRoll
     $(html).on('click', '.damage-roll-button', async (e) => {
       const { actorId, itemId } = e.currentTarget.dataset;
       let actor = game.actors.get(actorId);
@@ -36,7 +34,7 @@ export class SwordsWizardryChatMessage extends ChatMessage {
         // Probaby the fix is to pass either actorId or tokenId to this button as part of attack roll and then figure out which it is
         // here (canvas.tokens.get vs game.actors.get) and grab the item from the token or the actor
         // for now, put items on npcs in the sidebar, not on the board.
-        console.log('this is maybe broken');
+        console.error('this is maybe broken');
       }
       const item = actor.items.get(itemId);
       item.rollDamageAndEffects();
@@ -44,15 +42,9 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   }
 
   _activateApplyDamageListener(html) {
-    // Apply Damage/Health (full/half) button on DamageRoll message
-    // on GM screen only
-    // calls item.applyDamageAndEffects for spell or weapon
-    // also sets a flag on the message that this bit of damage has been applied
-    //   listener catches that below and renders button gone
     $(html).on('click', '.apply-damage', async (e) => {
 
       //TODO MOVE TO rolls/roll with a minimal call after fetching event data (and genericize the application bit)?
-
       if (!game.user.isGM) {
         ui.notifications.warn(game.i18n.localize('SWORDS_WIZARDRY.Chat.OnlyGMCanApply'));
         return;
@@ -66,7 +58,6 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       const target = canvas.tokens.get(targetId);
       if (!target) return;
 
-      // INFO Here is a call to applyDamageAndEffects
       const data = await item.applyDamageAndEffects(target, initialAmount, action);
       const { amount, oldHP, newHP, effects } = data;
 
@@ -93,8 +84,6 @@ export class SwordsWizardryChatMessage extends ChatMessage {
 
 
 Hooks.on("renderChatMessageHTML", (message, html, data) => {
-  // Checks for damage application messages and removes buttons(?) if a specific
-  // bit of damage has been applied
   const appliedDamage = message.getFlag("swords-wizardry", "appliedDamage") || {};
   if (Object.keys(appliedDamage).length) {
 
@@ -141,7 +130,6 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
         : `${applied} ${label}: ${Math.abs(result.amount)}`;
 
       const buttons = targetElement.querySelectorAll("button");
-      console.log(buttons);
 
       buttons.forEach(b => b.remove());
     });
