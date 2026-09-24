@@ -4,18 +4,26 @@
     <div>
       <h3>{{item.name}}</h3>
       {{#if actor}}
+      {{#if isSpell}}
       <div>{{localize "SWORDS_WIZARDRY.Chat.CastBy"}} {{actor.name}}</div>
+      {{else}}
+      <div>TODO damage by {{actor.name}}</div>
+      {{/if}}
       {{/if}}
     </div>
   </header>
 
   <div class="spell-card-details">
+    {{#if isSpell}}
     <span>{{localize "SWORDS_WIZARDRY.Item.Spell.Level"}} {{item.system.spellLevel}}</span>
     {{#if item.system.range}}
     <span>{{localize "SWORDS_WIZARDRY.Item.Spell.Range"}} {{item.system.range}}</span>
     {{/if}}
     {{#if item.system.duration}}
     <span>{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}} {{item.system.duration}}</span>
+    {{/if}}
+    {{else}}
+    <span>TODO Weapon details (like special damage?)</span>
     {{/if}}
   </div>
 
@@ -33,6 +41,7 @@
     {{#if saveEffectHalf}}
       {{localize "SWORDS_WIZARDRY.Chat.HalfEffect"}}
     {{else}}
+      <!-- TODO change to NegatesEffect -->
       {{localize "SWORDS_WIZARDRY.Chat.NegatesSpell"}}
     {{/if}}
   </div>
@@ -52,7 +61,9 @@
           data-item-id="{{../item.id}}"
           data-target-id="{{id}}"
           data-amount="{{../total}}"
-          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
+        >
+          <!-- TODO make below say "Damage" or "Heal" for those effects -->
           {{localize "SWORDS_WIZARDRY.Chat.FullEffect"}}
         </button>
         {{#if ../requiresSave}}
@@ -62,7 +73,8 @@
           data-target-id="{{id}}"
           data-item-id="{{../item.id}}"
           data-amount="{{../total}}"
-          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
+        >
           {{localize "SWORDS_WIZARDRY.Chat.SuccessfulSave"}}:
           {{#if ../saveEffectHalf}}
             {{localize "SWORDS_WIZARDRY.Chat.HalfEffect"}}
@@ -72,34 +84,6 @@
         </button>
         {{/if}}
       </div>
-      {{else}}
-      <!-- This is new and can be deleted on merge -->
-      <div>
-        <button class="apply-effect"
-          data-action="{{../saveAction}}"
-          data-actor-id="{{../actor.id}}"
-          data-target-id="{{id}}"
-          data-item-id="{{../item.id}}"
-          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
-        >
-          {{localize "SWORDS_WIZARDRY.Chat.FullEffect"}}
-        </button>
-        {{#if ../requiresSave}}
-        <button class="apply-effect"
-          data-action="{{../fullAction}}"
-          data-actor-id="{{../actor.id}}"
-          data-target-id="{{id}}"
-          data-item-id="{{../item.id}}"
-          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
-        >
-          {{localize "SWORDS_WIZARDRY.Chat.SuccessfulSave"}}:
-          {{#if ../saveEffectHalf}}
-            {{localize "SWORDS_WIZARDRY.Chat.HalfEffect"}}
-          {{else}}
-            {{localize "SWORDS_WIZARDRY.Chat.NegatesSpell"}}
-          {{/if}}
-        {{/if}}
-        </button>
       {{/if}}
       <div class="damage-result"></div>
     </div>

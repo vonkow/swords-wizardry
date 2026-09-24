@@ -26,7 +26,8 @@
           data-action="damage"
           data-target-id="{{id}}"
           data-amount="{{../total}}"
-		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
+        >
           Damage
         </button>
 
@@ -34,7 +35,8 @@
           data-action="half"
           data-target-id="{{id}}"
           data-amount="{{../total}}"
-		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
+        >
           Half
         </button>
 
@@ -42,7 +44,8 @@
           data-action="double"
           data-target-id="{{id}}"
           data-amount="{{../total}}"
-		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
+        >
           Double
         </button>
 
@@ -50,16 +53,15 @@
           data-action="heal"
           data-target-id="{{id}}"
           data-amount="{{../total}}"
-		  {{#if (lookup ../appliedDamage id)}}disabled{{/if}}>
+          {{#if (lookup ../appliedDamage id)}}disabled{{/if}}
+        >
           Heal
         </button>
       </div>
 	  <div class="damage-result"></div>
     </div>
     {{/each}}
-
   </div>
   {{/if}}
   {{/if}}
-
 </div>

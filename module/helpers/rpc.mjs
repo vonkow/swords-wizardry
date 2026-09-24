@@ -25,42 +25,16 @@ export async function handleRPC(data = {}) {
 }
 
 async function run(data = {}) {
-  const { operation, target, sender, item } = data;
+  console.log(data);
+  const { operation, target, sender, item: itemId } = data;
   const targetActor = game.actors.get(target);
   const targetToken = canvas.tokens.get(target);
   const actor = targetActor ? targetActor : targetToken ? targetToken.actor : null;
   if (!actor) return;
-  if (operation === 'damage') {
-    actor.update({ system: { hp: { value: actor.system.hp.value - data.amount } } });
-  }
-  else if (operation === 'spell-effect') {
-    const sendingActor = Actor.get(sender);
-    // TODO get target and use that in the change loop if needed.
-    const spell = sendingActor.items.get(item);
-    if (actor && spell) {
-      const effects = spell.effects;
-      await effects.forEach(async (effect) => {
-        const effectData = effect.toObject();
-        if (effectData.system.targeted) {
-          effectData.disabled = false;
-          effectData.transfer = true;
-          effectData.system.targeted = false;
-          if (effectData.system.durationFormula) {
-            const roll = new Roll(effectData.system.durationFormula, sendingActor.getRollData());
-            const result = await roll.evaluate();
-            effectData.duration.value = result.total;
-            effectData.duration.units = effectData.system.durationFormulaUnits;
-          }
-	  // This wasn't working as a map but nothing beats good old forloop when push comes to shove.
-          for (let x = 0, change, cRoll; x < effectData.changes.length; x++) {
-            change = effectData.changes[x];
-            cRoll = new Roll(change.value, sendingActor.getRollData());
-            await cRoll.evaluate();
-            change.value = cRoll.total;
-	  }
-          actor.createEmbeddedDocuments("ActiveEffect", [effectData]);
-        }
-      });
-    }
+  // TODO try to find sending token too?
+  const sendingActor = Actor.get(sender);
+  const item = sendingActor.items.get(itemId);
+  if (operation ==='apply-damage-and-effects') {
+    await item.applyDamageAndEffectsGM(actor, data);
   }
 }

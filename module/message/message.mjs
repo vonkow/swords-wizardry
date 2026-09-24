@@ -25,6 +25,8 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   }
 
   _activateRollDamageListener(html) {
+    // damage button after a successful(?) weapon attack
+    // calls rollDamageAndEffects -> new DamageRoll
     $(html).on('click', '.damage-roll-button', async (e) => {
       const { actorId, itemId } = e.currentTarget.dataset;
       let actor = game.actors.get(actorId);
@@ -37,22 +39,22 @@ export class SwordsWizardryChatMessage extends ChatMessage {
         console.log('this is maybe broken');
       }
       const item = actor.items.get(itemId);
-      const rollData = { actor, item };
-      let { damageFormula } = item.system;
-      if (actor.system.modifiers && actor.system.modifiers.damage.value && actor.system.modifiers.damage.value != 0)
-        damageFormula += `+${actor.system.modifiers.damage.value}`;
-      const roll = new DamageRoll(damageFormula, rollData);
-      await roll.render();
+      item.rollDamageAndEffects();
     });
   }
 
   _activateApplyDamageListener(html) {
+    // Apply Damage/Health (full/half) button on DamageRoll message
+    // on GM screen only
+    // calls item.applyDamageAndEffects for spell or weapon
+    // also sets a flag on the message that this bit of damage has been applied
+    //   listener catches that below and renders button gone
     $(html).on('click', '.apply-damage', async (e) => {
 
+      //TODO MOVE TO rolls/roll with a minimal call after fetching event data (and genericize the application bit)?
+
       if (!game.user.isGM) {
-        ui.notifications.warn(game.i18n.localize(
-          'SWORDS_WIZARDRY.Chat.OnlyGMCanApply'
-        ));
+        ui.notifications.warn(game.i18n.localize('SWORDS_WIZARDRY.Chat.OnlyGMCanApply'));
         return;
       }
 
@@ -60,38 +62,13 @@ export class SwordsWizardryChatMessage extends ChatMessage {
       const { action, actorId, itemId, targetId, amount: a } = button.dataset;
       const initialAmount = Number(a);
       const actor = Actor.get(actorId);
+      const item = actor.items.get(itemId);
       const target = canvas.tokens.get(targetId);
       if (!target) return;
 
-      // TODO Move to a common damage location to collapes all into one
-      const amount
-        = action === "none" ? 0
-        : action === "half" ? Math.floor(initialAmount / 2)
-        : action === "double" ? initialAmount * 2
-        : action === "heal" ? initialAmount * -1
-        : action === "half-heal" ? Math.floor(initialAmount / 2) * -1
-        : initialAmount;
-
-      const oldHP = target.actor.system.hp.value;
-      const newHP = oldHP - amount;
-
-      if (action !== "none") {
-        await rpc({
-          recipient: 'GM',
-          target: target.id,
-          operation: 'damage',
-          amount: amount,
-          data: { system: { hp: { value: newHP } } }
-        });
-        // TODO what about effects with half save, do those exist?
-        await rpc({
-          recpient: 'GM',
-          target: target.id,
-          operation: 'spell-effect',
-          sender: actor.id,
-          item: itemId
-        });
-      }
+      // INFO Here is a call to applyDamageAndEffects
+      const data = await item.applyDamageAndEffects(target, initialAmount, action);
+      const { amount, oldHP, newHP, effects } = data;
 
       const messageId = $(button)
         .closest(".message")
@@ -116,6 +93,8 @@ export class SwordsWizardryChatMessage extends ChatMessage {
 
 
 Hooks.on("renderChatMessageHTML", (message, html, data) => {
+  // Checks for damage application messages and removes buttons(?) if a specific
+  // bit of damage has been applied
   const appliedDamage = message.getFlag("swords-wizardry", "appliedDamage") || {};
   if (Object.keys(appliedDamage).length) {
 
@@ -132,6 +111,7 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
 
       const result = appliedDamage[targetId];
 
+      // TODO can we move this / consolidate it?
       const labelKey
         = result.action === "damage" ? "Damage"
         : result.action === "heal" ? "Healing"
@@ -161,6 +141,7 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
         : `${applied} ${label}: ${Math.abs(result.amount)}`;
 
       const buttons = targetElement.querySelectorAll("button");
+      console.log(buttons);
 
       buttons.forEach(b => b.remove());
     });
