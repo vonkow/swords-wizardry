@@ -8,24 +8,20 @@ export async function rpc(data = {}) {
       type: 'rpc',
       ...data
     };
-    console.log('send rpc', data);
     await game.socket.emit('system.swords-wizardry', packet);
   }
 }
 
 export async function handleRPC(data = {}) {
-  console.log('handleRPC', data);
   if (data.recipient === 'GM' && game.user.isGM) {
     // TODO consider adding an event list to prevent duplicate execution.
     await run(data);
   } else {
     // TODO future stub for gm -> player and player -> player rpc
-    console.log('got an RPC', data);
   }
 }
 
 async function run(data = {}) {
-  console.log(data);
   const { operation, target, sender, item: itemId } = data;
   const targetActor = game.actors.get(target);
   const targetToken = canvas.tokens.get(target);

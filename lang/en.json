@@ -12,7 +12,10 @@
       "Healing": "Healing",
       "SavingThrow": "Saving Throw",
       "Targets": "Targets",
+      "AttackBy": "Attack by",
       "CastBy": "Cast by",
+      "UsedBy": "Used by",
+      "Effects": "Effects",
       "FullEffect": "Full Effect",
       "HalfEffect": "Half Effect",
       "NegatesSpell": "Negates Spell",
@@ -213,7 +216,9 @@
           "Target": "Target",
           "TargetType": "Target Type",
           "TargetTypeAsc": "Ascending",
-          "TargetTypeDes": "Descending"
+          "TargetTypeDes": "Descending",
+          "Useable": "Useable",
+          "Consumable": "Consumable"
         },
         "Name": "Name",
         "Quantity": "Quantity",
@@ -235,8 +240,8 @@
         "RollNone": "None",
         "RollDamage": "Damage",
         "RollHealing": "Healing",
-        "RequiresSave": "Requires Saving Throw",
-        "SaveEffect": "On Successful Save",
+        "RequiresSave": "Allows Save",
+        "SaveEffect": "On Save",
         "InvalidFormula": "The spell roll formula '{formula}' is invalid.",
         "Tabs": {
           "Attributes": "Attributes",
@@ -247,7 +252,7 @@
         "Attributes": {
           "RollFormula": "Roll Formula",
           "ToHitModifier": "To Hit Modifier",
-          "DamageRollFormula": "Damage Roll Formula",
+          "DamageRollFormula": "Damage Roll",
           "Range": "Range",
           "Missile": "Missile Weapon?",
           "RateOfFire": "Rate Of Fire",

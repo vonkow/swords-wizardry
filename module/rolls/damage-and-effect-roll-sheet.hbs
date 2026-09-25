@@ -7,7 +7,7 @@
       {{#if isSpell}}
       <div>{{localize "SWORDS_WIZARDRY.Chat.CastBy"}} {{actor.name}}</div>
       {{else}}
-      <div>Used by {{actor.name}}</div>
+      <div>{{localize "SWORDS_WIZARDRY.Chat.UsedBy"}} {{actor.name}}</div>
       {{/if}}
       {{/if}}
     </div>
@@ -50,7 +50,7 @@
 
   {{#if effects}}
   <!-- TODO stylize -->
-  <div class="spell-card-save">Effects: {{#each effects}}{{#unless @first}},&nbsp;{{/unless}}{{name}}{{/each}}</div>
+  <div class="spell-card-save">{{localize "SWORDS_WIZARDRY.Chat.Effects}} {{#each effects}}{{#unless @first}},&nbsp;{{/unless}}{{name}}{{/each}}</div>
   {{/if}}
   {{#if targets}}
   <h4 class="targets">{{localize "SWORDS_WIZARDRY.Chat.Targets"}}</h4>

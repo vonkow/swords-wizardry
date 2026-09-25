@@ -101,14 +101,15 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
       const result = appliedDamage[targetId];
 
       // TODO can we move this / consolidate it?
-      const labelKey
-        = result.action === "damage" ? "Damage"
-        : result.action === "heal" ? "Healing"
-        : result.action === "half" ? "HalfDamage"
-        : result.action === "half-heal" ? "HalfHealing"
-        : result.action === "double" ? "DoubleDamage"
-        : result.action === "none" ? "NoEffect"
-        : "Damage";
+      const labelKey = game.i18n.localize(
+        result.action === "damage" ? "SWORDS_WIZARDRY.Chat.Damage"
+        : result.action === "heal" ? "SWORDS_WIZARDRY.Chat.Healing"
+        : result.action === "half" ? "SWORDS_WIZARDRY.Chat.HalfDamage"
+        : result.action === "half-heal" ? "SWORDS_WIZARDRY.Chat.HalfHealing"
+        : result.action === "double" ? "SWORDS_WIZARDRY.Chat.DoubleDamage"
+        : result.action === "none" ? "SWORDS_WIZARDRY.Chat.NoEffect"
+        : "SWORDS_WIZARDRY.Chat.Damage"
+      );
       const label = game.i18n.localize(`SWORDS_WIZARDRY.Chat.${labelKey}`);
 
       const resultDiv = targetElement.querySelector(".damage-result");

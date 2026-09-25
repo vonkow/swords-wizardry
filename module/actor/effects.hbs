@@ -26,7 +26,8 @@
           <h4>{{effect.name}}</h4>
         </div>
         <div class="effect-source">{{effect.sourceName}}</div>
-        <div class="effect-duration">{{effect.duration.label}}</div>
+        <!-- TODO remove units when effect.duration.value is not set (couldn't figure this out in 5 minutes so i stopped -->
+        <div class="effect-duration">{{effect.duration.value}} {{effect.duration.units}}</div>
         <div class="item-controls effect-controls flexrow">
           <a 
             class="effect-control" 

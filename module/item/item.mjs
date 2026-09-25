@@ -132,7 +132,6 @@ export class SwordsWizardryItem extends Item {
           return null; // TODO update to say nothing to consume
         }
       }
-      // TODO pass in something that says this is an item not a spell?
       return this.rollSpell(rollData);
     } else {
       const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -174,7 +173,6 @@ export class SwordsWizardryItem extends Item {
   }
 
   async applyDamageAndEffects(target, initialAmount, rollType=this.system.rollType) {
-    //const { rollType } = this.system;
     const sender = this.actor;
     const amount
       = rollType === "none" ? 0
