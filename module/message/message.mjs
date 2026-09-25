@@ -37,7 +37,7 @@ export class SwordsWizardryChatMessage extends ChatMessage {
         console.error('this is maybe broken');
       }
       const item = actor.items.get(itemId);
-      item.rollDamageAndEffects();
+      item.rollItemDamageAndEffects();
     });
   }
 

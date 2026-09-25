@@ -102,5 +102,4 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     const effect = this.item.effects.get(id);
     effect.sheet.render(true);
   }
-
 }

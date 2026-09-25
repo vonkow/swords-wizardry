@@ -7,7 +7,7 @@
       {{#if isSpell}}
       <div>{{localize "SWORDS_WIZARDRY.Chat.CastBy"}} {{actor.name}}</div>
       {{else}}
-      <div>TODO damage by {{actor.name}}</div>
+      <div>Used by {{actor.name}}</div>
       {{/if}}
       {{/if}}
     </div>
@@ -23,7 +23,7 @@
     <span>{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}} {{item.system.duration}}</span>
     {{/if}}
     {{else}}
-    <span>TODO Weapon details (like special damage?)</span>
+    <!--<span>TODO Weapon details (like special damage?)</span>-->
     {{/if}}
   </div>
 
@@ -31,6 +31,7 @@
   <div class="spell-card-description">{{{item.system.description}}}</div>
   {{/if}}
 
+  <!-- TODO Change to if roll.formula !== 0 or something -->
   {{#if roll}}
   <div class="spell-card-roll">{{{roll}}}</div>
   {{/if}}
@@ -47,8 +48,12 @@
   </div>
   {{/if}}
 
+  {{#if effects}}
+  <!-- TODO stylize -->
+  <div class="spell-card-save">Effects: {{#each effects}}{{#unless @first}},&nbsp;{{/unless}}{{name}}{{/each}}</div>
+  {{/if}}
   {{#if targets}}
-  <h4>{{localize "SWORDS_WIZARDRY.Chat.Targets"}}</h4>
+  <h4 class="targets">{{localize "SWORDS_WIZARDRY.Chat.Targets"}}</h4>
   <div class="damage-targets">
     {{#each targets}}
     <div class="damage-target">

@@ -103,6 +103,7 @@ export class DamageRoll extends Roll {
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
+      effects: this.data.effects,
       targets,
       appliedDamage,
       dmAppliesDamage,

@@ -50,6 +50,25 @@
     {{/if}}
     {{/if}}
   {{/each}}
+  {{#each actor.items as |item iid|}}
+    {{#if (eq item.type 'item')}}
+    {{#if item.system.usable}}
+    <li class="item" data-item-id="{{item._id}}">
+      <div class="item-name">
+        <a class='rollable' data-roll-type='item'>
+          <img
+            src='{{item.img}}'
+            title='{{item.name}}'
+            width='24'
+            height='24'
+          />
+        </a>
+        <span>{{item.name}}{{#if item.system.consumable}} ({{item.system.quantity}}){{/if}}</span>
+      </div>
+    </li>
+    {{/if}}
+    {{/if}}
+  {{/each}}
   {{#each actor.system.spellSlots as |level lid|}}
     {{#each level.memorizedSpells as |spell sid|}}
     <li class="item-cast" data-item-id="{{spell._id}}">

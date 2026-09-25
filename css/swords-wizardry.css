@@ -544,6 +544,9 @@ input {
   flex: 1;
   font-size: 11px;
 }
+.swords-wizardry h4.targets {
+  margin-top: 1rem;
+}
 .swords-wizardry .spell-card-header {
   display: flex;
   align-items: center;

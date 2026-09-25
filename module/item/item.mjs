@@ -38,12 +38,14 @@ export class SwordsWizardryItem extends Item {
     const rollData = { ...super.getRollData() };
     rollData.name = this.name;
     rollData.item = this;
+    rollData.effects = this.effects;
     switch (this.type) {
       case 'weapon':
         return this.getWeaponRollData(rollData);
       case 'feature':
         return this.getFeatureRollData(rollData);
       case 'spell':
+      case 'item':
         return this.getSpellRollData(rollData);
       default:
         return rollData;
@@ -68,11 +70,14 @@ export class SwordsWizardryItem extends Item {
     if (rollData.modifier && rollData.modifier !== '0') {
       rollData.formula += ` + ${rollData.modifier}`;
     }
-    rollData.effects = this.effects;
     return rollData;
   }
 
   getFeatureRollData(rollData) {
+    if (this.actor) {
+      Object.assign(rollData, this.actor.getRollData());
+      rollData.actor = this.actor;
+    }
     return rollData;
   }
 
@@ -84,7 +89,6 @@ export class SwordsWizardryItem extends Item {
     rollData.rollType = this.system.rollType;
     rollData.requiresSave = this.system.requiresSave;
     rollData.saveEffect = this.system.saveEffect;
-    rollData.effects = this.effects;
     return rollData;
   }
 
@@ -120,22 +124,33 @@ export class SwordsWizardryItem extends Item {
   }
 
   async rollItem(rollData) {
-    // TODO update this so items can cause effects
-    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
-    ChatMessage.create({
-      speaker: speaker,
-      rollMode: rollMode,
-      flavor: label,
-      content: this.system.description ?? '',
-    });
+    if (this.system.usable) {
+      if (this.system.consumable) {
+        if (this.system.quantity > 0) {
+          this.update({ system: { quantity: this.system.quantity - 1 } });
+        } else {
+          return null; // TODO update to say nothing to consume
+        }
+      }
+      // TODO pass in something that says this is an item not a spell?
+      return this.rollSpell(rollData);
+    } else {
+      const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+      const rollMode = game.settings.get('core', 'rollMode');
+      const label = `[${this.type}] ${this.name}`;
+      ChatMessage.create({
+        speaker: speaker,
+        rollMode: rollMode,
+        flavor: label,
+        content: this.system.description ?? '',
+      });
+    }
   }
 
   async rollSpell(rollData) {
     const formula = this.system.formula?.trim();
     try {
-      const roll = new DamageRoll(formula, rollData)
+      const roll = new DamageRoll(formula, rollData);
       const result = await roll.render();
       return roll;
     } catch (error) {
@@ -148,10 +163,9 @@ export class SwordsWizardryItem extends Item {
     }
   }
 
-  // TODO maek this rollWeaponDamageAndEffects to not confuse? or genericize and call from rollSpell?
-  async rollDamageAndEffects() {
+  async rollItemDamageAndEffects() {
     const { actor } = this;
-    const rollData = { actor, item: this };
+    const rollData = { actor, item: this, effects: Array.from(this.effects) };
     let { damageFormula } = this.system;
     if (actor.system.modifiers?.damage?.value != 0) damageFormula += `+${actor.system.modifiers.damage.value}`;
     const roll = new DamageRoll(damageFormula, rollData);
@@ -160,6 +174,7 @@ export class SwordsWizardryItem extends Item {
   }
 
   async applyDamageAndEffects(target, initialAmount, rollType=this.system.rollType) {
+    //const { rollType } = this.system;
     const sender = this.actor;
     const amount
       = rollType === "none" ? 0

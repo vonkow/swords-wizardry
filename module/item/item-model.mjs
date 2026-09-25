@@ -57,7 +57,9 @@ export class ItemData extends TangibleItemData {
     const base = super.defineSchema();
     return {
       ...base,
-      formula: new StringField({ initial: "d6" })
+      formula: new StringField({ initial: "" }),
+      usable: new BooleanField({ initial: false }),
+      consumable: new BooleanField({ initial: false })
     };
   }
 }
