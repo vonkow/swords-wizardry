@@ -58,9 +58,9 @@
           "Delete": "Delete Weapon",
           "Name": "Name",
           "New": "New Weapon",
+          "RollFormula": "Roll Formula",
           "ToHitModifier": "To Hit Mod",
           "DamageRollFormula": "Damage Roll",
-          "RollFormula": "Roll Formula",
           "Update": "Update Weapon",
           "Weight": "Weight"
         },
@@ -81,8 +81,8 @@
         "Gold": "Gold",
         "Platinum": "Platinum",
         "Silver": "Silver",
-        "Items": "Items",
         "Other": "Other",
+        "Items": "Items",
         "Table": {
           "Create": "Create Item",
           "Delete": "Delete Item",
@@ -139,10 +139,7 @@
       "Alignment": "Alignment",
       "ArmorClass": { "long": "Armor Class", "abbr": "AC" },
       "Class": "Class",
-      "CL_XP": {
-        "long": "Challenge Level / Experience Points",
-        "abbr": "CL / XP"
-      },
+      "CL_XP": { "long": "Challenge Level / Experience Points", "abbr": "CL / XP" },
       "HitDie": { "long": "Hit Die", "abbr": "HD" },
       "HitPoints": { "long": "Hit Points", "abbr": "HP" },
       "Level": "Level",
@@ -177,10 +174,7 @@
       "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "Know Spell %" },
       "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "Min Spells/lvl" },
       "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "Max Spells/lvl" },
-      "MaxSpecialHirelings": {
-        "long": "Max # Special Hirelings",
-        "abbr": "Max Hirelings"
-      },
+      "MaxSpecialHirelings": { "long": "Max # Special Hirelings", "abbr": "Max Hirelings" },
       "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "abbr": "Morale" }
     },
     "SheetLabels": {
