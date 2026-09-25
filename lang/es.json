@@ -217,7 +217,7 @@
           "TargetType": "Tipo de tirada",
           "TargetTypeAsc": "Ascendente",
           "TargetTypeDes": "Descendente",
-          "Useable": "Utilizable",
+          "Usable": "Utilizable",
           "Consumable": "Consumible"
         },
         "Name": "Nombre",

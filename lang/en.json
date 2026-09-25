@@ -211,7 +211,7 @@
           "TargetType": "Target Type",
           "TargetTypeAsc": "Ascending",
           "TargetTypeDes": "Descending",
-          "Useable": "Useable",
+          "Usable": "Usable",
           "Consumable": "Consumable"
         },
         "Name": "Name",

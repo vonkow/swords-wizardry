@@ -43,7 +43,7 @@
       </div>
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.RollType"}}</label>
-        <select name="system.rollType">
+        <select name="system.rollType"{{#unless system.usable}} disabled{{/unless}}>
           <option value="none" {{#if (eq system.rollType 'none')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollNone"}}</option>
           <option value="damage" {{#if (eq system.rollType 'damage')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollDamage"}}</option>
           <option value="healing" {{#if (eq system.rollType 'healing')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollHealing"}}</option>
