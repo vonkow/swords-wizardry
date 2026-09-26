@@ -12,6 +12,6 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/swords-wizardry/module/actor/items.hbs',
     'systems/swords-wizardry/module/actor/spells.hbs',
     'systems/swords-wizardry/module/actor/effects.hbs',
-    'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs'
+    'systems/swords-wizardry/module/rolls/damage-and-effect-roll-sheet.hbs'
   ]);
 };

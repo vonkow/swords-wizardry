@@ -12,7 +12,10 @@
       "Healing": "Curación",
       "SavingThrow": "Tirada de salvación",
       "Targets": "Objetivos",
+      "AttackBy": "Ataque de",
       "CastBy": "Lanzado por",
+      "UsedBy": "Usado por",
+      "Effects": "Efectos",
       "FullEffect": "Efecto completo",
       "HalfEffect": "Mitad del efecto",
       "NegatesSpell": "Anula el hechizo",
@@ -122,7 +125,14 @@
         "Description": "Descripción",
         "Equipment": "Equipo",
         "Main": "Atributos",
-        "Spells": "Conjuros"
+        "Spells": "Conjuros",
+        "Effects": "Efectos"
+      }
+    },
+    "ItemSheet": {
+      "Tabs": {
+        "Details": "Detalles",
+        "Effects": "Efectos"
       }
     },
     "Stats": {
@@ -206,14 +216,17 @@
           "Target": "Valor objetivo",
           "TargetType": "Tipo de tirada",
           "TargetTypeAsc": "Ascendente",
-          "TargetTypeDes": "Descendente"
+          "TargetTypeDes": "Descendente",
+          "Usable": "Utilizable",
+          "Consumable": "Consumible"
         },
         "Name": "Nombre",
         "Quantity": "Cantidad",
         "Gold": "Coste (mo)",
         "Tabs": {
           "Attributes": "Atributos",
-          "Description": "Descripción"
+          "Description": "Descripción",
+          "Effects": "Efectos"
         },
         "Weight": "Peso (lb)"
       },
@@ -223,10 +236,10 @@
         "Range": "Alcance",
         "Duration": "Duración",
         "RollFormula": "Fórmula de tirada",
-        "EffectType": "Tipo de efecto",
-        "EffectNone": "Ninguno",
-        "EffectDamage": "Daño",
-        "EffectHealing": "Curación",
+        "RollType": "Tipo de rollo",
+        "RollNone": "Ninguno",
+        "RollDamage": "Daño",
+        "RollHealing": "Curación",
         "RequiresSave": "Requiere tirada de salvación",
         "SaveEffect": "Con una salvación exitosa",
         "InvalidFormula": "La fórmula de tirada del hechizo '{formula}' no es válida.",
@@ -259,13 +272,15 @@
       "Create": "Crear efecto",
       "Delete": "Borrar efecto",
       "Duration": "Duración",
-      "New": "Nuevo efecto",
+      "DurationFormula": "Fórmula de la duración",
+      "DurationFormulaUnits": "Unidades de duración",
       "Source": "Fuente",
       "Toggle": "Activar efecto",
       "Temporary": "Efectos temporales",
       "Passive": "Efectos pasivos",
       "Inactive": "Efectos inactivos",
-      "Update": "Actualizar efecto"
+      "Update": "Actualizar efecto",
+      "Targeted": "Afecta a los actores objetivo"
     }
   },
   "TYPES": {
@@ -284,6 +299,7 @@
   },
   "New": {
     "armor": "Nueva protección",
+    "effect": "Nuevo efecto",
     "item": "Nuevo objeto",
     "feature": "Nuevo rasgo",
     "spell": "Nuevo conjuro",

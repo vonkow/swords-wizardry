@@ -1,4 +1,4 @@
-import { SwordsWizardryChatMessage } from '../helpers/overrides.mjs';
+import { SwordsWizardryChatMessage } from '../message/message.mjs';
 import { rpc } from '../helpers/rpc.mjs';
 
 const { renderTemplate } = foundry.applications.handlebars;
@@ -7,6 +7,7 @@ export class AttackRoll extends Roll {
 
   constructor(formula, rollData={}, options={}) {
     super(formula, rollData, options);
+    this.missileAttack = rollData.item?.system?.missile || false;
     this.hitTargets = [];
     this.missedTargets = [];
   }
@@ -16,12 +17,15 @@ export class AttackRoll extends Roll {
     // TODO move game.user.targets to up the chain and pass it in for more generic attacks?
     game.user.targets.forEach((target) => {
       let hit = false;
+      let ACMod = target.actor.system.modifiers?.meleeAC;
+      if (this.missileAttack) ACMod = target.actor.system.modifiers?.missileAC;
+      if (!ACMod) ACMod = 0;
       if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
         // Attack bonus is added to the roll formula by the item.
-        const targetAAC = target.actor.system.aac.value;
+        const targetAAC = target.actor.system.aac.value + ACMod;
         if (result.total >= targetAAC) hit = true;
       } else {
-        const targetAC = target.actor.system.ac.value;
+        const targetAC = target.actor.system.ac.value - ACMod;
         const targetNumber = this.data.actor.tHAC0 - targetAC;
         if (result.total >= targetNumber) hit = true;
       }
@@ -62,78 +66,74 @@ export class AttackRoll extends Roll {
 
 export class DamageRoll extends Roll {
   async evaluate() {
-    const result = await super.evaluate();
-
-    const isSpell = this.data.item?.type === 'spell';
-    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
-    const requiresSave = isSpell && Boolean(this.data.requiresSave);
-    if (
-      !game.settings.get('swords-wizardry', 'dmAppliesDamage')
-      && !requiresSave
-      && effectType !== 'none'
-    ) {
-      const amount = effectType === 'healing' ? result.total * -1 : result.total;
-      await Promise.all(Array.from(game.user.targets).map(target =>
-        rpc({
-          recipient: 'GM',
-          target: target.id,
-          operation: 'damage',
-          amount,
-          data: { system: { hp: { value: target.actor.system.hp.value - amount } } }
-        })
-      ));
+    const ignoreResult = this.formula === '';
+    if (!this._evaluated) {
+      if (ignoreResult) {
+        this._evaluated = true;
+        this._total = 0;
+        return this;
+      } else {
+        const result = await super.evaluate();
+        return result;
+      }
     }
-
-    return result;
   }
 
   async render(options) {
     const dmAppliesDamage = game.settings.get('swords-wizardry', 'dmAppliesDamage');
     const isSpell = this.data.item?.type === 'spell';
-    const effectType = isSpell ? this.data.effectType ?? 'none' : 'damage';
+    const rollType = isSpell ? this.data.rollType ?? 'none' : 'damage';
     const requiresSave = isSpell && Boolean(this.data.requiresSave);
     const saveEffect = this.data.saveEffect === 'half' ? 'half' : 'negate';
     const speaker = ChatMessage.getSpeaker({ actor: this.data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     if (!this._evaluated) await this.evaluate();
     const rollHtml = await super.render();
-    const template = isSpell
-      ? 'systems/swords-wizardry/module/rolls/spell-roll-sheet.hbs'
-      : 'systems/swords-wizardry/module/rolls/damage-roll-sheet.hbs';
+    const template = 'systems/swords-wizardry/module/rolls/damage-and-effect-roll-sheet.hbs';
+    const message = this.message;
+    const appliedDamage = message
+      ? message.getFlag('swords-wizardry', 'appliedDamage') || {}
+	    : {};
+    const needsManualApplication = rollType !== 'none' && dmAppliesDamage;
+
+    const targets = Array.from(game.user.targets).map(t => ({
+      id: t.id,
+      name: t.name,
+      hp: t.actor.system.hp.value
+    }));
 
     const chatData = {
       item: this.data.item,
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
+      effects: this.data.effects,
+      targets,
+      appliedDamage,
       dmAppliesDamage,
+      isSpell,
       requiresSave,
       saveEffectHalf: saveEffect === 'half',
-      fullAction: effectType === 'healing'
+      fullAction: rollType === 'healing'
         ? 'heal'
-        : effectType === 'damage' ? 'damage' : null,
+        : rollType === 'damage' 
+          ? 'damage'
+          : isSpell
+            ? 'spell'
+            : null,
       saveAction: saveEffect === 'half'
-        ? effectType === 'healing' ? 'half-heal' : 'half'
-        : 'none'
+        ? rollType === 'healing' 
+          ? 'half-heal' 
+          : 'half'
+        : 'negated'
     };
 
-    const needsManualApplication = effectType !== 'none'
-      && (dmAppliesDamage || requiresSave);
-    if (needsManualApplication || requiresSave) {
-      const targets = Array.from(game.user.targets).map(t => ({
-        id: t.id,
-        name: t.name,
-        hp: t.actor.system.hp.value
+    if (!dmAppliesDamage && !requiresSave) {
+      await Promise.all(Array.from(game.user.targets).map(async target => {
+        const data = await this.data.item.applyDamageAndEffects(target, this.total, chatData.fullAction);
+        const { amount, oldHP, newHP, effects, action } = data;
+        chatData.appliedDamage[target.id] = { action, amount, oldHP, newHP };
       }));
-
-      const message = this.message;
-
-      const appliedDamage = message
-        ? message.getFlag('swords-wizardry', 'appliedDamage') || {}
-	: {}
-
-      chatData.targets = targets;
-      chatData.appliedDamage = appliedDamage;
     }
 
     const resultsHtml = await renderTemplate(template, chatData);
@@ -150,7 +150,6 @@ export class DamageRoll extends Roll {
 export class FeatureRoll extends Roll {
   async evaluate() {
     const result = await super.evaluate();
-    // do something with result.total and this.data.target based on this.data.targetType
     result.success = (
         result.data.targetType == 'ascending'
         && result.total >= parseInt(result.data.target)
@@ -187,9 +186,12 @@ export class FeatureRoll extends Roll {
 
 export class SaveRoll extends Roll {
   constructor(formula, rollData={}, options={}) {
-    super(formula, rollData, options);
+    let modifiedFormula = formula;
+    if (rollData.modifiers?.save) modifiedFormula = `${formula} + ${rollData.modifiers.save}`;
+    super(modifiedFormula, rollData, options);
     this.save = rollData?.system?.save ?? { value: 15 };
     if (!this.save.value) this.save.value = 15;
+    this._formula = modifiedFormula;
   }
 
   async evaluate() {

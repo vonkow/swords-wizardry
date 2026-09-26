@@ -1,38 +1,60 @@
-<ol class="items-list effects-list">
-  {{#each effects as |section sid|}}
-    <li class="items-header flexrow" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}" >
-      <h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
-      <div class="effect-source">{{localize "SWORDS_WIZARDRY.Effect.Source"}}</div>
-      <div class="effect-source">{{localize "SWORDS_WIZARDRY.Effect.Duration"}}</div>
-      <div class="item-controls effect-controls flexrow">
-        <a class="effect-control" data-action="create" title="{{localize 'SWORDS_WIZARDRY.Effect.Create' type="Effect"}}">
-          <i class="fas fa-plus"></i> {{localize "SWORDS_WIZARDRY.Effect.New" type="Effect"}}
-        </a>
-      </div>
-    </li>
-
-    <ol class="item-list">
-    {{#each section.effects as |effect|}}
+<section
+  class="tab {{tabs.effects.id}} {{tabs.effects.cssClass}}"
+  data-tab="{{tabs.effects.id}}"
+  data-group="{{tabs.effects.group}}"
+>
+  <ol class="items-list effects-list">
+      <li class="items-header flexrow" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}" >
+        <h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
+        <div class="effect-source">{{localize "SWORDS_WIZARDRY.Effect.Source"}}</div>
+        <div class="effect-source">{{localize "SWORDS_WIZARDRY.Effect.Duration"}}</div>
+        <div class="item-controls effect-controls flexrow">
+          <a 
+            class="effect-control" 
+            data-action="effectCreate" 
+            title="{{localize 'SWORDS_WIZARDRY.Effect.Create' 
+            type="Effect"}}"
+          >
+            <i class="fas fa-plus"></i> {{localize "SWORDS_WIZARDRY.Effect.Create"}}
+          </a>
+        </div>
+      </li>
+      {{#each effects as |effect|}}
       <li class="item effect flexrow" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}">
         <div class="item-name effect-name flexrow">
           <img class="item-image" src="{{effect.icon}}"/>
           <h4>{{effect.name}}</h4>
         </div>
         <div class="effect-source">{{effect.sourceName}}</div>
-        <div class="effect-duration">{{effect.duration.label}}</div>
+        <!-- TODO remove units when effect.duration.value is not set (couldn't figure this out in 5 minutes so i stopped -->
+        <div class="effect-duration">{{effect.duration.value}} {{effect.duration.units}}</div>
         <div class="item-controls effect-controls flexrow">
-          <a class="effect-control" data-action="toggle" title="{{localize 'SWORDS_WIZARDRY.Effect.Toggle'}}">
+          <a 
+            class="effect-control" 
+            data-action="effectToggle" 
+            data-id="{{effect._id}}"
+            title="{{localize 'SWORDS_WIZARDRY.Effect.Toggle'}}"
+          >
             <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
           </a>
-          <a class="effect-control" data-action="edit" title="{{localize 'SWORDS_WIZARDRY.Effect.Update' type="Effect"}}">
+          <a
+            class="effect-control"
+            data-action="effectEdit"
+            data-id="{{effect._id}}"
+            title="{{localize 'SWORDS_WIZARDRY.Effect.Update' type="Effect"}}"
+          >
             <i class="fas fa-edit"></i>
           </a>
-          <a class="effect-control" data-action="delete" title="{{localize 'SWORDS_WIZARDRY.Effect.Delete' type="Effect"}}">
+          <a
+            class="effect-control" 
+            data-action="effectDelete" 
+            data-id="{{effect._id}}" 
+            title="{{localize 'SWORDS_WIZARDRY.Effect.Delete' type="Effect"}}"
+          >
             <i class="fas fa-trash"></i>
           </a>
         </div>
       </li>
     {{/each}}
-    </ol>
-  {{/each}}
-</ol>
+  </ol>
+</section>

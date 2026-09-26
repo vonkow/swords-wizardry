@@ -1,14 +1,27 @@
-{{ log 'attack-roll-sheet' this}}
 <div class="swords-wizardry">
-  <h3>{{localize "SWORDS_WIZARDRY.Chat.Rolled"}}: {{item.name}}</h3>
-  {{#each hitTargets as |hit hid|}}
-  <span class="attack-hit">{{localize "SWORDS_WIZARDRY.Chat.Hit"}} {{hit.actor.name}}!</span>&nbsp;
-  {{/each}}
-  {{#each missedTargets as |miss hid|}}
-  <span class="attack-miss">{{localize "SWORDS_WIZARDRY.Chat.Missed"}} {{miss.actor.name}}</span>&nbsp;
-  {{/each}}
-  <a class="inline-result"><span>{{{roll}}}</span></a>
-  <button class="damage-roll-button" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}">
-    {{localize "SWORDS_WIZARDRY.Chat.Damage"}}: <span class="attack-damage-roll">{{damageFormula}}{{# if item.system.specialDamage}} + {{item.system.specialDamage}}{{/if}}</span>
-  </button>
+  <header class="spell-card-header">
+    <img class="spell-card-image" src="{{item.img}}" alt=""/>
+    <div>
+      <h3>{{item.name}}</h3>
+      {{#if item.actor}}
+      <div>{{localize "SWORDS_WIZARDRY.Chat.AttackBy"}} {{item.actor.name}}</div>
+      {{/if}}
+    </div>
+  </header>
+  <div class="spell-card-save">
+    {{#each hitTargets as |hit hid|}}
+    <span class="attack-hit">{{localize "SWORDS_WIZARDRY.Chat.Hit"}} {{hit.actor.name}}!</span>&nbsp;
+    {{/each}}
+    {{#each missedTargets as |miss hid|}}
+    <span class="attack-miss">{{localize "SWORDS_WIZARDRY.Chat.Missed"}} {{miss.actor.name}}</span>&nbsp;
+    {{/each}}
+  </div>
+  <div class="spell-card-roll">
+    <a class="inline-result"><span>{{{roll}}}</span></a>
+  </div>
+  <div class="damage-buttons">
+    <button class="damage-roll-button" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}">
+      {{localize "SWORDS_WIZARDRY.Chat.Damage"}}: <span class="attack-damage-roll">{{damageFormula}}{{# if item.system.specialDamage}} + {{item.system.specialDamage}}{{/if}}</span>
+    </button>
+  </div>
 </div>

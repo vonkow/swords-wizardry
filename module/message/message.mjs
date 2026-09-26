@@ -1,9 +1,7 @@
-// TODO: Rename this file to be ChatMessage or something, it's not really generic overrides
 import { DamageRoll } from '../rolls/rolls.mjs';
-import { rpc } from './rpc.mjs';
+import { rpc } from '../helpers/rpc.mjs';
 
 const { deepClone } = foundry.utils;
-
 
 export class SwordsWizardryChatMessage extends ChatMessage {
   constructor(data){
@@ -36,55 +34,32 @@ export class SwordsWizardryChatMessage extends ChatMessage {
         // Probaby the fix is to pass either actorId or tokenId to this button as part of attack roll and then figure out which it is
         // here (canvas.tokens.get vs game.actors.get) and grab the item from the token or the actor
         // for now, put items on npcs in the sidebar, not on the board.
-        console.log('this is maybe broken');
+        console.error('this is maybe broken');
       }
       const item = actor.items.get(itemId);
-      const rollData = { actor, item };
-      let { damageFormula } = item.system;
-      if (actor.system.modifiers && actor.system.modifiers.damage.value && actor.system.modifiers.damage.value != 0)
-        damageFormula += `+${actor.system.modifiers.damage.value}`;
-      const roll = new DamageRoll(damageFormula, rollData);
-      await roll.render();
+      item.rollItemDamageAndEffects();
     });
   }
 
   _activateApplyDamageListener(html) {
     $(html).on('click', '.apply-damage', async (e) => {
 
+      //TODO MOVE TO rolls/roll with a minimal call after fetching event data (and genericize the application bit)?
       if (!game.user.isGM) {
-        ui.notifications.warn(game.i18n.localize(
-          'SWORDS_WIZARDRY.Chat.OnlyGMCanApply'
-        ));
+        ui.notifications.warn(game.i18n.localize('SWORDS_WIZARDRY.Chat.OnlyGMCanApply'));
         return;
       }
 
       const button = e.currentTarget;
-      const { action, targetId, amount: a } = button.dataset;
+      const { action, actorId, itemId, targetId, amount: a } = button.dataset;
       const initialAmount = Number(a);
+      const actor = Actor.get(actorId);
+      const item = actor.items.get(itemId);
       const target = canvas.tokens.get(targetId);
       if (!target) return;
 
-      const amount
-        = action === "none" ? 0
-        : action === "half" ? Math.floor(initialAmount / 2)
-        : action === "double" ? initialAmount * 2
-        : action === "heal" ? initialAmount * -1
-        : action === "half-heal" ? Math.floor(initialAmount / 2) * -1
-        : initialAmount;
-
-      const oldHP = target.actor.system.hp.value;
-      const newHP = oldHP - amount;
-
-      if (action !== "none") {
-        await rpc({
-          recipient: 'GM',
-          target: target.id,
-          operation: 'damage',
-          amount: amount,
-          data: { system: { hp: { value: newHP } } }
-        });
-      }
-
+      const data = await item.applyDamageAndEffects(target, initialAmount, action);
+      const { amount, oldHP, newHP, effects } = data;
 
       const messageId = $(button)
         .closest(".message")
@@ -125,13 +100,14 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
 
       const result = appliedDamage[targetId];
 
-      const labelKey
-        = result.action === "damage" ? "Damage"
+      // TODO can we move this / consolidate it?
+      const labelKey = 
+        result.action === "damage" ? "Damage"
         : result.action === "heal" ? "Healing"
         : result.action === "half" ? "HalfDamage"
         : result.action === "half-heal" ? "HalfHealing"
         : result.action === "double" ? "DoubleDamage"
-        : result.action === "none" ? "NoEffect"
+        : result.action === "negated" ? "NoEffect"
         : "Damage";
       const label = game.i18n.localize(`SWORDS_WIZARDRY.Chat.${labelKey}`);
 
