@@ -81,7 +81,8 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
       item.roll();
     });
 
-    $html.on('click.swCombatHud', '.item-cast', (ev) => {
+    $html.on('click.swCombatHud', '.item-cast', async (ev) => {
+      // TODO this is a duplicate of code in actor sheet. Move to common location and call
       const li = $(ev.currentTarget);
       const itemId = li.data('itemId');
       const item = this.actor.items.get(itemId);
@@ -93,6 +94,10 @@ export class CombatHud extends HandlebarsApplicationMixin(ApplicationV2) {
       if (mIndex > -1) slots.memorized.splice(mIndex, 1);
       const sIndex = slots.memorizedSpells.indexOf(item);
       if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
+      const key = `system.spellSlots.${spellLevel}.memorized`;
+      await this.actor.update({
+        [key]: slots.memorized
+      });
       this.render();
     });
 

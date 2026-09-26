@@ -121,6 +121,8 @@ Clicking on a weapon while targeting a token will perform an attack against that
 
 If you prefer to use Ascending AC, an option to use it can be found in the system's settings.
 
+If you wish to restrict damage application to the DM only, there is an option in the system's settings to support this.
+
 ## Items
 TODO talk more about each item type and any attributes it may have.
 
@@ -133,3 +135,10 @@ TODO talk more about each item type and any attributes it may have.
 ### Armor
 
 ### Spells
+TODO talk about roll types, saves, and effects (see below).
+
+## Active and Targeted Effects
+The system supports Foundry's built-in Active Effect system with a few modifications. Active Effects can be created on any actor or item type. 
+
+If the "Affects Target Actors" checkbox on an Active Effect is checked, the Active Effect becomes a Targeted Effect. Targeted Effects that are placed on weapons, spells, and items are applied to the targeted actor(s) (if any) when the item is used. The Duration Formula for targeted effects can reference @data from the item owner (frequently used for spell durations that are based on caster level).
+

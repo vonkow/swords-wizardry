@@ -306,54 +306,6 @@ input {
 }
 
 /* Styles limited to swords-wizardry sheets */
-.swords-wizardry {
-  /*
-  .sheet-tabs {
-    flex: 0;
-  }
-
-  .sheet-body,
-  .sheet-body .tab,
-  .sheet-body .tab .editor {
-    //height: 100%;
-  }
-
-  .editor {
-    min-height: 19.6em;
-    height: 100%;
-  }
-
-  .editor-container {
-      margin: 0;
-  }
-
-  .tox {
-    .tox-editor-container {
-      background: $c-white;
-    }
-
-    .tox-edit-area {
-      padding: 0 8px;
-    }
-  }
-  */
-  /*
-  .resource-label, .modifier-label {
-      font-weight: bold;
-  }
-
-  .resource-value, .modifier-value {
-      text-align: center;
-  }
-
-  .abilities, .modifiers {
-      .resource-label, .modifier-label {
-          //margin-top: 5px;
-      }
-  }
-
-  */
-}
 .swords-wizardry .window-content {
   overflow: scroll;
 }
@@ -420,6 +372,9 @@ input {
   width: 100%;
   height: 100%;
   margin: 0;
+}
+.swords-wizardry .charname input {
+  height: auto;
 }
 .swords-wizardry .items-header {
   height: 28px;
@@ -543,6 +498,9 @@ input {
 .swords-wizardry .damage-buttons button {
   flex: 1;
   font-size: 11px;
+}
+.swords-wizardry h4.targets {
+  margin-top: 1rem;
 }
 .swords-wizardry .spell-card-header {
   display: flex;

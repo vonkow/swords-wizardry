@@ -111,6 +111,11 @@ class BaseCharacterData extends TypeDataModel {
 };
       
 export class CharacterData extends BaseCharacterData {
+  HIDDEN_MODIFIER_FIELDS = [
+    'meleeAC',
+    'missileAC',
+    'save'
+  ];
   static defineSchema() {
     const base = super.defineSchema();
     return {
@@ -216,6 +221,22 @@ export class CharacterData extends BaseCharacterData {
         }),
         retainerMoraleAdjustment: new SchemaField({
           value: new NumberField({ integer: true, initial: 0 })
+        }),
+        // Hiddden Modifiers
+        missileAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
+        }),
+        meleeAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
+        }),
+        save: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -20, max: 20, initial: 0
+          })
         })
       })
     }
@@ -235,7 +256,30 @@ export class NPCData extends BaseCharacterData {
       }),
       special: new StringField(),
       numberEncountered: new StringField(),
-      percentInLair: new StringField()
+      percentInLair: new StringField(),
+      modifiers: new SchemaField({
+        toHit: new SchemaField({
+          value: new NumberField({ integer: true, initial: 0 })
+        }),
+        damage: new SchemaField({
+          value: new NumberField({ integer: true, initial: 0 })
+        }),
+        missileAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
+        }),
+        meleeAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
+        }),
+        save: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -20, max: 20, initial: 0
+          })
+        })
+      })
     }
   }
 };

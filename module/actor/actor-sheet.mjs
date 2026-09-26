@@ -11,6 +11,10 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
       itemDelete: this.#itemDelete,
       itemEdit: this.#itemEdit,
       itemIncrement: this.#itemIncrement,
+      effectCreate: this.#effectCreate,
+      effectDelete: this.#effectDelete,
+      effectEdit: this.#effectEdit,
+      effectToggle: this.#effectToggle,
       moraleRoll: this.#moraleRoll,
       roll: this.#roll,
       saveRoll: this.#saveRoll,
@@ -25,8 +29,8 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     },
     classes: ['swords-wizardry', 'sheet', 'actor'],
     position: {
-      width: 640,
-      height: 640
+      height: 640, // TODO delete this for dynamic height? i wish there was maxHeight
+      width: 640
     },
     window: {
       resizable: true,
@@ -47,6 +51,7 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
           { id: 'weapons', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Combat' },
           { id: 'items', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Equipment' },
           { id: 'spells', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Spells' },
+          { id: 'effects', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Effects' },
           { id: 'description', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Description' }
         ];
       }
@@ -56,7 +61,8 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
           { id: 'weapons', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Combat' },
           { id: 'description', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Description' },
           { id: 'items', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Equipment' },
-          { id: 'spells', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Spells' }
+          { id: 'spells', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Spells' },
+          { id: 'effects', label: 'SWORDS_WIZARDRY.CharacterSheet.Tabs.Effects' }
         ];
       }
       else if (this.actor.type === 'container') {
@@ -103,6 +109,10 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
       template: 'systems/swords-wizardry/module/actor/spells.hbs',
       scrollable: ''
     },
+    effects: {
+      template: 'systems/swords-wizardry/module/actor/effects.hbs',
+      scrollable: ''
+    },
     description: {
       template: 'systems/swords-wizardry/module/actor/description.hbs',
       scrollable: ''
@@ -115,12 +125,11 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
       'swords-wizardry',
       'useAscendingAC'
     );
-    // TODO do we want to set context.actor or just this.actor it? figure out why
     context.actor = this.actor;
     context.system = this.actor.system;
     context.flags = this.actor.flags;
+    context.effects = this.actor.effects;
 
-    // todo will container type get mad at this?
     this._prepareItems(context);
     if (this.actor.type == 'character') {
       this._prepareCharacterData(context);
@@ -129,7 +138,6 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     // TODO is this needed?
     // Add roll data for TinyMCE editors.
     context.rollData = this.actor.getRollData();
-    console.log(this._configureRenderParts());
     return context;
   }
 
@@ -194,7 +202,6 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
 
   static async #itemCreate(event, target) {
     const { type, spellLevel } = target.dataset;
-    console.log(spellLevel);
     const name = game.i18n.localize(`New.${type}`);
     const data = { name, type };
     if (spellLevel) data.system = { spellLevel };
@@ -228,6 +235,32 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     const item = this.actor.items.get(id);
     const newQuantity = item.system.quantity - 1;
     if (newQuantity > 0) await item.update({ 'system.quantity': newQuantity });
+  }
+
+  static async #effectCreate(event, target) {
+    const { type } = target.dataset;
+    const name = game.i18n.localize('New.effect');
+    const data = { name, type };
+    return await this.actor.createEmbeddedDocuments("ActiveEffect", [data]);
+  }
+
+  static async #effectDelete(event, target) {
+    const { id } = target.dataset;
+    const effect = this.actor.effects.get(id);
+    effect.delete();
+    this.render(false);
+  }
+
+  static async #effectEdit(event, target) {
+    const { id } =  target.dataset;
+    const effect = this.actor.effects.get(id);
+    effect.sheet.render(true);
+  }
+
+  static async #effectToggle(event, target) {
+    const { id } = target.dataset;
+    const effect = this.actor.effects.get(id);
+    effect.update({ disabled: !effect.disabled });
   }
 
   static async #moraleRoll(_event, _target) {
@@ -275,6 +308,7 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   }
 
   static async #spellCast(event, target) {
+    // TODO this code is duplicated in the hud. Move to common location and call
     const { id } = target.dataset;
     const item = this.actor.items.get(id);
     item.roll();
@@ -284,6 +318,10 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
     if (mIndex > -1) slots.memorized.splice(mIndex, 1);
     const sIndex = slots.memorizedSpells.indexOf(item);
     if (sIndex > -1) slots.memorizedSpells.splice(sIndex, 1);
+    const key = `system.spellSlots.${spellLevel}.memorized`;
+    await this.actor.update({
+      [key]: slots.memorized
+    });
     this.actor.render();
   }
 }

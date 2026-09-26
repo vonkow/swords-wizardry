@@ -12,7 +12,10 @@
       "Healing": "Healing",
       "SavingThrow": "Saving Throw",
       "Targets": "Targets",
+      "AttackBy": "Attack by",
       "CastBy": "Cast by",
+      "UsedBy": "Used by",
+      "Effects": "Effects",
       "FullEffect": "Full Effect",
       "HalfEffect": "Half Effect",
       "NegatesSpell": "Negates Spell",
@@ -55,9 +58,9 @@
           "Delete": "Delete Weapon",
           "Name": "Name",
           "New": "New Weapon",
+          "RollFormula": "Roll Formula",
           "ToHitModifier": "To Hit Mod",
           "DamageRollFormula": "Damage Roll",
-          "RollFormula": "Roll Formula",
           "Update": "Update Weapon",
           "Weight": "Weight"
         },
@@ -78,8 +81,8 @@
         "Gold": "Gold",
         "Platinum": "Platinum",
         "Silver": "Silver",
-        "Items": "Items",
         "Other": "Other",
+        "Items": "Items",
         "Table": {
           "Create": "Create Item",
           "Delete": "Delete Item",
@@ -122,17 +125,21 @@
         "Description": "Description",
         "Equipment": "Equipment",
         "Main": "Main",
-        "Spells": "Spells"
+        "Spells": "Spells",
+        "Effects": "Effects"
       }
+    },
+    "ItemSheet": {
+       "Tabs": {
+         "Details": "Details",
+         "Effects": "Effects"
+       }
     },
     "Stats": {
       "Alignment": "Alignment",
       "ArmorClass": { "long": "Armor Class", "abbr": "AC" },
       "Class": "Class",
-      "CL_XP": {
-        "long": "Challenge Level / Experience Points",
-        "abbr": "CL / XP"
-      },
+      "CL_XP": { "long": "Challenge Level / Experience Points", "abbr": "CL / XP" },
       "HitDie": { "long": "Hit Die", "abbr": "HD" },
       "HitPoints": { "long": "Hit Points", "abbr": "HP" },
       "Level": "Level",
@@ -167,10 +174,7 @@
       "ChanceToUnderstandSpell": { "long": "Chance to Understand Spell", "abbr": "Know Spell %" },
       "MinimumSpellsPerLevel": { "long": "Minimum Spells Per Level", "abbr": "Min Spells/lvl" },
       "MaximumSpellsPerLevel": { "long": "Maximum Spells Per Level", "abbr": "Max Spells/lvl" },
-      "MaxSpecialHirelings": {
-        "long": "Max # Special Hirelings",
-        "abbr": "Max Hirelings"
-      },
+      "MaxSpecialHirelings": { "long": "Max # Special Hirelings", "abbr": "Max Hirelings" },
       "RetainerMoraleAdjustment": { "long": "Retainer Morale Adjustment", "abbr": "Morale" }
     },
     "SheetLabels": {
@@ -206,14 +210,17 @@
           "Target": "Target",
           "TargetType": "Target Type",
           "TargetTypeAsc": "Ascending",
-          "TargetTypeDes": "Descending"
+          "TargetTypeDes": "Descending",
+          "Usable": "Usable",
+          "Consumable": "Consumable"
         },
         "Name": "Name",
         "Quantity": "Quantity",
         "Gold": "Gold",
         "Tabs": {
           "Attributes": "Attributes",
-          "Description": "Description"
+          "Description": "Description",
+          "Effects": "Effects"
         },
         "Weight": "Weight"
       },
@@ -223,12 +230,12 @@
         "Range": "Range",
         "Duration": "Duration",
         "RollFormula": "Roll Formula",
-        "EffectType": "Effect Type",
-        "EffectNone": "None",
-        "EffectDamage": "Damage",
-        "EffectHealing": "Healing",
-        "RequiresSave": "Requires Saving Throw",
-        "SaveEffect": "On Successful Save",
+        "RollType": "Roll Type",
+        "RollNone": "None",
+        "RollDamage": "Damage",
+        "RollHealing": "Healing",
+        "RequiresSave": "Allows Save",
+        "SaveEffect": "On Save",
         "InvalidFormula": "The spell roll formula '{formula}' is invalid.",
         "Tabs": {
           "Attributes": "Attributes",
@@ -239,7 +246,7 @@
         "Attributes": {
           "RollFormula": "Roll Formula",
           "ToHitModifier": "To Hit Modifier",
-          "DamageRollFormula": "Damage Roll Formula",
+          "DamageRollFormula": "Damage Roll",
           "Range": "Range",
           "Missile": "Missile Weapon?",
           "RateOfFire": "Rate Of Fire",
@@ -259,13 +266,15 @@
       "Create": "Create Effect",
       "Delete": "Delete Effect",
       "Duration": "Duration",
-      "New": "New Effect",
+      "DurationFormula": "Duration Formula",
+      "DurationFormulaUnits": "Duration Units",
       "Source": "Source",
       "Toggle": "Toggle Effect",
       "Temporary": "Temporary Effects",
       "Passive": "Passive Effects",
       "Inactive": "Inactive Effects",
-      "Update": "Update Effect"
+      "Update": "Update Effect",
+      "Targeted": "Affects Target Actors"
     }
   },
   "TYPES": {
@@ -284,8 +293,9 @@
   },
   "New": {
     "armor": "New Armor",
-    "item": "New Item",
+    "effect": "New Effect",
     "feature": "New Feature",
+    "item": "New Item",
     "spell": "New Spell",
     "weapon": "New Weapon"
   }

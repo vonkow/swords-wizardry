@@ -1,3 +1,10 @@
+// TODO Is this the right place for this one?
+.charname {
+  input {
+    height: auto;
+  }
+}
+
 // Section Header
 .items-header {
   height: 28px;
@@ -16,7 +23,6 @@
     padding-left: 5px;
     text-align: left;
     display: flex;
-    // font-size: 16px;
   }
 }
 
