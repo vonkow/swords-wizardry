@@ -27,20 +27,24 @@
     <fieldset>
         <legend>{{localize "EFFECT.DURATION.Header"}}</legend>
         {{#if source.system.targeted}}
-        <div class="form-group slim duration" data-durationForumla>
-            <label class="flexrow" for="{{rootId}}-durationFormula">
-                <span>{{localize "SWORDS_WIZARDRY.Effect.DurationFormula"}}</span>
-            </label>
-            <div class="form-fields">
-                {{formInput fields.system.durationFormula value=source.system.durationFormula id=(concat rootId "-durationFormula")
+        <div class="form-group duration" data-durationForumla>
+            <div class="flexrow">
+                <label for="{{rootId}}-durationFormula">
+                    <span>{{localize "SWORDS_WIZARDRY.Effect.DurationFormula"}}</span>
+                </label>
+                <div>
+                    {{formInput fields.system.durationFormula value=source.system.durationFormula id=(concat rootId "-durationFormula")
                             aria=(object label=(localize "SWORDS_WIZARDRY.Effect.DurationFormula"))}}
+                </div>
             </div>
-            <label class="flexrow" for="{{rootId}}-durationFormulaUnits">
-                <span>{{localize "SWORDS_WIZARDRY.Effect.DurationFormulaUnits"}}</span>
-            </label>
-            <div class="form-fields">
-                {{formInput fields.system.durationFormulaUnits value=source.system.durationFormulaUnits id=(concat rootId "-durationFormulaUnits")
+            <div class="flexrow">
+                <label for="{{rootId}}-durationFormulaUnits">
+                    <span>{{localize "SWORDS_WIZARDRY.Effect.DurationFormulaUnits"}}</span>
+                </label>
+                <div>
+                    {{formInput fields.system.durationFormulaUnits value=source.system.durationFormulaUnits id=(concat rootId "-durationFormulaUnits")
                             options=durationUnits aria=(object label=(localize "SWORDS_WIZARDRY.Effect.DurationFormulaUnits"))}}
+                </div>
             </div>
             <!-- TODO Expiry like below as an option? or maybe remove it completely -->
         </div>

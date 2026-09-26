@@ -223,14 +223,20 @@ export class CharacterData extends BaseCharacterData {
           value: new NumberField({ integer: true, initial: 0 })
         }),
         // Hiddden Modifiers
-        missileAC: new NumberField({
-          required: true, integer: true, min: -10, max: 10, initial: 0
+        missileAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
         }),
-        meleeAC: new NumberField({
-          required: true, integer: true, min: -10, max: 10, initial: 0
+        meleeAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
         }),
-        save: new NumberField({
-          required: true, integer: true, min: -20, max: 20, initial: 0
+        save: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -20, max: 20, initial: 0
+          })
         })
       })
     }
@@ -258,14 +264,20 @@ export class NPCData extends BaseCharacterData {
         damage: new SchemaField({
           value: new NumberField({ integer: true, initial: 0 })
         }),
-        missileAC: new NumberField({
-          required: true, integer: true, min: -10, max: 10, initial: 0
+        missileAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
         }),
-        meleeAC: new NumberField({
-          required: true, integer: true, min: -10, max: 10, initial: 0
+        meleeAC: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -10, max: 10, initial: 0
+          })
         }),
-        save: new NumberField({
-          required: true, integer: true, min: -20, max: 20, initial: 0
+        save: new SchemaField({
+          value: new NumberField({
+            required: true, integer: true, min: -20, max: 20, initial: 0
+          })
         })
       })
     }
