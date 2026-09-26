@@ -20,12 +20,6 @@ class BaseCharacterData extends TypeDataModel {
       ac: new SchemaField({
         value: new NumberField({
           required: true, integer: true, min: -9, max: 10, initial: 9
-        }),
-        missileMod: new NumberField({
-          required: true, integer: true, min: -10, max: 10, initial: 0
-        }),
-        meleeMod: new NumberField({
-          required: true, integer: true, min: -10, max: 10, initial: 0
         })
       }),
       aac: new SchemaField({
@@ -42,9 +36,6 @@ class BaseCharacterData extends TypeDataModel {
       save: new SchemaField({
         value: new NumberField({
           required: true, integer: true, min: 1, max: 20, initial: 15
-        }),
-        modifier: new NumberField({
-          required: true, integer: true, min: -20, max: 20, initial: 0
         })
       }),
       moveRate: new SchemaField({
@@ -120,6 +111,11 @@ class BaseCharacterData extends TypeDataModel {
 };
       
 export class CharacterData extends BaseCharacterData {
+  HIDDEN_MODIFIER_FIELDS = [
+    'meleeAC',
+    'missileAC',
+    'save'
+  ];
   static defineSchema() {
     const base = super.defineSchema();
     return {
@@ -225,6 +221,16 @@ export class CharacterData extends BaseCharacterData {
         }),
         retainerMoraleAdjustment: new SchemaField({
           value: new NumberField({ integer: true, initial: 0 })
+        }),
+        // Hiddden Modifiers
+        missileAC: new NumberField({
+          required: true, integer: true, min: -10, max: 10, initial: 0
+        }),
+        meleeAC: new NumberField({
+          required: true, integer: true, min: -10, max: 10, initial: 0
+        }),
+        save: new NumberField({
+          required: true, integer: true, min: -20, max: 20, initial: 0
         })
       })
     }
@@ -251,6 +257,15 @@ export class NPCData extends BaseCharacterData {
         }),
         damage: new SchemaField({
           value: new NumberField({ integer: true, initial: 0 })
+        }),
+        missileAC: new NumberField({
+          required: true, integer: true, min: -10, max: 10, initial: 0
+        }),
+        meleeAC: new NumberField({
+          required: true, integer: true, min: -10, max: 10, initial: 0
+        }),
+        save: new NumberField({
+          required: true, integer: true, min: -20, max: 20, initial: 0
         })
       })
     }

@@ -169,6 +169,9 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
   }
 
   _prepareCharacterData(context) {
+    context.hidden_modifiers = [
+      'meleeAC', 'missileAC', 'save'
+    ];
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(
         CONFIG.SWORDS_WIZARDRY.abilities[k]

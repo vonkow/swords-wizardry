@@ -17,8 +17,8 @@ export class AttackRoll extends Roll {
     // TODO move game.user.targets to up the chain and pass it in for more generic attacks?
     game.user.targets.forEach((target) => {
       let hit = false;
-      let ACMod = target.actor.system.ac.meleeMod;
-      if (this.missileAttack) ACMod = target.actor.system.ac.missileMod;
+      let ACMod = target.actor.system.modifiers?.meleeAC;
+      if (this.missileAttack) ACMod = target.actor.system.modifiers?.missileAC;
       if (!ACMod) ACMod = 0;
       if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
         // Attack bonus is added to the roll formula by the item.
@@ -187,7 +187,7 @@ export class FeatureRoll extends Roll {
 export class SaveRoll extends Roll {
   constructor(formula, rollData={}, options={}) {
     let modifiedFormula = formula;
-    if (rollData.save?.modifier) modifiedFormula = `${formula} + ${rollData.save.modifier}`;
+    if (rollData.modifiers?.save) modifiedFormula = `${formula} + ${rollData.modifiers.save}`;
     super(modifiedFormula, rollData, options);
     this.save = rollData?.system?.save ?? { value: 15 };
     if (!this.save.value) this.save.value = 15;
