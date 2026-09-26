@@ -58,6 +58,11 @@ export class ItemData extends TangibleItemData {
     return {
       ...base,
       formula: new StringField({ initial: "" }),
+      rollType: new StringField({
+        required: true,
+        choices: ["none", "damage", "healing"],
+        initial: "none"
+      }),
       usable: new BooleanField({ initial: false }),
       consumable: new BooleanField({ initial: false })
     };

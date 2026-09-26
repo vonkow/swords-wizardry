@@ -235,7 +235,15 @@ export class NPCData extends BaseCharacterData {
       }),
       special: new StringField(),
       numberEncountered: new StringField(),
-      percentInLair: new StringField()
+      percentInLair: new StringField(),
+      modifiers: new SchemaField({
+        toHit: new SchemaField({
+          value: new NumberField({ integer: true, initial: 0 })
+        }),
+        damage: new SchemaField({
+          value: new NumberField({ integer: true, initial: 0 })
+        })
+      })
     }
   }
 };

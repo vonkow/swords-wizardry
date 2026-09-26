@@ -57,7 +57,7 @@
     </div>
     {{/if}}
     {{#if (eq item.type 'spell')}}
-    <div class="grid grid-3col">
+    <div class="grid grid-2col">
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Level"}}</label>
         <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="String"/>
@@ -65,10 +65,6 @@
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Range"}}</label>
         <input type="text" name="system.range" value="{{system.range}}" data-dtype="String"/>
-      </div>
-      <div class="resource">
-        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}}</label>
-        <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="String"/>
       </div>
     </div>
     <div class="grid grid-2col">
@@ -80,6 +76,12 @@
           <option value="healing" {{#if (eq system.rollType 'healing')}}selected{{/if}}>{{localize "SWORDS_WIZARDRY.Item.Spell.RollHealing"}}</option>
         </select>
       </div>
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.Duration"}}</label>
+        <input type="text" name="system.duration" value="{{system.duration}}" data-dtype="String"/>
+      </div>
+    </div>
+    <div class="grid grid-3col">
       <div class="resource">
         <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Spell.RollFormula"}}</label>
         <input type="text" name="system.formula" value="{{system.formula}}" data-dtype="String" placeholder="(@lvl)d6"{{#if (eq system.rollType 'none')}} disabled{{/if}}/>

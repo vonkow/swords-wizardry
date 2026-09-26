@@ -121,7 +121,7 @@ export class DamageRoll extends Roll {
         ? rollType === 'healing' 
           ? 'half-heal' 
           : 'half'
-        : 'none'
+        : 'negated'
     };
 
     if (!dmAppliesDamage && !requiresSave) {

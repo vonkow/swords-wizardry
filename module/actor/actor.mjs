@@ -76,6 +76,7 @@ export class SwordsWizardryActor extends Actor {
   }
 
   _calculateEncumbrance(actorData) {
+    // TODO make this optional, or at least its effect on movement
     const systemData = actorData.system;
 
     let totalWeight = 0;
@@ -135,23 +136,13 @@ export class SwordsWizardryActor extends Actor {
     });
   }
 
-  /**
-   * Override getRollData() that's supplied to rolls.
-   */
   getRollData() {
-    // Starts off by populating the roll data with `this.system`
     const data = { ...super.getRollData() };
     this._getCharacterRollData(data);
     return data;
   }
 
-  /**
-   * Prepare character roll data.
-   */
   _getCharacterRollData(data) {
-    if (this.type !== 'character') return;
-    // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
     if (data.abilities) {
       for (let [k, v] of Object.entries(data.abilities)) {
         data[k] = foundry.utils.deepClone(v);

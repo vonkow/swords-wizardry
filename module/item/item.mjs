@@ -190,45 +190,48 @@ export class SwordsWizardryItem extends Item {
 
     // TODO pass if saved
     await rpc({
-        recipient: 'GM',
-        operation: 'apply-damage-and-effects',
-        sender: this.actor.id,
-        target: target.id,
-        item: this.id,
-        newHP
+      recipient: 'GM',
+      operation: 'apply-damage-and-effects',
+      sender: this.actor.id,
+      target: target.id,
+      item: this.id,
+      action: rollType,
+      newHP
     });
 
     return { amount, action: rollType, oldHP, newHP, effects };
   }
 
   async applyDamageAndEffectsGM(target, data) {
-    const { newHP, sender: senderId } = data;
+    const { newHP, sender: senderId, action } = data;
     const sender = game.actors.get(senderId);
     // TODO If amount
     target.update({ system: { hp: { value: newHP } } });
 
     // TODO this is not blocking, need Promise.all and maybe map instead
-    this.effects.forEach(async (effect) => {
-      const effectData = effect.toObject();
-      if (effectData.system.targeted) {
-        effectData.disabled = false;
-        effectData.transfer = true;
-        effectData.system.targeted = false;
-        if (effectData.system.durationFormula) {
-          const roll = new Roll(effectData.system.durationFormula, sender.getRollData());
-          const result = await roll.evaluate();
-          effectData.duration.value = result.total;
-          effectData.duration.units = effectData.system.durationFormulaUnits;
+    if (action !== 'negated') {
+      this.effects.forEach(async (effect) => {
+        const effectData = effect.toObject();
+        if (effectData.system.targeted) {
+          effectData.disabled = false;
+          effectData.transfer = true;
+          effectData.system.targeted = false;
+          if (effectData.system.durationFormula) {
+            const roll = new Roll(effectData.system.durationFormula, sender.getRollData());
+            const result = await roll.evaluate();
+            effectData.duration.value = result.total;
+            effectData.duration.units = effectData.system.durationFormulaUnits;
+          }
+          // This wasn't working as a map but nothing beats good old forloop when push comes to shove. (fix is same as above)
+          for (let x = 0, change, cRoll; x < effectData.changes.length; x++) {
+            change = effectData.changes[x];
+            cRoll = new Roll(`${change.value}`, sender.getRollData());
+            await cRoll.evaluate();
+            change.value = cRoll.total;
+          }
+          target.createEmbeddedDocuments("ActiveEffect", [effectData]);
         }
-        // This wasn't working as a map but nothing beats good old forloop when push comes to shove. (fix is same as above)
-        for (let x = 0, change, cRoll; x < effectData.changes.length; x++) {
-          change = effectData.changes[x];
-          cRoll = new Roll(change.value, sender.getRollData());
-          await cRoll.evaluate();
-          change.value = cRoll.total;
-        }
-        target.createEmbeddedDocuments("ActiveEffect", [effectData]);
-      }
-    });
+      });
+    }
   }
 }
