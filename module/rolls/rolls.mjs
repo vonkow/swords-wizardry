@@ -7,6 +7,7 @@ export class AttackRoll extends Roll {
 
   constructor(formula, rollData={}, options={}) {
     super(formula, rollData, options);
+    this.missileAttack = rollData.item?.system?.missile || false;
     this.hitTargets = [];
     this.missedTargets = [];
   }
@@ -16,12 +17,15 @@ export class AttackRoll extends Roll {
     // TODO move game.user.targets to up the chain and pass it in for more generic attacks?
     game.user.targets.forEach((target) => {
       let hit = false;
+      let ACMod = target.actor.system.ac.meleeMod;
+      if (this.missileAttack) ACMod = target.actor.system.ac.missileMod;
+      if (!ACMod) ACMod = 0;
       if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
         // Attack bonus is added to the roll formula by the item.
-        const targetAAC = target.actor.system.aac.value;
+        const targetAAC = target.actor.system.aac.value + ACMod;
         if (result.total >= targetAAC) hit = true;
       } else {
-        const targetAC = target.actor.system.ac.value;
+        const targetAC = target.actor.system.ac.value - ACMod;
         const targetNumber = this.data.actor.tHAC0 - targetAC;
         if (result.total >= targetNumber) hit = true;
       }

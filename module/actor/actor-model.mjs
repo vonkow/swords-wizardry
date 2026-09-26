@@ -20,6 +20,12 @@ class BaseCharacterData extends TypeDataModel {
       ac: new SchemaField({
         value: new NumberField({
           required: true, integer: true, min: -9, max: 10, initial: 9
+        }),
+        missileMod: new NumberField({
+          required: true, integer: true, min: -10, max: 10, initial: 0
+        }),
+        meleeMod: new NumberField({
+          required: true, integer: true, min: -10, max: 10, initial: 0
         })
       }),
       aac: new SchemaField({
