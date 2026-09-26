@@ -60,11 +60,11 @@ export class SwordsWizardryItem extends Item {
       if (game.settings.get('swords-wizardry', 'useAscendingAC')) {
         rollData.formula += ` + ${rollData.actor.tHAACB}`;
       }
-      if (rollData.actor.toHit && rollData.actor.toHit.v !== 0)
-        rollData.formula += ` + ${rollData.actor.toHit.v}`;
+      if (rollData.actor.toHit?.value !== 0)
+        rollData.formula += ` + ${rollData.actor.toHit.value}`;
       if (rollData.missile && rollData.actor.missileToHit && rollData.actor.missileToHit !== 0)
-        rollData.formula += ` + ${rollData.actor.missileToHit.v}`;
-      if (rollData.actor.modifiers && rollData.actor.modifiers.damage && rollData.actor.modifiers.damage !== 0)
+        rollData.formula += ` + ${rollData.actor.missileToHit.value}`;
+      if (rollData.actor.modifiers?.damage && rollData.actor.modifiers.damage !== 0)
         rollData.damageFormula += ` + ${rollData.actor.modifiers.damage.value}`;
     }
     if (rollData.modifier && rollData.modifier !== '0') {

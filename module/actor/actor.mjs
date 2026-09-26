@@ -159,7 +159,9 @@ export class SwordsWizardryActor extends Actor {
   }
 
   async rollSave() {
-    const roll = new SaveRoll('d20', this);
+    const formula = 'd20';
+    const rollData = this.getRollData();
+    const roll = new SaveRoll(formula, rollData);
     roll.render();
   }
   

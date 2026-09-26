@@ -36,6 +36,9 @@ class BaseCharacterData extends TypeDataModel {
       save: new SchemaField({
         value: new NumberField({
           required: true, integer: true, min: 1, max: 20, initial: 15
+        }),
+        modifier: new NumberField({
+          required: true, integer: true, min: -20, max: 20, initial: 0
         })
       }),
       moveRate: new SchemaField({
