@@ -174,6 +174,7 @@ export class SwordsWizardryItem extends Item {
 
   async applyDamageAndEffects(target, initialAmount, rollType=this.system.rollType) {
     const sender = this.actor;
+    console.log(rollType);
     const amount
       = rollType === "none" ? 0
       : rollType === "half" ? Math.floor(initialAmount / 2)
@@ -205,11 +206,10 @@ export class SwordsWizardryItem extends Item {
   async applyDamageAndEffectsGM(target, data) {
     const { newHP, sender: senderId, action } = data;
     const sender = game.actors.get(senderId);
-    // TODO If amount
-    target.update({ system: { hp: { value: newHP } } });
-
-    // TODO this is not blocking, need Promise.all and maybe map instead
     if (action !== 'negated') {
+      // TODO If amount
+      target.update({ system: { hp: { value: newHP } } });
+      // TODO this is not blocking, need Promise.all and maybe map instead
       this.effects.forEach(async (effect) => {
         const effectData = effect.toObject();
         if (effectData.system.targeted) {

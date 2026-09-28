@@ -119,7 +119,7 @@ export class DamageRoll extends Roll {
         : rollType === 'damage' 
           ? 'damage'
           : isSpell
-            ? 'spell'
+            ? 'none'
             : null,
       saveAction: saveEffect === 'half'
         ? rollType === 'healing' 
