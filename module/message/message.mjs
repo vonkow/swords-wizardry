@@ -27,14 +27,10 @@ export class SwordsWizardryChatMessage extends ChatMessage {
   _activateRollDamageListener(html) {
     $(html).on('click', '.damage-roll-button', async (e) => {
       const { actorId, itemId } = e.currentTarget.dataset;
-      let actor = game.actors.get(actorId);
-      const targetToken = canvas.tokens.get(actorId);
+      const token = canvas.tokens.get(this.speaker.token);
+      let actor = token.actor;
       if (actor.type === 'npc' && !this.actorLink) {
-        // TODO if an item gets added to an unlinked token actor this is looking it up on the parent, which is bad and doesn't work
-        // Probaby the fix is to pass either actorId or tokenId to this button as part of attack roll and then figure out which it is
-        // here (canvas.tokens.get vs game.actors.get) and grab the item from the token or the actor
-        // for now, put items on npcs in the sidebar, not on the board.
-        console.error('this is maybe broken');
+        // Just an unlinked token actor, all is fine as we pass tokenId through
       }
       const item = actor.items.get(itemId);
       item.rollItemDamageAndEffects();

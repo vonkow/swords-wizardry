@@ -164,7 +164,8 @@ export class SwordsWizardryItem extends Item {
 
   async rollItemDamageAndEffects() {
     const { actor } = this;
-    const rollData = { actor, item: this, effects: Array.from(this.effects) };
+    const token = this.parent?.parent;
+    const rollData = { actor, item: this, effects: Array.from(this.effects), token };
     let { damageFormula } = this.system;
     if (actor.system.modifiers?.damage?.value != 0) damageFormula += `+${actor.system.modifiers.damage.value}`;
     const roll = new DamageRoll(damageFormula, rollData);
@@ -174,7 +175,6 @@ export class SwordsWizardryItem extends Item {
 
   async applyDamageAndEffects(target, initialAmount, rollType=this.system.rollType) {
     const sender = this.actor;
-    console.log(rollType);
     const amount
       = rollType === "none" ? 0
       : rollType === "half" ? Math.floor(initialAmount / 2)
@@ -194,6 +194,7 @@ export class SwordsWizardryItem extends Item {
       recipient: 'GM',
       operation: 'apply-damage-and-effects',
       sender: this.actor.id,
+      senderToken: this.actor.parent?.id,
       target: target.id,
       item: this.id,
       action: rollType,
@@ -204,8 +205,9 @@ export class SwordsWizardryItem extends Item {
   }
 
   async applyDamageAndEffectsGM(target, data) {
-    const { newHP, sender: senderId, action } = data;
-    const sender = game.actors.get(senderId);
+    const { newHP, sender: senderId, senderToken: senderTokenId, action } = data;
+    let sender = game.actors.get(senderId);
+    if (senderTokenId) sender = canvas.tokens.get(senderTokenId).actor;
     if (action !== 'negated') {
       // TODO If amount
       target.update({ system: { hp: { value: newHP } } });

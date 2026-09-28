@@ -22,14 +22,17 @@ export async function handleRPC(data = {}) {
 }
 
 async function run(data = {}) {
-  const { operation, target, sender, item: itemId } = data;
+  const { operation, target, sender, senderToken, item: itemId } = data;
   const targetActor = game.actors.get(target);
   const targetToken = canvas.tokens.get(target);
   const actor = targetActor ? targetActor : targetToken ? targetToken.actor : null;
   if (!actor) return;
   // TODO try to find sending token too?
-  const sendingActor = Actor.get(sender);
-  const item = sendingActor.items.get(itemId);
+  let senderActor = Actor.get(sender);
+  if (senderToken) {
+    senderActor = canvas.tokens.get(senderToken).actor;
+  }
+  const item = senderActor.items.get(itemId);
   if (operation ==='apply-damage-and-effects') {
     await item.applyDamageAndEffectsGM(actor, data);
   }

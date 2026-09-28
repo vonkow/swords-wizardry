@@ -65,6 +65,11 @@ export class AttackRoll extends Roll {
 }
 
 export class DamageRoll extends Roll {
+  constructor(formula, rollData={}, options={}) {
+    if (rollData.token) rollData.actor = rollData.token.actor;
+    super(formula, rollData, options);
+  }
+
   async evaluate() {
     const ignoreResult = this.formula === '';
     if (!this._evaluated) {
@@ -104,6 +109,7 @@ export class DamageRoll extends Roll {
 
     const chatData = {
       item: this.data.item,
+      token: this.data.token,
       actor: this.data.actor,
       roll: rollHtml,
       total: this.total,
