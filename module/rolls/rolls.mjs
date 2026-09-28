@@ -187,9 +187,9 @@ export class FeatureRoll extends Roll {
 export class SaveRoll extends Roll {
   constructor(formula, rollData={}, options={}) {
     let modifiedFormula = formula;
-    if (rollData.modifiers?.save) modifiedFormula = `${formula} + ${rollData.modifiers.save.value}`;
+    if (rollData.modifiers?.saveMod) modifiedFormula = `${formula} + ${rollData.modifiers.saveMod.value}`;
     super(modifiedFormula, rollData, options);
-    this.save = rollData?.system?.save ?? { value: 15 };
+    this.save = rollData.save ?? { value: 15 };
     if (!this.save.value) this.save.value = 15;
     this._formula = modifiedFormula;
   }

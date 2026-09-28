@@ -233,7 +233,7 @@ export class CharacterData extends BaseCharacterData {
             required: true, integer: true, min: -10, max: 10, initial: 0
           })
         }),
-        save: new SchemaField({
+        saveMod: new SchemaField({
           value: new NumberField({
             required: true, integer: true, min: -20, max: 20, initial: 0
           })
@@ -274,7 +274,7 @@ export class NPCData extends BaseCharacterData {
             required: true, integer: true, min: -10, max: 10, initial: 0
           })
         }),
-        save: new SchemaField({
+        saveMod: new SchemaField({
           value: new NumberField({
             required: true, integer: true, min: -20, max: 20, initial: 0
           })

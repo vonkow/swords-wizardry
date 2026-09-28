@@ -60,7 +60,7 @@
         "type": "module",
         "compatibility": {
           "minimum": "0.1.0",
-          "verified": "1.1.0"
+          "verified": "1.2.0"
         }
       },
       {
