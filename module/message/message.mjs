@@ -121,8 +121,8 @@ Hooks.on("renderChatMessageHTML", (message, html, data) => {
       // TODO This style of state update does not survive between game sessions.
       // Investigate how to keep applied results baked into the message (someday, low-pri).
       const applied = game.i18n.localize('SWORDS_WIZARDRY.Chat.Applied');
-      resultDiv.textContent = result.action === "none"
-        ? `${applied}: ${label}`
+      resultDiv.textContent = result.action === "negated"
+        ? `${label}`
         : `${applied} ${label}: ${Math.abs(result.amount)}`;
 
       const buttons = targetElement.querySelectorAll("button");
