@@ -1,5 +1,6 @@
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
+const { TextEditor } = foundry.applications.ux;
 
 export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static DEFAULT_OPTIONS = {
@@ -57,11 +58,20 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
 
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    context.isGM = game.user.isGM;
     context.item = this.item;
     context.effects = this.item.effects;
     context.rollData = this.item.getRollData();
     context.system = this.item.system;
     context.flags = this.item.flags;
+    context.enrichedDescription = await TextEditor.enrichHTML(
+      this.document.system.description,
+      { async: true, relativeTo: this.document }
+    );
+    context.enrichedGmDescription = await TextEditor.enrichHTML(
+      this.document.system.gmDescription,
+      { async: true, relativeTo: this.document }
+    );
     return context;
   }
 

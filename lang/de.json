@@ -182,6 +182,11 @@
       "Item": "SwordsWizardry Ausrüstungsbogen"
     },
     "Item": {
+      "General": {
+        "Alias": "Alias",
+        "GMDescription": "Anmerkungen des Spielleiters",
+        "Identified": "Identifiziert"
+      },
       "Feature": {
         "Name": "Name",
         "Tabs": {

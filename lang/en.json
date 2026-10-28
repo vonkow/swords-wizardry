@@ -182,6 +182,11 @@
       "Item": "SwordsWizardry Item Sheet"
     },
     "Item": {
+      "General": {
+        "Alias": "Unidentified Name",
+        "GMDescription": "GM's Notes",
+        "Identified": "Identified"
+      },
       "Feature": {
         "Name": "Name",
         "Tabs": {

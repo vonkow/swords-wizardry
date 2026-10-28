@@ -1,5 +1,6 @@
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
+const { TextEditor } = foundry.applications.ux;
 
 export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
@@ -135,6 +136,10 @@ export class SwordsWizardryActorSheet extends HandlebarsApplicationMixin(ActorSh
       this._prepareCharacterData(context);
     }
 
+    context.enrichedDescription = await TextEditor.enrichHTML(
+      this.document.system.description,
+      { async: true, relativeTo: this.document }
+    );
     // TODO is this needed?
     // Add roll data for TinyMCE editors.
     context.rollData = this.actor.getRollData();

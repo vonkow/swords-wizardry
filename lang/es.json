@@ -188,6 +188,11 @@
       "Item": "SwordsWizardry Ficha de Objeto"
     },
     "Item": {
+      "General": {
+        "Alias": "Alias",
+        "GMDescription": "Notas del DJ",
+        "Identified": "Identificado"
+      },
       "Feature": {
         "Name": "Nombre",
         "Tabs": {

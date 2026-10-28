@@ -6,7 +6,8 @@ const {
 class BaseItemData extends TypeDataModel {
   static defineSchema() {
     return {
-      description: new HTMLField()
+      description: new HTMLField(),
+      gmDescription: new HTMLField()
     };
   }
 }
@@ -16,6 +17,8 @@ class TangibleItemData extends BaseItemData {
     const base = super.defineSchema();
     return {
       ...base,
+      identified: new BooleanField({ initial: true }),
+      alias: new StringField(),
       quantity: new NumberField({
         required: true, integer: true, minimum: 0, initial: 1
       }),

@@ -70,7 +70,7 @@
             />
           </a>
         </div>
-        <span class='item-name-span'>{{item.name}}</span>
+        <span class='item-name-span'>{{#if (and (not isGM) (not item.system.identified))}}{{item.system.alias}}{{else}}{{item.name}}{{/if}}</span>
       </div>
       <div class='item-prop'>{{item.system.weight}}</div>
   
@@ -132,7 +132,7 @@
               />
             </a>
           </div>
-          <span class='item-name-span'>{{item.name}}</span>
+          <span class='item-name-span'>{{#if (and (not isGM) (not item.system.identified))}}{{item.system.alias}}{{else}}{{item.name}}{{/if}}</span>
         </div>
         <div class='item-prop'>{{item.system.weight}}</div>
   
