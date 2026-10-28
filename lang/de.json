@@ -132,7 +132,8 @@
     "ItemSheet": {
        "Tabs": {
          "Details": "Details",
-         "Effects": "Auswirkungen"
+         "Effects": "Auswirkungen",
+         "GMDescription": "Anmerkungen des Spielleiters"
        }
     },
     "Stats": {
@@ -184,6 +185,7 @@
     "Item": {
       "General": {
         "Alias": "Alias",
+        "Description": "Beschreibung",
         "GMDescription": "Anmerkungen des Spielleiters",
         "Identified": "Identifiziert"
       },

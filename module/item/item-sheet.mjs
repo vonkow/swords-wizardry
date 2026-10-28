@@ -27,14 +27,23 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     }
   }
 
-  static TABS = {
-    sources: {
-      tabs: [
+  static TABS = { sheet: [] };
+
+  _getTabsConfig(group) {
+    const tabs = foundry.utils.deepClone(super._getTabsConfig(group));
+    if (group === 'sheet') {
+      tabs.initial = 'details';
+      tabs.tabs = [
         { id: 'details', label: 'SWORDS_WIZARDRY.ItemSheet.Tabs.Details' },
         { id: 'effects', label: 'SWORDS_WIZARDRY.ItemSheet.Tabs.Effects' }
-      ],
-      initial: 'details'
+      ];
+      if (game.user.isGM) {
+        tabs.tabs.push(
+          { id: 'gmDetails', label: 'SWORDS_WIZARDRY.ItemSheet.Tabs.GMDetails' },
+        );
+      }
     }
+    return tabs;
   }
 
   static PARTS = {
@@ -52,6 +61,10 @@ export class SwordsWizardryItemSheet extends HandlebarsApplicationMixin(ItemShee
     },
     effects: {
       template: 'systems/swords-wizardry/module/item/item-effects.hbs',
+      scrollable: ''
+    },
+    gmDetails: {
+      template: 'systems/swords-wizardry/module/item/item-gm-details.hbs',
       scrollable: ''
     }
   }

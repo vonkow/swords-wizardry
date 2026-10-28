@@ -17,16 +17,6 @@
       </h2>
       {{#if (or (or (eq item.type 'item') (eq item.type 'weapon')) (eq item.type 'armor'))}}
       <div class="grid grid-3col">
-        {{#if isGM}}
-        <div class="resource">
-          <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.General.Identified"}}</label>
-        <input type="checkbox" name="system.identified" class="checkbox-small align-self-center" {{checked system.identified}}/>
-        </div>
-        <div class="resource grid-span-2">
-          <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.General.Alias"}}</label>
-          <input name="system.alias" type="text" value="{{system.alias}}" placeholder="{{localize "SWORDS_WIZARDRY.Item.General.Alias"}}" />
-        </div>
-        {{/if}}
         <div class="resource">
           <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.Item.Quantity"}}</label>
           <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>

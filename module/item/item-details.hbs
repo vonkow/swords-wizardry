@@ -128,37 +128,22 @@
     </div>
     {{/if}}
     <div class="grid grid-1col">
-      {{#if editable}}
-      <prose-mirror
-        name="system.description"
-        button="true"
-        editable="{{editable}}"
-        toggled="false"
-        value="{{system.description}}"
-      >
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.General.Description"}}</label>
+        {{#if editable}}
+        <prose-mirror
+          name="system.description"
+          button="true"
+          editable="{{editable}}"
+          toggled="false"
+          value="{{system.description}}"
+        >
+          {{{enrichedDescription}}}
+        </prose-mirror>
+        {{else}}
         {{{enrichedDescription}}}
-      </prose-mirror>
-      {{else}}
-      {{{enrichedDescription}}}
-      {{/if}}
+        {{/if}}
+      </div>
     </div>
-    {{#if isGM}}
-    <div class="grid grid-1col">
-      <label><strong>{{localize "SWORDS_WIZARDRY.Item.General.GMDescription"}}</strong></label>
-      {{#if editable}}
-      <prose-mirror
-        name="system.gmDescription"
-        button="true"
-        editable="{{editable}}"
-        toggled="false"
-        value="{{system.gmDescription}}"
-      >
-        {{{enrichedGmDescription}}}
-      </prose-mirror>
-      {{else}}
-      {{{enrichedGmDescription}}}
-      {{/if}}
-    </div>
-    {{/if}}
   </section>
 </section>

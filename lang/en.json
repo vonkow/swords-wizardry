@@ -132,7 +132,8 @@
     "ItemSheet": {
        "Tabs": {
          "Details": "Details",
-         "Effects": "Effects"
+         "Effects": "Effects",
+         "GMDetails": "GM's Details"
        }
     },
     "Stats": {
@@ -184,6 +185,7 @@
     "Item": {
       "General": {
         "Alias": "Unidentified Name",
+        "Description": "Description",
         "GMDescription": "GM's Notes",
         "Identified": "Identified"
       },

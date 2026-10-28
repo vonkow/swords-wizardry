@@ -1,0 +1,38 @@
+<section
+  class="tab {{tabs.gmDetails.id}} {{tabs.gmDetails.cssClass}}"
+  data-tab="{{tabs.gmDetails.id}}"
+  data-group="{{tabs.gmDetails.group}}"
+>
+  <section class="sheet-body">
+    {{#if isGM}}
+    <div class="grid grid-3col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.General.Identified"}}</label>
+      <input type="checkbox" name="system.identified" class="checkbox-small align-self-center" {{checked system.identified}}/>
+      </div>
+      <div class="resource grid-span-2">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.General.Alias"}}</label>
+        <input name="system.alias" type="text" value="{{system.alias}}" placeholder="{{localize "SWORDS_WIZARDRY.Item.General.Alias"}}" />
+      </div>
+    </div>
+    <div class="grid grid-1col">
+      <div class="resource">
+        <label class="resource-label">{{localize "SWORDS_WIZARDRY.Item.General.GMDescription"}}</label>
+        {{#if editable}}
+        <prose-mirror
+          name="system.gmDescription"
+          button="true"
+          editable="{{editable}}"
+          toggled="false"
+          value="{{system.gmDescription}}"
+        >
+          {{{enrichedGmDescription}}}
+        </prose-mirror>
+        {{else}}
+        {{{enrichedGmDescription}}}
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </section>
+</section>

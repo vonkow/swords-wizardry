@@ -133,6 +133,7 @@
       "Tabs": {
         "Details": "Detalles",
         "Effects": "Efectos"
+        "GMDetails": "Notas del DJ",
       }
     },
     "Stats": {
@@ -190,6 +191,7 @@
     "Item": {
       "General": {
         "Alias": "Alias",
+        "Description": "Descripción",
         "GMDescription": "Notas del DJ",
         "Identified": "Identificado"
       },
