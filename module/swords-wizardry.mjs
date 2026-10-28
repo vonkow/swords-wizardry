@@ -25,6 +25,7 @@ import {
 } from './combat/combat.mjs';
 import { CombatHud } from './hud/hud.mjs';
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
+import { unidentifiedItemsShowAliasInItemDirectory } from './helpers/item-directory-overrides.mjs';
 import { handleRPC } from './helpers/rpc.mjs';
 import { SWORDS_WIZARDRY } from './helpers/config.mjs';
 
@@ -156,6 +157,8 @@ Hooks.once('ready', async () => {
 Hooks.on('controlToken', async (token, selected) => {
   CombatHud.activateHud(token, selected);
 });
+
+unidentifiedItemsShowAliasInItemDirectory();
 
 // TODO Move to helpers (if needed at all)
 async function createItemMacro(data, slot) {
