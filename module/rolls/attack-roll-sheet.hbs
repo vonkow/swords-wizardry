@@ -2,7 +2,11 @@
   <header class="spell-card-header">
     <img class="spell-card-image" src="{{item.img}}" alt=""/>
     <div>
+      {{#unless item.system.identified}}
+      <h3>{{item.system.alias}}</h3>
+      {{else}}
       <h3>{{item.name}}</h3>
+      {{/unless}}
       {{#if item.actor}}
       <div>{{localize "SWORDS_WIZARDRY.Chat.AttackBy"}} {{item.actor.name}}</div>
       {{/if}}
